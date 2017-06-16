@@ -1,0 +1,31 @@
+{
+	"EXE" : [
+		"rm -rf lib demo",
+		"mkdir -p lib/js lib/css",
+		"cp -r src/media ./",
+		"mkdir -p demo/mondaine/js demo/mondaine/css",
+		"mkdir -p demo/hero/js demo/hero/css",
+		"mkdir -p demo/malta/css demo/malta/js",
+		"mkdir -p demo/understand/css demo/understand/js"
+	],
+	"#src/Leonardo.js" : "lib/js -vars=src/vars.json",
+	"#src/docs/documentation.md" : ". -plugins=malta-rename[to:\"README.md\"]...malta-markdown-pdf -vars=src/vars.json",
+	
+	"#src/index.html" : ". -vars=src/vars.json",
+
+	"#src/demo/mondaine/index.js" : "demo/mondaine/js -vars=src/vars.json",
+	"#src/demo/mondaine/index.less" : "demo/mondaine/css -plugins=malta-less -vars=src/vars.json",
+	"#src/demo/mondaine/index.html" : "demo/mondaine -vars=src/vars.json",
+	
+	"#src/demo/hero/index.js" : "demo/hero/js -vars=src/vars.json",
+	"#src/demo/hero/index.less" : "demo/hero/css -plugins=malta-less -vars=src/vars.json",
+	"#src/demo/hero/index.html" : "demo/hero -vars=src/vars.json",
+
+	"#src/demo/malta/index.js" : "demo/malta/js -vars=src/vars.json",
+	"#src/demo/malta/index.less" : "demo/malta/css -plugins=malta-less -vars=src/vars.json",
+	"#src/demo/malta/index.html" : "demo/malta -vars=src/vars.json",
+
+	"#src/demo/understand/index.js" : "demo/understand/js -vars=src/vars.json",
+	"#src/demo/understand/index.less" : "demo/understand/css -plugins=malta-less -vars=src/vars.json",
+	"#src/demo/understand/index.html" : "demo/understand -vars=src/vars.json"
+}

@@ -1,4 +1,9 @@
 node_modules
 index.html
-./lib
-./demo
+.printVersion
+.buildNum.json
+/documentation.*
+/lib
+/demo
+leonardo.sublime-project
+leonardo.sublime-workspace

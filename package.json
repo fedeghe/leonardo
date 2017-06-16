@@ -1,0 +1,21 @@
+{
+  "name": "leonardo",
+  "version": "1.0.0",
+  "description": "// constructor new(width, height) circle/ellipse [ref=]o(centerX, centerY, rx, ry, brdSize, brdColor, fillColor)",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "malta": "^3.6.2",
+    "malta-browser-refresh": "^1.1.8",
+    "malta-less": "^1.0.1",
+    "malta-markdown-pdf": "^1.0.1",
+    "malta-rename": "^1.0.1"
+  }
+}

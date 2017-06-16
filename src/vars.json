@@ -1,0 +1,16 @@
+{
+	"AUTHOR" : "Federico Ghedina <federico.ghedina@gmail.com>",
+	"DEMO" : {
+		"MONDAINE" : {
+			"TITLE" : "Leonardo MONDAINE"
+		},
+		"HERO" : {
+			"TITLE" : "Leonardo - HERO logo"
+		},
+		"MALTA" : {
+			"TITLE" : "Leonardo - Malta logo"
+		}
+	},
+	"TITLE" : "Leonardo",
+	"VERSION" : 1.0
+}
