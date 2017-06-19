@@ -1,0 +1,5 @@
+{
+	"src/demo/malta/index.js" : "demo/malta/js -vars=src/vars.json",
+	"src/demo/malta/index.less" : "demo/malta/css -plugins=malta-less -vars=src/vars.json",
+	"src/demo/malta/index.html" : "demo/malta -vars=src/vars.json"
+}

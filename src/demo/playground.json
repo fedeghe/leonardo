@@ -1,0 +1,5 @@
+{
+	"src/demo/playground/index.js" : "demo/playground/js -vars=src/vars.json",
+	"src/demo/playground/index.less" : "demo/playground/css -plugins=malta-less -vars=src/vars.json",
+	"src/demo/playground/index.html" : "demo/playground -vars=src/vars.json"
+}

@@ -2,7 +2,6 @@ node_modules
 index.html
 .printVersion
 .buildNum.json
-/documentation.*
 /lib
 /demo
 leonardo.sublime-project

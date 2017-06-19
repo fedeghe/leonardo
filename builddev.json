@@ -6,10 +6,11 @@
 		"mkdir -p demo/mondaine/js demo/mondaine/css",
 		"mkdir -p demo/hero/js demo/hero/css",
 		"mkdir -p demo/malta/css demo/malta/js",
-		"mkdir -p demo/understand/css demo/understand/js"
+		"mkdir -p demo/understand/css demo/understand/js",
+		"mkdir -p demo/playground/css demo/playground/js"
 	],
 	"src/Leonardo.js" : "lib/js -vars=src/vars.json",
-	"src/docs/documentation.md" : ". -plugins=malta-rename[to:\"README.md\"]...malta-markdown-pdf -vars=src/vars.json",
+	"src/docs/README.md" : ". -plugins=malta-rename[to:\"README.md\"]...malta-markdown-pdf -vars=src/vars.json",
 	
 	"src/index.html" : ". -plugins=malta-browser-refresh[files:\"*\"] -vars=src/vars.json",
 
@@ -27,5 +28,9 @@
 
 	"src/demo/understand/index.js" : "demo/understand/js -vars=src/vars.json",
 	"src/demo/understand/index.less" : "demo/understand/css -plugins=malta-less -vars=src/vars.json",
-	"src/demo/understand/index.html" : "demo/understand -plugins=malta-browser-refresh[files:\"*\"] -vars=src/vars.json"
+	"src/demo/understand/index.html" : "demo/understand -plugins=malta-browser-refresh[files:\"*\"] -vars=src/vars.json",
+
+	"src/demo/playground/index.js" : "demo/playground/js -vars=src/vars.json",
+	"src/demo/playground/index.less" : "demo/playground/css -plugins=malta-less -vars=src/vars.json",
+	"src/demo/playground/index.html" : "demo/playground -plugins=malta-browser-refresh[files:\"*\"] -vars=src/vars.json"
 }

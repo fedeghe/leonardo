@@ -1,0 +1,5 @@
+{
+	"src/demo/understand/index.js" : "demo/understand/js -vars=src/vars.json",
+	"src/demo/understand/index.less" : "demo/understand/css -plugins=malta-less -vars=src/vars.json",
+	"src/demo/understand/index.html" : "demo/understand -vars=src/vars.json"
+}

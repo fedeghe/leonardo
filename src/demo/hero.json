@@ -1,0 +1,5 @@
+{
+	"src/demo/hero/index.js" : "demo/hero/js -vars=src/vars.json",
+	"src/demo/hero/index.less" : "demo/hero/css -plugins=malta-less -vars=src/vars.json",
+	"src/demo/hero/index.html" : "demo/hero -vars=src/vars.json"
+}
