@@ -69,6 +69,10 @@ L.polyline(x1,y1, x2,y2 [,x3,y3[...]])
 creates a polyline which can even be opened (does not close it automatically). 
 
 
+... to be continued
+
+
+
 
 
 
