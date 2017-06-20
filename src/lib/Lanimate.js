@@ -1,3 +1,8 @@
+/**
+ * { function_description }
+ *
+ * @return     {Object}  { description_of_the_return_value }
+ */
 L.prototype.animate = (function () {
 	function parametricCartesian(el, fx, fy) {
 		var t = 0,

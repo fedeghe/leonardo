@@ -1,5 +1,5 @@
 {
 	"src/demo/mondaine/index.js" : "demo/mondaine/js -vars=src/vars.json",
 	"src/demo/mondaine/index.less" : "demo/mondaine/css -plugins=malta-less -vars=src/vars.json",
-	"src/demo/mondaine/index.html" : "demo/mondaine -vars=src/vars.json"
+	"src/demo/mondaine/index.html" : "demo/mondaine -plugins=malta-browser-refresh[files:\"*\"] -vars=src/vars.json"
 }

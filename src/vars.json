@@ -9,6 +9,12 @@
 		},
 		"MALTA" : {
 			"TITLE" : "Leonardo - Malta logo"
+		},
+		"UNDERSTAND" : {
+			"TITLE" : "Leonardo - Understand"
+		},
+		"PLAYGROUND" : {
+			"TITLE" : "Leonardo - Playground"
 		}
 	},
 	"TITLE" : "Leonardo",

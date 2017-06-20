@@ -15,11 +15,20 @@
 
 open index.html
 
+## use it
 
-Create a new object simply calling the `Leonardo` function:  
+First of all in your html include _Leonardo.js_ in the `<head>` tag:  
+
+    <script src="path/to/Leonardo.js"></script>
+
+Now create another `<script>` tag to use _Leonardo.js_:  
+
 ```
-var L = Leonardo (300, 200, {id : "trial"});
+<script>
+    var L = Leonardo (300, 200, {id : "target"});
+</script>
 ```
+
 parameters:  
 **width** : the width in pixels (required)
 **height** : the height in pixels (required)
@@ -31,7 +40,11 @@ for _svg namespaces_ is enough just to pass a `ns` element containing an array c
 ```
 if all are needed is enough to pass '*'.  
 
+
+
+
 Now we can create new `Elements` through L.
+
 
 $$tags.md$$
 
