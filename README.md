@@ -46,6 +46,12 @@ L.desc('This is the description of my svg')
 Returns a `<desc>` tag containing the text passed to it
 
 
+### <image>
+```
+L.image(x, y, w, h, src)
+```
+Returns a `<image>` tag positioned at P{x,y}; about _w_ and _h_ are meant to be the clearly the sizes but  real image size will win on it, in the end the ratio cannot be modified.
+
 ### <line> 
 ```
 L.line(x1,y1, x2,y2)
