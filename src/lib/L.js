@@ -1,3 +1,11 @@
+/**
+ * { function_description }
+ *
+ * @class      L (name)
+ * @param      {string}  width   The width
+ * @param      {string}  height  The height
+ * @param      {<type>}  opts    The options
+ */
 function L(width , height, opts) {
 	var namespaces = {
 			'cc': "http://creativecommons.org/ns#",
@@ -29,13 +37,19 @@ function L(width , height, opts) {
     	&& self.tag.setAttribute("xmlns:" + l, namespaces[l]);
     }
     if ('ns' in opts){
-    	if (opts.ns === '*')opts.ns = Object.keys(namespaces);
-    	for (tmp = 0, l = opts.ns.length;tmp < l; tmp++){
-    		addNs(opts.ns[tmp])
-    	}
+    	if (opts.ns === '*')
+    		opts.ns = Object.keys(namespaces);
+    	for (tmp = 0, l = opts.ns.length;tmp < l; tmp++)
+    		addNs(opts.ns[tmp]);
     }
 }
 
+/**
+ * { function_description }
+ *
+ * @param      {<type>}  attrs   The attributes
+ * @return     {Object}  { description_of_the_return_value }
+ */
 L.prototype.attrs = function (attrs) {	
 	var k;
 	if (typeof attrs == 'string') return this.tag.getAttribute(attrs);
@@ -43,12 +57,23 @@ L.prototype.attrs = function (attrs) {
 	return this;
 };
 
+/**
+ * { function_description }
+ *
+ * @param      {<type>}  styles  The styles
+ * @return     {Object}  { description_of_the_return_value }
+ */
 L.prototype.styles = function (styles) {	
 	var k;
 	for (k in styles) this.tag.style[k] = styles[k];
 	return this;
 };
 
+/**
+ * { function_description }
+ *
+ * @return     {Object}  { description_of_the_return_value }
+ */
 L.prototype.add = function () {
 	var self = this,
 		el = [].slice.call(arguments, 0);
@@ -66,6 +91,13 @@ L.prototype.add = function () {
 	return this;
 };
 
+/**
+ * { function_description }
+ *
+ * @param      {<type>}    n       { parameter_description }
+ * @param      {Function}  cb      { parameter_description }
+ * @return     {Object}    { description_of_the_return_value }
+ */
 L.prototype.render = function (n, cb) {
 	var trg = n || this.target;
 	trg.innerHTML = '';

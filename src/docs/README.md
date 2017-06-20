@@ -31,7 +31,7 @@ for _svg namespaces_ is enough just to pass a `ns` element containing an array c
 ```
 if all are needed is enough to pass '*'.  
 
-Now we can create new elements using the L element.
+Now we can create new `Elements` through L.
 
 $$tags.md$$
 

@@ -7,7 +7,7 @@ window.onload = function () {
 		w20 = width/20,
 		h20 = height/20,
 		
-		L = Leonardo(width, height, {ns : '*'});
+		L = Leonardo(width, height, {ns : '*'}).styles({border:"1px solid red"});
 
 	var polyline = L.polyline(
 			10,10,
@@ -29,11 +29,12 @@ window.onload = function () {
 			fill : 'green',
 			"stroke-width" : 1.5,
 			"stroke" : 'white'
-		});
+		}),
+		image = L.image(200, 100, 200, 300, "https://avatars3.githubusercontent.com/u/1332338?v=3&s=460");
 
 
 
-	L.add(polyline, polygon);
+	L.add(polyline, polygon, image);
 	
 	L.render(target);
 };

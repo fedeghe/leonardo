@@ -1,4 +1,9 @@
 var filter_id = 0;
+/**
+ * { function_description }
+ *
+ * @return     {(Object|string)}  { description_of_the_return_value }
+ */
 L.prototype.filters = function () {
 	var self = this,
 		defs = null;

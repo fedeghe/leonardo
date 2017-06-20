@@ -11,6 +11,12 @@
  *	A	elliptical arc	(rx ry x-axis-rotation large-arc-flag sweep-flag x y)+
  *	R	Catmull-Rom curveto*	x1 y1 (x y)+
  */
+
+/**
+ * { function_description }
+ *
+ * @return     {(Object|pathbuild|string)}  { description_of_the_return_value }
+ */
 L.prototype.pathBuild = (function () {
 	function pathbuild(){
 		var self = this;
