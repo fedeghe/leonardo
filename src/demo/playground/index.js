@@ -26,8 +26,8 @@ window.onload = function () {
 			180, 150,
 			180, 110
 		).attrs({
-			fill : 'green',
-			"stroke-width" : 1.5,
+			fill : 'blue',
+			"stroke-width" : 4.5,
 			"stroke" : 'white'
 		}),
 		image = L.image(200, 100, 200, 300, "https://avatars3.githubusercontent.com/u/1332338?v=3&s=460");

@@ -51,12 +51,10 @@ Now we can create new `Elements` through L.
 
 Every function listed below creates a `Element` instance, and thus benefits the following instance methods: attrs, styles, add, on ,off, clone, trans, rotate, scale, mirrorO, mirrorV and move. I will describe all them soon.
 
-Once these elements are created they must be added to the root `<svg>` tag.
+Once these elements are created at some point they must be added either directly to the root `<svg>` tag either to a `<g>` group element (same here for `<g>`).
 ```
 L.add(as, many, elements, as, needed)
 ```
-
-
 
 ### <desc> 
 ```
@@ -64,14 +62,13 @@ var desc = L.desc('This is the description of my svg')
 ```
 Returns a `<desc>` tag containing the text passed to it
 
-
-### <image>
+### <image>  
 ```
 var image = L.image(x, y, w, h, src)
 ```
 Returns a `<image>` tag positioned at P{x,y}; about _w_ and _h_ are meant to be the clearly the sizes but  real image size will win on it, in the end the ratio cannot be modified.
 
-### <line> 
+### <line>  
 ```
 var line = L.line(x1,y1, x2,y2)
 ```
