@@ -30,11 +30,21 @@ window.onload = function () {
 			"stroke-width" : 4.5,
 			"stroke" : 'white'
 		}),
+		tria = L.polygon(
+			300, 50,
+			400, 150,
+			200, 150
+		).attrs({
+			fill : 'pink',
+			"stroke-width" : 2,
+			"stroke" : 'black'
+		}),
 		image = L.image(200, 100, 200, 300, "https://avatars3.githubusercontent.com/u/1332338?v=3&s=460");
 
+	tria.rotate(20, 300,50)
+	.move(10, 100)
 
-
-	L.add(polyline, polygon, image);
+	L.add(polyline, polygon, image, tria);
 	
 	L.render(target);
 };
