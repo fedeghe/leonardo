@@ -40,11 +40,20 @@ window.onload = function () {
 			"stroke" : 'black'
 		}),
 		image = L.image(200, 100, 200, 300, "https://avatars3.githubusercontent.com/u/1332338?v=3&s=460");
+	
+	image.on('click', function (e) {
+		console.log('image');
+		console.log(e);
+	});
+	tria.on('click', function (e) {
+		console.log('tria');
+		console.log(e);
+	});
 
 	tria.rotate(20, 300,50)
 	.move(10, 100)
 
-	L.add(polyline, polygon, image, tria);
+	L.add(polyline, polygon, tria, image);
 	
 	L.render(target);
 };

@@ -84,8 +84,8 @@ window.onload = function () {
 		"stroke" : 'white'
 	});;
 	circlesG.add(circles).attrs({
-		// "stroke-width" : 2.5,
-		// "stroke" : 'black',
+		"stroke-width" : 2.5,
+		"stroke" : 'black',
 		fill : 'transparent'
 	});
 	

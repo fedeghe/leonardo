@@ -7,8 +7,10 @@
 		"mkdir -p demo/hero/js demo/hero/css",
 		"mkdir -p demo/malta/css demo/malta/js",
 		"mkdir -p demo/understand/css demo/understand/js",
-		"mkdir -p demo/playground/css demo/playground/js"
+		"mkdir -p demo/playground/css demo/playground/js",
+		"mkdir -p demo/synchazard/css demo/synchazard/js"
 	],
+	"src/srv.js": ". -vars=src/vars.json",
 	"src/Leonardo.js" : "lib/js -vars=src/vars.json",
 	"src/docs/README.md" : ". -plugins=malta-markdown-pdf -vars=src/vars.json",
 	
@@ -18,5 +20,6 @@
 	"src/demo/hero.json" : true,
 	"src/demo/malta.json" : true,
 	"src/demo/understand.json" : true,
-	"src/demo/playground.json" : true
+	"src/demo/playground.json" : true,
+	"src/demo/synchazard.json" : true
 }

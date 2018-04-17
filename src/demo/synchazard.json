@@ -1,0 +1,4 @@
+{
+	"src/demo/synchazard/index.js" : "demo/synchazard/js -vars=src/vars.json",
+	"src/demo/synchazard/index.html" : "demo/synchazard -plugins=malta-browser-refresh[files:\"*\"] -vars=src/vars.json"
+}

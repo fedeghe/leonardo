@@ -13,9 +13,16 @@
 		"UNDERSTAND" : {
 			"TITLE" : "Leonardo - Understand"
 		},
-		"PLAYGROUND" : {
-			"TITLE" : "Leonardo - Playground"
+		"PLAYGROUND": {
+			"TITLE": "Leonardo - Playground"
+		},
+		"SYNCHAZARD": {
+			"TITLE": "Leonardo - Synchazard"
 		}
+	},
+	"SERVER": {
+		"PORT": "4567",
+		"MSG": "server started on http://localhost:$SERVER.PORT$"
 	},
 	"TITLE" : "Leonardo",
 	"VERSION" : 0.1

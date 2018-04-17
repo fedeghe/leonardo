@@ -229,10 +229,10 @@ window.onload = function () {
 	leftGlove.attrs({fill:'#444'});
 	leftFoot.attrs({fill:'#444'});
 
-	rightGlove = leftGlove.clone().mirrorV().move(w(740), h(115))
+	rightGlove = leftGlove.clone().mirrorV().move(w(740), h(115));
 	leftGlove.move(w(60), h(115));
 
-	rightFoot = leftFoot.clone().mirrorV().move(w(705), h(1483))
+	rightFoot = leftFoot.clone().mirrorV().move(w(705), h(1483));
 	leftFoot.move(w(95), h(1483));
 
 	container.add(

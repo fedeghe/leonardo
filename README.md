@@ -11,7 +11,7 @@
 
 `> npm install`
 
-`> ./node_modules/malta/src/bin.js build.json`
+`> npm run build`
 
 open index.html
 
