@@ -13,7 +13,11 @@
 
 `> npm run build`
 
-open index.html
+## try it  
+
+`> npm start`
+
+open [http://localhost:4567](http://localhost:4567) (or at the port set on _src/vars.json_ in the `SERVER.PORT`)
 
 ## use it
 
