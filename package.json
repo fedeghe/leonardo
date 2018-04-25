@@ -9,12 +9,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/malta/src/bin.js build.json",
+    "clean": "./node_modules/malta/src/bin.js clean.json",
     "start": "node srv.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "malta": "^3.6.2",
+    "malta": "^3.8.3",
     "malta-browser-refresh": "^1.1.8",
     "malta-less": "^1.0.1",
     "malta-markdown-pdf": "^1.0.1",
