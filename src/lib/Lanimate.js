@@ -29,8 +29,21 @@ L.prototype.animate = (function () {
 				);
 			}, 20);
 	}
+
+	function attr(name, values, dur, repeat) {
+		var animate = new Element('animate');
+		animate.attrs({
+			attributeName: name,
+			values: values,
+			dur: dur,
+			repeatCount: repeat
+		});
+		return animate;
+	};
+
 	return {
 		pCart : parametricCartesian,
-		pPolar : parametricPolar
+		pPolar : parametricPolar,
+		attr : attr
 	};
 })();

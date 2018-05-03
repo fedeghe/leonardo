@@ -7,7 +7,7 @@
  * @param      {<type>}  opts    The options
  */
 function L(width , height, opts) {
-	var namespaces = {
+	var namespaces = this.namespaces = {
 			'cc': "http://creativecommons.org/ns#",
 			'dc': "http://purl.org/dc/elements/1.1/",
 			'ev' : "http://www.w3.org/2001/xml-events",
@@ -104,4 +104,30 @@ L.prototype.render = function (n, cb) {
 	trg.appendChild(this.tag);
 	cb && cb.call(this);
 	return this;
+};
+
+/**
+ * 
+ */
+L.prototype.downloadAnchor = function () {
+	var serializer = new XMLSerializer(),
+		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag),
+		url =null;
+	if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+		source = source.replace(/^<svg/, '<svg xmlns="' + this.namespaces.svg + '"');
+	}
+	if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+		source = source.replace(/^<svg/, '<svg xmlns:xlink="' + this.namespaces.xlink + '"');
+	}
+	url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+
+
+	var a = document.createElement('a');
+	a.download = `download${(+new Date)}.svg`;
+	a.href = url;
+	a.addEventListener('click', function () {
+		this.download = `download${(+new Date)}.svg`;
+	})
+	a.innerHTML = 'download';
+	return a;
 };
