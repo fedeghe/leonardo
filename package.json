@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "malta": "^3.8.3",
+    "malta": "^3.8.4",
     "malta-browser-refresh": "^1.1.8",
     "malta-less": "^1.0.1",
     "malta-markdown-pdf": "^1.0.1",
