@@ -13,7 +13,7 @@
 		target = document.getElementById('trg'),
 		size = 800,
 		nowH = (new Date).getHours(),
-		theme = (nowH > 7 && nowH < 17 ) ? 'white' : 'black', 
+		theme = ('theme' in qs && qs.theme.match(/white|black/)) ? qs.theme : (nowH > 7 && nowH < 17 ) ? 'white' : 'black', 
 		themes = {
 			white : {
 				background : 'white',
@@ -67,21 +67,22 @@
 		),
 		image = L.image(cx - size / 10, cy * 0.7, size / 5, size / 20, themes[theme].img),
 
-		filt = L.filters().rGrad({
-			"0" : "#a00",
-			"50" : "#d00",
+		filt = L.filters().rGrad({ // radial
+			"90" : "#aa0",
+			"95" : "#550",
+			"100" : "#ff0"
+		}),
+		filt2 = L.filters().lGrad({ // linear
+			"0" : "#0a0",
+			"5" : "#00a",
+			"95" : "#aa0",
 			"100" : "#f00"
 		}),
-		filt2 = L.filters().lGrad({
-			"0" : "#a00",
-			"50" : "#d00",
-			"100" : "#f00"
-		}),
-		filt3 = L.filters().rGrad({
+		filt3 = L.filters().rGrad({ // radial
 			"0" : "#fff",
 			"90" : "#888",
 			"94" : "#aaa",
-			"95" : "#aaa",
+			"97" : "#aaa",
 			"100" : "#fff"
 		});
 
@@ -141,7 +142,9 @@
 	
 	target.style.width = size + 'px';
 
-	L.render(target);	
+	L.render(target, function () {
+		console.log('rendered')
+	});	
 
 	function getTime(gmtHmove, gmtMmove) {
 		var time0 = new Date();
@@ -167,6 +170,6 @@
 		secs.rotate((s + ms / 1000) * 6, cx, cy);
 		mins.rotate((m * fact + s) * 0.1, cx, cy);
 		hours.rotate((h * fact + m) * (360 / (12 * fact)) , cx, cy);
-	}, 10);
+	}, 1000 / 20);
 
 })();
