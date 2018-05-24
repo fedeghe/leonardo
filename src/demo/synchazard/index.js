@@ -1,7 +1,6 @@
 window.onload = function () {
 
     var target = document.getElementById('trg'),
-        download = document.getElementById('download'),
         width = 500,
         height = 500,
         min = width > height ? height : width,
