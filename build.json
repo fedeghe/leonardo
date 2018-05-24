@@ -16,6 +16,8 @@
 	
 	"src/index.html" : ". -vars=src/vars.json",
 
+	"src/test/require.json" : true,
+	
 	"src/demo/mondaine.json" : true,
 	"src/demo/hero.json" : true,
 	"src/demo/malta.json" : true,

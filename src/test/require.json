@@ -1,0 +1,8 @@
+{
+    "EXE": [
+        "mkdir -p test/setup"
+    ],
+    "src/test/*.js" : "test -vars=src/vars.json",
+    "src/test/setup/*.js" : "test/setup -vars=src/vars.json"
+
+}

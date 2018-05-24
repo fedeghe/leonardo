@@ -92,14 +92,14 @@ window.onload = function () {
 	L.add(circlesG);
 	
 	[cg2, cg3, cg4, cg5, cg6, cg7, cg8, cg9].forEach(function (el, i) {
-		var versus = i%2 ? 1 : -1,
+		var versus = i % 2 ? -1 : 1,
 			sp = speed ;
 		L.animate.pCart(el, function (x, t) {
 			return  w20 * Math.sin(t * sp * versus);
 		},function (y, t) {
-			return -w20 + w20 * Math.cos(t * sp);
+			return -w20 + w20 * Math.cos(t * sp); //here versus is not influent since cos is simmetric
 		});
 	});
-	
+
 	L.render(target);
 };

@@ -14,7 +14,7 @@
 			"TITLE" : "Leonardo - Understand"
 		},
 		"PLAYGROUND": {
-			"TITLE": "Leonardo - Playground"
+			"TITLE": "Leonardo - Playgroundz"
 		},
 		"SYNCHAZARD": {
 			"TITLE": "Leonardo - Synchazard"
@@ -22,7 +22,9 @@
 	},
 	"SERVER": {
 		"PORT": "4567",
-		"MSG": "server started on http://localhost:$SERVER.PORT$"
+		"BASE": "http://localhost",
+		"URL": "$SERVER.BASE$:$SERVER.PORT$", 
+		"MSG": "server started on $SERVER.URL$"
 	},
 	"TITLE" : "Leonardo",
 	"VERSION" : 0.1
