@@ -46,18 +46,18 @@
 			secs2 = L.line(0, height * 0.26, 0, height * 0.62),
 			secs3 = L.circle(0, height / 2, width / 85),
 
-		mins = L.polygon(
+		mins = L.group().add(L.polygon(
 			cx - width * 0.028 , cy + height * 0.09,
 			cx - width * 0.018 , size * 0.125,
 			cx + width * 0.018 , size * 0.125,
 			cx + width * 0.028 , cy + height * 0.09
-		).attrs({ id: 'minutes' }),
-		hours = L.polygon(
+		)).attrs({ id: 'minutes' }),
+		hours = L.group().add(L.polygon(
 			cx - width * 0.028 , cy + height * 0.09,
 			cx - width * 0.018	 , cy - height * 0.26,
 			cx + width * 0.018 , cy - height * 0.26,
 			cx + width * 0.028 , cy + height * 0.09
-		).attrs({ id: 'hours' }),
+		)).attrs({ id: 'hours' }),
 		text = L.text(cx * 0.78,cy * 0.7, "MONDAINE"),				
 		textSM = L.textPath("smade",
 			L.pathBuild
