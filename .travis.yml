@@ -2,8 +2,6 @@ install: npm install
 language: node_js
 before_script:
 - node_modules/malta/src/bin.js build.json
-- npm start
-
-script: npm test
+script: npm start && npm test
 node_js:
   - "8.11.2"
