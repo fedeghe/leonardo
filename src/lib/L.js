@@ -42,7 +42,7 @@ function L(width , height, opts) {
     		opts.ns = Object.keys(namespaces);
     	for (tmp = 0, l = opts.ns.length;tmp < l; tmp++)
     		addNs(opts.ns[tmp]);
-    }
+	}
 }
 
 /**
@@ -77,8 +77,8 @@ L.prototype.styles = function (styles) {
  */
 L.prototype.add = function () {
 	var self = this,
-		el = [].slice.call(arguments, 0);
-	el.forEach(function (el) {
+		els = [].slice.call(arguments, 0);
+	els.forEach(function (el) {
 		if( el instanceof Array){
 			el.forEach(function (k) {
 				self.childs.push(k);
