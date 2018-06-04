@@ -27,7 +27,8 @@ function L(width , height, opts) {
     this.childs = [];
     
     for (tmp in opts)
-    	tmp !== 'ns'
+		tmp !== 'ns'
+		&& tmp !== 'target'
     	&& this.tag.setAttribute(tmp, opts[tmp]);
 
     this.target = 'target' in opts ? opts.target : null;
