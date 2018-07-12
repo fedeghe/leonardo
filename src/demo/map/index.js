@@ -9,22 +9,23 @@ window.onload = function () {
 		L = Leonardo(width, height, {ns : '*', target : target}),
 		id = 0;
 
-	var rect = L.rect(0, 0, tileSize),
-		circle = L.circle(tileSize / 2, tileSize / 2, tileSize / 2);
+	var rect = L.rect(0, 0, tileSize);
 
 	for (var i = 0; i < gridNum; i++) {
-		for (var j = 0, t; j < gridNum; j++) {
-			isCircle = Math.random() > 0.5;
+		for (var j = 0, attrs = {}; j < gridNum; j++) {
+			fixed = Math.random() > 0.8;
+			attrs = {'fill': fixed ? '#000' : 'transparent'};
+			if (!fixed) {
+				attrs['data-element-id']= 'ID' + id++;
+				attrs['data-element-type'] = ['circle', 'dot', 'link'][~~(Math.random() * 3)];
+			}
 			L.add(
-				(isCircle ? circle : rect)
+				rect
 				.clone()
 				.move(
 					i * tileSize,
 					(j % gridNum) * tileSize
-				).attrs({
-					'data-element-id': 'ID'+id++,
-					'fill': isCircle ? '#f77' : '#47f'
-				})
+				).attrs(attrs)
 			);
 		}
 	}
