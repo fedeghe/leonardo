@@ -102,4 +102,5 @@ window.onload = function () {
 	});
 
 	L.render(target);
+	document.body.appendChild(L.downloadAnchor());
 };
