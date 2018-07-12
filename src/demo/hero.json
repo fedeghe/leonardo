@@ -1,4 +1,7 @@
 {
+	"EXE": [
+		"mkdir -p demo/hero/js demo/hero/css"
+	],
 	"src/demo/hero/index.js" : "demo/hero/js -vars=src/vars.json",
 	"src/demo/hero/index.less" : "demo/hero/css -plugins=malta-less -vars=src/vars.json",
 	"src/demo/hero/index.html" : "demo/hero -plugins=malta-browser-refresh[files:\"*\"] -vars=src/vars.json"
