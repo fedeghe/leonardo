@@ -143,6 +143,7 @@ L.prototype.polyline = function () {
  * @return     {Element}  { description_of_the_return_value }
  */
 L.prototype.rect = function (x, y, w, h) {
+	h = h || w;
 	var rect = new Element('rect');
 	rect.attrs({x : x, y : y, width : w, height : h});
 	return rect;
