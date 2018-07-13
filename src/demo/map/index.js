@@ -12,12 +12,14 @@ window.onload = function () {
 	var rect = L.rect(0, 0, tileSize);
 
 	for (var i = 0; i < gridNum; i++) {
-		for (var j = 0, attrs = {}; j < gridNum; j++) {
+		for (var j = 0, attrs = {}, t; j < gridNum; j++) {
 			fixed = Math.random() > 0.8;
 			attrs = {'fill': fixed ? '#000' : 'transparent'};
 			if (!fixed) {
+				t = ['circle', 'dot', 'link'][~~(Math.random() * 3)];
 				attrs['data-element-id']= 'ID' + id++;
-				attrs['data-element-type'] = ['circle', 'dot', 'link'][~~(Math.random() * 3)];
+				attrs['data-element-type'] = t;
+				attrs['data-element-data'] = t + '_data';
 			}
 			L.add(
 				rect
