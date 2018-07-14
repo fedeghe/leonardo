@@ -8,7 +8,7 @@
 	"src/Leonardo.js" : "lib/js -vars=src/vars.json",
 	"src/docs/README.md" : ". -plugins=malta-markdown-pdf -vars=src/vars.json",
 	
-	"src/index.html" : ". -vars=src/vars.json",
+	"src/*.html" : ". -vars=src/vars.json",
 	"src/test/require.json" : true,
 	
 	"src/demo/mondaine.json" : true,

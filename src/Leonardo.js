@@ -7,11 +7,14 @@
 	$$lib/functions.js$$
 	$$lib/Element.js$$
 	
-	w.Leonardo = function (w, h, attrs) {
+	var Leonardo = function (w, h, attrs) {
 		if (!w || !h) 
 			return {
 				ERROR : 'width or height not given!'
 			};
 		return new L(w, h, attrs);
 	};
+	Leonardo.import = L.import;
+
+	w.Leonardo = Leonardo;
 })(window);
