@@ -1,0 +1,8 @@
+{
+	"EXE": [
+		"mkdir -p demo/hyperwatch/js demo/hyperwatch/css"
+	],
+	"src/demo/hyperwatch/index.js" : "demo/hyperwatch/js -vars=src/vars.json",
+	"src/demo/hyperwatch/index.less" : "demo/hyperwatch/css -plugins=malta-less -vars=src/vars.json",
+	"src/demo/hyperwatch/index.html" : "demo/hyperwatch -plugins=malta-browser-refresh[files:\"*\"] -vars=src/vars.json"
+}

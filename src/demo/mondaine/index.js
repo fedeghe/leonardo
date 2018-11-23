@@ -1,15 +1,6 @@
 (function () {
 	'use strict';
-	var qs = (function () {
-			var q = document.location.search.substr(1),
-				els = q.split('&'),
-				qs = {}, tmp, el;
-			for (tmp in els) {
-				el = els[tmp].split('=');
-				qs[el[0]] = el.length > 1 ? decodeURIComponent(el[1]) : null;
-			}
-			return qs;
-		}()),
+	var qs = Leonardo.getqs(),
 		target = document.getElementById('trg'),
 		size = 800,
 		nowH = (new Date).getHours(),

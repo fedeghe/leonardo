@@ -17,5 +17,6 @@
 	"src/demo/understand.json" : true,
 	"src/demo/playground.json" : true,
 	"src/demo/synchazard.json" : true,
+	"src/demo/hyperwatch.json" : true,
 	"src/demo/map.json" : true
 }

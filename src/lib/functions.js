@@ -36,3 +36,11 @@ function bind(f, obj) {
 		return f.apply(obj, args);
 	}
 }
+
+function deg2rad(deg) {
+	return deg * Math.PI / 180;
+}
+
+function rad2deg(rad) {
+	return rad * 180 / Math.PI;
+}

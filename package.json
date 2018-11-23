@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "mocha --timeout 10000 test/setup/runner.js test/**.js",
-    "build": "./node_modules/malta/src/bin.js build.json",
-    "clean": "./node_modules/malta/src/bin.js clean.json",
+    "build": "malta build.json",
+    "clean": "malta clean.json",
     "start": "node srv.js"
   },
   "author": "",
@@ -19,7 +19,7 @@
     "lodash": "^4.17.10",
     "mocha": "^5.2.0",
     "puppeteer": "^1.4.0",
-    "malta": "^3.8.7",
+    "malta": "^3.8.18",
     "malta-browser-refresh": "^1.2.1",
     "malta-less": "^1.0.2",
     "malta-markdown-pdf": "^1.0.2",

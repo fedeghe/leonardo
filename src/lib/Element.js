@@ -170,3 +170,11 @@ Element.prototype.move = function (rx, ry) {
 	this.transforms.move = ' translate(' + rx + ' ' + ry + ')';
 	return this.trans();
 };
+
+Element.prototype.clear = function () {
+	this.tag.parentNode.removeChild(this.tag);
+};
+
+Element.prototype.replace = function (currentOne, newOne) {
+	currentOne.tag.parentNode.replaceChild(newOne.tag, currentOne.tag);
+}

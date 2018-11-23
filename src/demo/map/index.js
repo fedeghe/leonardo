@@ -9,7 +9,8 @@ window.onload = function () {
 		L = Leonardo(width, height, {ns : '*', target : target}),
 		id = 0;
 
-	var rect = L.rect(0, 0, tileSize);
+	var rect = L.rect(0, 0, tileSize),
+		g = L.group();
 
 	for (var i = 0; i < gridNum; i++) {
 		for (var j = 0, attrs = {}, t; j < gridNum; j++) {
@@ -21,14 +22,13 @@ window.onload = function () {
 				attrs['data-element-type'] = t;
 				attrs['data-element-data'] = t + '_data';
 			}
-			L.add(
-				rect
-				.clone()
-				.move(
+
+			L.add(g.clone().attrs(attrs).add(
+				rect.clone().move(
 					i * tileSize,
 					(j % gridNum) * tileSize
-				).attrs(attrs)
-			);
+				)
+			));
 		}
 	}
 

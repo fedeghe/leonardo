@@ -15,6 +15,7 @@
 		return new L(w, h, attrs);
 	};
 	Leonardo.import = L.import;
+	Leonardo.getqs = L.getqs;
 
 	w.Leonardo = Leonardo;
 })(window);
