@@ -8,11 +8,11 @@ describe('Synchazard', () => {
         await page.goto(`${opts.appUrl}/demo/synchazard/`);
         
         const checks = {
-            g: 2,
-            circle: 4,
-            rect: 1,
-            animate: 2,
-            polygon: 1
+            g: 7,
+            circle: 13,
+            rect: 3,
+            animate: 6,
+            polygon: 3
         };
         let tmp = null;
         for (let tag in checks) {
