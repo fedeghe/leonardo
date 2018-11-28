@@ -41,5 +41,5 @@ window.onload = function () {
 
 	L.add(malta, bricksG);
 
-	L.render(document.getElementById('trg2'));
+	L.render();
 };

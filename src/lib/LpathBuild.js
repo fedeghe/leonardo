@@ -77,10 +77,11 @@ L.prototype.slicePath = function (cx, cy, radius, startAngle, endAngle) {
 		startAngle = endAngle;
 		endAngle = s;
 	}
-	if (endAngle - startAngle > 360) {
+	/*
+	if (Math.abs(endAngle - startAngle) > 360) {
 		endAngle = 359.999;
-	}
-
+	}*/
+	
 	largeArc = endAngle - startAngle <= 180 ? 0 : 1;
 
 	startAngle = deg2rad(startAngle);

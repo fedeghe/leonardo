@@ -19,8 +19,11 @@
 		"SYNCHAZARD": {
 			"TITLE": "Leonardo - Synchazard"
 		},
-		"HYPERWATCH": {
-			"TITLE": "Leonardo - Hyperwatch"
+		"POLARWATCH": {
+			"TITLE": "Leonardo - Polarwatch"
+		},
+		"CIRCLES": {
+			"TITLE": "Leonardo - Circles"
 		}
 	},
 	"SERVER": {

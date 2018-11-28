@@ -30,11 +30,13 @@ L.prototype.animate = (function () {
 			}, 20);
 	}
 
-	function attr(name, values, dur, repeat) {
+	function attr(name, from, to, dur, repeat) {
 		var animate = new Element('animate');
 		animate.attrs({
+			attributeType: 'XML',
 			attributeName: name,
-			values: values,
+			from: from,
+			to: to,
 			dur: dur,
 			repeatCount: repeat
 		});
