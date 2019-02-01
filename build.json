@@ -1,7 +1,7 @@
 {
 	"EXE" : [
 		"rm -rf lib demo",
-		"mkdir -p lib/js lib/css",
+		"mkdir -p lib/js",
 		"cp -r src/media ./"
 	],
 	"src/srv.js": ". -vars=src/vars.json",

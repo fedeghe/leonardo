@@ -2,7 +2,7 @@ node_modules
 /index.html
 .printVersion
 .buildNum.json
-/lib
+.htaccess
 /demo
 /media
 /test

@@ -1,6 +1,6 @@
 {
 	"EXE" : [
-		"rm -rf lib demo media test",
+		"rm -rf demo media test",
 		"rm index.html srv.js"
 	]
 }

@@ -1,6 +1,6 @@
 {
   "name": "leonardo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple library to draw sgv",
   "main": "index.js",
   "directories": {
@@ -8,9 +8,9 @@
   },
   "scripts": {
     "test": "mocha --timeout 10000 test/setup/runner.js test/**.js",
-    "build": "malta build.json",
+    "buildev": "malta build.json",
     "clean": "malta clean.json",
-    "start": "node srv.js"
+    "serve": "node srv.js"
   },
   "author": "",
   "license": "ISC",
