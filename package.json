@@ -1,5 +1,5 @@
 {
-  "name": "fedeghe@leonardo",
+  "name": "@fedeghe/leonardo",
   "version": "1.0.1",
   "description": "A simple library to draw sgv",
   "main": "index.js",
