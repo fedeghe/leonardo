@@ -3,8 +3,11 @@
   "version": "1.0.1",
   "description": "A simple library to draw sgv",
   "main": "index.js",
+  "author": "Federico Ghedina <federico.ghedina@gmial.com>",
+  "license": "MIT",
   "directories": {
-    "lib": "lib"
+    "lib": "lib",
+    "test": "test"
   },
   "scripts": {
     "test": "mocha --timeout 10000 test/setup/runner.js test/**.js",
@@ -12,8 +15,6 @@
     "clean": "malta clean.json",
     "serve": "node srv.js"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "chai": "^4.1.2",
     "lodash": "^4.17.10",
@@ -24,5 +25,21 @@
     "malta-less": "^1.0.2",
     "malta-markdown-pdf": "^1.0.2",
     "malta-rename": "^1.0.2"
-  }
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fedeghe/leonardo.git"
+  },
+  "keywords": [
+    "SVG",
+    "create",
+    "scalable",
+    "vector",
+    "graphics"
+  ],
+  "bugs": {
+    "url": "https://github.com/fedeghe/leonardo/issues"
+  },
+  "homepage": "https://github.com/fedeghe/leonardo#readme"
 }
