@@ -4,7 +4,5 @@ node_modules
 .buildNum.json
 .htaccess
 /demo
-/media
 /test
-/srv.js
 src/docs/TODO.md

@@ -1,0 +1,8 @@
+{
+	"EXE": [
+		"mkdir -p demo/malta/js demo/malta/css"
+	],
+	"source/demo/malta/index.js" : "demo/malta/js -vars=source/vars.json",
+	"source/demo/malta/index.less" : "demo/malta/css -plugins=malta-less -vars=source/vars.json",
+	"source/demo/malta/index.html" : "demo/malta -plugins=malta-browser-refresh[files:\"*\"] -vars=source/vars.json"
+}

@@ -1,0 +1,12 @@
+{
+    "source/demo/*.html": "demo -vars=source/vars.json",
+    "source/demo/mondaine.json": true,
+    "source/demo/hero.json": true,
+    "source/demo/malta.json": true,
+    "source/demo/understand.json": true,
+    "source/demo/playground.json": true,
+    "source/demo/synchazard.json": true,
+    "source/demo/polarwatch.json": true,
+    "source/demo/circles.json": true,
+    "source/demo/map.json": true
+}

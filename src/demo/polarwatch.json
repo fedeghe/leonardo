@@ -1,8 +1,0 @@
-{
-	"EXE": [
-		"mkdir -p demo/polarwatch/js demo/polarwatch/css"
-	],
-	"src/demo/polarwatch/index.js" : "demo/polarwatch/js -vars=src/vars.json",
-	"src/demo/polarwatch/index.less" : "demo/polarwatch/css -plugins=malta-less -vars=src/vars.json",
-	"src/demo/polarwatch/index.html" : "demo/polarwatch -plugins=malta-browser-refresh[files:\"*\"] -vars=src/vars.json"
-}

@@ -1,0 +1,8 @@
+{
+	"EXE" : [
+		"rm -rf dist",
+		"mkdir dist",
+		"cp -r source/media ./"
+	],
+	"#source/index.js" : "dist -vars=source/vars.json"
+}

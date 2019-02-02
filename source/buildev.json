@@ -1,0 +1,10 @@
+{
+	"EXE" : [
+		"rm -rf lib demo dist",
+		"mkdir dist",
+		"cp -r source/media ./"
+	],
+	"source/index.js" : "dist -vars=source/vars.json",
+	"source/test/require.json" : true,
+	"source/demo/require.json" : true
+}
