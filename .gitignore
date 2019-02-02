@@ -1,8 +1,5 @@
-node_modules
-/index.html
+/node_modules
 .printVersion
 .buildNum.json
-.htaccess
 /demo
 /test
-src/docs/TODO.md
