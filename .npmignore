@@ -1,0 +1,6 @@
+/source
+/node_modules
+.printVersion
+.buildNum.json
+/test
+/demo
