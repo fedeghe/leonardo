@@ -1,5 +1,5 @@
 /node_modules
 .printVersion
 .buildNum.json
-/demo
 /test
+/demo

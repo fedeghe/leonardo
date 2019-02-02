@@ -14,7 +14,7 @@
 			border:1px solid red;
 		}
 	</style>
-	<script src="/lib/js/Leonardo.js"></script>
+	<script src="/dist/index.js"></script>
 </head>
 <body>
 	<div id="trg"></div>
@@ -124,6 +124,7 @@
 
 		var imported = Leonardo.import(svg);
 		imported.target = document.getElementById('trg');
+		console.log(imported)
 		imported.render();
 	</script>
 </body>

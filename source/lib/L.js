@@ -54,21 +54,21 @@ L.toDocument = function (SVGString) {
  */
 function L(width , height, opts) {
 	var namespaces = this.namespaces = {
-			'cc': "http://creativecommons.org/ns#",
-			'dc': "http://purl.org/dc/elements/1.1/",
-			'ev' : "http://www.w3.org/2001/xml-events",
-			'rdf': "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-			'svg': "http://www.w3.org/2000/svg",
-			'xlink': "http://www.w3.org/1999/xlink"
+			'cc': 'http://creativecommons.org/ns#',
+			'dc': 'http://purl.org/dc/elements/1.1/',
+			'ev' : 'http://www.w3.org/2001/xml-events',
+			'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+			'svg': 'http://www.w3.org/2000/svg',
+			'xlink': 'http://www.w3.org/1999/xlink'
 		},
 		self = this,
 		tmp, l;
 	opts = opts || {};
 
-    this.tag = create("svg");
+    this.tag = create('svg');
     this.tag.setAttribute('width', width);
     this.tag.setAttribute('height', height);
-    this.tag.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    this.tag.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
     this.tag.setAttribute('viewbox', '0 0 ' + width + ' ' + height);
     this.childs = [];
     
@@ -81,7 +81,7 @@ function L(width , height, opts) {
 
     function addNs(l){
     	l in namespaces 
-    	&& self.tag.setAttribute("xmlns:" + l, namespaces[l]);
+    	&& self.tag.setAttribute('xmlns:' + l, namespaces[l]);
     }
     if ('ns' in opts){
     	if (opts.ns === '*')
@@ -166,14 +166,14 @@ L.prototype.downloadAnchor = function () {
 	if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
 		source = source.replace(/^<svg/, '<svg xmlns:xlink="' + this.namespaces.xlink + '"');
 	}
-	url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+	url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
 
 
 	var a = document.createElement('a');
-	a.download = `download${(+new Date)}.svg`;
+	a.download = 'download' + (+new Date) + '.svg';
 	a.href = url;
 	a.addEventListener('click', function () {
-		this.download = `download${(+new Date)}.svg`;
+		this.download = 'download' + (+new Date) + '.svg'
 	})
 	a.innerHTML = 'download';
 	return a;

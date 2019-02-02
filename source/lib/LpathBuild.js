@@ -25,26 +25,26 @@ function createFun(letter) {
 	};
 }
 
-Pathbuild.prototype.M = createFun("M");
-Pathbuild.prototype.m = createFun("m");
-Pathbuild.prototype.Z = createFun("Z");
-Pathbuild.prototype.L = createFun("L");
-Pathbuild.prototype.l = createFun("l");
-Pathbuild.prototype.H = createFun("H");
-Pathbuild.prototype.h = createFun("h");
-Pathbuild.prototype.V = createFun("V");
-Pathbuild.prototype.v = createFun("v");
-Pathbuild.prototype.C = createFun("C");
-Pathbuild.prototype.c = createFun("c");
-Pathbuild.prototype.Q = createFun("Q");
-Pathbuild.prototype.q = createFun("q");
-Pathbuild.prototype.S = createFun("S");
-Pathbuild.prototype.s = createFun("s");
-Pathbuild.prototype.T = createFun("T");
-Pathbuild.prototype.t = createFun("t");
-Pathbuild.prototype.A = createFun("A");
-Pathbuild.prototype.a = createFun("a");
-Pathbuild.prototype.R = createFun("R");
+Pathbuild.prototype.M = createFun('M');
+Pathbuild.prototype.m = createFun('m');
+Pathbuild.prototype.Z = createFun('Z');
+Pathbuild.prototype.L = createFun('L');
+Pathbuild.prototype.l = createFun('l');
+Pathbuild.prototype.H = createFun('H');
+Pathbuild.prototype.h = createFun('h');
+Pathbuild.prototype.V = createFun('V');
+Pathbuild.prototype.v = createFun('v');
+Pathbuild.prototype.C = createFun('C');
+Pathbuild.prototype.c = createFun('c');
+Pathbuild.prototype.Q = createFun('Q');
+Pathbuild.prototype.q = createFun('q');
+Pathbuild.prototype.S = createFun('S');
+Pathbuild.prototype.s = createFun('s');
+Pathbuild.prototype.T = createFun('T');
+Pathbuild.prototype.t = createFun('t');
+Pathbuild.prototype.A = createFun('A');
+Pathbuild.prototype.a = createFun('a');
+Pathbuild.prototype.R = createFun('R');
 
 /**
  * { function_description }
@@ -56,7 +56,7 @@ L.prototype.pathBuild = (function () {
 	
 	pb.toString = function (){
 		var p = this.path + '';
-		this.path = "";
+		this.path = '';
 		return p;
 	};
 	return pb;

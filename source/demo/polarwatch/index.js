@@ -11,7 +11,7 @@ window.onload = function () {
         themes = {
             white: {
                 bg: 'white',
-                ms: '#ddd',
+                ms: '#eee',
                 s: '#bbb',
                 m: '#999',
                 h: '#777',
@@ -43,7 +43,7 @@ window.onload = function () {
                 bg: 'black',
                 ms: 'red',
                 s: 'white',
-                m: 'black',
+                m: 'green',
                 h: 'red',
                 D: 'black',
                 M: 'white',
@@ -67,9 +67,7 @@ window.onload = function () {
         step = size / 20,
         cir0 = Leo.circle(center.x, center.y, size / 2).attrs({fill: color('bg')}),
         circles = [
-            createTimingSlice(0, center, step * 10, color('ms'), { step: 3.6, timestep: 10 , fun: function (d) {
-                return 1000 / 360 *  (d % 1000)
-            }}), // mssec
+            createTimingSlice(0, center, step * 10, color('ms'), { step: 3.6, timestep: 10 , fun: function (d) {return 1000 / 360 *  (d % 1000)}}), // mssec
             createTimingSlice(1, center, step * 8, color('s'), { step: 0.6, timestep: 100, fun: function (d) {return 6 * d.getSeconds(); } }), // sec
             createTimingSlice(2, center, step * 6, color('m'), { step: 1, timestep: 10000, fun: function (d) { return 6 * d.getMinutes(); } }), // mim
             createTimingSlice(3, center, step * 4, color('h'), { step: 1, timestep: 240000, fun: function (d) { return  ((d.getHours() % 12) * 60 + d.getMinutes()) / 2; } }) // hour    0.1 in 24 *1000
@@ -140,14 +138,12 @@ window.onload = function () {
         });
         lines.push(tmp)
         container.add(lines)
-    }
-
+    }   
     
     Leo.add(container);
 
     Leo.render(target, function () {
         console.log('rendered')
-        
     });	
     
 };

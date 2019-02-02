@@ -3,25 +3,14 @@
 |  |  |   __|     |   | |  _  | __  |    \|     |
 |  |__|   __|  |  | | | |     |    -|  |  |  |  |
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
-                                                    v. 0.1
+                                                    v. 0.2
 ```
 
 
-## install dependencies and build it
+## install leonardo
 
-`> npm install`
+`> npm install @fedeghe/leonardo`
 
-`> npm run build`
-
-## try it  
-
-`> npm run serve`
-
-open [http://localhost:4567](http://localhost:4567) (or at the port set on _src/vars.json_ in the `SERVER.PORT`)
-
-## test
-
-while the `npm run serve` is running is possible to run `npm test` that will run some tests on some of the pages served (using puppeteer)
 
 ## use it
 
@@ -96,7 +85,9 @@ creates a polyline which can even be opened (does not close it automatically).
 
 
 
+---
 
+... TO BE CONTINUED
 
 
 

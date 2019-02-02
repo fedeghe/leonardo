@@ -1,3 +1,13 @@
+/*
+ __    _____ _____ _____ _____ _____ ____  _____ 
+|  |  |   __|     |   | |  _  | __  |    \|     |
+|  |__|   __|  |  | | | |     |    -|  |  |  |  |
+|_____|_____|_____|_|___|__|__|__|__|____/|_____|
+                                                  V. 0.2
+
+Federico Ghedina <federico.ghedina@gmail.com> 2019
+~21KB
+*/
 (function(w) {
 	
 	/*
@@ -59,21 +69,21 @@
 	 */
 	function L(width , height, opts) {
 		var namespaces = this.namespaces = {
-				'cc': "http://creativecommons.org/ns#",
-				'dc': "http://purl.org/dc/elements/1.1/",
-				'ev' : "http://www.w3.org/2001/xml-events",
-				'rdf': "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-				'svg': "http://www.w3.org/2000/svg",
-				'xlink': "http://www.w3.org/1999/xlink"
+				'cc': 'http://creativecommons.org/ns#',
+				'dc': 'http://purl.org/dc/elements/1.1/',
+				'ev' : 'http://www.w3.org/2001/xml-events',
+				'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+				'svg': 'http://www.w3.org/2000/svg',
+				'xlink': 'http://www.w3.org/1999/xlink'
 			},
 			self = this,
 			tmp, l;
 		opts = opts || {};
 	
-	    this.tag = create("svg");
+	    this.tag = create('svg');
 	    this.tag.setAttribute('width', width);
 	    this.tag.setAttribute('height', height);
-	    this.tag.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+	    this.tag.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
 	    this.tag.setAttribute('viewbox', '0 0 ' + width + ' ' + height);
 	    this.childs = [];
 	    
@@ -86,7 +96,7 @@
 	
 	    function addNs(l){
 	    	l in namespaces 
-	    	&& self.tag.setAttribute("xmlns:" + l, namespaces[l]);
+	    	&& self.tag.setAttribute('xmlns:' + l, namespaces[l]);
 	    }
 	    if ('ns' in opts){
 	    	if (opts.ns === '*')
@@ -171,14 +181,14 @@
 		if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
 			source = source.replace(/^<svg/, '<svg xmlns:xlink="' + this.namespaces.xlink + '"');
 		}
-		url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+		url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
 	
 	
 		var a = document.createElement('a');
-		a.download = `download${(+new Date)}.svg`;
+		a.download = 'download' + (+new Date) + '.svg';
 		a.href = url;
 		a.addEventListener('click', function () {
-			this.download = `download${(+new Date)}.svg`;
+			this.download = 'download' + (+new Date) + '.svg'
 		})
 		a.innerHTML = 'download';
 		return a;
@@ -370,7 +380,7 @@
 			i, tmp;
 		path.attrs({id : id});
 		textpath.tag.innerHTML = cnt;
-		textpath.tag.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', "#" + id);
+		textpath.tag.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#' + id);
 		text.add(defs);
 		text.add(textpath);
 		defs.add(path);
@@ -434,26 +444,26 @@
 		};
 	}
 	
-	Pathbuild.prototype.M = createFun("M");
-	Pathbuild.prototype.m = createFun("m");
-	Pathbuild.prototype.Z = createFun("Z");
-	Pathbuild.prototype.L = createFun("L");
-	Pathbuild.prototype.l = createFun("l");
-	Pathbuild.prototype.H = createFun("H");
-	Pathbuild.prototype.h = createFun("h");
-	Pathbuild.prototype.V = createFun("V");
-	Pathbuild.prototype.v = createFun("v");
-	Pathbuild.prototype.C = createFun("C");
-	Pathbuild.prototype.c = createFun("c");
-	Pathbuild.prototype.Q = createFun("Q");
-	Pathbuild.prototype.q = createFun("q");
-	Pathbuild.prototype.S = createFun("S");
-	Pathbuild.prototype.s = createFun("s");
-	Pathbuild.prototype.T = createFun("T");
-	Pathbuild.prototype.t = createFun("t");
-	Pathbuild.prototype.A = createFun("A");
-	Pathbuild.prototype.a = createFun("a");
-	Pathbuild.prototype.R = createFun("R");
+	Pathbuild.prototype.M = createFun('M');
+	Pathbuild.prototype.m = createFun('m');
+	Pathbuild.prototype.Z = createFun('Z');
+	Pathbuild.prototype.L = createFun('L');
+	Pathbuild.prototype.l = createFun('l');
+	Pathbuild.prototype.H = createFun('H');
+	Pathbuild.prototype.h = createFun('h');
+	Pathbuild.prototype.V = createFun('V');
+	Pathbuild.prototype.v = createFun('v');
+	Pathbuild.prototype.C = createFun('C');
+	Pathbuild.prototype.c = createFun('c');
+	Pathbuild.prototype.Q = createFun('Q');
+	Pathbuild.prototype.q = createFun('q');
+	Pathbuild.prototype.S = createFun('S');
+	Pathbuild.prototype.s = createFun('s');
+	Pathbuild.prototype.T = createFun('T');
+	Pathbuild.prototype.t = createFun('t');
+	Pathbuild.prototype.A = createFun('A');
+	Pathbuild.prototype.a = createFun('a');
+	Pathbuild.prototype.R = createFun('R');
 	
 	/**
 	 * { function_description }
@@ -465,7 +475,7 @@
 		
 		pb.toString = function (){
 			var p = this.path + '';
-			this.path = "";
+			this.path = '';
 			return p;
 		};
 		return pb;
@@ -547,22 +557,22 @@
 	
 			linearGrad.attrs({
 				id : id,
-				x1 : "0%",
-				y1 : "0%",
-				x2 : "100%",
-				y2 : "0%"
+				x1 : '0%',
+				y1 : '0%',
+				x2 : '100%',
+				y2 : '0%'
 			});
 	
 			for (i in steps) {
 				tmp = new Element('stop');
 				tmp.attrs({
 					offset : i + '%',
-					style : "stop-opacity:1;stop-color:" + steps[i]
+					style : 'stop-opacity:1;stop-color:' + steps[i]
 				});
 				linearGrad.add(tmp)
 			}
 			defs.add(linearGrad);
-			return "url(#" + id + ")";
+			return 'url(#' + id + ')';
 		}
 	
 		function rGrad(steps) {
@@ -575,14 +585,13 @@
 				tmp = new Element('stop');
 				tmp.attrs({
 					offset : i + '%',
-					style : "stop-opacity:1;stop-color:" + steps[i]
+					style : 'stop-opacity:1;stop-color:' + steps[i]
 				});
 				radialGrad.add(tmp)
 			}
 			defs.add(radialGrad);
-			return "url(#" + id + ")";
+			return 'url(#' + id + ')';
 		}
-	
 	
 		return {
 			lGrad : lGrad,
@@ -657,7 +666,7 @@
 	 * @return     {<type>}  { description_of_the_return_value }
 	 */
 	function create(tag ,ns){
-		ns = ns || "http://www.w3.org/2000/svg";
+		ns = ns || 'http://www.w3.org/2000/svg';
 		return document.createElementNS(ns, tag);
 	}
 	

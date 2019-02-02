@@ -11,7 +11,8 @@
   },
   "scripts": {
     "test": "mocha --timeout 10000 test/setup/runner.js test/**.js",
-    "buildev": "malta source/build.json",
+    "buildev": "malta source/buildev.json",
+    "build": "malta source/buildtr.json",
     "clean": "malta source/clean.json",
     "serve": "node srv.js"
   },
@@ -21,9 +22,10 @@
     "malta": "^3.8.18",
     "malta-browser-refresh": "^1.2.1",
     "malta-dev-srv": "^1.0.6",
+    "malta-header-comment": "^1.0.5",
+    "malta-js-uglify": "^1.0.3",
     "malta-less": "^1.0.2",
     "malta-markdown-pdf": "^1.0.2",
-    "malta-rename": "^1.0.2",
     "mocha": "^5.2.0",
     "puppeteer": "^1.4.0"
   },

@@ -46,6 +46,7 @@ window.onload = function () {
             var c1 = Leo.circle(width / 2 - width / (i+1), height / 2, min * 0.8**i).attrs({fill: color}),
                 ani1 = Leo.animate.attr('r', min * 0.8 ** i, 1E3, '10s', 'indefinite');
             c1.add(ani1);
+
             var c2 = Leo.circle(width / 2 + width / (i + 1), height / 2, min * 0.8 ** i).attrs({ fill: color }),
                 ani2 = Leo.animate.attr('r', min * 0.8 ** i, 1E3, '10s', 'indefinite');
             c2.add(ani2);

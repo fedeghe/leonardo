@@ -182,7 +182,7 @@ L.prototype.textPath = function (id, d, cnt) {
 		i, tmp;
 	path.attrs({id : id});
 	textpath.tag.innerHTML = cnt;
-	textpath.tag.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', "#" + id);
+	textpath.tag.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#' + id);
 	text.add(defs);
 	text.add(textpath);
 	defs.add(path);

@@ -1,8 +1,7 @@
 {
 	"EXE" : [
-		"rm -rf dist",
-		"mkdir dist",
-		"cp -r source/media ./"
+		"rm -rf dist demo test",
+		"mkdir dist"
 	],
-	"#source/index.js" : "dist -vars=source/vars.json"
+	"#source/index.js" : "dist -plugins=malta-js-uglify[compress:true]...malta-header-comment[name:\"source/lib/head.txt\"] -vars=source/vars.json"
 }

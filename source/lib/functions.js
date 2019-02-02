@@ -7,7 +7,7 @@
  * @return     {<type>}  { description_of_the_return_value }
  */
 function create(tag ,ns){
-	ns = ns || "http://www.w3.org/2000/svg";
+	ns = ns || 'http://www.w3.org/2000/svg';
 	return document.createElementNS(ns, tag);
 }
 

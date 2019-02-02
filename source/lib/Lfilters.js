@@ -26,22 +26,22 @@ L.prototype.filters = function () {
 
 		linearGrad.attrs({
 			id : id,
-			x1 : "0%",
-			y1 : "0%",
-			x2 : "100%",
-			y2 : "0%"
+			x1 : '0%',
+			y1 : '0%',
+			x2 : '100%',
+			y2 : '0%'
 		});
 
 		for (i in steps) {
 			tmp = new Element('stop');
 			tmp.attrs({
 				offset : i + '%',
-				style : "stop-opacity:1;stop-color:" + steps[i]
+				style : 'stop-opacity:1;stop-color:' + steps[i]
 			});
 			linearGrad.add(tmp)
 		}
 		defs.add(linearGrad);
-		return "url(#" + id + ")";
+		return 'url(#' + id + ')';
 	}
 
 	function rGrad(steps) {
@@ -54,14 +54,13 @@ L.prototype.filters = function () {
 			tmp = new Element('stop');
 			tmp.attrs({
 				offset : i + '%',
-				style : "stop-opacity:1;stop-color:" + steps[i]
+				style : 'stop-opacity:1;stop-color:' + steps[i]
 			});
 			radialGrad.add(tmp)
 		}
 		defs.add(radialGrad);
-		return "url(#" + id + ")";
+		return 'url(#' + id + ')';
 	}
-
 
 	return {
 		lGrad : lGrad,
