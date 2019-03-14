@@ -3,7 +3,7 @@
   "version": "1.0.7",
   "description": "A simple library to draw sgv",
   "main": "dist/index.js",
-  "author": "Federico Ghedina <federico.ghedina@gmial.com>",
+  "author": "Federico Ghedina <fedeghe@gmail.com>",
   "license": "MIT",
   "directories": {
     "lib": "lib",
