@@ -1,59 +1,57 @@
 window.onload = function () {
     var target = document.getElementById('trg'),
-        elements = [],
-        colors = [
-            '#000',
-            '#111',
-            '#222',
-            '#333',
-            '#444',
-            '#555',
-            'red',
-            '#777',
-            '#888',
-            '#999',
-            '#aaa',
-            'blue',
-            '#ccc',
-            '#ddd',
-            'green',
-            '#fff'
-        ];
-        
-    function getColor() {
-        var i = Math.ceil(Math.random() * colors.length)
-        return colors[i];
-    }
-    function clear() {
-        for (var i = 0, l = elements.length; i < l; i++) {
-            console.log(elements[i])
-            elements[i].tag.parentNode.removeChild(elements[i].tag);
-            elements[i] = null;
-        }
-        elements = [];
-    }
-    window.addEventListener('resize', draw);
-    function draw() {
-        clear();
-
-        width = window.innerWidth || document.documentElement.clientWidth,
-        height = window.innerHeight || document.documentElement.clientHeight,
-        min = Math.min(width, height);
-        var Leo = Leonardo(width, height, { ns: '*', target: target })
-
-        for (var i = 0; i < 20; i++) {
-            var color = getColor();
-            var c1 = Leo.circle(width / 2 - width / (i+1), height / 2, min * 0.8**i).attrs({fill: color}),
-                ani1 = Leo.animate.attr('r', min * 0.8 ** i, 1E3, '10s', 'indefinite');
-            c1.add(ani1);
-
-            var c2 = Leo.circle(width / 2 + width / (i + 1), height / 2, min * 0.8 ** i).attrs({ fill: color }),
-                ani2 = Leo.animate.attr('r', min * 0.8 ** i, 1E3, '10s', 'indefinite');
-            c2.add(ani2);
-            elements.push(c1, c2);
-            Leo.add(c1, c2)
-        }
-        Leo.render();
-    }
-    draw();
+        Leo = Leonardo(600, 250, { ns: '*', target: target }),
+        main = Leo.group(),
+        c = Leo.group(),
+        v = Leo.group(),
+        e = Leo.group(),
+        r = Leo.group(),
+        stroke = 10;
+    c.add(Leo.polygon(0,50, 50,0, 150,0, 100,50, 150,100, 50,100).attrs({
+        fill : 'green',
+        "stroke-width" : stroke,
+        stroke : 'black',
+        'stroke-linejoin': 'round'
+    }));
+    v.add(Leo.polygon(0,50, 50,0, 100,50, 125,25, 175,25, 75,125).attrs({
+        fill : 'white',
+        "stroke-width" : stroke,
+        stroke : 'black',
+        'stroke-linejoin': 'round'
+    }));
+    e.add(Leo.polygon(0,100, -25,75, 75,-25, 125,25, 100,50, 125,75, 100,100).attrs({
+        fill : 'white',
+        "stroke-width" : stroke,
+        stroke : 'black',
+        'stroke-linejoin': 'round'
+    }));
+    e.add(Leo.polyline(50,25, 75,25, 100,50).attrs({
+        fill : 'transparent',
+        "stroke-width" : stroke,
+        stroke : 'black',
+        'stroke-linecap': 'round',
+        'stroke-linejoin': 'round'
+    }));
+    e.add(Leo.polyline(50,75, 75,75, 100,50).attrs({
+        fill : 'transparent',
+        "stroke-width" : stroke,
+        stroke : 'black',
+        'stroke-linecap': 'round',
+        'stroke-linejoin': 'round'
+    }));
+    r.add(Leo.polygon(0,0, 100,0, 150,50, 125,75, 150,100, 100,100, 75,75, 50,100, 0,100, 25,75, 0,50, 25,25).attrs({
+        fill : 'red',
+        "stroke-width" : stroke,
+        stroke : 'black',
+        'stroke-linejoin': 'round'
+    }));
+    main.add(
+        c,
+        v.move(100),
+        e.move(250),
+        r.move(350)
+    )
+    Leo.add(main.move(40, 90));
+    Leo.render();
+    document.body.appendChild(Leo.downloadAnchor())
 }
