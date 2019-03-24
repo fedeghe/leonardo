@@ -24,10 +24,13 @@
 		},
 		"CIRCLES": {
 			"TITLE": "Leonardo - Circles"
+		},
+		"CVER": {
+			"TITLE": "Leonardo - CVER"
 		}
 	},
 	"SERVER": {
-		"PORT": "4567",
+		"PORT": "3001",
 		"BASE": "http://localhost",
 		"URL": "$SERVER.BASE$:$SERVER.PORT$", 
 		"MSG": "server started on $SERVER.URL$"

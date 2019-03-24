@@ -2,7 +2,7 @@
     "EXE": [
         "mkdir -p test/setup"
     ],
-    "src/test/*.js" : "test -vars=src/vars.json",
-    "src/test/setup/*.js" : "test/setup -vars=src/vars.json"
+    "source/test/*.js" : "test -vars=source/vars.json",
+    "source/test/setup/*.js" : "test/setup -vars=source/vars.json"
 
 }
