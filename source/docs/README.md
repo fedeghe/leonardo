@@ -3,7 +3,7 @@
 |  |  |   __|     |   | |  _  | __  |    \|     |
 |  |__|   __|  |  | | | |     |    -|  |  |  |  |
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
-                                                    v. $VERSION$
+                                                    v. $PACKAGE.version$
 ```
 
 
@@ -37,17 +37,15 @@ for _svg namespaces_ is enough just to pass a `ns` element containing an array c
 ```
 if all are needed is enough to pass '*'.  
 
+But it is better go go in order:
 
 
-
-Now we can create new `Elements` through L.
-
-
-$$tags.md$$
 
 ---
 
-... TO BE CONTINUED
+WORK IN PROGRESS
+
+---
 
 
 
