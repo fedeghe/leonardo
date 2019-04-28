@@ -4,6 +4,17 @@
  * https://www.w3.org/TR/SVG/paths.html
  */
 
+/**
+ * { function_description }
+ *
+ * @param      {<type>}   txt     The text
+ * @return     {Element}  { description_of_the_return_value }
+ */
+L.prototype.desc = function (txt) {
+	var desc = new Element('desc');
+	desc.tag.innerHTML = txt;
+	return desc;
+};
 
 /**
  * { function_description }
@@ -17,18 +28,6 @@ L.prototype.circle = function (cx, cy, r) {
 	var circle = new Element('circle');
 	circle.attrs({cx : cx, cy : cy, r : r});
 	return circle;
-};
-
-/**
- * { function_description }
- *
- * @param      {<type>}   txt     The text
- * @return     {Element}  { description_of_the_return_value }
- */
-L.prototype.desc = function (txt) {
-	var desc = new Element('desc');
-	desc.tag.innerHTML = txt;
-	return desc;
 };
 
 /**
