@@ -202,6 +202,17 @@ Federico Ghedina <federico.ghedina@gmail.com> 2019
 	 * https://www.w3.org/TR/SVG/paths.html
 	 */
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      {<type>}   txt     The text
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	L.prototype.desc = function (txt) {
+		var desc = new Element('desc');
+		desc.tag.innerHTML = txt;
+		return desc;
+	};
 	
 	/**
 	 * { function_description }
@@ -215,18 +226,6 @@ Federico Ghedina <federico.ghedina@gmail.com> 2019
 		var circle = new Element('circle');
 		circle.attrs({cx : cx, cy : cy, r : r});
 		return circle;
-	};
-	
-	/**
-	 * { function_description }
-	 *
-	 * @param      {<type>}   txt     The text
-	 * @return     {Element}  { description_of_the_return_value }
-	 */
-	L.prototype.desc = function (txt) {
-		var desc = new Element('desc');
-		desc.tag.innerHTML = txt;
-		return desc;
 	};
 	
 	/**
