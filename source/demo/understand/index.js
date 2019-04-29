@@ -2,7 +2,9 @@ window.onload = function () {
 
     var target = document.getElementById('trg'),
         speedTuner = document.getElementById('speed'),
-		speed = 0.5,
+        rndTuner = document.getElementById('rnd'),
+        speed = 0.5,
+        rnd = 1,
 		width = 500,
 		height = 500,
 		w20 = width/20,
@@ -71,7 +73,7 @@ window.onload = function () {
 		L.animate.pCart(el, function (x, t) {
 			return  w20 * Math.sin(t * speed * versus);
 		},function (y, t) {
-			return -w20 + w20 * Math.cos(t * speed); //here versus is not influent since cos is simmetric
+			return -w20 + w20 * Math.cos(rnd * t * speed); //here versus is not influent since cos is simmetric
 		});
 	});
 
@@ -81,5 +83,8 @@ window.onload = function () {
     speedTuner.value = speed;
     speedTuner.addEventListener('change', function() {
         speed = parseFloat(this.value, 10);
+    })
+    rndTuner.addEventListener('change', function() {
+        rnd = this.checked ? Math.random() : 1;
     })
 };
