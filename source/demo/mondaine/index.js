@@ -86,8 +86,6 @@
 		.attrs({viewBox: [0, 0, size, size].join(' ')})
 		.add(border, circle);
 
-	
-
 	(function() {
 		var small = L.line(cx, size * 0.135, cx, height * 0.16),
 			big = L.line(cx, size * 0.135, cx, height * 0.215),
@@ -158,9 +156,9 @@
 			h = time.getHours() % 12,
 			fact = 60;
 
-		secs.rotate((s + ms / 1000) * 6, cx, cy);
-		mins.rotate((m * fact + s) * 0.1, cx, cy);
-		hours.rotate((h * fact + m) * (360 / (12 * fact)) , cx, cy);
+		secs.rotate((s + ms / 1E3) * 6, cx, cy);
+		mins.rotate((m * fact + s + ms / 1E3) * 0.1, cx, cy);
+		hours.rotate((h * fact + m + s / fact) * (360 / (12 * fact)) , cx, cy);
 	}, 1000 / 20);
 
 })();
