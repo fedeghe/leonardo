@@ -6,9 +6,10 @@ window.onload = function () {
         speed = 0.5,
         rnd = 1,
 		width = 500,
-		height = 500,
-		w20 = width/20,
-		h20 = height/20,
+        height = 500,
+        hm = 20,
+		w20 = width / hm,
+		h20 = height / hm,
 		
 		L = Leonardo(width, height, {ns : '*', target : target}),
 		
@@ -24,13 +25,13 @@ window.onload = function () {
 		cg8 = L.group(),
 		cg9 = L.group(),
 		
-		texts = [],
+		// texts = [],
 		circles = [],
 		
-		text1 = L.text(10, 10, "WHAT I THINK").move(w20*5, h20*1.5),
-		text2 = L.text(10, 10, "WHAT I WRITE").move(w20*6, h20*2.5),
-		text3 = L.text(10, 10, "WHAT I SAY").move(w20*7, h20*3.5),
-        text4 = L.text(10, 10, "WHAT OTHERS UNDESTAND").move(w20*8, h20*5),
+		text1 = L.text(0, 0, "THINK").attrs({'font-size': 30}).move(w20*8.15, h20*18.5),
+		// text2 = L.text(10, 10, "WHAT I WRITE").move(w20*6, h20*2.5),
+		// text3 = L.text(10, 10, "WHAT I SAY").move(w20*7, h20*3.5),
+        // text4 = L.text(10, 10, "WHAT OTHERS UNDESTAND").move(w20*8, h20*5),
         minWH2 = Math.min(width, height)/2,
 
 		circle1 = L.circle(w20 * 10, h20 * 10, 1 * minWH2).attrs({fill : '#FF0D28'}),
@@ -43,9 +44,9 @@ window.onload = function () {
 		circle8 = L.circle(w20 * 10, h20 * 17, 0.3 * minWH2).attrs({fill : 'pink'}),
 		circle9 = L.circle(w20 * 10, h20 * 18, 0.2 * minWH2).attrs({fill : 'white'});
 
-	texts.push(text1, text2, text3, text4);
+	// texts.push(text1, text2, text3, text4);
 
-	cg9.add(circle9);
+	cg9.add(circle9, text1);
 	cg8.add(circle8, cg9);
 	cg7.add(circle7, cg8);
 	cg6.add(circle6, cg7);
@@ -53,13 +54,14 @@ window.onload = function () {
 	cg4.add(circle4, cg5);
 	cg3.add(circle3, cg4);
 	cg2.add(circle2, cg3);
-	cg1.add(circle1, cg2);
+    cg1.add(circle1, cg2);
+    
 	circles.push(cg1);
 
-	textsG.add(texts).attrs({
-		"stroke-width" : 1.5,
-		"stroke" : 'white'
-	});;
+	// textsG.add(texts).attrs({
+	// 	"stroke-width" : 1.5,
+	// 	"stroke" : 'white'
+	// });;
 	circlesG.add(circles).attrs({
 		"stroke-width" : 2.5,
 		"stroke" : 'black',
@@ -75,7 +77,7 @@ window.onload = function () {
 		},function (y, t) {
 			return -w20 + w20 * Math.cos(rnd * t * speed); //here versus is not influent since cos is simmetric
 		});
-	});
+    });
 
 	L.render(target);
     document.body.appendChild(L.downloadAnchor());
