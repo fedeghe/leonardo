@@ -79,14 +79,15 @@ window.onload = function () {
 		});
     });
 
-	L.render(target);
-    document.body.appendChild(L.downloadAnchor());
+    L.render(target);
     
     speedTuner.value = speed;
     speedTuner.addEventListener('change', function() {
         speed = parseFloat(this.value, 10);
-    })
+    });
     rndTuner.addEventListener('change', function() {
         rnd = this.checked ? Math.random() : 1;
-    })
+    });
+
+    document.body.appendChild(L.downloadAnchor());
 };
