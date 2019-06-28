@@ -13,8 +13,7 @@
     "test": "mocha --timeout 10000 test/setup/runner.js test/**.js",
     "buildev": "malta source/buildev.json",
     "build": "malta source/buildtr.json",
-    "clean": "malta source/clean.json",
-    "serve": "node srv.js"
+    "clean": "malta source/clean.json"
   },
   "devDependencies": {
     "chai": "^4.1.2",
