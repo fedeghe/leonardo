@@ -647,10 +647,15 @@ malta-markdown-pdf@^1.0.2:
     malta ">=3.8.3"
     markdown-pdf "^9.0.0"
 
-malta@>=3.8.14, malta@>=3.8.3, malta@>=3.9.11, malta@^3.9.14:
+malta@>=3.8.14, malta@>=3.8.3, malta@>=3.9.11:
   version "3.9.16"
   resolved "https://registry.yarnpkg.com/malta/-/malta-3.9.16.tgz#d708abef0a62618a21af2f162fc95434b02db2ab"
   integrity sha512-SA38WnQ5guC+KgbAHRiOhgyfsGu1kqwc1UYLnz935A3Ge+Uu+RTwqLpD2OOCGyKSLL6M/Uayimag/8eilgVx4w==
+
+malta@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/malta/-/malta-4.0.4.tgz#9ab860454307e57479daad3452c7abc62deddc4b"
+  integrity sha512-7+6zUDM2Az4t51mdLFk6XMgheExGNhl3Kwgp/hVp07bcJylu8VKwXwxVdFujxRxjxJmwGUHdjV9ABgaEpQuL0Q==
 
 markdown-pdf@^9.0.0:
   version "9.0.0"

@@ -1,40 +1,43 @@
 {
-	"AUTHOR" : "Federico Ghedina <federico.ghedina@gmail.com>",
-	"DEMO" : {
-		"MONDAINE" : {
-			"TITLE" : "Leonardo MONDAINE"
-		},
-		"HERO" : {
-			"TITLE" : "Leonardo - HERO logo"
-		},
-		"MALTA" : {
-			"TITLE" : "Leonardo - Malta logo"
-		},
-		"UNDERSTAND" : {
-			"TITLE" : "Leonardo - Understand"
-		},
-		"PLAYGROUND": {
-			"TITLE": "Leonardo - Playgroundz"
-		},
-		"SYNCHAZARD": {
-			"TITLE": "Leonardo - Synchazard"
-		},
-		"POLARWATCH": {
-			"TITLE": "Leonardo - Polarwatch"
-		},
-		"CIRCLES": {
-			"TITLE": "Leonardo - Circles"
-		},
-		"CVER": {
-			"TITLE": "Leonardo - CVER"
-		}
-	},
-	"SERVER": {
-		"PORT": "3001",
-		"BASE": "http://localhost",
-		"URL": "$SERVER.BASE$:$SERVER.PORT$", 
-		"MSG": "server started on $SERVER.URL$"
-	},
-	"TITLE" : "Leonardo",
-	"VERSION" : 0.2
+    "AUTHOR": "Federico Ghedina <federico.ghedina@gmail.com>",
+    "DEMO": {
+        "MONDAINE": {
+            "TITLE": "Leonardo MONDAINE"
+        },
+        "HERO": {
+            "TITLE": "Leonardo - HERO logo"
+        },
+        "MALTA": {
+            "TITLE": "Leonardo - Malta logo"
+        },
+        "UNDERSTAND": {
+            "TITLE": "Leonardo - Understand"
+        },
+        "PLAYGROUND": {
+            "TITLE": "Leonardo - Playgroundz"
+        },
+        "SYNCHAZARD": {
+            "TITLE": "Leonardo - Synchazard"
+        },
+        "POLARWATCH": {
+            "TITLE": "Leonardo - Polarwatch"
+        },
+        "CIRCLES": {
+            "TITLE": "Leonardo - Circles"
+        },
+        "CVER": {
+            "TITLE": "Leonardo - CVER"
+        },
+        "KICKER": {
+            "TITLE": "Leonardo - KICKER"
+        }
+    },
+    "SERVER": {
+        "PORT": "3001",
+        "BASE": "http://localhost",
+        "URL": "$SERVER.BASE$:$SERVER.PORT$",
+        "MSG": "server started on $SERVER.URL$"
+    },
+    "TITLE": "Leonardo",
+    "VERSION": 0.2
 }

@@ -14,5 +14,6 @@
     "source/demo/polarwatch.json": true,
     "source/demo/circles.json": true,
     "source/demo/cver.json": true,
-    "source/demo/map.json": true
+    "source/demo/map.json": true,
+    "source/demo/kicker.json": true
 }
