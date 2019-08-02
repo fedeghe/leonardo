@@ -1,7 +1,8 @@
 {
     "EXE": [
         "mkdir -p demo/kicker/js demo/kicker/css",
-        "cp source/demo/kicker/field.jpg demo/kicker/css"
+        "cp source/demo/kicker/field.jpg demo/kicker/css",
+        "cp source/demo/kicker/signavio.png demo/kicker/css"
     ],
     "source/demo/kicker/index.js": "demo/kicker/js -vars=source/vars.json",
     "source/demo/kicker/index.less": "demo/kicker/css -plugins=malta-less -vars=source/vars.json",
