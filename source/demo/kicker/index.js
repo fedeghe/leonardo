@@ -5,8 +5,9 @@ window.onload = function () {
         height= 116 * size,
         imageSize = width / 4,
 
-        green = 'rgba(0,100,0, 1)'
-        // green = 'rgba(173, 14, 91, 1)'
+        // green = 'rgba(0, 100, 0, 1)'
+        // green = 'rgba(0, 0, 0, 1)'
+        green = 'rgba(173, 14, 91, 1)'
         
         L = Leonardo(width, height),
         base = L.rect(0,0, width, height).attrs({
@@ -61,34 +62,50 @@ window.onload = function () {
             imageSize, imageSize,
             'http://localhost:3001/kicker/css/signavio.png'
         ),
-        logo2 = logo1.clone().rotate(180, 0, 0).move(-width / 2, -height/ 2 + 100),
+        logo2 = L.image(
+            -imageSize/2,
+            -imageSize/2,
+            imageSize, imageSize,
+            'http://localhost:3001/kicker/css/signavio.png'
+        ).rotate(180, 0, 0).move(-width / 2, -height/ 2 + 150),
+    
         image = L.image(0, 0, width, height, 'http://localhost:3001/kicker/css/field.jpg');
    
-    logo1.move(width / 2, height/2 + 100);
+    logo1.move(width / 2, height/2 + 150);
     defense.add(
         round,
         defenseLine2,
         defenseLine1
-    )
-    .attrs({
+    ).attrs({
         fill: green
     })
 
-    var defense2 = defense.clone().mirrorO().move(0,height);
-        
+    var defense2 = defense.clone().mirrorO().move(0, height);
+    var rect = L.rect(0, 0, width / 2, height / 2).attrs({
+        "stroke-width" : 2,
+        stroke : 'white',
+        fill: 'rgba(255, 255, 0, 0.8)'
+    }).styles({display:'none'})
+
+    var players = [
+        rect.clone().attrs({id: 'p1'}),
+        rect.clone().attrs({id: 'p2'}).move(width / 2, 0),
+        rect.clone().attrs({id: 'p3'}).move(0, height / 2),
+        rect.clone().attrs({id: 'p4'}).move(width / 2, height / 2)
+    ]
+
     L.add(
         base,
         perimeter,
         logo2,
-        // logo1,
-        
+        logo1,    
         defense,
         defense2,
         line,
         center,
         centermini,
     );
-
+    L.add(players)
     L.render(target, function () {
         console.log('rendered')
     });
