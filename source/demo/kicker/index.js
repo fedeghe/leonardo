@@ -55,7 +55,7 @@ window.onload = function () {
             stroke : 'white',
             fill: 'white'
         }),
-
+        person = L.group(),
         logo1 = L.image(
             -imageSize/2,
             -imageSize/2,
@@ -68,10 +68,22 @@ window.onload = function () {
             imageSize, imageSize,
             'http://localhost:3001/kicker/css/signavio.png'
         ).rotate(180, 0, 0).move(-width / 2, -height/ 2 + 150),
-    
+        pwidth = width / 2,
+        pheight = height / 2,
         image = L.image(0, 0, width, height, 'http://localhost:3001/kicker/css/field.jpg');
    
+    person.add(
+        L.circle(pwidth / 2, pheight / 8 , pheight / 8),
+        L.ellipse(pwidth / 2, 3 * pheight / 8 , pwidth / 2, pheight / 8),
+        L.rect(0, 3 * pheight / 8, pwidth, 2 * pheight / 8),
+        L.rect(pwidth / 4, 5 * pheight / 8, pwidth/2, 3 * pheight / 8)
+    ).attrs({
+        "stroke-width" : 1,
+        stroke : 'black',
+        fill: 'white'
+    })
     logo1.move(width / 2, height/2 + 150);
+
     defense.add(
         round,
         defenseLine2,
@@ -84,15 +96,17 @@ window.onload = function () {
     var rect = L.rect(0, 0, width / 2, height / 2).attrs({
         "stroke-width" : 2,
         stroke : 'white',
-        fill: 'rgba(255, 255, 0, 0.8)'
-    }).styles({display:'none'})
+        fill: 'rgba(255, 255, 0, 0.3)'
+    })
+    // .styles({display:'none'})
 
     var players = [
         rect.clone().attrs({id: 'p1'}),
         rect.clone().attrs({id: 'p2'}).move(width / 2, 0),
         rect.clone().attrs({id: 'p3'}).move(0, height / 2),
-        rect.clone().attrs({id: 'p4'}).move(width / 2, height / 2)
-    ]
+        rect.clone().attrs({id: 'p4'}).move(width / 2, height / 2),
+        // person
+    ];
 
     L.add(
         base,
@@ -104,8 +118,8 @@ window.onload = function () {
         line,
         center,
         centermini,
-    );
-    L.add(players)
+        players
+    )
     L.render(target, function () {
         console.log('rendered')
     });
