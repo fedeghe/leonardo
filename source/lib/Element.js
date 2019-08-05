@@ -78,6 +78,8 @@ Element.prototype.off = function (eventName, cb) {
  *
  * @return     {Element}  Copy of this object.
  */
+// consider a way to use use.... but remember it need the original tag to have a id attribute
+// https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use
 Element.prototype.clone = function () {
 	var ret = new Element(this.t),
 		attrNames = this.tag.attributes,
@@ -93,9 +95,19 @@ Element.prototype.clone = function () {
 	}
 	// recur in childs
 	for (i = 0, l = this.childs.length; i < l; i++) {
-		ret.add(this.childs[i].clone())
-	}
+		ret.add(this.childs[i].clone());
+    }
+    if (l == 0) {
+        ret.tag.innerHTML  = this.tag.innerHTML 
+    }
 	return ret;
+};
+
+Element.prototype.use = function () {
+    var id = this.tag.attributes.id,
+        ret = new Element('use');
+    ret.tag.setAttribute('href', '#' + id.value);
+    return ret;
 };
 
 /**
@@ -177,4 +189,4 @@ Element.prototype.clear = function () {
 
 Element.prototype.replace = function (currentOne, newOne) {
 	currentOne.tag.parentNode.replaceChild(newOne.tag, currentOne.tag);
-}
+};
