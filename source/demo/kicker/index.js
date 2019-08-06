@@ -10,6 +10,7 @@ window.onload = function () {
         green = 'rgba(173, 14, 91, 1)'
         
         L = Leonardo(width, height),
+
         base = L.rect(0,0, width, height).attrs({
 			fill : green
         }),
@@ -19,15 +20,15 @@ window.onload = function () {
             stroke : 'white',
             fill: green
         }),
-        defense = L.group(),
-        defenseLine1 = L.rect(
+        
+        defenseLineInt = L.rect(
             6 * width / 20, v,
             8 * width / 20, height / 10 -v
         ).attrs({
 			"stroke-width" : 5,
             stroke : 'white'
         }),
-        defenseLine2 = L.rect(
+        defenseLineExt = L.rect(
             4 * width / 20, v,
             12 * width / 20, 11 * height / 50 - v,
             
@@ -68,59 +69,53 @@ window.onload = function () {
             imageSize, imageSize,
             'http://localhost:3001/kicker/css/signavio.png'
         ).rotate(180, 0, 0).move(-width / 2, -height/ 2 + 150),
+
         pwidth = width / 2,
         pheight = height / 2,
-        fsize = pwidth / 4,
+        fsize = 200,
         image = L.image(0, 0, width, height, 'http://localhost:3001/kicker/css/field.jpg'),
    
-        person = L.text(pwidth / 2, pheight / 2, '&#xf183;').attrs({
-            id:"person",
-            "stroke-width" : 1,
-            "font-size": fsize,
+        person = L.textBox('&#xf183;', pwidth, pheight, {
+            // fill: 'blue',
+            "stroke-width" : 10,
             stroke : 'black',
-            fill: 'white'
-        });
-
+        } ).attrs({
+            id:"person",
+            // "stroke-width" : 1,
+            stroke : 'black',
+            "font-size": fsize,
+            fill: 'transparent'
+        }),
+        defenseUp = L.group().add(
+            round,
+            defenseLineExt,
+            defenseLineInt
+        ).attrs({
+            fill: green
+        }),
+        defenseDown = defenseUp.clone().mirrorO().move(0, height),
+        players = [
+            L.group().add(person.use()),
+            L.group().add(person.use()).move(width / 2, 0),
+            L.group().add(person.use()).move(0, height / 2),
+            L.group().add(person.use()).move(width / 2, height / 2),
+        ];
+    
     logo1.move(width / 2, height/2 + 150);
-
-    defense.add(
-        round,
-        defenseLine2,
-        defenseLine1
-    ).attrs({
-        fill: green
-    })
-
-    var defense2 = defense.clone().mirrorO().move(0, height);
-    var rect = L.rect(0, 0, width / 2, height / 2).attrs({
-        "stroke-width" : 2,
-        stroke : 'white',
-        fill: 'rgba(255, 255, 0, 0.3)'
-    })
-    // .styles({display:'none'})
-    console.log(person)
-    console.log(person.use())
-    var players = [
-        L.group().add(rect.clone().attrs({id: 'p1'}), person.use()),
-        L.group().add(rect.clone().attrs({id: 'p2'}), person.use()).move(width / 2, 0),
-        L.group().add(rect.clone().attrs({id: 'p3'}), person.use()).move(0, height / 2),
-        L.group().add(rect.clone().attrs({id: 'p4'}), person.use()).move(width / 2, height / 2),
-    ];
 
     L.add(
         base,
         perimeter,
         logo2,
         logo1,    
-        defense,
-        defense2,
+        defenseUp,
+        defenseDown,
         line,
         center,
         centermini,
-        players
-        ,person
-    )
-    L.render(target, function () {
+        players,
+        person//.attrs({display:'none'})
+    ).render(target, function () {
         console.log('rendered')
     });
 }
