@@ -1,10 +1,13 @@
 {
-	"EXE" : [
-		"rm -rf lib demo dist",
-		"mkdir dist"
-	],
-	"source/docs/README.md" : ". -vars=source/vars.json",
-	"source/index.js" : "dist -plugins=malta-header-comment[name:\"source/lib/head.txt\"] -vars=source/vars.json",
-	"source/test/require.json" : true,
-	"source/demo/require.json" : true
+    "EXE": [
+        "rm -rf lib demo dist",
+        "mkdir -p dist demo/dist"
+    ],
+    "source/docs/README.md": ". -vars=source/vars.json",
+    "source/index.js": [
+        "dist -plugins=malta-header-comment[name:\"source/lib/head.txt\"] -vars=source/vars.json",
+        "demo/dist -plugins=malta-header-comment[name:\"source/lib/head.txt\"] -vars=source/vars.json"
+    ],
+    "source/test/require.json": true,
+    "source/demo/require.json": true
 }
