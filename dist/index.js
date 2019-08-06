@@ -6,7 +6,7 @@
                                                   V. 0.2
 
 Federico Ghedina <federico.ghedina@gmail.com> 2019
-~22KB
+~23KB
 */
 (function(w) {
 	
@@ -412,6 +412,28 @@ Federico Ghedina <federico.ghedina@gmail.com> 2019
 		return script;
 	};
 	
+	L.prototype.textBox = function (txt, w, h, textAttrs) {
+	    var cnt = new Element('svg'),
+	        rect = new Element('rect'),
+	        text = new Element('text');
+	    rect.attrs({
+	        x : 0, y : 0,
+	        width: w, height: h,
+	        "stroke-width" : 0,
+	        stroke : 'transparent',
+	    });
+	    cnt.attrs({width : w, height : h});
+	    text.attrs({
+	        x: '50%',
+	        y: '50%',
+	        'dominant-baseline': 'middle',
+	        'text-anchor': 'middle'
+	    });
+	    textAttrs && text.attrs(textAttrs);
+	    text.tag.innerHTML = txt;
+	    cnt.add(rect, text);
+	    return cnt;
+	}
 	
 	/*
 	[Malta] lib/LpathBuild.js
@@ -598,61 +620,62 @@ Federico Ghedina <federico.ghedina@gmail.com> 2019
 		};
 	};
 		
-	/*
-	[Malta] lib/Lanimate.js
-	*/
-	/**
-	 * { function_description }
-	 *
-	 * @return     {Object}  { description_of_the_return_value }
-	 */
-	L.prototype.animate = (function () {
-		function parametricCartesian(el, fx, fy) {
-			var t = 0,
-				x = 0,
-				y = 0,
-				ti = setInterval(function () {
-					x = fx(x, t);
-					y = fy(y, t);
-					t += 0.1;
-					el.move(x, y);
-				}, 20);
-		}
-		function parametricPolar(el, fr, fO) {
-			var t = 0,
-				r = 0,
-				O = 0,
-				ti = setInterval(function () {
-					r = fr(r, t);
-					O = fO(O, t);
-					t += 0.1;
-					el.move(
-						r * Math.cos(O),
-						r * Math.sin(O)
-					);
-				}, 20);
-		}
-	
-		function attr(name, from, to, dur, repeat) {
-			var animate = new Element('animate');
-			animate.attrs({
-				attributeType: 'XML',
-				attributeName: name,
-				from: from,
-				to: to,
-				dur: dur,
-				repeatCount: repeat
-			});
-			return animate;
-		};
-	
-		return {
-			pCart : parametricCartesian,
-			pPolar : parametricPolar,
-			attr : attr
-		};
-	})();
-		
+    /*
+    [Malta] lib/Lanimate.js
+    */
+    /**
+     * { function_description }
+     *
+     * @return     {Object}  { description_of_the_return_value }
+     */
+    L.prototype.animate = (function () {
+    	function parametricCartesian(el, fx, fy) {
+    		var t = 0,
+    			x = 0,
+    			y = 0,
+    			ti = setInterval(function () {
+    				x = fx(x, t);
+    				y = fy(y, t);
+    				t += 0.1;
+    				el.move(x, y);
+    			}, 20);
+    	}
+    	function parametricPolar(el, fr, fO) {
+    		var t = 0,
+    			r = 0,
+    			O = 0,
+    			ti = setInterval(function () {
+    				r = fr(r, t);
+    				O = fO(O, t);
+    				t += 0.1;
+    				el.move(
+    					r * Math.cos(O),
+    					r * Math.sin(O)
+    				);
+    			}, 20);
+    	}
+    
+    	function attr(name, from, to, dur, repeat) {
+    		var animate = new Element('animate');
+    		animate.attrs({
+    			attributeType: 'XML',
+    			attributeName: name,
+    			from: from,
+    			to: to,
+    			dur: dur,
+    			repeatCount: repeat
+    		});
+    		return animate;
+    	};
+    
+    	return {
+    		pCart : parametricCartesian,
+    		pPolar : parametricPolar,
+    		attr : attr
+    	};
+    })();
+    	
+    
 	/*
 	[Malta] lib/functions.js
 	*/
@@ -896,6 +919,10 @@ Federico Ghedina <federico.ghedina@gmail.com> 2019
 	
 	Element.prototype.replace = function (currentOne, newOne) {
 		currentOne.tag.parentNode.replaceChild(newOne.tag, currentOne.tag);
+	};
+	
+	Element.prototype.getBbox = function () {
+		return this.tag.getBBox();
 	};
 	
 	var Leonardo = function (w, h, attrs) {
