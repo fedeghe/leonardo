@@ -836,6 +836,9 @@ Federico Ghedina <federico.ghedina@gmail.com> 2019
 	Element.prototype.use = function () {
 	    var id = this.tag.attributes.id,
 	        ret = new Element('use');
+	    if (!id) {
+	        throw new Error('You can use use only on tags having an id attribute');
+	    }
 	    ret.tag.setAttribute('href', '#' + id.value);
 	    return ret;
 	};
