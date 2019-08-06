@@ -190,3 +190,7 @@ Element.prototype.clear = function () {
 Element.prototype.replace = function (currentOne, newOne) {
 	currentOne.tag.parentNode.replaceChild(newOne.tag, currentOne.tag);
 };
+
+Element.prototype.getBbox = function () {
+	return this.tag.getBBox();
+};
