@@ -214,25 +214,27 @@ L.prototype.script = function (cnt) {
 	return script;
 };
 
-
 L.prototype.textBox = function (txt, w, h, textAttrs) {
     var cnt = new Element('svg'),
         rect = new Element('rect'),
         text = new Element('text');
-    rect.attrs({x : 0, y : 0, width: w, height: h});
+    rect.attrs({
+        x : 0, y : 0,
+        width: w, height: h,
+        "stroke-width" : 0,
+        stroke : 'transparent',
+    });
     cnt.attrs({width : w, height : h});
     text.attrs({
         x: '50%',
         y: '50%',
         'dominant-baseline': 'middle',
-        'text-anchor': 'middle',
-        stroke:'white'
+        'text-anchor': 'middle'
     });
     textAttrs && text.attrs(textAttrs);
     text.tag.innerHTML = txt;
     cnt.add(rect, text);
     return cnt;
 }
-
 
 $$lib/LpathBuild.js$$
