@@ -602,57 +602,52 @@ longest@^1.0.1:
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
   integrity sha1-MKCy2jj3N3DoKUoNIuZiXtd9AJc=
 
-malta-browser-refresh@^1.2.1:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/malta-browser-refresh/-/malta-browser-refresh-1.2.2.tgz#f2c7de8a7be5b665586a955a86b9754df09895f5"
-  integrity sha512-+RBIU2cpSEnSaAcAqVROcjYKUGowTkdGyfmZqip1oZsiir9Shs/u690qNo0sCAYvuLwvVo6H4n/YE1PxvRL5Cg==
+malta-browser-refresh@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/malta-browser-refresh/-/malta-browser-refresh-1.2.5.tgz#40e35a8835b2bf7934d9206240fa2a04e8739238"
+  integrity sha512-haSkdtsYxEB26QKrYlFknQyatRRJRmy5yn2hIG5Q/Pl2ceEM/JYzWKq2Msvze/j6CEXgXlGaY81UJZbLb2/Kzg==
   dependencies:
-    malta ">=3.8.14"
+    malta "^4.0.4"
 
-malta-dev-srv@^1.0.6:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/malta-dev-srv/-/malta-dev-srv-1.1.3.tgz#37c4c4c777610b6fe612f75bc7829b0d2687018f"
-  integrity sha512-AWUYOEUaR79yp5G4hIlWObGy4VWxBMTc1bZC1hHglsQrAe0B9WQNB8T0nmMLaWx2S3TXm5YlilBVrCr5SHoCOw==
+malta-dev-srv@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/malta-dev-srv/-/malta-dev-srv-1.1.5.tgz#1efe9c91c6420ec64b7f211eb602aee092b62c6a"
+  integrity sha512-/Tom3LuZ6QaOHhBhrJFwuSV1r2iJoKWGJB7nxzGVrggKDwY/fa5waR7G+l/G3iCCjr1tS886Mw9FRgFFwQkCNw==
   dependencies:
-    malta ">=3.8.14"
+    malta "^4.0.4"
 
-malta-header-comment@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/malta-header-comment/-/malta-header-comment-1.0.5.tgz#05c742da26493e8bcb7ac5a639f76d23e46b2ccd"
-  integrity sha512-7Nnv5YQ9KqzECYPfLsZ0nvJRwsLi4WjS1BujEvEkHxPeNKI0fwAsHDrK6yTrwYbRKnE0w37xnlP7xssBa46kDQ==
+malta-header-comment@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/malta-header-comment/-/malta-header-comment-1.0.8.tgz#5f233b16178d31fd40bfd7d98d4b6c07c27fd391"
+  integrity sha512-DZG/6uPToc0oM9/hJtj45dMNUwXan/AUALHt3kPm+BxyIgu7x3cS88ZUgKg1SKWvTiJGf3OODu+Pit1VQnPM+Q==
   dependencies:
-    malta ">=3.8.14"
+    malta "^4.0.4"
 
-malta-js-uglify@^1.0.3:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/malta-js-uglify/-/malta-js-uglify-1.0.5.tgz#2b46c19df0be51332f92b5b286999b4ce5a0c685"
-  integrity sha512-l6pVc4KEmtJRmVnTP3E+lviBDgw/pca9NJoP5NvUQAqvNDsWNp780JkW7w7lYvP0SXDlSfVTjKS9RmaqVcQL6Q==
+malta-js-uglify@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/malta-js-uglify/-/malta-js-uglify-1.0.7.tgz#0517aa757c55168e2055e94bd9527d46dd271554"
+  integrity sha512-3vn4/0YwElYdo6MpgNZ4lwicSE1hGuN6OtTTMG/0N0XvPMRNapNNEXUKgdzoU5XrQzxqSpKV4nTHc/iKXGJQqA==
   dependencies:
-    malta ">=3.8.14"
+    malta "^4.0.4"
     uglify-js "^2.8.29"
 
-malta-less@^1.0.2:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/malta-less/-/malta-less-1.0.7.tgz#d5b1fda4a274cad013dda4154a386bbcb4460fcc"
-  integrity sha512-Xjtmn+wupGJAolpUhO7VYNobEdVvwJoO6GB3aIP6226DJ6sc78rtau3HvD+A+WmwjZgOnB40R61MI6UHoFSGog==
+malta-less@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/malta-less/-/malta-less-1.0.10.tgz#5fb9e720052eae6d8f534eb55a889f13377581f4"
+  integrity sha512-fvhH83dgMP3lOOjxbvDvrVYyqWy+QoYR2rfvlJqT9TPfFKT6CL4VHPOQjnZtN9Mxl4eSYSbJs+B1q4+0MpO0kA==
   dependencies:
     less "^3.8.1"
-    malta ">=3.9.11"
+    malta "^4.0.4"
 
-malta-markdown-pdf@^1.0.2:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/malta-markdown-pdf/-/malta-markdown-pdf-1.0.4.tgz#34234796d683d1ca65c2692b3691a4892115f142"
-  integrity sha512-TvHQ9p/kgqJnVTnWGen3Q5CMzRV9IBMwpXKHqHOpIrH40ZJ/HwcB0Cx6u8oZpvf1pzno97yY08UHMUng6qzSRQ==
+malta-markdown-pdf@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/malta-markdown-pdf/-/malta-markdown-pdf-1.0.7.tgz#821bd43eb87779a841f35b57dec9a342ce0beac1"
+  integrity sha512-OANBYWq0bvi/K4KBIThoFgEtSxMMPJoxj5WEaeH33aKnSKQU5jDo9NyOuvTbMbVwXlYWzVvMXvv1CfIoPuw1UA==
   dependencies:
-    malta ">=3.8.3"
+    malta "4.0.4"
     markdown-pdf "^9.0.0"
 
-malta@>=3.8.14, malta@>=3.8.3, malta@>=3.9.11:
-  version "3.9.16"
-  resolved "https://registry.yarnpkg.com/malta/-/malta-3.9.16.tgz#d708abef0a62618a21af2f162fc95434b02db2ab"
-  integrity sha512-SA38WnQ5guC+KgbAHRiOhgyfsGu1kqwc1UYLnz935A3Ge+Uu+RTwqLpD2OOCGyKSLL6M/Uayimag/8eilgVx4w==
-
-malta@^4.0.4:
+malta@4.0.4, malta@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/malta/-/malta-4.0.4.tgz#9ab860454307e57479daad3452c7abc62deddc4b"
   integrity sha512-7+6zUDM2Az4t51mdLFk6XMgheExGNhl3Kwgp/hVp07bcJylu8VKwXwxVdFujxRxjxJmwGUHdjV9ABgaEpQuL0Q==
