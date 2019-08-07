@@ -5,20 +5,20 @@ window.onload = function () {
         height= 116 * size,
         imageSize = width / 4,
 
-        // green = 'rgba(0, 100, 0, 1)'
-        // green = 'rgba(0, 0, 0, 1)'
-        green = 'rgba(173, 14, 91, 1)'
+        // bgcolor = 'rgba(0, 100, 0, 1)'
+        // bgcolor = 'rgba(0, 0, 0, 1)'
+        bgcolor = 'rgba(173, 14, 91, 1)'
         
         L = Leonardo(width, height),
 
         base = L.rect(0,0, width, height).attrs({
-			fill : green
+			fill : bgcolor
         }),
         v = 2,
         perimeter = L.rect(v,v, width-2*v, height-2*v).attrs({
 			"stroke-width" : 5,
             stroke : 'white',
-            fill: green
+            fill: bgcolor
         }),
         
         defenseLineInt = L.rect(
@@ -40,29 +40,34 @@ window.onload = function () {
 			"stroke-width" : 5,
             stroke : 'white'
         }),
-        line = L.polyline(
-            0, height / 2,
-            width, height / 2,
-        ).attrs({
-			"stroke-width" : 5,
-            stroke : 'white',
-        }),
-        center = L.circle(width / 2, height / 2, width / 7).attrs({
-			"stroke-width" : 5,
-            stroke : 'white',
-            fill: 'transparent'
-        }),
-        centermini = L.circle(width / 2, height / 2, width / 66).attrs({
-            stroke : 'white',
-            fill: 'white'
-        }),
+        center = [
+            L.polyline(
+                0, height / 2,
+                width, height / 2,
+            ).attrs({
+                "stroke-width" : 5,
+                stroke : 'white',
+            }),
+            L.circle(width / 2, height / 2, width / 7).attrs({
+                "stroke-width" : 5,
+                stroke : 'white',
+                fill: 'transparent'
+            }),
+            L.circle(width / 2, height / 2, width / 66).attrs({
+                stroke : 'white',
+                fill: 'white'
+            })
+        ],
         
         logo1 = L.image(
             -imageSize/2,
             -imageSize/2,
             imageSize, imageSize,
             'http://localhost:3001/kicker/css/signavio.png'
-        ),
+        ).attrs({
+            id : 'logo'
+        }),
+        logo2 = logo1.use(),
         logo2 = L.image(
             -imageSize/2,
             -imageSize/2,
@@ -81,17 +86,17 @@ window.onload = function () {
             stroke : 'black',
         } ).attrs({
             id:"person",
-            // "stroke-width" : 1,
-            stroke : 'black',
             "font-size": fsize,
             fill: 'transparent'
+        }).styles({
+            cursor: 'default'
         }),
         defenseUp = L.group().add(
             round,
             defenseLineExt,
             defenseLineInt
         ).attrs({
-            fill: green
+            fill: bgcolor
         }),
         defenseDown = defenseUp.clone().mirrorO().move(0, height),
         players = [
@@ -110,9 +115,7 @@ window.onload = function () {
         logo1,    
         defenseUp,
         defenseDown,
-        line,
         center,
-        centermini,
         players,
         person//.attrs({display:'none'})
     ).render(target, function () {
