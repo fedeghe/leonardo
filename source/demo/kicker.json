@@ -6,5 +6,5 @@
     ],
     "source/demo/kicker/index.js": "demo/kicker/js -vars=source/vars.json",
     "source/demo/kicker/index.less": "demo/kicker/css -plugins=malta-less -vars=source/vars.json",
-    "source/demo/kicker/index.html": "demo/kicker -plugins=malta-browser-refresh[files:\"*\"] -vars=source/vars.json"
+    "source/demo/kicker/index.html": "demo/kicker -plugins=malta-browser-refresh[files:\"relative\"] -vars=source/vars.json"
 }
