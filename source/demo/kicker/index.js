@@ -67,7 +67,6 @@ window.onload = function () {
         ).attrs({
             id : 'logo'
         }),
-        logo2 = logo1.use(),
         logo2 = L.image(
             -imageSize/2,
             -imageSize/2,
