@@ -58,12 +58,12 @@ window.onload = function () {
                 fill: 'white'
             })
         ],
-        
+        logoUrl = 'http://localhost:3001/kicker/css/signavio.png',
         logo1 = L.image(
             -imageSize/2,
             -imageSize/2,
             imageSize, imageSize,
-            'http://localhost:3001/kicker/css/signavio.png'
+            logoUrl
         ).attrs({
             id : 'logo'
         }),
@@ -72,7 +72,7 @@ window.onload = function () {
             -imageSize/2,
             -imageSize/2,
             imageSize, imageSize,
-            'http://localhost:3001/kicker/css/signavio.png'
+            logoUrl
         ).rotate(180, 0, 0).move(-width / 2, -height/ 2 + 150),
 
         pwidth = width / 2,
