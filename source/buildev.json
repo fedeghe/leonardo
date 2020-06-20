@@ -9,5 +9,6 @@
         "demo/dist -plugins=malta-header-comment[name:\"source/lib/head.txt\"] -vars=source/vars.json"
     ],
     "source/test/require.json": true,
-    "source/demo/require.json": true
+    "source/demo/require.json": true,
+    "source/lib/LICENSE": "."
 }

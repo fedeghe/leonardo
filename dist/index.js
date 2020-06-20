@@ -5,7 +5,7 @@
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
                                                   V. 0.2
 
-Federico Ghedina <federico.ghedina@gmail.com> 2019
+Federico Ghedina <federico.ghedina@gmail.com> 2020
 ~23KB
 */
 (function(w) {
