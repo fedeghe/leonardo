@@ -4,10 +4,6 @@ window.onload = function () {
 		
 		width = 225,
 		height = 80,
-		center = {
-			x : width / 2,
-			y : height / 2
-		},
 		bricks = [],
 
 		L = Leonardo(width, height, {ns : '*', target : target}),
