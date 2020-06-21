@@ -2,7 +2,8 @@
 	'use strict';
 	var qs = Leonardo.getqs(),
 		target = document.getElementById('trg'),
-		size = 800,
+        size = 800,
+        ticksPerSecond = 20,
 		nowH = (new Date).getHours(),
 		theme = ('theme' in qs && qs.theme.match(/white|black/)) ? qs.theme : (nowH > 7 && nowH < 17 ) ? 'white' : 'black', 
 		themes = {
@@ -159,6 +160,6 @@
 		secs.rotate((s + ms / 1E3) * 6, cx, cy);
 		mins.rotate((m * fact + s + ms / 1E3) * 0.1, cx, cy);
 		hours.rotate((h * fact + m + s / fact) * (360 / (12 * fact)) , cx, cy);
-	}, 1000 / 20);
+	}, 1000 / ticksPerSecond);
 
 })();
