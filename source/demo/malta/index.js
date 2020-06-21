@@ -7,7 +7,7 @@ window.onload = function () {
 		bricks = [],
 
 		L = Leonardo(width, height, {ns : '*', target : target}),
-		bricksG = L.group(),
+		bricksGroup = L.group(),
 		malta = L.path(
 			L.pathBuild.m(60,35)
 			.q(-60,-2, -50, 10)
@@ -33,9 +33,9 @@ window.onload = function () {
 	bricks.push(brick.clone().move(0,40))
 	bricks.push(brick.clone().move(110,40))
 
-	bricksG.add(bricks).move(5, 5);
+	bricksGroup.add(bricks).move(5, 5);
 
-	L.add(malta, bricksG);
+	L.add(malta, bricksGroup);
 
 	L.render();
 };
