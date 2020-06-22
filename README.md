@@ -4,12 +4,14 @@
 |  |__|   __|  |  | | | |     |    -|  |  |  |  |
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
                                                     v. 1.0.10
+
 ```
+A simple library to draw sgv
 
 
 ## install leonardo
 
-`> npm install @fedeghe/leonardo`
+`> yarn add @fedeghe/leonardo`
 
 
 ## use it
@@ -21,15 +23,20 @@ First of all in your html include _Leonardo.js_ in the `<head>` tag:
 Now create another `<script>` tag to use _Leonardo.js_:  
 
 ```
-<script>
+<script>+function(){
     var L = Leonardo (300, 200, {id : "target"});
+}()
 </script>
 ```
 
 parameters:  
-**width** : the width in pixels (required)
-**height** : the height in pixels (required)
-attrs : an hash of required attributes for the `<svg>` tag
+
+`width (*)` : the width in pixels (required)  
+
+`height (*)` : the height in pixels (required) 
+
+`attrs` : an hash of required attributes for the `<svg>` tag 
+
 
 for _svg namespaces_ is enough just to pass a `ns` element containing an array containing one or more from the following set :
 ```
