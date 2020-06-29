@@ -44,15 +44,11 @@ for _svg namespaces_ is enough just to pass a `ns` element containing an array c
 ```
 if all are needed is enough to pass '*'.  
 
-But it is better go go in order:
-
-
+To draw something we need to add svg tags. Leonardo let you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `textPath`, `title`, `script`, `textBox`
 
 ---
 
-WORK IN PROGRESS
-
----
+$$tags.md$$
 
 
 
