@@ -1,8 +1,11 @@
 (function () {
-	'use strict';
-	var qs = Leonardo.getqs(),
-		target = document.getElementById('trg'),
-        size = 800,
+    'use strict';
+
+    var viewPortWidth = window.innerWidth || documentElement.clientWidth,
+        qs = Leonardo.getqs(),
+        target = document.getElementById('trg'),    
+        maxSize = 800,
+        size = Math.min(viewPortWidth, maxSize),
         ticksPerSecond = 20,
 		nowH = (new Date).getHours(),
 		theme = ('theme' in qs && qs.theme.match(/white|black/)) ? qs.theme : (nowH > 7 && nowH < 17 ) ? 'white' : 'black', 
@@ -79,8 +82,6 @@
 		});
 
 	L.add(container);
-	
-	// cir1.attrs({'fill': filt3});
 	border.add(cir0).attrs({fill: filt3});
 
 	container
@@ -132,9 +133,7 @@
 	
 	target.style.width = size + 'px';
 
-	L.render(target, function () {
-		console.log('rendered')
-	});	
+	
 
 	function getTime(gmtHmove, gmtMmove) {
 		var time0 = new Date();
@@ -160,6 +159,11 @@
 		secs.rotate((s + ms / 1E3) * 6, cx, cy);
 		mins.rotate((m * fact + s + ms / 1E3) * 0.1, cx, cy);
 		hours.rotate((h * fact + m + s / fact) * (360 / (12 * fact)) , cx, cy);
-	}, 1000 / ticksPerSecond);
+    }, 1000 / ticksPerSecond);
 
+    window.setTimeout(function () {
+        L.render(target, function () {
+            console.log('rendered')
+        });	
+    }, 200)
 })();

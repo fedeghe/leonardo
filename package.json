@@ -12,7 +12,7 @@
     "scripts": {
         "test": "mocha --timeout 10000 test/setup/runner.js test/**.js",
         "buildev": "malta source/buildev.json",
-        "build": "malta source/buildtr.json",
+        "build": "malta source/build.json",
         "clean": "malta source/clean.json"
     },
     "devDependencies": {
