@@ -803,6 +803,19 @@ Federico Ghedina <federico.ghedina@gmail.com> 2020
 		return this;
 	};
 	
+	Element.prototype.once = function (eventName, cb) {
+		if (eventName in this.events) {
+			this.events[eventName].push(cb);
+		} else {
+			this.events[eventName] = [cb];
+		}
+		this.tag.addEventListener(eventName, function (e) {
+	        cb(e)
+	        this.off(eventName, cb)
+	    });
+		return this;
+	};
+	
 	/**
 	 * Creates a new instance of the object with same properties than original.
 	 *
@@ -813,7 +826,6 @@ Federico Ghedina <federico.ghedina@gmail.com> 2020
 	Element.prototype.clone = function () {
 		var ret = new Element(this.t),
 			attrNames = this.tag.attributes,
-			children = this.tag.children,
 			i = 0, l;
 	
 		ret.transforms.rotate = this.transforms.rotate;
@@ -843,15 +855,10 @@ Federico Ghedina <federico.ghedina@gmail.com> 2020
 	    return ret;
 	};
 	
-	/**
-	 * { function_description }
-	 *
-	 * @return     {Object}  { description_of_the_return_value }
-	 */
-	Element.prototype.trans = function () {
-		this.attrs({transform : this.transforms.rotate + ' ' + this.transforms.move + ' ' + this.transforms.scale});
-		return this;
-	};
+	function trans(instance) {
+	    instance.attrs({transform : instance.transforms.rotate + ' ' + instance.transforms.move + ' ' + instance.transforms.scale});
+		return instance;
+	}
 	
 	/**
 	 * { function_description }
@@ -865,7 +872,7 @@ Federico Ghedina <federico.ghedina@gmail.com> 2020
 		rx = rx || 0;
 		ry = ry || 0;
 		this.transforms.rotate = ' rotate(' + r + ' ' + rx + ' ' + ry + ')';
-		return this.trans();
+		return trans(this);
 	};
 	
 	/**
@@ -879,7 +886,7 @@ Federico Ghedina <federico.ghedina@gmail.com> 2020
 		sx = sx || 0;
 		sy = sy || 0;
 		this.transforms.scale = ' scale(' + sx + ', ' + sy + ')';
-		return this.trans();
+		return trans(this);
 	};
 	
 	/**
@@ -887,9 +894,9 @@ Federico Ghedina <federico.ghedina@gmail.com> 2020
 	 *
 	 * @return     {<type>}  { description_of_the_return_value }
 	 */
-	Element.prototype.mirrorO = function () {
+	Element.prototype.mirrorH = function () {
 		this.transforms.scale = ' scale(1, -1)';
-		return this.trans();
+		return trans(this);
 	};
 	
 	/**
@@ -899,7 +906,7 @@ Federico Ghedina <federico.ghedina@gmail.com> 2020
 	 */
 	Element.prototype.mirrorV = function () {
 		this.transforms.scale = ' scale(-1, 1)';
-		return this.trans();
+		return trans(this);
 	};
 	
 	/**
@@ -913,7 +920,7 @@ Federico Ghedina <federico.ghedina@gmail.com> 2020
 		rx = rx || 0;
 		ry = ry || 0;
 		this.transforms.move = ' translate(' + rx + ' ' + ry + ')';
-		return this.trans();
+		return trans(this);
 	};
 	
 	Element.prototype.clear = function () {

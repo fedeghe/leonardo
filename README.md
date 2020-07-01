@@ -68,13 +68,13 @@ Returns a `<desc>` tag containing the text passed to it
 ```
 var circle = L.circle(cx, cy, r)
 ```
-Returns a `<circle>` tag centered at `P{cx, cy}` with radius `r`.
+Returns a `<circle>` tag centered at `P : {cx, cy}` with radius `r`.
 
 ### \<ellipse\>
 ```
 var ellipse = L.ellipse(cx, cy, rx, ry)
 ```
-Returns a `<ellipse>` tag centered at `P{cx, cy}` with radiuses `rx` and `ry`.
+Returns a `<ellipse>` tag centered at `P : {cx, cy}` with radiuses `rx` and `ry`.
 
 ### \<g\>
 ```
@@ -86,13 +86,13 @@ Returns a group `<g>` tag.
 ```
 var image = L.image(x, y, w, h, src)
 ```
-Returns a `<image>` tag positioned at `P{x,y}` about `w` and `h` are meant to be the clearly the sizes but  real image size will win on it, in the end the ratio cannot be modified.
+Returns a `<image>` tag positioned at `P : {x,y}` about `w` and `h` are meant to be the clearly the sizes but  real image size will win on it, in the end the ratio cannot be modified.
 
 ### \<line\>  
 ```
 var line = L.line(x1, y1, x2, y2)
 ```
-Returns a `<line>` tag representing a segment starting from `P1{x1,y1}` and ending in `P2{x2, y2}`.
+Returns a `<line>` tag representing a segment starting from `P1 : {x1,y1}` and ending in `P2 : {x2, y2}`.
 
 ### \<path\>  
 ```
@@ -117,13 +117,13 @@ creates a polyline which can even be opened (it does not close automatically).
 ```
 var rect = L.rect(x, y, w, h)
 ```
-Returns a `<rect>` tag with the upper left corner positioned at `P{x, y}` then `w` is for the width and `h for the height.
+Returns a `<rect>` tag with the upper left corner positioned at `P : {x, y}` then `w` is for the width and `h for the height.
 
 ### \<text\>  
 ```
 var text = L.text(x, y, content)
 ```
-Returns a `<text>` tag with positioned at the upper left corner positioned at `P{x, y}` containing the text passed as `content`.
+Returns a `<text>` tag with positioned at the upper left corner positioned at `P : {x, y}` containing the text passed as `content`.
 
 ### \<title\>  
 ```
@@ -154,6 +154,123 @@ If we want a text to follow a path then a single tag is not [enough](https://dev
 This function returns an element which contains all is needed given an `id`, a `d` data for the path and a `content` string. 
 
 
+
+---
+
+## Element instance  
+From the previous section it should be clear how to create a specifig tag (at least among the most popular ones). Leonardo creates for each of them an instance of an `Element`. This instance offers the following methods to tune the aspect of those tag and something more:  
+
+---
+
+### instance.attrs(attrs) -> instance
+
+Here _attrs_ is an _object literal_ that can contain all the attributes we may need to add to the tag. For example for a `<line>` tag we could write:
+```
+myLine.attrs({'stroke-width': 12, stroke: 'black'});
+```
+---
+### instance.styles(styles) -> instance  
+
+Here _styles_ is an _object literal_ that can contain all the styles we may need to add to the tag. For example for a `<reat>` tag we could write:
+```
+myReact.styles({cursor: 'pointer'})
+```
+---
+### instance.add(tag1 [, tag2 [, ...]]) -> instance  
+
+This adds all tags passed to it into the instance tag. For example let's say we have a `<g>` of objects and we would like to rotate (see below) all the elements contained into it :
+```
+mygroup.add(line, circle)
+// now we can rotate all elements just rotating the group
+```
+---
+### instance.on(eventName, callback) -> instance  
+
+This method allows to register an event listener for a tag:
+```
+myReact.on('click', function (e) {
+    console.log(e)
+})
+```
+---
+### instance.off(eventName, callback) -> instance  
+
+This method allows to unregister an event listener for a tag:
+```
+myReact.off('click', function (e) {
+    console.log(e)
+})
+```
+As expected if You plan to register and unregister an handler function You must use the same referenced handler function in both calls.
+
+---
+
+### instance.once(eventName, callback) -> instance  
+
+Should be clear what this does right?
+
+---
+
+### instance.clone() -> clone instance  
+
+Creates a clone of the instance
+
+
+---
+
+### instance.use() -> <use> Element instance  
+
+Creates something similar to a clone of the instance, the limitation/power of a `<use>` tag is that one cannot override the properties defined in the original instance. More [here](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use).
+
+
+---
+
+### instance.rotate(deg, x, y) -> instance  
+
+Rotates a tag of `deg` degrees around the point `P : {x, y}`.
+
+---
+
+### instance.scale(sx, sy) -> instance  
+
+Scales a tag using `sx` to scale along _x_ axis and `sy` to scale along _y_ axis.
+
+---
+
+### instance.mirrorH() -> instance  
+
+Mirrors a tag horizontally.
+
+---
+
+### instance.mirrorV() -> instance  
+
+Mirrors a tag vertically.
+
+---
+
+### instance.move(x, y) -> instance  
+
+Moves a tag of `x` along _x_ axis and `y` alogn _y_ axis. 
+
+
+---
+
+### instance.clear() -> void
+
+Removes a tag.
+
+---
+
+### instance.replace(oldTag, newTag) -> void
+
+Replaces `oldTag` with `newTag`.
+
+---
+
+### instance.getBbox() -> void
+
+Gets the bounding box of the instance {x, y, w, h}. More infos can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/SVGGraphicsElement/getBBox)
 
 
 

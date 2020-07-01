@@ -191,7 +191,7 @@ window.onload = function () {
 		'font-size' : h(160),
 		'font-family' : 'Verdana',
 		color:'black'
-	}).mirrorO().rotate(95, w(450), h(460)).move(w(450), h(460));
+	}).mirrorH().rotate(95, w(450), h(460)).move(w(450), h(460));
 
 	smile.attrs({
 		'font-size' : h(100),

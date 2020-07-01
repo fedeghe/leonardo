@@ -18,13 +18,13 @@ Returns a `<desc>` tag containing the text passed to it
 ```
 var circle = L.circle(cx, cy, r)
 ```
-Returns a `<circle>` tag centered at `P{cx, cy}` with radius `r`.
+Returns a `<circle>` tag centered at `P : {cx, cy}` with radius `r`.
 
 ### \<ellipse\>
 ```
 var ellipse = L.ellipse(cx, cy, rx, ry)
 ```
-Returns a `<ellipse>` tag centered at `P{cx, cy}` with radiuses `rx` and `ry`.
+Returns a `<ellipse>` tag centered at `P : {cx, cy}` with radiuses `rx` and `ry`.
 
 ### \<g\>
 ```
@@ -36,13 +36,13 @@ Returns a group `<g>` tag.
 ```
 var image = L.image(x, y, w, h, src)
 ```
-Returns a `<image>` tag positioned at `P{x,y}` about `w` and `h` are meant to be the clearly the sizes but  real image size will win on it, in the end the ratio cannot be modified.
+Returns a `<image>` tag positioned at `P : {x,y}` about `w` and `h` are meant to be the clearly the sizes but  real image size will win on it, in the end the ratio cannot be modified.
 
 ### \<line\>  
 ```
 var line = L.line(x1, y1, x2, y2)
 ```
-Returns a `<line>` tag representing a segment starting from `P1{x1,y1}` and ending in `P2{x2, y2}`.
+Returns a `<line>` tag representing a segment starting from `P1 : {x1,y1}` and ending in `P2 : {x2, y2}`.
 
 ### \<path\>  
 ```
@@ -67,13 +67,13 @@ creates a polyline which can even be opened (it does not close automatically).
 ```
 var rect = L.rect(x, y, w, h)
 ```
-Returns a `<rect>` tag with the upper left corner positioned at `P{x, y}` then `w` is for the width and `h for the height.
+Returns a `<rect>` tag with the upper left corner positioned at `P : {x, y}` then `w` is for the width and `h for the height.
 
 ### \<text\>  
 ```
 var text = L.text(x, y, content)
 ```
-Returns a `<text>` tag with positioned at the upper left corner positioned at `P{x, y}` containing the text passed as `content`.
+Returns a `<text>` tag with positioned at the upper left corner positioned at `P : {x, y}` containing the text passed as `content`.
 
 ### \<title\>  
 ```
@@ -102,5 +102,4 @@ var textPath = L.textPath(id, d, content)
 ```
 If we want a text to follow a path then a single tag is not [enough](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/textPath)
 This function returns an element which contains all is needed given an `id`, a `d` data for the path and a `content` string. 
-
 

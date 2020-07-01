@@ -97,7 +97,7 @@ window.onload = function () {
         ).attrs({
             fill: bgcolor
         }),
-        defenseDown = defenseUp.clone().mirrorO().move(0, height),
+        defenseDown = defenseUp.clone().mirrorH().move(0, height),
         players = [
             L.group().add(person.use()),
             L.group().add(person.use()).move(width / 2, 0),
