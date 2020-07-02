@@ -1,4 +1,3 @@
 ## filters
 
-L.filters.lGrad
-L.filters.rGrad
+Still need to document

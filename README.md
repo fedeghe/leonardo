@@ -24,7 +24,11 @@ Now create another `<script>` tag to use _Leonardo.js_:
 
 ```
 <script>+function(){
-    var L = Leonardo (300, 200, {id : "target"});
+    var L = Leonardo (300, 200, {id: 'theRootSvg', target: theTargetNode});
+    /**
+    ...
+    */
+    L.render();
 }()
 </script>
 ```
@@ -275,3 +279,28 @@ Gets the bounding box of the instance {x, y, w, h}. More infos can be found [her
 
 
 
+
+
+---
+
+## filters
+
+Still need to document
+
+---
+
+## transformations  
+Still need to document
+
+---
+
+## animate
+
+Still need to document
+
+---
+
+## Some samples
+
+In the `source` folder there are some examples I use for developement purposes.  
+If You run `yarn buildev` (and let it go since it is watching for changes in the `source` folder) and the visit [http://127.0.0.1:3001](http://127.0.0.1:3001) You can see all of them.

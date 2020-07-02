@@ -24,7 +24,11 @@ Now create another `<script>` tag to use _Leonardo.js_:
 
 ```
 <script>+function(){
-    var L = Leonardo (300, 200, {id : "target"});
+    var L = Leonardo (300, 200, {id: 'theRootSvg', target: theTargetNode});
+    /**
+    ...
+    */
+    L.render();
 }()
 </script>
 ```
@@ -53,3 +57,19 @@ $$tags.md$$
 ---
 
 $$elements.md$$
+
+---
+
+$$filters.md$$
+
+---
+
+$$transformations.md$$
+
+---
+
+$$animate.md$$
+
+---
+
+$$samples.md$$

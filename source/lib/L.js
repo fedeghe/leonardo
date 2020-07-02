@@ -156,10 +156,14 @@ L.prototype.render = function (n, cb) {
 /**
  * 
  */
-L.prototype.downloadAnchor = function () {
+L.prototype.downloadAnchor = function (txt, name) {
 	var serializer = new XMLSerializer(),
 		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag),
-		url =null;
+        url = null;
+    
+    txt = txt || 'download';
+    name = name || 'download';
+
 	if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
 		source = source.replace(/^<svg/, '<svg xmlns="' + this.namespaces.svg + '"');
 	}
@@ -170,11 +174,11 @@ L.prototype.downloadAnchor = function () {
 
 
 	var a = document.createElement('a');
-	a.download = 'download' + (+new Date) + '.svg';
+	a.download = name + (+new Date) + '.svg';
 	a.href = url;
 	a.addEventListener('click', function () {
-		this.download = 'download' + (+new Date) + '.svg'
+		this.download = name + (+new Date) + '.svg'
 	})
-	a.innerHTML = 'download';
+	a.innerHTML = txt;
 	return a;
 };
