@@ -142,8 +142,7 @@ window.onload = function () {
     
     Leo.add(container);
 
-    Leo.render(target, function () {
+    Leo.render({target: target, cb: function () {
         console.log('rendered')
-    });	
-    
+    }});
 };

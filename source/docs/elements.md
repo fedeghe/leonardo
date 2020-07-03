@@ -1,6 +1,27 @@
 ## Element instance  
-From the previous section it should be clear how to create a specifig tag (at least among the most popular ones). Leonardo creates for each of them an instance of an `Element`. This instance offers the following methods to tune the aspect of those tag and something more:  
 
+First thing we need to create an instance, use `Leonardo` factory function:
+
+```
+Leonardo(width, height, options)
+```
+- `width`: mandatory Integer  
+- `height`: mandatory Integer  
+- `options`: an optional object literal which allows to  set some attributes that will be added to the root svg:  
+    - `ns`: set the namespaces that are needed  
+    - `target`: define the target node for rendering  
+
+anyway it will be possible to specify the target even when invoking the `render` method on the instance.
+
+Leonardo creates for each of them an instance of an `Element`. This instance offers the following methods to tune the aspect of those tag and something more:  
+
+---  
+### instance.render({target: DOMNode, cb: function (instance) {}}) -> instance
+
+renders the instance into the target :
+```
+myLine.render();
+```
 ---
 
 ### instance.attrs(attrs) -> instance

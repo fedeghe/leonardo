@@ -117,7 +117,7 @@ window.onload = function () {
         center,
         players,
         person//.attrs({display:'none'})
-    ).render(target, function () {
+    ).render({target: target, cb: function () {
         console.log('rendered')
-    });
+    }});
 }

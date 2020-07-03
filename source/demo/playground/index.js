@@ -58,5 +58,5 @@ window.onload = function () {
 
 	tria.rotate(20, 300,50).move(10, 100);
 
-	L.add(polyline, polygon, image, tria).render(target);
+	L.add(polyline, polygon, image, tria).render({target: target});
 };

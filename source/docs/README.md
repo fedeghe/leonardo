@@ -4,7 +4,6 @@
 |  |__|   __|  |  | | | |     |    -|  |  |  |  |
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
                                                     v. $PACKAGE.version$
-
 ```
 $PACKAGE.description$
 
@@ -52,11 +51,11 @@ To draw something we need to add svg tags. Leonardo let you create the following
 
 ---
 
-$$tags.md$$
+$$elements.md$$
 
 ---
 
-$$elements.md$$
+$$tags.md$$
 
 ---
 

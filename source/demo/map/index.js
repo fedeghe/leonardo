@@ -32,6 +32,6 @@ window.onload = function () {
 		}
 	}
 
-	L.render(document.getElementById('trg'));
+	L.render({target: document.getElementById('trg')});
 	document.body.appendChild(L.downloadAnchor());
 };

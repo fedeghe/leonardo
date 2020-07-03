@@ -145,11 +145,12 @@ L.prototype.add = function () {
  * @param      {Function}  cb      { parameter_description }
  * @return     {Object}    { description_of_the_return_value }
  */
-L.prototype.render = function (n, cb) {
-	var trg = n || this.target;
+L.prototype.render = function (o) {
+    var trg = o.target || this.target;
+    if (!trg) throw 'Target not set'
 	trg.innerHTML = '';
 	trg.appendChild(this.tag);
-	cb && cb.call(this);
+	o.cb && o.cb.call(this);
 	return this;
 };
 

@@ -20,8 +20,8 @@ e.getqs=function(){var t,e,r=document.location.search.substr(1),n=r.split("&"),o
 var e=document.createElement("div");return e.appendChild(t),e.innerHTML},e.toDocument=function(t){return(new DOMParser).parseFromString(t,"image/svg+xml")},e.prototype.attrs=function(t){var e
 ;if("string"==typeof t)return this.tag.getAttribute(t);for(e in t)this.tag.setAttribute(e,t[e]);return this},e.prototype.styles=function(t){var e;for(e in t)this.tag.style[e]=t[e];return this},
 e.prototype.add=function(){var t=this;return[].slice.call(arguments,0).forEach(function(e){e instanceof Array?e.forEach(function(e){t.childs.push(e),t.add(e)}):(t.childs.push(e),
-t.tag.appendChild(e.tag))}),this},e.prototype.render=function(t,e){var r=t||this.target;return r.innerHTML="",r.appendChild(this.tag),e&&e.call(this),this},e.prototype.downloadAnchor=function(t,e){
-var r=new XMLSerializer,n='<?xml version="1.0" standalone="no"?>\r\n'+r.serializeToString(this.tag),o=null;t=t||"download",e=e||"download",
+t.tag.appendChild(e.tag))}),this},e.prototype.render=function(t){var e=t.target||this.target;if(!e)throw"Target not set";return e.innerHTML="",e.appendChild(this.tag),t.cb&&t.cb.call(this),this},
+e.prototype.downloadAnchor=function(t,e){var r=new XMLSerializer,n='<?xml version="1.0" standalone="no"?>\r\n'+r.serializeToString(this.tag),o=null;t=t||"download",e=e||"download",
 n.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)||(n=n.replace(/^<svg/,'<svg xmlns="'+this.namespaces.svg+'"')),
 n.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)||(n=n.replace(/^<svg/,'<svg xmlns:xlink="'+this.namespaces.xlink+'"')),o="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(n)
 ;var i=document.createElement("a");return i.download=e+ +new Date+".svg",i.href=o,i.addEventListener("click",function(){this.download=e+ +new Date+".svg"}),i.innerHTML=t,i},

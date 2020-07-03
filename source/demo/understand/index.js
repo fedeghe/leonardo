@@ -79,7 +79,7 @@ window.onload = function () {
 		});
     });
 
-    L.render(target);
+    L.render({target: target});
     
     speedTuner.value = speed;
     speedTuner.addEventListener('change', function() {

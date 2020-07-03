@@ -244,7 +244,7 @@ window.onload = function () {
 
 	L.add(title, container);
 
-	L.render(target, function () {
+	L.{render({target: target, cb : function () {
 		var p = document.getElementById('point'),
 			svg = this.tag;
 		svg.style.width = width + 'px';
@@ -252,6 +252,6 @@ window.onload = function () {
 		svg.addEventListener('mousemove', function (e) {
 			p.innerHTML = '[' + e.clientX + ', ' + e.clientY + ']<br/>{' + (e.clientX/width).toFixed(3) + ', ' + (e.clientY/height).toFixed(3) + '}';
 		},false);
-	});
+	}});
 
 };

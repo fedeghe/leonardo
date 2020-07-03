@@ -162,8 +162,8 @@
     }, 1000 / ticksPerSecond);
 
     window.setTimeout(function () {
-        L.render(target, function () {
+        L.render({target: target, cb: function () {
             console.log('rendered')
-        });	
+        }});	
     }, 200)
 })();
