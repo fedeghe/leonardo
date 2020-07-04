@@ -67,7 +67,7 @@ L.prototype.group = function () {
 L.prototype.image = function (x, y, w, h, src) {
 	var image = new Element('image');
 	image.attrs({x : x, y : y, width : w, height : h});
-	image.tag.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', src);
+	image.tag.setAttributeNS(namespaces.xlink, 'xlink:href', src);
 	return image;
 };
 
@@ -181,7 +181,7 @@ L.prototype.textPath = function (id, d, cnt) {
 		i, tmp;
 	path.attrs({id : id});
 	textpath.tag.innerHTML = cnt;
-	textpath.tag.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#' + id);
+	textpath.tag.setAttributeNS(namespaces.xlink, 'xlink:href', '#' + id);
 	text.add(defs);
 	text.add(textpath);
 	defs.add(path);

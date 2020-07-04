@@ -38,6 +38,5 @@
         "URL": "$SERVER.BASE$:$SERVER.PORT$",
         "MSG": "server started on $SERVER.URL$"
     },
-    "TITLE": "Leonardo",
-    "VERSION": 0.2
+    "TITLE": "Leonardo"
 }

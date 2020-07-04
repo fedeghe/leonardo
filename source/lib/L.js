@@ -1,3 +1,12 @@
+var namespaces = {
+    cc: 'http://creativecommons.org/ns#',
+    dc: 'http://purl.org/dc/elements/1.1/',
+    ev : 'http://www.w3.org/2001/xml-events',
+    rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+    svg: 'http://www.w3.org/2000/svg',
+    xlink: 'http://www.w3.org/1999/xlink'
+};
+
 /**
  * static function to import a documentor a string
  * @param {*} d 
@@ -43,7 +52,6 @@ L.toDocument = function (SVGString) {
 	return parser.parseFromString(SVGString, 'image/svg+xml');
 };
 
-
 /**
  * { function_description }
  *
@@ -53,22 +61,15 @@ L.toDocument = function (SVGString) {
  * @param      {<type>}  opts    The options
  */
 function L(width , height, opts) {
-	var namespaces = this.namespaces = {
-			'cc': 'http://creativecommons.org/ns#',
-			'dc': 'http://purl.org/dc/elements/1.1/',
-			'ev' : 'http://www.w3.org/2001/xml-events',
-			'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-			'svg': 'http://www.w3.org/2000/svg',
-			'xlink': 'http://www.w3.org/1999/xlink'
-		},
-		self = this,
+	this.namespaces = namespaces;
+	var self = this,
 		tmp, l;
 	opts = opts || {};
 
     this.tag = create('svg');
     this.tag.setAttribute('width', width);
     this.tag.setAttribute('height', height);
-    this.tag.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    this.tag.setAttribute('xmlns', namespaces.svg);
     this.tag.setAttribute('viewbox', '0 0 ' + width + ' ' + height);
     this.childs = [];
     
@@ -146,11 +147,11 @@ L.prototype.add = function () {
  * @return     {Object}    { description_of_the_return_value }
  */
 L.prototype.render = function (o) {
-    var trg = o.target || this.target;
+    var trg = o && 'target' in o  ? o.target : this.target;
     if (!trg) throw 'Target not set'
 	trg.innerHTML = '';
 	trg.appendChild(this.tag);
-	o.cb && o.cb.call(this);
+	o && o.cb && o.cb.call(this);
 	return this;
 };
 
