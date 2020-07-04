@@ -17,7 +17,7 @@ window.onload = function () {
 			30,40,
 			80, 50,
 			80,10
-		).attrs({
+		).setAttributes({
 			fill : 'red',
 			'stroke-width' : 8.5,
 			'stroke' : 'white',
@@ -30,7 +30,7 @@ window.onload = function () {
 			130, 140,
 			180, 150,
 			180, 110
-		).attrs({
+		).setAttributes({
 			fill : 'blue',
 			'stroke-width' : 4.5,
 			'stroke' : 'white'
@@ -40,7 +40,7 @@ window.onload = function () {
 			300, 50,
 			400, 150,
 			200, 150
-		).attrs({
+		).setAttributes({
 			fill : 'pink',
 			'stroke-width' : 2,
 			'stroke' : 'black'
@@ -58,5 +58,5 @@ window.onload = function () {
 
 	tria.rotate(20, 300,50).move(10, 100);
 
-	L.add(polyline, polygon, image, tria).render({target: target});
+	L.append(polyline, polygon, image, tria).render({target: target});
 };

@@ -11,11 +11,11 @@ window.onload = function () {
         
         L = Leonardo(width, height),
 
-        base = L.rect(0,0, width, height).attrs({
+        base = L.rect(0,0, width, height).setAttributes({
 			fill : bgcolor
         }),
         v = 2,
-        perimeter = L.rect(v,v, width-2*v, height-2*v).attrs({
+        perimeter = L.rect(v,v, width-2*v, height-2*v).setAttributes({
 			"stroke-width" : 5,
             stroke : 'white',
             fill: bgcolor
@@ -24,7 +24,7 @@ window.onload = function () {
         defenseLineInt = L.rect(
             6 * width / 20, v,
             8 * width / 20, height / 10 -v
-        ).attrs({
+        ).setAttributes({
 			"stroke-width" : 5,
             stroke : 'white'
         }),
@@ -32,11 +32,11 @@ window.onload = function () {
             4 * width / 20, v,
             12 * width / 20, 11 * height / 50 - v,
             
-        ).attrs({
+        ).setAttributes({
 			"stroke-width" : 5,
             stroke : 'white'
         }),
-        round = L.slice(width / 2 , 9 * height / 50, height / 12 , -155, -25).attrs({
+        round = L.slice(width / 2 , 9 * height / 50, height / 12 , -155, -25).setAttributes({
 			"stroke-width" : 5,
             stroke : 'white'
         }),
@@ -44,16 +44,16 @@ window.onload = function () {
             L.polyline(
                 0, height / 2,
                 width, height / 2,
-            ).attrs({
+            ).setAttributes({
                 "stroke-width" : 5,
                 stroke : 'white',
             }),
-            L.circle(width / 2, height / 2, width / 7).attrs({
+            L.circle(width / 2, height / 2, width / 7).setAttributes({
                 "stroke-width" : 5,
                 stroke : 'white',
                 fill: 'transparent'
             }),
-            L.circle(width / 2, height / 2, width / 66).attrs({
+            L.circle(width / 2, height / 2, width / 66).setAttributes({
                 stroke : 'white',
                 fill: 'white'
             })
@@ -64,7 +64,7 @@ window.onload = function () {
             -imageSize/2,
             imageSize, imageSize,
             logoUrl
-        ).attrs({
+        ).setAttributes({
             id : 'logo'
         }),
         logo2 = L.image(
@@ -83,31 +83,31 @@ window.onload = function () {
             // fill: 'blue',
             "stroke-width" : 10,
             stroke : 'black',
-        } ).attrs({
+        } ).setAttributes({
             id:"person",
             "font-size": fsize,
             fill: 'transparent'
         }).styles({
             cursor: 'default'
         }),
-        defenseUp = L.group().add(
+        defenseUp = L.group().append(
             round,
             defenseLineExt,
             defenseLineInt
-        ).attrs({
+        ).setAttributes({
             fill: bgcolor
         }),
         defenseDown = defenseUp.clone().mirrorH().move(0, height),
         players = [
-            L.group().add(person.use()),
-            L.group().add(person.use()).move(width / 2, 0),
-            L.group().add(person.use()).move(0, height / 2),
-            L.group().add(person.use()).move(width / 2, height / 2),
+            L.group().append(person.use()),
+            L.group().append(person.use()).move(width / 2, 0),
+            L.group().append(person.use()).move(0, height / 2),
+            L.group().append(person.use()).move(width / 2, height / 2),
         ];
     
     logo1.move(width / 2, height/2 + 150);
 
-    L.add(
+    L.append(
         base,
         perimeter,
         logo2,
@@ -116,7 +116,7 @@ window.onload = function () {
         defenseDown,
         center,
         players,
-        person//.attrs({display:'none'})
+        person//.setAttributes({display:'none'})
     ).render({target: target, cb: function () {
         console.log('rendered')
     }});

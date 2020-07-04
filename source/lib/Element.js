@@ -20,7 +20,7 @@ function Element(tag, ns) {
 /**
  * { item_description }
  */
-Element.prototype.attrs = L.prototype.attrs;
+Element.prototype.setAttributes = L.prototype.setAttributes;
 
 /**
  * { item_description }
@@ -30,7 +30,7 @@ Element.prototype.styles = L.prototype.styles;
 /**
  * { item_description }
  */
-Element.prototype.add = L.prototype.add;
+Element.prototype.append = L.prototype.append;
 
 /**
  * { function_description }
@@ -107,7 +107,7 @@ Element.prototype.clone = function () {
 	}
 	// recur in childs
 	for (i = 0, l = this.childs.length; i < l; i++) {
-		ret.add(this.childs[i].clone());
+		ret.append(this.childs[i].clone());
     }
     if (l == 0) {
         ret.tag.innerHTML  = this.tag.innerHTML 
@@ -126,7 +126,7 @@ Element.prototype.use = function () {
 };
 
 function trans(instance) {
-    instance.attrs({transform : instance.transforms.rotate + ' ' + instance.transforms.move + ' ' + instance.transforms.scale});
+    instance.setAttributes({transform : instance.transforms.rotate + ' ' + instance.transforms.move + ' ' + instance.transforms.scale});
 	return instance;
 }
 
@@ -193,8 +193,12 @@ Element.prototype.move = function (rx, ry) {
 	return trans(this);
 };
 
-Element.prototype.clear = function () {
+Element.prototype.remove = function () {
 	this.tag.parentNode.removeChild(this.tag);
+};
+
+Element.prototype.clear = function () {
+	this.tag.innerHTML = '';
 };
 
 Element.prototype.replace = function (currentOne, newOne) {

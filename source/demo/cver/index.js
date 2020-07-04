@@ -7,51 +7,51 @@ window.onload = function () {
         e = Leo.group(),
         r = Leo.group(),
         stroke = 10;
-    c.add(Leo.polygon(0,50, 50,0, 150,0, 100,50, 150,100, 50,100).attrs({
+    c.append(Leo.polygon(0,50, 50,0, 150,0, 100,50, 150,100, 50,100).setAttributes({
         fill : 'green',
         "stroke-width" : stroke,
         stroke : 'black',
         'stroke-linejoin': 'round'
     }));
-    v.add(Leo.polygon(0,50, 50,0, 100,50, 125,25, 175,25, 75,125).attrs({
+    v.append(Leo.polygon(0,50, 50,0, 100,50, 125,25, 175,25, 75,125).setAttributes({
         fill : 'white',
         "stroke-width" : stroke,
         stroke : 'black',
         'stroke-linejoin': 'round'
     }));
-    e.add(Leo.polygon(0,100, -25,75, 75,-25, 125,25, 100,50, 125,75, 100,100).attrs({
+    e.append(Leo.polygon(0,100, -25,75, 75,-25, 125,25, 100,50, 125,75, 100,100).setAttributes({
         fill : 'white',
         "stroke-width" : stroke,
         stroke : 'black',
         'stroke-linejoin': 'round'
     }));
-    e.add(Leo.polyline(50,25, 75,25, 100,50).attrs({
+    e.append(Leo.polyline(50,25, 75,25, 100,50).setAttributes({
         fill : 'transparent',
         "stroke-width" : stroke,
         stroke : 'black',
         'stroke-linecap': 'round',
         'stroke-linejoin': 'round'
     }));
-    e.add(Leo.polyline(50,75, 75,75, 100,50).attrs({
+    e.append(Leo.polyline(50,75, 75,75, 100,50).setAttributes({
         fill : 'transparent',
         "stroke-width" : stroke,
         stroke : 'black',
         'stroke-linecap': 'round',
         'stroke-linejoin': 'round'
     }));
-    r.add(Leo.polygon(0,0, 100,0, 150,50, 125,75, 150,100, 100,100, 75,75, 50,100, 0,100, 25,75, 0,50, 25,25).attrs({
+    r.append(Leo.polygon(0,0, 100,0, 150,50, 125,75, 150,100, 100,100, 75,75, 50,100, 0,100, 25,75, 0,50, 25,25).setAttributes({
         fill : 'red',
         "stroke-width" : stroke,
         stroke : 'black',
         'stroke-linejoin': 'round'
     }));
-    main.add(
+    main.append(
         c,
         v.move(100),
         e.move(250),
         r.move(350)
     )
-    Leo.add(main.move(40, 90));
+    Leo.append(main.move(40, 90));
     Leo.render();
     document.body.appendChild(Leo.downloadAnchor())
 }

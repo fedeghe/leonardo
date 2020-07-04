@@ -11,7 +11,7 @@ L.prototype.filters = function () {
 		defs = this.defs;
 	} else {
 		defs = this.defs = new Element('defs');
-		self.add(this.defs);
+		self.append(this.defs);
 	}
 
 	function lid() {
@@ -24,7 +24,7 @@ L.prototype.filters = function () {
 			linearGrad = new Element('linearGradient'),
 			i, tmp;
 
-		linearGrad.attrs({
+		linearGrad.setAttributes({
 			id : id,
 			x1 : '0%',
 			y1 : '0%',
@@ -34,13 +34,13 @@ L.prototype.filters = function () {
 
 		for (i in steps) {
 			tmp = new Element('stop');
-			tmp.attrs({
+			tmp.setAttributes({
 				offset : i + '%',
 				style : 'stop-opacity:1;stop-color:' + steps[i]
 			});
-			linearGrad.add(tmp)
+			linearGrad.append(tmp)
 		}
-		defs.add(linearGrad);
+		defs.append(linearGrad);
 		return 'url(#' + id + ')';
 	}
 
@@ -48,17 +48,17 @@ L.prototype.filters = function () {
 		var id = lid(),
 			radialGrad = new Element('radialGradient'),
 			i, tmp;
-		radialGrad.attrs({id : id});
+		radialGrad.setAttributes({id : id});
 
 		for (i in steps) {
 			tmp = new Element('stop');
-			tmp.attrs({
+			tmp.setAttributes({
 				offset : i + '%',
 				style : 'stop-opacity:1;stop-color:' + steps[i]
 			});
-			radialGrad.add(tmp)
+			radialGrad.append(tmp)
 		}
-		defs.add(radialGrad);
+		defs.append(radialGrad);
 		return 'url(#' + id + ')';
 	}
 

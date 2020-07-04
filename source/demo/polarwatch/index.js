@@ -65,7 +65,7 @@ window.onload = function () {
             y: height / 2
         },
         step = size / 20,
-        cir0 = Leo.circle(center.x, center.y, size / 2).attrs({fill: color('bg')}),
+        cir0 = Leo.circle(center.x, center.y, size / 2).setAttributes({fill: color('bg')}),
         circles = [
             createTimingSlice(0, center, step * 10, color('ms'), { step: 3.6, timestep: 10 , fun: function (d) {return 1000 / 360 *  (d % 1000)}}), // mssec
             createTimingSlice(1, center, step * 8, color('s'), { step: 0.6, timestep: 100, fun: function (d) {return 6 * d.getSeconds(); } }), // sec
@@ -83,14 +83,14 @@ window.onload = function () {
     function createTimingSlice(index, center, r, col, timing) {
         var now = new Date,
             i = timing.fun(now),
-            circle = Leo.slice(center.x, center.y, r, 0, 0).attrs({ fill: col }),
+            circle = Leo.slice(center.x, center.y, r, 0, 0).setAttributes({ fill: col }),
             grp = Leo.group(),
-            innerC = Leo.circle(center.x, center.y, r - 2*step).attrs({ fill: color('bg') });
+            innerC = Leo.circle(center.x, center.y, r - 2*step).setAttributes({ fill: color('bg') });
         
-        grp.add(circle);
-        !settings.filled && grp.add(innerC);
+        grp.append(circle);
+        !settings.filled && grp.append(innerC);
 
-        circle.attrs({
+        circle.setAttributes({
             d: Leo.slicePath(center.x, center.y, r, 0, -i),
             fill: col
         }).rotate(-90, center.x, center.y)
@@ -104,7 +104,7 @@ window.onload = function () {
 
             if (degs[0] === degs[1] === degs[2]) console.log('met');
             
-            circle.attrs({
+            circle.setAttributes({
                 d: Leo.slicePath(center.x, center.y, r, 0, -i),
                 fill: col
             })
@@ -116,11 +116,11 @@ window.onload = function () {
         console.log(new Date)
     }, 1000)
 
-    container.add(cir0);
-    container.add(circles);
+    container.append(cir0);
+    container.append(circles);
     if (settings.draw12) {
         var col = color('bg')
-        var l = Leo.line(width / 2, 0, width / 2, height).attrs({
+        var l = Leo.line(width / 2, 0, width / 2, height).setAttributes({
                 fill: col,
                 "stroke-width" : size / 200,
                 "stroke" : col
@@ -131,16 +131,16 @@ window.onload = function () {
             tmp.rotate(i * 30, width / 2, height / 2);
             lines.push(tmp);
         }
-        tmp = Leo.circle(center.x, center.y, size / 2 - 1).attrs({
+        tmp = Leo.circle(center.x, center.y, size / 2 - 1).setAttributes({
             "stroke-width": size / 200,
             "stroke": col,
             fill: 'none'
         });
         lines.push(tmp)
-        container.add(lines)
+        container.append(lines)
     }   
     
-    Leo.add(container);
+    Leo.append(container);
 
     Leo.render({target: target, cb: function () {
         console.log('rendered')

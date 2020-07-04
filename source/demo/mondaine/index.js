@@ -36,23 +36,23 @@
 		circle = L.circle(cx, cy, size / 2.5),
 
 		border = L.group(),
-		secs = L.group().attrs({ id: 'seconds' }),
+		secs = L.group().setAttributes({ id: 'seconds' }),
 			secs1 = L.circle(0, height * 0.245, width / 40),
 			secs2 = L.line(0, height * 0.26, 0, height * 0.62),
 			secs3 = L.circle(0, height / 2, width / 85),
 
-		mins = L.group().add(L.polygon(
+		mins = L.group().append(L.polygon(
 			cx - width * 0.028 , cy + height * 0.09,
 			cx - width * 0.018 , size * 0.125,
 			cx + width * 0.018 , size * 0.125,
 			cx + width * 0.028 , cy + height * 0.09
-		)).attrs({ id: 'minutes' }),
-		hours = L.group().add(L.polygon(
+		)).setAttributes({ id: 'minutes' }),
+		hours = L.group().append(L.polygon(
 			cx - width * 0.028 , cy + height * 0.09,
 			cx - width * 0.018	 , cy - height * 0.26,
 			cx + width * 0.018 , cy - height * 0.26,
 			cx + width * 0.028 , cy + height * 0.09
-		)).attrs({ id: 'hours' }),
+		)).setAttributes({ id: 'hours' }),
 		text = L.text(cx * 0.78,cy * 0.7, "MONDAINE"),				
 		textSM = L.textPath("smade",
 			L.pathBuild
@@ -81,23 +81,23 @@
 			"100" : "#fff"
 		});
 
-	L.add(container);
-	border.add(cir0).attrs({fill: filt3});
+	L.append(container);
+	border.append(cir0).setAttributes({fill: filt3});
 
 	container
-		.attrs({viewBox: [0, 0, size, size].join(' ')})
-		.add(border, circle);
+		.setAttributes({viewBox: [0, 0, size, size].join(' ')})
+		.append(border, circle);
 
 	(function() {
 		var small = L.line(cx, size * 0.135, cx, height * 0.16),
 			big = L.line(cx, size * 0.135, cx, height * 0.215),
 			tmp, i;
 
-		big.attrs({
+		big.setAttributes({
 			"stroke-width" : size / 40,
 			"stroke" : themes[theme].color
 		});
-		small.attrs({
+		small.setAttributes({
 			"stroke-width" : size / 80,
 			"stroke" : themes[theme].color
 		});
@@ -109,27 +109,27 @@
 				tmp = small.clone();
 			}
 			tmp.rotate(i * 6, cx, cy);
-			container.add(tmp);
+			container.append(tmp);
 		}	
 	})();
 
 	circle.styles({"fill" : themes[theme].background});
 
-	secs.add(secs1, secs2, secs3)
-		.attrs({
+	secs.append(secs1, secs2, secs3)
+		.setAttributes({
 			"fill" : themes[theme].secColor,
 			"stroke" : themes[theme].secColor,
 			"stroke-width" : size / 80
 		})
 		.move(cx, 0);
 
-	hours.attrs({"fill" : themes[theme].color})
-	mins.attrs({"fill" : themes[theme].color})
+	hours.setAttributes({"fill" : themes[theme].color})
+	mins.setAttributes({"fill" : themes[theme].color})
 	
-	text.attrs({'font-size' : size / 25, 'fill' : themes[theme].color})
-	textSM.attrs({'font-size' : size / 70, 'fill' : themes[theme].color})
+	text.setAttributes({'font-size' : size / 25, 'fill' : themes[theme].color})
+	textSM.setAttributes({'font-size' : size / 70, 'fill' : themes[theme].color})
 
-	container.add(image, text, textSM, hours, mins, secs);
+	container.append(image, text, textSM, hours, mins, secs);
 	
 	target.style.width = size + 'px';
 

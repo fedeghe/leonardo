@@ -156,76 +156,76 @@ window.onload = function () {
 			p2 = L.circle(0,0,w(3)),
 			coverUp = L.line(w(-20), h(5),w(20),h(18)),
 			coverDown = L.line(w(-20),h(-20),w(20),h(-10));
-		p1.attrs({
+		p1.setAttributes({
 			"stroke-width" : h(4),
 			"stroke" : 'black',
 			fill:'DodgerBlue'
 		});
-		p2.attrs({fill:'black'});
+		p2.setAttributes({fill:'black'});
 
-		coverUp.attrs({
+		coverUp.setAttributes({
 			"stroke-width" : h(9),
 			"stroke" : 'black'
 		});
-		coverDown.attrs({
+		coverDown.setAttributes({
 			"stroke-width" : h(9),
 			"stroke" : 'black'
 		});
 		
-		pulpilLeft.add(p1, p2, coverDown, coverUp);
+		pulpilLeft.append(p1, p2, coverDown, coverUp);
 		
 		pulpilRight = pulpilLeft.clone().mirrorV();
 		pulpilLeft.move(w(355),h(490));
 		pulpilRight.move(w(445),h(490));
 	})();
 
-	container.attrs({viewBox : "0 0 " + size + " " + size});
+	container.setAttributes({viewBox : "0 0 " + size + " " + size});
 
-	leftEye.attrs({
+	leftEye.setAttributes({
 		'font-size' : h(160),
 		'font-family' : 'Verdana',
 		color:'black'
 	}).rotate(85, w(350), h(460)).move(w(350), h(460));
 	
-	rightEye.attrs({
+	rightEye.setAttributes({
 		'font-size' : h(160),
 		'font-family' : 'Verdana',
 		color:'black'
 	}).mirrorH().rotate(95, w(450), h(460)).move(w(450), h(460));
 
-	smile.attrs({
+	smile.setAttributes({
 		'font-size' : h(100),
 		color:'black'
 	// }).rotate(90, 0, 0).move(w(10), h(10));
 	}).move(w(373), h(540)).rotate(90, w(373), h(540));
 
-	vest.attrs(justLine);
-	vest.attrs({fill : 'red'});
+	vest.setAttributes(justLine);
+	vest.setAttributes({fill : 'red'});
 	
-	nose.attrs(justLine);
-	head.attrs(justLine);
-	head.attrs({fill : 'pink'});
+	nose.setAttributes(justLine);
+	head.setAttributes(justLine);
+	head.setAttributes({fill : 'pink'});
 
-	hair.attrs(justLine);
-	hair.attrs({fill:'yellow'});
+	hair.setAttributes(justLine);
+	hair.setAttributes({fill:'yellow'});
 
-	strap.attrs(justLine);
-	strap.attrs({fill : 'chocolate'});
+	strap.setAttributes(justLine);
+	strap.setAttributes({fill : 'chocolate'});
 
-	eyeStrap.attrs(justLine);
-	eyeStrap.attrs({fill :"black"});
+	eyeStrap.setAttributes(justLine);
+	eyeStrap.setAttributes({fill :"black"});
 
-	rightEye.attrs({'fill' : 'white'});
-	leftEye.attrs({'fill' : 'white'});
+	rightEye.setAttributes({'fill' : 'white'});
+	leftEye.setAttributes({'fill' : 'white'});
 
-	H.attrs(justLine);
-	H.attrs({fill:'white'});
+	H.setAttributes(justLine);
+	H.setAttributes({fill:'white'});
 
-	leftGlove.attrs(justLine);
-	leftFoot.attrs(justLine);
+	leftGlove.setAttributes(justLine);
+	leftFoot.setAttributes(justLine);
 
-	leftGlove.attrs({fill:'#444'});
-	leftFoot.attrs({fill:'#444'});
+	leftGlove.setAttributes({fill:'#444'});
+	leftFoot.setAttributes({fill:'#444'});
 
 	rightGlove = leftGlove.clone().mirrorV().move(w(740), h(115));
 	leftGlove.move(w(60), h(115));
@@ -233,7 +233,7 @@ window.onload = function () {
 	rightFoot = leftFoot.clone().mirrorV().move(w(705), h(1483));
 	leftFoot.move(w(95), h(1483));
 
-	container.add(
+	container.append(
 		vest, head, hair, strap, eyeStrap,
 		leftEye, rightEye,
 		smile, leftGlove, rightGlove,
@@ -242,7 +242,7 @@ window.onload = function () {
 		,pulpilLeft,pulpilRight
 	);
 
-	L.add(title, container);
+	L.append(title, container);
 
 	L.render({target: target, cb : function () {
 		var p = document.getElementById('point'),

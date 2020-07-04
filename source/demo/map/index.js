@@ -23,7 +23,7 @@ window.onload = function () {
 				attrs['data-element-data'] = t + '_data';
 			}
 
-			L.add(g.clone().attrs(attrs).add(
+			L.append(g.clone().setAttributes(attrs).append(
 				rect.clone().move(
 					i * tileSize,
 					(j % gridNum) * tileSize

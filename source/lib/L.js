@@ -98,7 +98,7 @@ function L(width , height, opts) {
  * @param      {<type>}  attrs   The attributes
  * @return     {Object}  { description_of_the_return_value }
  */
-L.prototype.attrs = function (attrs) {	
+L.prototype.setAttributes = function (attrs) {	
 	var k;
 	if (typeof attrs == 'string') return this.tag.getAttribute(attrs);
 	for (k in attrs) this.tag.setAttribute(k, attrs[k]);
@@ -122,14 +122,14 @@ L.prototype.styles = function (styles) {
  *
  * @return     {Object}  { description_of_the_return_value }
  */
-L.prototype.add = function () {
+L.prototype.append = function () {
 	var self = this,
 		els = [].slice.call(arguments, 0);
 	els.forEach(function (el) {
 		if( el instanceof Array){
 			el.forEach(function (k) {
 				self.childs.push(k);
-				self.add(k);
+				self.append(k);
 			});
 		} else {
 			self.childs.push(el);

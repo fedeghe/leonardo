@@ -53,17 +53,17 @@ window.onload = function () {
                 ]
             },
             cloud = L.group()
-                .add(elements.cloud)
-                .attrs(attrs.cloud),
+                .append(elements.cloud)
+                .setAttributes(attrs.cloud),
             thunder = L.group()
-                .add(elements.thunder)
-                .attrs(attrs.thunder)
+                .append(elements.thunder)
+                .setAttributes(attrs.thunder)
                 .scale(1, 0.5)
                 .move(0, 200);
-        thunder.add(L.animate.attr('stroke', '#ff660077;#ffaa00aa;#ff660077', '0.3s', 'indefinite'))
-        thunder.add(L.animate.attr('fill', '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff', '5s', 'indefinite'))
+        thunder.append(L.animate.attr('stroke', '#ff660077;#ffaa00aa;#ff660077', '0.3s', 'indefinite'))
+        thunder.append(L.animate.attr('fill', '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff', '5s', 'indefinite'))
 
-        L.add(cloud, thunder);
+        L.append(cloud, thunder);
         L.render();
     })();
 
@@ -122,19 +122,19 @@ window.onload = function () {
                 ]
             },
             cloud = L.group()
-                .add(elements.cloud)
-                .attrs(attrs.cloud),
+                .append(elements.cloud)
+                .setAttributes(attrs.cloud),
             thunder = L.group()
-                .add(elements.thunder)
-                .attrs(attrs.thunder)
+                .append(elements.thunder)
+                .setAttributes(attrs.thunder)
                 .scale(1, 0.5)
                 .move(0, 200),
-            contour = L.circle(w(50), h(50), m(45)).attrs(attrs.contour),
+            contour = L.circle(w(50), h(50), m(45)).setAttributes(attrs.contour),
             logo = L.group();
-        thunder.add(L.animate.attr('stroke', '#ff660077;#ffaa00aa;#ff660077', '0.3s', 'indefinite'))
-        thunder.add(L.animate.attr('fill', '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff', '5s', 'indefinite'))
-        logo.add(cloud, thunder).scale(0.8, 0.8).move(50,50);
-        L.add(contour,logo);
+        thunder.append(L.animate.attr('stroke', '#ff660077;#ffaa00aa;#ff660077', '0.3s', 'indefinite'))
+        thunder.append(L.animate.attr('fill', '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff', '5s', 'indefinite'))
+        logo.append(cloud, thunder).scale(0.8, 0.8).move(50,50);
+        L.append(contour,logo);
         L.render();
     })();
 
@@ -181,17 +181,17 @@ window.onload = function () {
                 ]
             },
             cloud = L.group()
-                .add(elements.cloud)
-                .attrs(attrs.cloud),
+                .append(elements.cloud)
+                .setAttributes(attrs.cloud),
             thunder = L.group()
-                .add(elements.thunder)
-                .attrs(attrs.thunder)
+                .append(elements.thunder)
+                .setAttributes(attrs.thunder)
                 .scale(1, 0.5)
                 .move(0, 200);
-        thunder.add(L.animate.attr('stroke', '#ff660077;#ffaa00aa;#ff660077', '0.3s', 'indefinite'))
-        thunder.add(L.animate.attr('fill', '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff', '5s', 'indefinite'))
+        thunder.append(L.animate.attr('stroke', '#ff660077;#ffaa00aa;#ff660077', '0.3s', 'indefinite'))
+        thunder.append(L.animate.attr('fill', '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff', '5s', 'indefinite'))
 
-        L.add(cloud, thunder);
+        L.append(cloud, thunder);
         L.render();
         document.body.appendChild(L.downloadAnchor());
     })();

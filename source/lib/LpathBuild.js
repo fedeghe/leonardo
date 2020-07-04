@@ -12,7 +12,6 @@
  *	R	Catmull-Rom curveto*	x1 y1 (x y)+
  */
 function Pathbuild() {
-	var self = this;
 	this.path = '';
 	this.previous = null;
 }
@@ -53,7 +52,6 @@ Pathbuild.prototype.R = createFun('R');
  */
 L.prototype.pathBuild = (function () {
 	var pb = new Pathbuild();
-	
 	pb.toString = function (){
 		var p = this.path + '';
 		this.path = '';
@@ -71,7 +69,8 @@ L.prototype.slice = function (cx, cy, radius, startAngle, endAngle) {
 };
 L.prototype.slicePath = function (cx, cy, radius, startAngle, endAngle) {
 	var self = this,
-		largeArc = 0;
+        largeArc = 0;
+
 	if (startAngle > endAngle) {
 		var s = startAngle;
 		startAngle = endAngle;

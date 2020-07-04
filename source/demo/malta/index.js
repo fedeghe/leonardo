@@ -17,12 +17,12 @@ window.onload = function () {
 			.l(100,-10)
 			.q(5, 0, 5, -20)
 			.q(0, -12, -60, -10)
-		).attrs({
+		).setAttributes({
 			fill : '#777',
 			"stroke-width" : 2.5,
 			stroke : 'black'
 		}),
-		brick = L.rect(0, 0, 100, 30).attrs({
+		brick = L.rect(0, 0, 100, 30).setAttributes({
 			"stroke-width" : 2.5,
 			"stroke-linejoin" : 'round',
 			"stroke" : 'black',
@@ -33,9 +33,9 @@ window.onload = function () {
 	bricks.push(brick.clone().move(0,40))
 	bricks.push(brick.clone().move(110,40))
 
-	bricksGroup.add(bricks).move(5, 5);
+	bricksGroup.append(bricks).move(5, 5);
 
-	L.add(malta, bricksGroup);
+	L.append(malta, bricksGroup);
 
 	L.render();
 };

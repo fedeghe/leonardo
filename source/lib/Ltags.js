@@ -26,7 +26,7 @@ L.prototype.desc = function (txt) {
  */
 L.prototype.circle = function (cx, cy, r) {
 	var circle = new Element('circle');
-	circle.attrs({cx : cx, cy : cy, r : r});
+	circle.setAttributes({cx : cx, cy : cy, r : r});
 	return circle;
 };
 
@@ -41,7 +41,7 @@ L.prototype.circle = function (cx, cy, r) {
  */
 L.prototype.ellipse = function (cx, cy, rx, ry) {
 	var ellipse = new Element('ellipse');
-	ellipse.attrs({cx : cx, cy : cy, rx : rx, ry : ry});
+	ellipse.setAttributes({cx : cx, cy : cy, rx : rx, ry : ry});
 	return ellipse;
 };
 
@@ -66,7 +66,7 @@ L.prototype.group = function () {
  */
 L.prototype.image = function (x, y, w, h, src) {
 	var image = new Element('image');
-	image.attrs({x : x, y : y, width : w, height : h});
+	image.setAttributes({x : x, y : y, width : w, height : h});
 	image.tag.setAttributeNS(namespaces.xlink, 'xlink:href', src);
 	return image;
 };
@@ -82,7 +82,7 @@ L.prototype.image = function (x, y, w, h, src) {
  */
 L.prototype.line = function (x1, y1, x2, y2) {
 	var line = new Element('line');
-	line.attrs({x1 : x1, y1 : y1, x2 : x2, y2 : y2});
+	line.setAttributes({x1 : x1, y1 : y1, x2 : x2, y2 : y2});
 	return line;
 };
 
@@ -94,7 +94,7 @@ L.prototype.line = function (x1, y1, x2, y2) {
  */
 L.prototype.path = function (d) {
 	var path = new Element('path');
-	path.attrs({d : d});
+	path.setAttributes({d : d});
 	return path;
 };
 
@@ -111,7 +111,7 @@ L.prototype.polygon = function () {
 	for (null; i < l; i+=2) {
 		pp.push(points[i] + ',' + points[i+1])
 	}
-	polygon.attrs({points : pp.join(' ')});
+	polygon.setAttributes({points : pp.join(' ')});
 	return polygon;
 };
 
@@ -128,7 +128,7 @@ L.prototype.polyline = function () {
 	for (null; i < l; i+=2) {
 		pp.push(points[i] + ',' + points[i+1])
 	}
-	polyline.attrs({points : pp.join(' ')});
+	polyline.setAttributes({points : pp.join(' ')});
 	return polyline;
 };
 
@@ -144,7 +144,7 @@ L.prototype.polyline = function () {
 L.prototype.rect = function (x, y, w, h) {
 	h = h || w;
 	var rect = new Element('rect');
-	rect.attrs({x : x, y : y, width : w, height : h});
+	rect.setAttributes({x : x, y : y, width : w, height : h});
 	return rect;
 };
 
@@ -159,7 +159,7 @@ L.prototype.rect = function (x, y, w, h) {
 L.prototype.text = function (x, y, cnt) {
 	var text = new Element('text'),
 		bBox;
-	text.attrs({x : x, y : y});
+	text.setAttributes({x : x, y : y});
 	text.tag.innerHTML = cnt;
 	return text;
 };
@@ -179,12 +179,12 @@ L.prototype.textPath = function (id, d, cnt) {
 		path = self.path(d),
 		textpath = new Element('textPath'),
 		i, tmp;
-	path.attrs({id : id});
+	path.setAttributes({id : id});
 	textpath.tag.innerHTML = cnt;
 	textpath.tag.setAttributeNS(namespaces.xlink, 'xlink:href', '#' + id);
-	text.add(defs);
-	text.add(textpath);
-	defs.add(path);
+	text.append(defs);
+	text.append(textpath);
+	defs.append(path);
 	return text;
 };
 
@@ -207,7 +207,7 @@ L.prototype.title = function (txt) {
  */
 L.prototype.script = function (cnt) {
 	var script = new Element('script');
-	script.attrs({type : 'application/ecmascript'});
+	script.setAttributes({type : 'application/ecmascript'});
 	if (cnt) {
 		script.tag.innerHTML = "//<![CDATA[\n" + cnt + "\n]]>";
 	}
@@ -218,22 +218,22 @@ L.prototype.textBox = function (txt, w, h, textAttrs) {
     var cnt = new Element('svg'),
         rect = new Element('rect'),
         text = new Element('text');
-    rect.attrs({
+    rect.setAttributes({
         x : 0, y : 0,
         width: w, height: h,
         "stroke-width" : 0,
         stroke : 'transparent',
     });
-    cnt.attrs({width : w, height : h});
-    text.attrs({
+    cnt.setAttributes({width : w, height : h});
+    text.setAttributes({
         x: '50%',
         y: '50%',
         'dominant-baseline': 'middle',
         'text-anchor': 'middle'
     });
-    textAttrs && text.attrs(textAttrs);
+    textAttrs && text.setAttributes(textAttrs);
     text.tag.innerHTML = txt;
-    cnt.add(rect, text);
+    cnt.append(rect, text);
     return cnt;
 }
 
