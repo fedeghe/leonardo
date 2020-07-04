@@ -7,7 +7,6 @@
 ```
 A simple library to draw sgv
 
-
 ## install leonardo
 
 `> yarn add @fedeghe/leonardo`
@@ -19,54 +18,139 @@ First of all in your html include _Leonardo.js_ in the `<head>` tag:
 
     <script src="path/to/Leonardo.js"></script>
 
-Now create another `<script>` tag to use _Leonardo.js_:  
+Now create another `<script>` tag to use _Leonardo.js_, and here create an instance using  the _Leonardo_ factory:  
 
 ```
 <script>+function(){
-    var L = Leonardo (300, 200, {id: 'theRootSvg', target: theTargetNode});
-    /**
-    ...
-    */
-    L.render();
+    var L = Leonardo(300, 200, {id: 'theRootSvg', target: theTargetNode});
+    // ...
 }()
 </script>
 ```
+- `width`: mandatory Integer  
+- `height`: mandatory Integer  
+- `options`: an optional object literal which allows to  set some attributes that will be added to the root svg:  
+    - `ns`: set the namespaces that are needed, one or more from `['cc', 'dc', 'ev', 'rdf', 'svg', 'xlink']` if all are needed is enough to pass '*'.  
+    - `target`: define the target node for rendering  
 
-parameters:  
-
-`width (*)` : the width in pixels (required)  
-
-`height (*)` : the height in pixels (required) 
-
-`attrs` : an hash of required attributes for the `<svg>` tag 
+anyway it will be possible to specify the _target_ even when invoking the `render` method on the instance.
 
 
-for _svg namespaces_ is enough just to pass a `ns` element containing an array containing one or more from the following set :
+
+
+---
+
+
+# tags  
+
+To draw something we need to add svg tags. Leonardo let you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `textPath`, `title`, `script`, `textBox`.
+
+Every tag is a `Element` instance, and thus benefits the following instance methods: `attrs`, `styles`, `add`, `on` ,`off`, `clone`, `trans`, `rotate`, `scale`, `mirrorO`, `mirrorV` and `move`. I will describe all them soon.
+
+there is the list of the methods available to create tags:
+
+### \<desc\>
 ```
-['cc', 'dc', 'ev', 'rdf', 'svg', 'xlink']
+var myDesc = L.desc('This is the description of my svg')
 ```
-if all are needed is enough to pass '*'.  
+Returns a `<desc>` tag containing the text passed to it
 
-To draw something we need to add svg tags. Leonardo let you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `textPath`, `title`, `script`, `textBox`
+### \<circle\>
+```
+var myCircle = L.circle(cx, cy, r)
+```
+Returns a `<circle>` tag centered at `{cx, cy}` with radius `r`.
+
+### \<ellipse\>
+```
+var myEllipse = L.ellipse(cx, cy, rx, ry)
+```
+Returns a `<ellipse>` tag centered at `{cx, cy}` with radiuses `rx` and `ry`.
+
+### \<g\>
+```
+var myGroup = L.group()
+```
+Returns a group `<g>` tag.
+
+### \<image\>
+```
+var myImage = L.image(x, y, w, h, src)
+```
+Returns a `<image>` tag positioned at `{x,y}` about `w` and `h` are meant to be the clearly the sizes but  real image size will win on it, in the end the ratio cannot be modified.
+
+### \<line\>  
+```
+var myLine = L.line(x1, y1, x2, y2)
+```
+Returns a `<line>` tag representing a segment starting from `{x1,y1}` and ending in `{x2, y2}`.
+
+### \<path\>  
+```
+var myPath = L.path(d)
+```
+Returns a `<path>` tag with data corresponding to the `d` parameter passed; for example for a simple triangle could be something like `M150 0 L75 200 L225 200 Z` as [here](https://www.w3schools.com/graphics/svg_path.asp). Leonardo makes it easy to create that for you.
+
+
+### \<polygon\>  
+```
+var myPolygon = L.polygon(x1, y1, ...xn, yn)
+```
+Returns a `<polygon>` tag with _points_ attribute corresponding to those passed; for example for a simple triangle could be something like `200,10 250,190 160,210` as [here](https://www.w3schools.com/graphics/svg_polygon.asp). Leonardo makes it easy to create that for you.
+
+### \<polyline\>
+```
+var myPolyline = L.polyline(x1, y1, ...xn, yn)
+```
+creates a polyline which can even be opened (it does not close automatically). 
+
+### \<rect\>  
+```
+var myRect = L.rect(x, y, w, h)
+```
+Returns a `<rect>` tag with the upper left corner positioned at `{x, y}` then `w` is for the width and `h for the height.
+
+### \<text\>  
+```
+var myText = L.text(x, y, content)
+```
+Returns a `<text>` tag with positioned at the upper left corner positioned at `{x, y}` containing the text passed as `content`.
+
+### \<title\>  
+```
+var myTitle = L.title(txt)
+```
+Returns a `<title>` tag containing the text passed as `content`.
+
+### \<script\>  
+```
+var myScript = L.script(content)
+```
+Returns a `<script>` tag containing the text passed as `content`.
+
+
+## extras
+
+### \<textBox\>  
+```
+var myTextBox = L.textBox(text, h, w, textAttrs)
+```
+to be documented
+
+### \<textPath\>  
+```
+var myTextPath = L.textPath(id, d, content)
+```
+If we want a text to follow a path then a single tag is not [enough](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/textPath)
+This function returns an element which contains all is needed given an `id`, a `d` data for the path and a `content` string. 
+
+
 
 ---
 
 ## Element instance  
 
-First thing we need to create an instance, use `Leonardo` factory function:
-
-```
-Leonardo(width, height, options)
-```
-- `width`: mandatory Integer  
-- `height`: mandatory Integer  
-- `options`: an optional object literal which allows to  set some attributes that will be added to the root svg:  
-    - `ns`: set the namespaces that are needed  
-    - `target`: define the target node for rendering  
-
-anyway it will be possible to specify the target even when invoking the `render` method on the instance.
-
-Leonardo creates for each of them an instance of an `Element`. This instance offers the following methods to tune the aspect of those tag and something more:  
+Now that we know how to create a root `<svg>` and sub-elements we need some methods to append them so to create the right hierarchy, to style them, give attributes, ... and more.
 
 ---  
 ### instance.render({target: DOMNode, cb: function (instance) {}}) -> instance
@@ -75,6 +159,8 @@ renders the instance into the target :
 ```
 myLine.render();
 ```
+
+in case when invoking the `Leonardo` factory method the `target` parameter has been passed then here it is optional, otherwise must be passed otherwise an exeption will be thrown. 
 ---
 
 ### instance.attrs(attrs) -> instance
@@ -142,7 +228,7 @@ Creates something similar to a clone of the instance, the limitation/power of a 
 
 ### instance.rotate(deg, x, y) -> instance  
 
-Rotates a tag of `deg` degrees around the point `P : {x, y}`.
+Rotates a tag of `deg` degrees around the point `{x, y}`.
 
 ---
 
@@ -189,115 +275,6 @@ Gets the bounding box of the instance {x, y, w, h}. More infos can be found [her
 
 
 
-
-
-
----
-
-
-# tags  
-
-Every function listed below creates a `Element` instance, and thus benefits the following instance methods: `attrs`, `styles`, `add`, `on` ,`off`, `clone`, `trans`, `rotate`, `scale`, `mirrorO`, `mirrorV` and `move`. I will describe all them soon.
-
-Once these elements are created at some point they must be added either directly to the root `<svg>` tag either to a `<g>` group element.
-```
-L.add(as, many, elements, as, needed)
-```
-
-### \<desc\>
-```
-var desc = L.desc('This is the description of my svg')
-```
-Returns a `<desc>` tag containing the text passed to it
-
-### \<circle\>
-```
-var circle = L.circle(cx, cy, r)
-```
-Returns a `<circle>` tag centered at `P : {cx, cy}` with radius `r`.
-
-### \<ellipse\>
-```
-var ellipse = L.ellipse(cx, cy, rx, ry)
-```
-Returns a `<ellipse>` tag centered at `P : {cx, cy}` with radiuses `rx` and `ry`.
-
-### \<g\>
-```
-var group = L.group()
-```
-Returns a group `<g>` tag.
-
-### \<image\>
-```
-var image = L.image(x, y, w, h, src)
-```
-Returns a `<image>` tag positioned at `P : {x,y}` about `w` and `h` are meant to be the clearly the sizes but  real image size will win on it, in the end the ratio cannot be modified.
-
-### \<line\>  
-```
-var line = L.line(x1, y1, x2, y2)
-```
-Returns a `<line>` tag representing a segment starting from `P1 : {x1,y1}` and ending in `P2 : {x2, y2}`.
-
-### \<path\>  
-```
-var path = L.path(d)
-```
-Returns a `<path>` tag with data corresponding to the `d` parameter passed; for example for a simple triangle could be something like `M150 0 L75 200 L225 200 Z` as [here](https://www.w3schools.com/graphics/svg_path.asp). Leonardo makes it easy to create that for you.
-
-
-### \<polygon\>  
-```
-var polygon = L.polygon(x1, y1, ...xn, yn)
-```
-Returns a `<polygon>` tag with _points_ attribute corresponding to those passed; for example for a simple triangle could be something like `200,10 250,190 160,210` as [here](https://www.w3schools.com/graphics/svg_polygon.asp). Leonardo makes it easy to create that for you.
-
-### \<polyline\>
-```
-var polyline = L.polyline(x1, y1, ...xn, yn)
-```
-creates a polyline which can even be opened (it does not close automatically). 
-
-### \<rect\>  
-```
-var rect = L.rect(x, y, w, h)
-```
-Returns a `<rect>` tag with the upper left corner positioned at `P : {x, y}` then `w` is for the width and `h for the height.
-
-### \<text\>  
-```
-var text = L.text(x, y, content)
-```
-Returns a `<text>` tag with positioned at the upper left corner positioned at `P : {x, y}` containing the text passed as `content`.
-
-### \<title\>  
-```
-var title = L.title(txt)
-```
-Returns a `<title>` tag containing the text passed as `content`.
-
-### \<script\>  
-```
-var script = L.script(content)
-```
-Returns a `<script>` tag containing the text passed as `content`.
-
-
-## extras
-
-### \<textBox\>  
-```
-var textBox = L.textBox(text, h, w, textAttrs)
-```
-to be documented
-
-### \<textPath\>  
-```
-var textPath = L.textPath(id, d, content)
-```
-If we want a text to follow a path then a single tag is not [enough](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/textPath)
-This function returns an element which contains all is needed given an `id`, a `d` data for the path and a `content` string. 
 
 
 

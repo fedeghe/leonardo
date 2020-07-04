@@ -1,19 +1,6 @@
 ## Element instance  
 
-First thing we need to create an instance, use `Leonardo` factory function:
-
-```
-Leonardo(width, height, options)
-```
-- `width`: mandatory Integer  
-- `height`: mandatory Integer  
-- `options`: an optional object literal which allows to  set some attributes that will be added to the root svg:  
-    - `ns`: set the namespaces that are needed  
-    - `target`: define the target node for rendering  
-
-anyway it will be possible to specify the target even when invoking the `render` method on the instance.
-
-Leonardo creates for each of them an instance of an `Element`. This instance offers the following methods to tune the aspect of those tag and something more:  
+Now that we know how to create a root `<svg>` and sub-elements we need some methods to append them so to create the right hierarchy, to style them, give attributes, ... and more.
 
 ---  
 ### instance.render({target: DOMNode, cb: function (instance) {}}) -> instance
@@ -22,6 +9,8 @@ renders the instance into the target :
 ```
 myLine.render();
 ```
+
+in case when invoking the `Leonardo` factory method the `target` parameter has been passed then here it is optional, otherwise must be passed otherwise an exeption will be thrown. 
 ---
 
 ### instance.attrs(attrs) -> instance
@@ -89,7 +78,7 @@ Creates something similar to a clone of the instance, the limitation/power of a 
 
 ### instance.rotate(deg, x, y) -> instance  
 
-Rotates a tag of `deg` degrees around the point `P : {x, y}`.
+Rotates a tag of `deg` degrees around the point `{x, y}`.
 
 ---
 
