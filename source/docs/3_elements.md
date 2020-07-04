@@ -10,7 +10,7 @@ renders the instance into the target :
 myLine.render();
 ```  
 
-in case when invoking the `Leonardo` factory method the `target` parameter has been passed then here it is optional, otherwise must be passed otherwise an exeption will be thrown. 
+in case when invoking the `Leonardo` factory method the `target` parameter has been passed then here it is optional, otherwise must be passed otherwise an exception will be thrown. 
 
 ---
 
