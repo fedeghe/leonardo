@@ -8,9 +8,10 @@ Now that we know how to create a root `<svg>` and sub-elements we need some meth
 renders the instance into the target :
 ```
 myLine.render();
-```
+```  
 
 in case when invoking the `Leonardo` factory method the `target` parameter has been passed then here it is optional, otherwise must be passed otherwise an exeption will be thrown. 
+
 ---
 
 ### instance.attrs(attrs) -> instance
