@@ -19,16 +19,20 @@ $$3_elements.md$$
 
 ---
 
-$$filters.md$$
+$$4_transformations.md$$
 
 ---
 
-$$transformations.md$$
+$$5_filters.md$$
 
 ---
 
-$$animate.md$$
+$$6_animate.md$$
 
 ---
 
-$$samples.md$$
+$$7_utilities.md$$
+
+---
+
+$$8_samples.md$$

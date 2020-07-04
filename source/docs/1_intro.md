@@ -1,4 +1,4 @@
-## install leonardo
+## install Leonardo
 
 `> yarn add @fedeghe/leonardo`
 

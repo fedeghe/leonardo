@@ -1,24 +1,32 @@
-## Element instance  
+<a name="elements"></a>
+## Elements 
 
 Now that we know how to create a root `<svg>` and sub-elements we need some methods to append them so to create the right hierarchy, to style them, give attributes, ... and more.
 
 ---  
-### instance.render({target: DOMNode, cb: function (instance) {}}) -> instance
+    <Leonardo_Instance>.render({target: DOMNode, cb: function (instance) {}}) -> Leonardo_Instance
 
-renders the instance into the target :
+renders the instance into the target.
+
+In case when invoking the `Leonardo` factory method the `target` parameter has been passed then here it is optional, otherwise must be passed, otherwise an exception will be thrown.  
 ```
-myLine.render();
+var root = Leonardo(300, 200, {target: myDomNode})
+root.render(); // now is optional
+// 
+var rootOrphan = Leonardo(300, 200)
+root.render(); // now is not, need to pass `{target: aDomNode}`
+               // otherwise will throw an exception
+
 ```  
 
-in case when invoking the `Leonardo` factory method the `target` parameter has been passed then here it is optional, otherwise must be passed otherwise an exception will be thrown. 
-
 ---
+### `setAttrbutes`
 
-### instance.attrs(attrs) -> instance
+    <Element>.setAttributes(attributes) -> instance
 
-Here _attrs_ is an _object literal_ that can contain all the attributes we may need to add to the tag. For example for a `<line>` tag we could write:
+Here _attrsibutes_ is an _object literal_ that can contain all the attributes we may need to add to the tag. For example for a `<line>` tag we could write:
 ```
-myLine.attrs({'stroke-width': 12, stroke: 'black'});
+myLine.setAttributes({'stroke-width': 12, stroke: 'black'});
 ```
 ---
 ### instance.styles(styles) -> instance  
@@ -28,11 +36,11 @@ Here _styles_ is an _object literal_ that can contain all the styles we may need
 myReact.styles({cursor: 'pointer'})
 ```
 ---
-### instance.add(tag1 [, tag2 [, ...]]) -> instance  
+### instance.append(tag1 [, tag2 [, ...]]) -> instance  
 
-This adds all tags passed to it into the instance tag. For example let's say we have a `<g>` of objects and we would like to rotate (see below) all the elements contained into it :
+This adds all tags passed to it into the instance tag. For example let's say we have a `<g>` of objects and we would like to rotate (see tranformation section) all the elements contained into it :
 ```
-mygroup.add(line, circle)
+mygroup.append(line, circle)
 // now we can rotate all elements just rotating the group
 ```
 ---
@@ -59,7 +67,7 @@ As expected if You plan to register and unregister an handler function You must 
 
 ### instance.once(eventName, callback) -> instance  
 
-Should be clear what this does right?
+Should be clear what this does.
 
 ---
 
@@ -67,48 +75,21 @@ Should be clear what this does right?
 
 Creates a clone of the instance
 
-
 ---
 
 ### instance.use() -> <use> Element instance  
 
 Creates something similar to a clone of the instance, the limitation/power of a `<use>` tag is that one cannot override the properties defined in the original instance. More [here](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use).
 
-
----
-
-### instance.rotate(deg, x, y) -> instance  
-
-Rotates a tag of `deg` degrees around the point `{x, y}`.
-
----
-
-### instance.scale(sx, sy) -> instance  
-
-Scales a tag using `sx` to scale along _x_ axis and `sy` to scale along _y_ axis.
-
----
-
-### instance.mirrorH() -> instance  
-
-Mirrors a tag horizontally.
-
----
-
-### instance.mirrorV() -> instance  
-
-Mirrors a tag vertically.
-
----
-
-### instance.move(x, y) -> instance  
-
-Moves a tag of `x` along _x_ axis and `y` alogn _y_ axis. 
-
-
 ---
 
 ### instance.clear() -> void
+
+Removes the subtree of a tag.
+
+---
+
+### instance.remove() -> void
 
 Removes a tag.
 
@@ -123,7 +104,4 @@ Replaces `oldTag` with `newTag`.
 ### instance.getBbox() -> void
 
 Gets the bounding box of the instance {x, y, w, h}. More infos can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/SVGGraphicsElement/getBBox)
-
-
-
 
