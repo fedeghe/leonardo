@@ -1,69 +1,69 @@
-var filter_id = 0;
+var gradient_id = 0;
 /**
  * { function_description }
  *
  * @return     {(Object|string)}  { description_of_the_return_value }
  */
-L.prototype.filters = function () {
-	var self = this,
-		defs = null;
-	if (this.defs) {
-		defs = this.defs;
-	} else {
-		defs = this.defs = new Element('defs');
-		self.append(this.defs);
-	}
 
-	function lid() {
-		filter_id++;
-		return 'leo_id_' + filter_id;
-	}
+function lid() {
+    gradient_id++;
+    return 'leo_id_' + gradient_id;
+}
 
-	function lGrad(steps) {
-		var id = lid(),
-			linearGrad = new Element('linearGradient'),
-			i, tmp;
+function getDefs(instance) {
+    if (!instance.defs) {
+        instance.defs = new Element('defs');
+        instance.append(instance.defs);
+    }
+    return instance.defs;
+}
 
-		linearGrad.setAttributes({
-			id : id,
-			x1 : '0%',
-			y1 : '0%',
-			x2 : '100%',
-			y2 : '0%'
-		});
 
-		for (i in steps) {
-			tmp = new Element('stop');
-			tmp.setAttributes({
-				offset : i + '%',
-				style : 'stop-opacity:1;stop-color:' + steps[i]
-			});
-			linearGrad.append(tmp)
-		}
-		defs.append(linearGrad);
-		return 'url(#' + id + ')';
-	}
+ L.prototype.linearGradient = function (steps, rotate) {
+    var defs = getDefs(this),
+        id = lid(),
+        linearGrad = new Element('linearGradient'),
+        i, tmp,
+        attrs = {
+            id : id,
+            x1 : '0%',
+            y1 : '0%',
+            x2 : '100%',
+            y2 : '0%'    
+        };
 
-	function rGrad(steps) {
-		var id = lid(),
-			radialGrad = new Element('radialGradient'),
-			i, tmp;
-		radialGrad.setAttributes({id : id});
+    if (rotate) {
+        attrs.gradientTransform = 'rotate(' + rotate + ')'
+    }
+    linearGrad.setAttributes(attrs);
+    for (i in steps) {
+        tmp = new Element('stop');
+        tmp.setAttributes({
+            offset : i + '%',
+            style : 'stop-opacity:1;stop-color:' + steps[i]
+        });
+        linearGrad.append(tmp)
+    }
+    this.defs.append(linearGrad);
+    return 'url(#' + id + ')';
+}
 
-		for (i in steps) {
-			tmp = new Element('stop');
-			tmp.setAttributes({
-				offset : i + '%',
-				style : 'stop-opacity:1;stop-color:' + steps[i]
-			});
-			radialGrad.append(tmp)
-		}
-		defs.append(radialGrad);
-		return 'url(#' + id + ')';
-	}
+L.prototype.radialGradient = function radial(steps) {
+    var defs = getDefs(this),
+        id = lid(),
+        radialGrad = new Element('radialGradient'),
+        i, tmp;
+    radialGrad.setAttributes({id : id});
 
-	return {
-		lGrad : lGrad,
-		rGrad : rGrad
-	};
-};
+    for (i in steps) {
+        tmp = new Element('stop');
+        tmp.setAttributes({
+            offset : i + '%',
+            style : 'stop-opacity:1;stop-color:' + steps[i]
+        });
+        radialGrad.append(tmp)
+    }
+    this.defs.append(radialGrad);
+    return 'url(#' + id + ')';
+}
+

@@ -62,18 +62,18 @@
 		),
 		image = L.image(cx - size / 10, cy * 0.7, size / 5, size / 20, themes[theme].img),
 
-		filt = L.filters().rGrad({ // radial
+		filt = L.radialGradient({ // radial
 			"90" : "#aa0",
 			"95" : "#550",
 			"100" : "#ff0"
 		}),
-		filt2 = L.filters().lGrad({ // linear
+		filt2 = L.linearGradient({ // linear
 			"0" : "#0a0",
 			"5" : "#00a",
 			"95" : "#aa0",
 			"100" : "#f00"
-		}),
-		filt3 = L.filters().rGrad({ // radial
+		}, 90),
+		filt3 = L.radialGradient({ // radial
 			"0" : "#fff",
 			"90" : "#888",
 			"94" : "#aaa",
@@ -94,8 +94,8 @@
 			tmp, i;
 
 		big.setAttributes({
-			"stroke-width" : size / 40,
-			"stroke" : themes[theme].color
+			"stroke-width": size / 40,
+			stroke: themes[theme].color
 		});
 		small.setAttributes({
 			"stroke-width" : size / 80,
@@ -113,21 +113,22 @@
 		}	
 	})();
 
-	circle.styles({"fill" : themes[theme].background});
+	circle.styles({fill : themes[theme].background});
 
 	secs.append(secs1, secs2, secs3)
 		.setAttributes({
-			"fill" : themes[theme].secColor,
-			"stroke" : themes[theme].secColor,
+			fill : themes[theme].secColor,
+			stroke : themes[theme].secColor,
 			"stroke-width" : size / 80
 		})
 		.move(cx, 0);
 
-	hours.setAttributes({"fill" : themes[theme].color})
-	mins.setAttributes({"fill" : themes[theme].color})
+	// hours.setAttributes({"fill" : themes[theme].color})
+	hours.setAttributes({fill: themes[theme].color})
+	mins.setAttributes({fill: themes[theme].color})
 	
-	text.setAttributes({'font-size' : size / 25, 'fill' : themes[theme].color})
-	textSM.setAttributes({'font-size' : size / 70, 'fill' : themes[theme].color})
+	text.setAttributes({'font-size': size / 25, fill: themes[theme].color})
+	textSM.setAttributes({'font-size': size / 70, fill: themes[theme].color})
 
 	container.append(image, text, textSM, hours, mins, secs);
 	

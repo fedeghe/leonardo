@@ -293,9 +293,9 @@ Moves a tag of `x` pixels along _x_ axis and `y` pixels along _y_ axis.
 
 ---
 
-## filters
+## gradients
 
-Still need to document
+Leonardo comes with two basic gradient 
 
 ---
 
