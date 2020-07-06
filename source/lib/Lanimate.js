@@ -13,7 +13,10 @@ L.prototype.animate = (function () {
 				y = fy(y, t);
 				t += 0.1;
 				el.move(x, y);
-			}, 20);
+            }, 20);
+        return function () {
+            clearInterval(ti)
+        }
 	}
 	function parametricPolar(el, fr, fO) {
 		var t = 0,
@@ -27,18 +30,21 @@ L.prototype.animate = (function () {
 					r * Math.cos(O),
 					r * Math.sin(O)
 				);
-			}, 20);
+            }, 20);
+        return function () {
+            clearInterval(ti)
+        }
 	}
 
-	function attr(name, fromValue, toValue, dur, repeat) {
+	function attr(params /* {attributeName, from, to, dur, repeatCount} */) {
 		var animate = new Element('animate');
 		animate.setAttributes({
 			attributeType: 'XML',
-			attributeName: name,
-			from: fromValue,
-			to: toValue,
-			dur: dur,
-			repeatCount: repeat
+			attributeName: params.attributeName,
+			from: params.from,
+			to: params.to,
+			dur: params.dur,
+			repeatCount: params.repeatCount
 		});
 		return animate;
 	};

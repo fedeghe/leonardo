@@ -60,8 +60,20 @@ window.onload = function () {
                 .setAttributes(attrs.thunder)
                 .scale(1, 0.5)
                 .move(0, 200);
-        thunder.append(L.animate.attr('stroke', '#ff660077;#ffaa00aa;#ff660077', '0.3s', 'indefinite'))
-        thunder.append(L.animate.attr('fill', '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff', '5s', 'indefinite'))
+        thunder.append(L.animate.attr({
+            attributeName: 'stroke',
+            from: '#ff660077;#ffaa00aa;#ff660077',
+            to: '#fede7677;#ffaa00aa;#fede7677',
+            dur: '0.3s',
+            repeatCount: 'indefinite'
+        }))
+        thunder.append(L.animate.attr({
+            attributeName: 'fill',
+            from: '#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#000',
+            to: '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff',
+            dur: '5s',
+            repeatCount: 'indefinite'
+        }))
 
         L.append(cloud, thunder);
         L.render();
@@ -131,8 +143,20 @@ window.onload = function () {
                 .move(0, 200),
             contour = L.circle(w(50), h(50), m(45)).setAttributes(attrs.contour),
             logo = L.group();
-        thunder.append(L.animate.attr('stroke', '#ff660077;#ffaa00aa;#ff660077', '0.3s', 'indefinite'))
-        thunder.append(L.animate.attr('fill', '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff', '5s', 'indefinite'))
+        thunder.append(L.animate.attr({
+            attributeName: 'stroke',
+            from: '#ff660077;#ffaa00aa;#ff660077',
+            to: '#aa660077;#ffaa00aa;#aa660077',
+            dur: '0.3s',
+            repeatCount: 'indefinite'
+        }))
+        thunder.append(L.animate.attr({
+            attributeName: 'fill',
+            from: '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff',
+            to: '#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00',
+            dur: '5s',
+            repeatCount: 'indefinite'
+        }))
         logo.append(cloud, thunder).scale(0.8, 0.8).move(50,50);
         L.append(contour,logo);
         L.render();
@@ -188,8 +212,20 @@ window.onload = function () {
                 .setAttributes(attrs.thunder)
                 .scale(1, 0.5)
                 .move(0, 200);
-        thunder.append(L.animate.attr('stroke', '#ff660077;#ffaa00aa;#ff660077', '0.3s', 'indefinite'))
-        thunder.append(L.animate.attr('fill', '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff', '5s', 'indefinite'))
+        thunder.append(L.animate.attr({
+            attributeName: 'stroke',
+            from: '#ff660077;#ffaa00aa;#ff660077',
+            to: '#ff66ff77;#ffaa00aa;#ff66ff77',
+            dur: '0.3s',
+            repeatCount: 'indefinite'
+        }))
+        thunder.append(L.animate.attr({
+            attributeName: 'fill',
+            from: '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff',
+            to: '#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#555',
+            dur: '5s',
+            repeatCount: 'indefinite'
+        }))
 
         L.append(cloud, thunder);
         L.render();

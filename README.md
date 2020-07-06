@@ -7,12 +7,12 @@
 ```
 A simple library to draw sgv
 
-## install Leonardo
+## Install Leonardo
 
 `> yarn add @fedeghe/leonardo`
 
 
-## use it
+## use Leonardo
 
 First of all in your html include _Leonardo.js_ in the `<head>` tag:  
 
@@ -41,7 +41,7 @@ anyway it will be possible to specify the _target_ even when invoking the `rende
 ---
 
 
-# tags  
+# Tags  
 
 To draw something we need to add svg tags. Leonardo let you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `textPath`, `title`, `script`, `textBox`.
 
@@ -293,13 +293,18 @@ Moves a tag of `x` pixels along _x_ axis and `y` pixels along _y_ axis.
 
 ---
 
-## gradients
+## Gradients
 
 Leonardo comes with two basic gradient, linear and radial:  
 
+### `.linearGradient`
+
     <Leonardo_instance>.linearGradient(gradient [, orinetationAngle]) -> gradient  
 
-then can be used on a tag simply setting it as the `fill` attribute:
+the `gradient` is meant to be specified as an object literal where the keys are supposed to be the percentages from 0 to 100 and the values are expected to be hex colors.  
+The optional `orientationAngle` is a number in degrees which allows to rotate the linear gradient.
+
+then it should be used on a tag simply setting it as the `fill` attribute:
 
     myTag.setAttributes({fill: myGradient})  
 
@@ -308,26 +313,42 @@ As full small example:
 ```
 <div id="root"></div>
 <script>
-    var svg = Leonardo (300, 200, {target: document.getElementById('root')}),
-        gradient = L.linearGradient({ // linear
-			"0" : "#0a0",
-			"5" : "#00a",
-			"95" : "#aa0",
-			"100" : "#f00"
-		}, 90),
-        circle = L.circle(150, 100, 50).setAttributes({fill; gradient});
-    svg.render();
+    (function (){
+        var svg = Leonardo (300, 200, {
+                target: document.getElementById('root')
+            }),
+            gradient = L.linearGradient({ // linear
+                "0" : "#0a0",
+                "5" : "#00a",
+                "95" : "#aa0",
+                "100" : "#f00"
+            }, 90),
+            circle = L.circle(150, 100, 50)
+                .setAttributes({
+                    fill: gradient
+                });
+        svg.render();
+    })()
 </script>
 ```
 
+---
 
+### `.radialGradient`
 
+    <Leonardo_instance>.radialGradient(gradient) -> gradient  
+
+The radial gradient is supposed to receive the same literal as first parameter, here the orientation does not apply, the usage then is even simpler.
 
 ---
 
 ## animate
 
-Still need to document
+To animate a specific tag attribute we need to append an `<animate>` tag to to it  
+
+
+...to be continued
+
 
 ---
 

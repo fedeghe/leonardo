@@ -32,11 +32,23 @@ window.onload = function () {
         for (null; i < 20; i++) {
             color = getColor();
             c1 = Leo.circle(width / 2 - width / (i+1), height / 2, min * 0.8**i).setAttributes({fill: color});
-            ani1 = Leo.animate.attr('r', min * 0.8 ** i, 1E3, '10s', 'indefinite');
+            ani1 = Leo.animate.attr({
+                attributeName: 'r',
+                from: min * 0.8 ** i,
+                to: 1E3,
+                dur: '10s',
+                repeatCont: 'indefinite'
+            });
             c1.append(ani1);
 
             c2 = Leo.circle(width / 2 + width / (i + 1), height / 2, min * 0.8 ** i).setAttributes({ fill: color });
-            ani2 = Leo.animate.attr('r', min * 0.8 ** i, 1E3, '10s', 'indefinite');
+            ani2 = Leo.animate.attr({
+                attributeName: 'r',
+                from: min * 0.8 ** i,
+                to: 1E3,
+                dur: '10s',
+                repeatCount: 'indefinite'
+            });
             c2.append(ani2);
             elements.push(c1, c2);
             Leo.append(c1, c2)

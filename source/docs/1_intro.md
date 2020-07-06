@@ -1,9 +1,9 @@
-## install Leonardo
+## Install Leonardo
 
 `> yarn add @fedeghe/leonardo`
 
 
-## use it
+## use Leonardo
 
 First of all in your html include _Leonardo.js_ in the `<head>` tag:  
 
