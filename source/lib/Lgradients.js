@@ -1,10 +1,4 @@
 var gradient_id = 0;
-/**
- * { function_description }
- *
- * @return     {(Object|string)}  { description_of_the_return_value }
- */
-
 function lid() {
     gradient_id++;
     return 'leo_id_' + gradient_id;
@@ -17,7 +11,6 @@ function getDefs(instance) {
     }
     return instance.defs;
 }
-
 
  L.prototype.linearGradient = function (steps, rotate) {
     var defs = getDefs(this),
@@ -66,4 +59,3 @@ L.prototype.radialGradient = function radial(steps) {
     this.defs.append(radialGrad);
     return 'url(#' + id + ')';
 }
-
