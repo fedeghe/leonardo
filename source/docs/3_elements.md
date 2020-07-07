@@ -38,7 +38,7 @@ myReact.styles({cursor: 'pointer'})
 ---
 ### instance.append(tag1 [, tag2 [, ...]]) -> instance  
 
-This adds all tags passed to it into the instance tag. For example let's say we have a `<g>` of objects and we would like to rotate (see tranformation section) all the elements contained into it :
+This adds all tags passed to it into the instance tag. For example let's say we have a `<g>` of objects and we would like to rotate (see tranformation section) all the elements contained into it; optionally also an array of elements can be passed:
 ```
 mygroup.append(line, circle)
 // now we can rotate all elements just rotating the group

@@ -30,6 +30,9 @@
         },
         "KICKER": {
             "TITLE": "Leonardo - KICKER"
+        },
+        "ANIMATE": {
+            "TITLE": "Leonardo - animate"
         }
     },
     "SERVER": {

@@ -50,8 +50,8 @@ L.prototype.animate = (function () {
 	};
 
 	return {
-		pCart : parametricCartesian,
-		pPolar : parametricPolar,
+		cartesian : parametricCartesian,
+		polar : parametricPolar,
 		attr : attr
 	};
 })();
