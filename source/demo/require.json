@@ -15,5 +15,6 @@
     "source/demo/circles.json": true,
     "source/demo/cver.json": true,
     "source/demo/map.json": true,
-    "source/demo/kicker.json": true
+    "source/demo/kicker.json": true,
+    "source/demo/animate.json": true
 }
