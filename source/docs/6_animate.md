@@ -20,9 +20,11 @@ It's also possible to move a tag, changing the `x` and `y` position attributes, 
 
 ### `<Leonardo instance>.animate.cartesian(tag, funcX, funcY)` -> stopper function
 
+...still need to be documented, there's anyway a clear sample
 
 ### `<Leonardo instance>.animate.polar(tag, funcR, funcPHI)` -> stopper function
 
+...still need to be documented, there's anyway a clear sample
 
 
 
