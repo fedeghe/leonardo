@@ -143,20 +143,23 @@ window.onload = function () {
                 .move(0, 200),
             contour = L.circle(w(50), h(50), m(45)).setAttributes(attrs.contour),
             logo = L.group();
+
         thunder.append(L.animate.attr({
             attributeName: 'stroke',
             from: '#ff660077;#ffaa00aa;#ff660077',
             to: '#aa660077;#ffaa00aa;#aa660077',
             dur: '0.3s',
             repeatCount: 'indefinite'
-        }))
+        }));
+
         thunder.append(L.animate.attr({
             attributeName: 'fill',
             from: '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff',
             to: '#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00',
             dur: '5s',
             repeatCount: 'indefinite'
-        }))
+        }));
+        
         logo.append(cloud, thunder).scale(0.8, 0.8).move(50,50);
         L.append(contour,logo);
         L.render();
