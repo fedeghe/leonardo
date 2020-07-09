@@ -26,7 +26,7 @@ window.onload = function () {
                 return w2 + w2 * Math.sin(t/2);
             },
             function (y, t){
-                return h2 + h2 * Math.cos(t/4);
+                return h2 + h2 * Math.sin(t/4);
             }
         )
         L.append(circle).render();
@@ -51,10 +51,10 @@ window.onload = function () {
         L.animate.polar(
             circle,
             function (r, t){
-                return  min/2 * Math.sin(t/7);
+                return  min/2 * Math.sin(t / 20);
             },
             function (y, t){
-                return t%360;
+                return t % 360;
             }
         )
         L.append(circle).render();
