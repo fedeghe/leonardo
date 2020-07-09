@@ -20,6 +20,7 @@
     <link rel="apple-touch-icon" sizes="152x152" href="/media/icons/icon_152_152.png">
     <link rel="icon" href="/media/icons/icon.png">
     <title>$DEMO.ANIMATE.TITLE$</title>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../dist/index.js"></script>
     <style>
         body {
@@ -37,9 +38,20 @@
 <body>
     <h2>Cartesian</h2>
     <div id="trg1">...</div>
+    <div>
+        where
+
+        $$x = f(t) = {w \over 2} + {w \over 2} * sin(t / 4)$$
+        $$y = f(t) = {h \over 2} + {h \over 2} * cos(t / 8)$$
+    </div>
     <hr />
     <h2>Polar</h2>
     <div id="trg2">...</div>
+    <div>
+        where
+        $$r = f(t) = {w \over 2} * sin(t / 7)$$
+        $$ \rho = f(t) = t \bmod 360$$
+    </div>
     <script src="js/index.js"></script>
 </body>
 
