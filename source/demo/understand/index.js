@@ -72,7 +72,7 @@ window.onload = function () {
 	
 	[cg2, cg3, cg4, cg5, cg6, cg7, cg8, cg9].forEach(function (el, i) {
 		var versus = i % 2 ? -1 : 1;
-		L.animate.pCart(el, function (x, t) {
+		L.animate.cartesian(el, function (x, t) {
 			return  w20 * Math.sin(t * speed * versus);
 		},function (y, t) {
 			return -w20 + w20 * Math.cos(rnd * t * speed); //here versus is not influent since cos is simmetric
