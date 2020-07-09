@@ -23,10 +23,10 @@ window.onload = function () {
         L.animate.cartesian(
             circle,
             function (x, t){
-                return w2 + w2 * Math.sin(t/2);
+                return w2 + w2 * Math.sin(t/4);
             },
             function (y, t){
-                return h2 + h2 * Math.sin(t/4);
+                return h2 + h2 * Math.sin(t/8);
             }
         )
         L.append(circle).render();
@@ -53,8 +53,8 @@ window.onload = function () {
             function (r, t){
                 return  min/2 * Math.sin(t / 20);
             },
-            function (y, t){
-                return t % 360;
+            function (rho, t){
+                return t/2 % 360;
             }
         )
         L.append(circle).render();
