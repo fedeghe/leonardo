@@ -4,7 +4,8 @@
  * @return     {Object}  { description_of_the_return_value }
  */
 L.prototype.animate = (function () {
-	function parametricCartesian(el, fx, fy) {
+	function parametricCartesian(el, fx, fy, interval) {
+        interval = interval || 20;
 		var t = 0,
 			x = 0,
 			y = 0,
@@ -13,12 +14,13 @@ L.prototype.animate = (function () {
 				y = fy(y, t);
 				t += 0.1;
 				el.move(x, y);
-            }, 20);
+            }, interval);
         return function () {
             clearInterval(ti)
         }
 	}
-	function parametricPolar(el, fr, fO) {
+	function parametricPolar(el, fr, fO, interval) {
+        interval = interval || 20;
 		var t = 0,
 			r = 0,
 			O = 0,
@@ -30,7 +32,7 @@ L.prototype.animate = (function () {
 					r * Math.cos(O),
 					r * Math.sin(O)
 				);
-            }, 20);
+            }, interval);
         return function () {
             clearInterval(ti)
         }
