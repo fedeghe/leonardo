@@ -1,20 +1,21 @@
 /*
- * 	M	moveto	(x y)+
- *	Z	closepath	(none)
- *	L	lineto	(x y)+
- *	H	horizontal lineto	x+
+ * 	M	moveto (x y)+
+ *	Z	closepath (none)
+ *	L	lineto (x y)+
+ *	H	horizontal lineto x+
  *	V	vertical lineto	y+
  *	C	curveto	(x1 y1 x2 y2 x y)+
- *	Q	quadratic Bézier curveto	(x1 y1 x y)+
+ *	Q	quadratic Bézier curveto (x1 y1 x y)+
  *	S	smooth curveto	(x2 y2 x y)+
  *	T	smooth quadratic Bézier curveto	(x y)+
- *	A	elliptical arc	(rx ry x-axis-rotation large-arc-flag sweep-flag x y)+
- *	R	Catmull-Rom curveto*	x1 y1 (x y)+
+ *	A	elliptical arc (rx ry x-axis-rotation large-arc-flag sweep-flag x y)+
+ *	R	Catmull-Rom curveto	x1 y1 (x y)+
  */
 function Pathbuild() {
 	this.path = '';
 	this.previous = null;
 }
+
 function createFun(letter) {
 	return function () {
 		var l = this.previous === letter ? ' ' : letter;
@@ -60,33 +61,27 @@ L.prototype.pathBuild = (function () {
 	return pb;
 })();
 
-
 L.prototype.slice = function (cx, cy, radius, startAngle, endAngle) {
 	var self = this,
 		p = self.slicePath(cx, cy, radius, startAngle, endAngle);
-
 	return self.path(p);
 };
+
 L.prototype.slicePath = function (cx, cy, radius, startAngle, endAngle) {
-	var self = this,
-        largeArc = 0;
+	var largeArc = 0;
 
 	if (startAngle > endAngle) {
 		var s = startAngle;
 		startAngle = endAngle;
 		endAngle = s;
 	}
-	/*
-	if (Math.abs(endAngle - startAngle) > 360) {
+	/*if (Math.abs(endAngle - startAngle) > 360) {
 		endAngle = 359.999;
 	}*/
-	
 	largeArc = endAngle - startAngle <= 180 ? 0 : 1;
-
 	startAngle = deg2rad(startAngle);
 	endAngle = deg2rad(endAngle);
-
-	return self.pathBuild
+	return thi.pathBuild
 		.M(cx, cy)
 		.L(
 			cx + Math.cos(startAngle) * radius,
