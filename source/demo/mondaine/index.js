@@ -40,7 +40,7 @@
 			secs1 = L.circle(0, height * 0.245, width / 40),
 			secs2 = L.line(0, height * 0.26, 0, height * 0.62),
 			secs3 = L.circle(0, height / 2, width / 85),
-			secs0 = L.circle(0, height / 2, width / 85),
+			secsBullet = L.circle(0, height / 2, width / 150),
 
 		mins = L.polygon(
 			cx - width * 0.028 , cy + height * 0.09,
@@ -81,7 +81,7 @@
 			"97" : "#aaa",
 			"100" : "#fff"
 		});
-
+        console.log(width, width / 25)
 	L.append(container);
 	border.append(cir0).setAttributes({fill: filt3});
 
@@ -115,19 +115,23 @@
 	})();
 
 	circle.styles({fill : themes[theme].background});
-	secs0.styles({fill : L.radialGradient({ // linear
-        "0" : "#000",
-        "50" : "#fff",
-        "100" : "#555"
-    })});
+	secsBullet.setAttributes({
+        fill : L.radialGradient({ // linear
+            0 : 'black',
+            33: themes[theme].secColor,
+            66 : 'white',
+            100 : 'black',
+        }),
+        "stroke-width" : 0
+    });
 
-	secs.append(secs1, secs2, secs3, secs0)
+	secs.append(secs1, secs2, secs3, secsBullet)
 		.setAttributes({
 			fill : themes[theme].secColor,
 			stroke : themes[theme].secColor,
 			"stroke-width" : size / 80
-		}).move(cx, 0);
-
+        }).move(cx, 0);
+        
 	// hours.setAttributes({"fill" : themes[theme].color})
 	hours.setAttributes({fill: themes[theme].color})
 	mins.setAttributes({fill: themes[theme].color})

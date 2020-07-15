@@ -33,7 +33,8 @@ function getDefs(instance) {
         tmp = new Element('stop');
         tmp.setAttributes({
             offset : i + '%',
-            style : 'stop-opacity:1;stop-color:' + steps[i]
+            // style : 'stop-opacity:1;stop-color:' + steps[i],
+            'stop-color': steps[i]
         });
         linearGrad.append(tmp)
     }
@@ -52,7 +53,8 @@ L.prototype.radialGradient = function radial(steps) {
         tmp = new Element('stop');
         tmp.setAttributes({
             offset : i + '%',
-            style : 'stop-opacity:1;stop-color:' + steps[i]
+            // style : 'stop-opacity:1;stop-color:' + steps[i],
+            'stop-color': steps[i]
         });
         radialGrad.append(tmp)
     }
