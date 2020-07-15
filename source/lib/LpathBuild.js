@@ -81,7 +81,7 @@ L.prototype.slicePath = function (cx, cy, radius, startAngle, endAngle) {
 	largeArc = endAngle - startAngle <= 180 ? 0 : 1;
 	startAngle = deg2rad(startAngle);
 	endAngle = deg2rad(endAngle);
-	return thi.pathBuild
+	return this.pathBuild
 		.M(cx, cy)
 		.L(
 			cx + Math.cos(startAngle) * radius,
