@@ -40,11 +40,12 @@
 			secs1 = L.circle(0, height * 0.245, width / 40),
 			secs2 = L.line(0, height * 0.26, 0, height * 0.62),
 			secs3 = L.circle(0, height / 2, width / 85),
+			secs0 = L.circle(0, height / 2, width / 85),
 
 		mins = L.polygon(
 			cx - width * 0.028 , cy + height * 0.09,
-			cx - width * 0.018 , size * 0.125,
-			cx + width * 0.018 , size * 0.125,
+			cx - width * 0.018 , size * 0.145,
+			cx + width * 0.018 , size * 0.145,
 			cx + width * 0.028 , cy + height * 0.09
 		).setAttributes({ id: 'minutes' }),
 		hours = L.polygon(
@@ -114,14 +115,18 @@
 	})();
 
 	circle.styles({fill : themes[theme].background});
+	secs0.styles({fill : L.radialGradient({ // linear
+        "0" : "#000",
+        "50" : "#fff",
+        "100" : "#555"
+    })});
 
-	secs.append(secs1, secs2, secs3)
+	secs.append(secs1, secs2, secs3, secs0)
 		.setAttributes({
 			fill : themes[theme].secColor,
 			stroke : themes[theme].secColor,
 			"stroke-width" : size / 80
-		})
-		.move(cx, 0);
+		}).move(cx, 0);
 
 	// hours.setAttributes({"fill" : themes[theme].color})
 	hours.setAttributes({fill: themes[theme].color})
