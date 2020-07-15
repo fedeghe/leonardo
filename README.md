@@ -170,23 +170,21 @@ root.render(); // now is not, need to pass `{target: aDomNode}`
 ```  
 
 ---
-### `setAttrbutes`
-
-    <Element>.setAttributes(attributes) -> instance
+### tagInstance.setAttributes(attributes) -> tagInstance
 
 Here _attributes_ is an _object literal_ that can contain all the attributes we may need to add to the tag. For example for a `<line>` tag we could write:
 ```
 myLine.setAttributes({'stroke-width': 12, stroke: 'black'});
 ```
 ---
-### instance.styles(styles) -> instance  
+### tagInstance.styles(styles) -> tagInstance  
 
 Here _styles_ is an _object literal_ that can contain all the styles we may need to add to the tag. For example for a `<recat>` tag we could write:
 ```
 myRect.styles({cursor: 'pointer'})
 ```
 ---
-### instance.append(tag1 [, tag2 [, ...]]) -> instance  
+### tagInstance.append(tag1 [, tag2 [, ...]]) -> tagInstance  
 
 This adds all tags passed to it into the instance tag. For example let's say we have a `<g>` of objects and we would like to rotate (see tranformation section) all the elements contained into it; optionally also an array of elements can be passed:
 ```
@@ -194,7 +192,7 @@ myGroup.append(line, circle)
 // now we can rotate all elements just rotating the group
 ```
 ---
-### instance.on(eventName, callback) -> instance  
+### tagInstance.on(eventName, callback) -> tagInstance  
 
 This method allows to register an event listener for a tag:
 ```
@@ -203,7 +201,7 @@ myRect.on('click', function (e) {
 })
 ```
 ---
-### instance.off(eventName, callback) -> instance  
+### tagInstance.off(eventName, callback) -> tagInstance  
 
 This method allows to unregister an event listener for a tag:
 ```
@@ -215,43 +213,43 @@ As expected if You plan to register and unregister an handler function You must 
 
 ---
 
-### instance.once(eventName, callback) -> instance  
+### tagInstance.once(eventName, callback) -> tagInstance  
 
 Should be clear what this does.
 
 ---
 
-### instance.clone() -> clone instance  
+### tagInstance.clone() -> clone tagInstance  
 
 Creates a clone of the instance
 
 ---
 
-### instance.use() -> <use> Element instance  
+### tagInstance.use() -> <use> Element tagInstance  
 
 Creates something similar to a clone of the instance, the limitation/power of a `<use>` tag is that one cannot override the properties defined in the original instance. More [here](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use).
 
 ---
 
-### instance.clear() -> void
+### tagInstance.clear() -> void
 
 Removes the subtree of a tag.
 
 ---
 
-### instance.remove() -> void
+### tagInstance.remove() -> void
 
 Removes a tag.
 
 ---
 
-### instance.replace(oldTag, newTag) -> void
+### tagInstance.replace(oldTag, newTag) -> void
 
 Replaces `oldTag` with `newTag`.
 
 ---
 
-### instance.getBbox() -> void
+### tagInstance.getBbox() -> void
 
 Gets the bounding box of the instance {x, y, w, h}. More infos can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/SVGGraphicsElement/getBBox)
 
