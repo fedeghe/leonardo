@@ -24,23 +24,23 @@ root.render(); // now is not, need to pass `{target: aDomNode}`
 
     <Element>.setAttributes(attributes) -> instance
 
-Here _attrsibutes_ is an _object literal_ that can contain all the attributes we may need to add to the tag. For example for a `<line>` tag we could write:
+Here _attributes_ is an _object literal_ that can contain all the attributes we may need to add to the tag. For example for a `<line>` tag we could write:
 ```
 myLine.setAttributes({'stroke-width': 12, stroke: 'black'});
 ```
 ---
 ### instance.styles(styles) -> instance  
 
-Here _styles_ is an _object literal_ that can contain all the styles we may need to add to the tag. For example for a `<reat>` tag we could write:
+Here _styles_ is an _object literal_ that can contain all the styles we may need to add to the tag. For example for a `<recat>` tag we could write:
 ```
-myReact.styles({cursor: 'pointer'})
+myRect.styles({cursor: 'pointer'})
 ```
 ---
 ### instance.append(tag1 [, tag2 [, ...]]) -> instance  
 
 This adds all tags passed to it into the instance tag. For example let's say we have a `<g>` of objects and we would like to rotate (see tranformation section) all the elements contained into it; optionally also an array of elements can be passed:
 ```
-mygroup.append(line, circle)
+myGroup.append(line, circle)
 // now we can rotate all elements just rotating the group
 ```
 ---
@@ -48,7 +48,7 @@ mygroup.append(line, circle)
 
 This method allows to register an event listener for a tag:
 ```
-myReact.on('click', function (e) {
+myRect.on('click', function (e) {
     console.log(e)
 })
 ```
@@ -57,7 +57,7 @@ myReact.on('click', function (e) {
 
 This method allows to unregister an event listener for a tag:
 ```
-myReact.off('click', function (e) {
+myRect.off('click', function (e) {
     console.log(e)
 })
 ```
