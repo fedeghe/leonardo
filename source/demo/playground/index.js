@@ -45,7 +45,8 @@ window.onload = function () {
 			'stroke-width' : 2,
 			'stroke' : 'black'
 		}),
-		image = L.image(200, 100, 216, 216, 'https://avatars3.githubusercontent.com/u/1332338?v=3&s=460');
+		image = L.image(170, 100, 216, 216, 'https://avatars3.githubusercontent.com/u/1332338?v=3&s=460');
+		// image = L.image(0, 0, 416, 216, 'https://www.swr.de/-/id=23949308/property=full/1crxui5/da%20Vinci%20war%20ein%20vielseitig%20interessierter,%20talentierter%20K%C3%BCnstler.jpg');
 	
 	image.on('click', function (e) {
 		console.log(e.target);
@@ -61,7 +62,7 @@ window.onload = function () {
 		console.log(e);
 	});
 
-	tria.rotate(20, 300,50).move(10, 100);
+	tria.rotate(20, 300, 50).move(10, 100);
 
-	L.append(polyline, polygon, image, tria).render({target: target});
+	L.append(image, polyline, polygon, tria).render({target: target});
 };
