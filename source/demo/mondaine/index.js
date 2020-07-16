@@ -39,7 +39,7 @@
 		secs = L.group().setAttributes({ id: 'seconds' }),
 			secs1 = L.circle(0, height * 0.245, width / 40),
 			secs2 = L.line(0, height * 0.26, 0, height * 0.62),
-			secs3 = L.circle(0, height / 2, width / 85),
+			secs3 = L.circle(0, height / 2, width / 120),
 			secsBullet = L.circle(0, height / 2, width / 150),
 
 		mins = L.polygon(
@@ -62,19 +62,7 @@
 			"swiss made"
 		),
 		image = L.image(cx - size / 10, cy * 0.7, size / 5, size / 20, themes[theme].img),
-
 		filt = L.radialGradient({ // radial
-			"90" : "#aa0",
-			"95" : "#550",
-			"100" : "#ff0"
-		}),
-		filt2 = L.linearGradient({ // linear
-			"0" : "#0a0",
-			"5" : "#00a",
-			"95" : "#aa0",
-			"100" : "#f00"
-		}, 90),
-		filt3 = L.radialGradient({ // radial
 			"0" : "#fff",
 			"90" : "#888",
 			"94" : "#aaa",
@@ -83,7 +71,7 @@
 		});
         console.log(width, width / 25)
 	L.append(container);
-	border.append(cir0).setAttributes({fill: filt3});
+	border.append(cir0).setAttributes({fill: filt});
 
 	container
 		.setAttributes({viewBox: [0, 0, size, size].join(' ')})
