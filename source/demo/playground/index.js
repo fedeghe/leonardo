@@ -54,6 +54,10 @@ window.onload = function () {
 	tria.on('click', function (e) {
 		console.log(e.target);
 		console.log(e);
+    });
+    polygon.once('click', function (e) {
+		console.log(e.target);
+		console.log(e);
 	});
 
 	tria.rotate(20, 300,50).move(10, 100);

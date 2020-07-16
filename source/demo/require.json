@@ -4,7 +4,7 @@
         "cp -r source/demo/media/* demo/media/",
         "cp -r dist demo/"
     ],
-    "source/demo/*.html": "demo -plugins=malta-dev-srv[folder:\"demo\"] -vars=source/vars.json",
+    "source/demo/*.html": "demo -plugins=malta-browser-refresh...malta-dev-srv[folder:\"demo\"] -vars=source/vars.json",
     "source/demo/mondaine.json": true,
     "source/demo/hero.json": true,
     "source/demo/malta.json": true,

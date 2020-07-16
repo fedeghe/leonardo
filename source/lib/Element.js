@@ -57,7 +57,7 @@ Element.prototype.on = function (eventName, cb) {
  * @return     {Object}    { description_of_the_return_value }
  */
 Element.prototype.off = function (eventName, cb) {	
-	var self = this;
+    var self = this;
 	if (eventName in this.events) {
 		if (typeof cb === 'undefined') {
 			this.events[eventName].forEach(function (fn) {
@@ -65,8 +65,6 @@ Element.prototype.off = function (eventName, cb) {
 			});
 			this.events[eventName] = null;
 		} else {
-			// who cares about local function?
-			// 
 			self.tag.removeEventListener(eventName, cb);
 		}
 	}
@@ -74,14 +72,15 @@ Element.prototype.off = function (eventName, cb) {
 };
 
 Element.prototype.once = function (eventName, cb) {
+    var self = this;
 	if (eventName in this.events) {
 		this.events[eventName].push(cb);
 	} else {
 		this.events[eventName] = [cb];
 	}
-	this.tag.addEventListener(eventName, function (e) {
+	this.tag.addEventListener(eventName, function _(e) {
         cb(e)
-        this.off(eventName, cb)
+        self.off(eventName, _)
     });
 	return this;
 };
