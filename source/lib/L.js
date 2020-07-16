@@ -1,11 +1,51 @@
 var namespaces = {
     cc: 'http://creativecommons.org/ns#',
     dc: 'http://purl.org/dc/elements/1.1/',
-    ev : 'http://www.w3.org/2001/xml-events',
+    ev: 'http://www.w3.org/2001/xml-events',
     rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
     svg: 'http://www.w3.org/2000/svg',
     xlink: 'http://www.w3.org/1999/xlink'
 };
+
+/**
+ * { function_description }
+ *
+ * @class      L (name)
+ * @param      {string}  width   The width
+ * @param      {string}  height  The height
+ * @param      {<type>}  opts    The options
+ */
+function L(width , height, opts) {
+	this.namespaces = namespaces;
+	var self = this,
+		tmp, l;
+	opts = opts || {};
+
+    this.tag = create('svg');
+    this.tag.setAttribute('width', width);
+    this.tag.setAttribute('height', height);
+    this.tag.setAttribute('xmlns', namespaces.svg);
+    this.tag.setAttribute('viewbox', '0 0 ' + width + ' ' + height);
+    this.childs = [];
+    
+    for (tmp in opts)
+		tmp !== 'ns'
+		&& tmp !== 'target'
+    	&& this.tag.setAttribute(tmp, opts[tmp]);
+
+    this.target = 'target' in opts ? opts.target : null;
+
+    function addNs(l){
+    	l in namespaces 
+    	&& self.tag.setAttribute('xmlns:' + l, namespaces[l]);
+    }
+    if ('ns' in opts){
+    	if (opts.ns === '*')
+    		opts.ns = Object.keys(namespaces);
+    	for (tmp = 0, l = opts.ns.length;tmp < l; tmp++)
+    		addNs(opts.ns[tmp]);
+	}
+}
 
 /**
  * static function to import a documentor a string
@@ -52,45 +92,6 @@ L.toDocument = function (SVGString) {
 	return parser.parseFromString(SVGString, 'image/svg+xml');
 };
 
-/**
- * { function_description }
- *
- * @class      L (name)
- * @param      {string}  width   The width
- * @param      {string}  height  The height
- * @param      {<type>}  opts    The options
- */
-function L(width , height, opts) {
-	this.namespaces = namespaces;
-	var self = this,
-		tmp, l;
-	opts = opts || {};
-
-    this.tag = create('svg');
-    this.tag.setAttribute('width', width);
-    this.tag.setAttribute('height', height);
-    this.tag.setAttribute('xmlns', namespaces.svg);
-    this.tag.setAttribute('viewbox', '0 0 ' + width + ' ' + height);
-    this.childs = [];
-    
-    for (tmp in opts)
-		tmp !== 'ns'
-		&& tmp !== 'target'
-    	&& this.tag.setAttribute(tmp, opts[tmp]);
-
-    this.target = 'target' in opts ? opts.target : null;
-
-    function addNs(l){
-    	l in namespaces 
-    	&& self.tag.setAttribute('xmlns:' + l, namespaces[l]);
-    }
-    if ('ns' in opts){
-    	if (opts.ns === '*')
-    		opts.ns = Object.keys(namespaces);
-    	for (tmp = 0, l = opts.ns.length;tmp < l; tmp++)
-    		addNs(opts.ns[tmp]);
-	}
-}
 
 /**
  * { function_description }
@@ -161,7 +162,8 @@ L.prototype.render = function (o) {
 L.prototype.downloadAnchor = function (txt, name) {
 	var serializer = new XMLSerializer(),
 		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag),
-        url = null;
+        url = null,
+        a = document.createElement('a');
     
     txt = txt || 'download';
     name = name || 'download';
@@ -173,9 +175,7 @@ L.prototype.downloadAnchor = function (txt, name) {
 		source = source.replace(/^<svg/, '<svg xmlns:xlink="' + this.namespaces.xlink + '"');
 	}
 	url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
-
-
-	var a = document.createElement('a');
+	
 	a.download = name + (+new Date) + '.svg';
 	a.href = url;
 	a.addEventListener('click', function () {
