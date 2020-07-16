@@ -56,6 +56,7 @@ window.onload = function () {
 		console.log(e);
     });
     polygon.once('click', function (e) {
+		console.log('This callback will run just once');
 		console.log(e.target);
 		console.log(e);
 	});
