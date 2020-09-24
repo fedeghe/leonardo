@@ -17,16 +17,15 @@
     },
     "devDependencies": {
         "chai": "^4.1.2",
-        "lodash": "^4.17.15",
-        "malta": "^4.1.19",
-        "malta-browser-refresh": "^1.2.6",
+        "malta": "^4.1.25",
+        "malta-browser-refresh": "^1.2.9",
         "malta-dev-srv": "^1.1.7",
-        "malta-header-comment": "^1.0.9",
-        "malta-js-uglify": "^1.0.11",
-        "malta-less": "^1.0.11",
+        "malta-header-comment": "^1.0.10",
+        "malta-js-uglify": "^1.0.13",
+        "malta-less": "^1.0.12",
         "malta-markdown-pdf": "^1.0.9",
-        "mocha": "^5.2.0",
-        "puppeteer": "^1.4.0"
+        "mocha": "^8.1.3",
+        "puppeteer": "^5.3.1"
     },
     "dependencies": {},
     "repository": {
