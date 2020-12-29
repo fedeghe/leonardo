@@ -45,7 +45,8 @@ L.prototype.animate = (function () {
 			attributeName: params.attributeName,
 			from: params.from,
 			to: params.to,
-			dur: params.dur,
+            dur: params.dur,
+            begin: '0s',
 			repeatCount: params.repeatCount
 		});
 		return animate;

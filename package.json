@@ -17,10 +17,10 @@
     },
     "devDependencies": {
         "chai": "^4.1.2",
-        "malta": "^4.1.25",
-        "malta-browser-refresh": "^1.2.9",
+        "malta": "^4.1.28",
+        "malta-browser-refresh": "^1.2.14",
         "malta-dev-srv": "^1.1.7",
-        "malta-header-comment": "^1.0.10",
+        "malta-header-comment": "^1.0.12",
         "malta-js-uglify": "^1.0.13",
         "malta-less": "^1.0.12",
         "malta-markdown-pdf": "^1.0.9",

@@ -1067,20 +1067,20 @@ make-dir@^2.1.0:
     pify "^4.0.1"
     semver "^5.6.0"
 
-malta-browser-refresh@^1.2.9:
-  version "1.2.9"
-  resolved "https://registry.yarnpkg.com/malta-browser-refresh/-/malta-browser-refresh-1.2.9.tgz#e15483379074eb53480db137aead5255a24613cc"
-  integrity sha512-4R5QuD5NY54lOTJQGiwGqvrSb4U2emYly5d+i5ojX/q7x+L7xgqAlXM/8tJN5e1DkRvxoRCaI1AtyM7+NsDwfQ==
+malta-browser-refresh@^1.2.14:
+  version "1.2.14"
+  resolved "https://registry.yarnpkg.com/malta-browser-refresh/-/malta-browser-refresh-1.2.14.tgz#874887f672c3171c6b2515a8c7735afe761f7a9c"
+  integrity sha512-eORJLpXczAcrXwmiLNAWWmKuCqRnx2Hg5GkvvQLuBtYfCGg2TarcaJ3i/xHaWGaNpzieY6YHj5BEt/q3CulZ3A==
 
 malta-dev-srv@^1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/malta-dev-srv/-/malta-dev-srv-1.1.7.tgz#eb2220cc0813acb7454df09646853f5556ef5e22"
   integrity sha512-piqBphgHdIzndyBP1H45GeGlRMhx5T4v7chGjF+UgtWU+e1qYDm5SBX9osBWnsPTLYc8lSOe1b2ljJmpgrYuWw==
 
-malta-header-comment@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/malta-header-comment/-/malta-header-comment-1.0.10.tgz#05de5cc9a4461cd246f398c71d7802621c3c7c4c"
-  integrity sha512-emrfCi0fbVgAuvqSzWsulcNUH6S2QD4tRPE+XyjNaTXwu583+usfbnncT3B2sPGw+Op78hnhTh/FzMOMAk3naQ==
+malta-header-comment@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/malta-header-comment/-/malta-header-comment-1.0.12.tgz#6c64a6d46ddb35d6961257e6ca0ca50e404fd957"
+  integrity sha512-w4Qqcl67LCP7fyZ0u26KpS6iqi+T5cpykX/DgeFQzG6e2byZv776T2ynpuBykhCqxvaFFj2kejMfycSP9kdBpQ==
 
 malta-js-uglify@^1.0.13:
   version "1.0.13"
@@ -1103,10 +1103,10 @@ malta-markdown-pdf@^1.0.9:
   dependencies:
     markdown-pdf "10.0.0"
 
-malta@^4.1.25:
-  version "4.1.25"
-  resolved "https://registry.yarnpkg.com/malta/-/malta-4.1.25.tgz#0d193ae345e8333d322efddc8e1404850077a441"
-  integrity sha512-zVijoAdwrC9FJKLbHhHe6zuX+DamZ1cBj63yTVD8HI41JhhKbmUMc4UmhSvM4h16mr8AVNuBe3dQdLhv4X9bqw==
+malta@^4.1.28:
+  version "4.1.28"
+  resolved "https://registry.yarnpkg.com/malta/-/malta-4.1.28.tgz#8256257d107bf482184b3d1aa5298c84764b9497"
+  integrity sha512-WS2KL+KTPZxjipARQ6tgMJKuO4LPFNzZjJd9s5Ga9GJ6EEvVVZIZcyZf5WNIe8ammSMcxwSPwut2ywpki66bvQ==
 
 markdown-pdf@10.0.0:
   version "10.0.0"

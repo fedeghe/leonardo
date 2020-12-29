@@ -4,7 +4,7 @@ window.onload = function () {
         speedTuner = document.getElementById('speed'),
         rndTuner = document.getElementById('rnd'),
         speed = 0.5,
-        rnd = 1,
+        rnd = false,
 		width = 500,
         height = 500,
         hm = 20,
@@ -73,9 +73,9 @@ window.onload = function () {
 	[cg2, cg3, cg4, cg5, cg6, cg7, cg8, cg9].forEach(function (el, i) {
 		var versus = i % 2 ? -1 : 1;
 		L.animate.cartesian(el, function (x, t) {
-			return  w20 * Math.sin(t * speed * versus);
+			return  w20 * (rnd ? Math.random() : 1) * Math.sin(t * speed * versus);
 		},function (y, t) {
-			return -w20 + w20 * Math.cos(rnd * t * speed); //here versus is not influent since cos is simmetric
+			return -w20 + w20  * (rnd ? Math.random() : 1) * Math.cos(t * speed); //here versus is not influent since cos is simmetric
 		});
     });
 
@@ -86,7 +86,7 @@ window.onload = function () {
         speed = parseFloat(this.value, 10);
     });
     rndTuner.addEventListener('change', function() {
-        rnd = this.checked ? Math.random() : 1;
+        rnd = !!this.checked;
     });
 
     document.body.appendChild(L.downloadAnchor());
