@@ -46,7 +46,7 @@ L.prototype.animate = (function () {
 			from: params.from,
 			to: params.to,
             dur: params.dur,
-            begin: '0s',
+            begin: params.begin || '0s',
 			repeatCount: params.repeatCount
 		});
 		return animate;

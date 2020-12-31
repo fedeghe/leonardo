@@ -8,7 +8,10 @@ window.onload = function () {
         
     function getColor() {
         var i = Math.ceil(Math.random() * colors.length)
-        return colors[i];
+        var r = Math.floor(256 * Math.random()),
+            g = Math.floor(256 * Math.random()),
+            b = Math.floor(256 * Math.random());
+        return 'rgb(' + r + ', ' + g + ', ' + b + ')'; //colors[i];
     }
     function clear() {
         for (var i = 0, l = elements.length; i < l; i++) {
@@ -26,49 +29,28 @@ window.onload = function () {
         min = Math.min(width, height);
         var Leo = Leonardo(width, height, { ns: '*', target: target });
 
-        // for (null; i < 40; i++) {
-        //     color = getColor();
-        //     c1 = Leo.circle(width * Math.random(), height * Math.random(), min * 0.8 ** i).setAttributes({fill: color});
-        //     ani1 = Leo.animate.attr({
-        //         attributeName: 'r',
-        //         from: 1,
-        //         to: 1E3,
-        //         dur: '8s',
-        //         repeatCount: 'indefinite'
-        //     });
-        //     c1.append(ani1);
-
-        //     c2 = Leo.circle(width * Math.random(), height * Math.random(), min * 0.8 ** i).setAttributes({ fill: color });
-        //     ani2 = Leo.animate.attr({
-        //         attributeName: 'r',
-        //         from: min * 0.8 ** i,
-        //         to: 1E3,
-        //         dur: '10s',
-        //         repeatCount: 'indefinite'
-        //     });
-        //     c2.append(ani2);
-
-        //     elements.push(c1, c2);
-        //     Leo.append(c1, c2)
-        // }
-
         function addCircle() {
+            var nextTime = +new Date,
+                diff = (nextTime - now) / 1000;
             var c1 = Leo.circle(width * Math.random(), height * Math.random(), 1).setAttributes({fill: getColor()}),
                 ani1 = Leo.animate.attr({
                     attributeName: 'r',
+                    attributeType: 'XML',
+                    type:'scale',
                     from: 1,
-                    to: 1E3,
-                    dur: '80s',
+                    to: 1E3 * Math.random(),
+                    begin: diff + 's',
+                    dur: '10s',
                     repeatCount: 'indefinite'
                 });
 
             c1.append(ani1);
             elements.push(c1);
-            Leo.append(c1)
-            console.log('adding', c1)
+            Leo.append(c1);
         }
-        var ti = setInterval(addCircle, 1E2)
-        setTimeout(function () {clearInterval(ti)}, 30E3)
+        var now = +new Date
+        var ti = setInterval(addCircle, 1E3)
+        setTimeout(function () {clearInterval(ti)}, 1E4)
         Leo.render();
     }
     draw();

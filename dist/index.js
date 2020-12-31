@@ -7,7 +7,7 @@
                                                   V. 1.0.14
 
 Federico Ghedina <federico.ghedina@gmail.com> 2020
-~24.02KB
+~24.04KB
 */
 (function(w) {
 	
@@ -665,7 +665,7 @@ Federico Ghedina <federico.ghedina@gmail.com> 2020
     			from: params.from,
     			to: params.to,
                 dur: params.dur,
-                begin: '0s',
+                begin: params.begin || '0s',
     			repeatCount: params.repeatCount
     		});
     		return animate;
