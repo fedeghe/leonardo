@@ -23,11 +23,18 @@ window.onload = function () {
         height = window.innerHeight || document.documentElement.clientHeight,
         min = Math.min(width, height);
         var Leo = Leonardo(width, height, { ns: '*', target: target });
-
+        var zIndex = 1;
         function addCircle() {
             var nextTime = +new Date,
                 diff = (nextTime - now) / 1000;
-            var c1 = Leo.circle(width * Math.random(), height * Math.random(), 1).setAttributes({fill: getColor(), 'fill-opacity': "50%"}),
+            var c1 = Leo.circle(
+                    width * Math.random(),
+                    height * Math.random(),
+                    1
+                ).setAttributes({
+                    fill: getColor(),
+                    'fill-opacity': '100%',
+                }),
                 ani1 = Leo.animate.attr({
                     attributeName: 'r',
                     attributeType: 'XML',
@@ -39,6 +46,13 @@ window.onload = function () {
                     repeatCount: 'indefinite'
                 });
 
+            c1.on('click', function () {
+                c1.setAttributes({
+                    cx: width * Math.random(),
+                    cy: height * Math.random(),
+                });
+                c1.bringToTop();
+            })
             c1.append(ani1);
             elements.push(c1);
             Leo.append(c1);

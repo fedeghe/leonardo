@@ -7,7 +7,7 @@
                                                   V. 1.0.14
 
 Federico Ghedina <federico.ghedina@gmail.com> 2021
-~24.04KB
+~25.34KB
 */
 (function(w) {
 	
@@ -928,6 +928,51 @@ Federico Ghedina <federico.ghedina@gmail.com> 2021
 	Element.prototype.remove = function () {
 		this.tag.parentNode.removeChild(this.tag);
 	};
+	
+	Element.prototype.bringToTop = function (){
+	    this.bringTo(Infinity)
+	};
+	
+	Element.prototype.bringToBottom = function (){
+	    this.bringTo(-Infinity)
+	};
+	
+	Element.prototype.bringTo = function (where){
+	    var parent = this.tag.ownerSVGElement;
+	    switch (where) {
+	        case Infinity: 
+	            parent.removeChild(this.tag);
+	            parent.appendChild(this.tag);
+	            break;
+	        case -Infinity:
+	            parent.removeChild(this.tag);
+	            parent.insertBefore(this.tag, parent.firstChild);
+	            break;
+	        default:
+	            var n = this.tag
+	            if (where > 0) {
+	                while (where++ > 0 && n.nextSibling) {
+	                    n = n.nextSibling
+	                }
+	                parent.removeChild(this.tag);
+	                parent.insertBefore(this.tag, n.nextSibling);
+	            } else if (where < 0) {
+	                while (where-- < 0 && n.previousSibling) {
+	                    n = n.previousSibling
+	                }
+	                parent.removeChild(this.tag);
+	                parent.insertBefore(this.tag, n);
+	            }
+	            break;
+	    }
+	    
+	    
+	}
+	Element.prototype.bringToTop = function (){
+	    var parent = this.tag.ownerSVGElement;
+	    parent.removeChild(this.tag);
+	    parent.appendChild(this.tag);
+	}
 	
 	Element.prototype.clear = function () {
 		this.tag.innerHTML = '';
