@@ -1,17 +1,12 @@
 window.onload = function () {
     var target = document.getElementById('trg'),
-        elements = [],
-        colors = [
-            '#000', '#111', '#222', '#333', '#444', '#555', 'red', '#777',
-            '#888', '#999', '#aaa', 'blue', '#ccc', '#ddd', 'green', '#fff'
-        ];
+        elements = [];
         
     function getColor() {
-        var i = Math.ceil(Math.random() * colors.length)
         var r = Math.floor(256 * Math.random()),
             g = Math.floor(256 * Math.random()),
             b = Math.floor(256 * Math.random());
-        return 'rgb(' + r + ', ' + g + ', ' + b + ')'; //colors[i];
+        return 'rgb(' + r + ', ' + g + ', ' + b + ')';
     }
     function clear() {
         for (var i = 0, l = elements.length; i < l; i++) {
@@ -32,7 +27,7 @@ window.onload = function () {
         function addCircle() {
             var nextTime = +new Date,
                 diff = (nextTime - now) / 1000;
-            var c1 = Leo.circle(width * Math.random(), height * Math.random(), 1).setAttributes({fill: getColor()}),
+            var c1 = Leo.circle(width * Math.random(), height * Math.random(), 1).setAttributes({fill: getColor(), 'fill-opacity': "50%"}),
                 ani1 = Leo.animate.attr({
                     attributeName: 'r',
                     attributeType: 'XML',
@@ -40,7 +35,7 @@ window.onload = function () {
                     from: 1,
                     to: 1E3 * Math.random(),
                     begin: diff + 's',
-                    dur: '10s',
+                    dur: '20s',
                     repeatCount: 'indefinite'
                 });
 
@@ -50,7 +45,7 @@ window.onload = function () {
         }
         var now = +new Date
         var ti = setInterval(addCircle, 1E3)
-        setTimeout(function () {clearInterval(ti)}, 1E4)
+        setTimeout(function () {clearInterval(ti)}, 1E5)
         Leo.render();
     }
     draw();
