@@ -44,6 +44,16 @@ window.onload = function () {
                     begin: diff + 's',
                     dur: '20s',
                     repeatCount: 'indefinite'
+                }),
+                ani2 = Leo.animate.attr({
+                    attributeName: 'opacity',
+                    attributeType: 'XML',
+                    type:'scale',
+                    from: 1,
+                    to: 0,
+                    begin: diff + 's',
+                    dur: '20s',
+                    repeatCount: 'indefinite'
                 });
 
             // remove after a minute
@@ -58,7 +68,7 @@ window.onload = function () {
                 });
                 c1.bringToTop();
             })
-            c1.append(ani1);
+            c1.append(ani1, ani2);
             elements.push(c1);
             Leo.append(c1);
         }
