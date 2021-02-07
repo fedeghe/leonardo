@@ -19,15 +19,15 @@ window.onload = function () {
 
     function draw() {
         clear();
-        width = window.innerWidth || document.documentElement.clientWidth,
-        height = window.innerHeight || document.documentElement.clientHeight,
-        min = Math.min(width, height);
-        var Leo = Leonardo(width, height, { ns: '*', target: target });
-        var zIndex = 1;
+        var width = window.innerWidth || document.documentElement.clientWidth,
+            height = window.innerHeight || document.documentElement.clientHeight,
+            max = Math.max(width, height),
+            Leo = Leonardo(width, height, { ns: '*', target: target });
+
         function addCircle() {
             var nextTime = +new Date,
-                diff = (nextTime - now) / 1000;
-            var c1 = Leo.circle(
+                diff = (nextTime - now) / 1000,
+                c1 = Leo.circle(
                     width * Math.random(),
                     height * Math.random(),
                     1
@@ -40,11 +40,16 @@ window.onload = function () {
                     attributeType: 'XML',
                     type:'scale',
                     from: 1,
-                    to: 1E3 * Math.random(),
+                    to: max,
                     begin: diff + 's',
                     dur: '20s',
                     repeatCount: 'indefinite'
                 });
+
+            // remove after a minute
+            c1.timeout(function () {
+                this.remove();
+            }, 60E3);
 
             c1.on('click', function () {
                 c1.setAttributes({
@@ -57,9 +62,9 @@ window.onload = function () {
             elements.push(c1);
             Leo.append(c1);
         }
-        var now = +new Date
-        var ti = setInterval(addCircle, 1E3)
-        setTimeout(function () {clearInterval(ti)}, 1E5)
+        var now = +new Date,
+            ti = setInterval(addCircle, 1E3);
+        setTimeout(function () {clearInterval(ti)}, 1E5);
         Leo.render();
     }
     draw();

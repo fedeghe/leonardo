@@ -7,7 +7,7 @@
                                                   V. 1.0.14
 
 Federico Ghedina <federico.ghedina@gmail.com> 2021
-~25.34KB
+~25.46KB
 */
 (function(w) {
 	
@@ -935,6 +935,12 @@ Federico Ghedina <federico.ghedina@gmail.com> 2021
 	
 	Element.prototype.bringToBottom = function (){
 	    this.bringTo(-Infinity)
+	};
+	
+	Element.prototype.timeout = function (fn, ms) {
+	    var fnto = fn.bind(this)
+		setTimeout(fnto, ms)
+		return this;
 	};
 	
 	Element.prototype.bringTo = function (where){

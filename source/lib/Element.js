@@ -204,6 +204,12 @@ Element.prototype.bringToBottom = function (){
     this.bringTo(-Infinity)
 };
 
+Element.prototype.timeout = function (fn, ms) {
+    var fnto = fn.bind(this)
+	setTimeout(fnto, ms)
+	return this;
+};
+
 Element.prototype.bringTo = function (where){
     var parent = this.tag.ownerSVGElement;
     switch (where) {
