@@ -7,7 +7,7 @@
                                                   V. 1.0.14
 
 Federico Ghedina <federico.ghedina@gmail.com> 2021
-~25.46KB
+~25.45KB
 */
 (function(w) {
 	
@@ -382,8 +382,7 @@ Federico Ghedina <federico.ghedina@gmail.com> 2021
 			text = new Element('text'),
 			defs = new Element('defs'),
 			path = self.path(d),
-			textpath = new Element('textPath'),
-			i, tmp;
+			textpath = new Element('textPath');
 		path.setAttributes({id : id});
 		textpath.tag.innerHTML = cnt;
 		textpath.tag.setAttributeNS(namespaces.xlink, 'xlink:href', '#' + id);

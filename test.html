@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="dist/index.js"></script>
+    </head>
+    <body>
+        <script>
+            (function () {
+                var Leo = Leonardo(266, 443, { ns: '*', target: document.body }),
+                    img2 = Leo.image(0, 0, 266, 443, 'source/demo/kicker/field.jpg');
+                Leo.append(img2);
+                var rot = 0
+                
+                img2.on('click', function () {
+                    rot += 15
+                    img2.rotate(rot, 133, 221)
+                })
+                Leo.render()
+            })()
+        </script>
+    </body>
+</html>

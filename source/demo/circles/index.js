@@ -1,6 +1,7 @@
 window.onload = function () {
     var target = document.getElementById('trg'),
-        elements = [];
+        elements = {},
+        key = 1;
         
     function getColor() {
         var r = Math.floor(256 * Math.random()),
@@ -9,11 +10,11 @@ window.onload = function () {
         return 'rgb(' + r + ', ' + g + ', ' + b + ')';
     }
     function clear() {
-        for (var i = 0, l = elements.length; i < l; i++) {
-            elements[i].tag.parentNode.removeChild(elements[i].tag);
-            elements[i] = null;
+        for (var k in elements) {
+            elements[k].tag.parentNode.removeChild(elements[k].tag);
+            elements[k] = null;
         }
-        elements = [];
+        elements = {};
     }
     window.addEventListener('resize', draw);
 
@@ -58,7 +59,7 @@ window.onload = function () {
 
             // remove after a minute
             c1.timeout(function () {
-                this.remove();
+                c1.remove();
             }, 60E3);
 
             c1.on('click', function () {
@@ -69,7 +70,7 @@ window.onload = function () {
                 c1.bringToTop();
             })
             c1.append(ani1, ani2);
-            elements.push(c1);
+            elements['key' + key++] = c1;
             Leo.append(c1);
         }
         var now = +new Date,

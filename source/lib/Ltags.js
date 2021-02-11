@@ -177,8 +177,7 @@ L.prototype.textPath = function (id, d, cnt) {
 		text = new Element('text'),
 		defs = new Element('defs'),
 		path = self.path(d),
-		textpath = new Element('textPath'),
-		i, tmp;
+		textpath = new Element('textPath');
 	path.setAttributes({id : id});
 	textpath.tag.innerHTML = cnt;
 	textpath.tag.setAttributeNS(namespaces.xlink, 'xlink:href', '#' + id);
