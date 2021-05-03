@@ -9,7 +9,7 @@ A simple library to draw sgv
 
 ## Install Leonardo
 
-`> yarn add @fedeghe/leonardo`
+`> yarn add @fedeghe/leonardo` 
 
 
 ## use Leonardo
