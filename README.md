@@ -7,7 +7,7 @@
 ```
 A simple library to draw sgv  
 
-## Install Leonardo
+## Install Leonardo 
 
 `> yarn add @fedeghe/leonardo` 
 
