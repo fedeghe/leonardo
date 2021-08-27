@@ -1,4 +1,5 @@
 var gradient_id = 0;
+
 function lid() {
     gradient_id++;
     return 'leo_id_' + gradient_id;
@@ -12,32 +13,34 @@ function getDefs(instance) {
     return instance.defs;
 }
 
- L.prototype.linearGradient = function (steps, rotate) {
+L.prototype.linearGradient = function(steps, rotate) {
     var defs = getDefs(this),
         id = lid(),
         linearGrad = new Element('linearGradient'),
         i, tmp,
         attrs = {
-            id : id,
-            x1 : '0%',
-            y1 : '0%',
-            x2 : '100%',
-            y2 : '0%'    
+            id: id,
+            x1: '0%',
+            y1: '0%',
+            x2: '100%',
+            y2: '0%'
         };
 
     if (rotate) {
         attrs.gradientTransform = 'rotate(' + rotate + ')'
     }
     linearGrad.setAttributes(attrs);
-    for (i in steps) {
+    steps.forEach(function(step) {
         tmp = new Element('stop');
-        tmp.setAttributes({
-            offset : i + '%',
+        var attrs = {
+            offset: step.perc + '%',
             // style : 'stop-opacity:1;stop-color:' + steps[i],
-            'stop-color': steps[i]
-        });
+            'stop-color': step.color
+        };
+        if ('style' in step) attrs.style = step.style;
+        tmp.setAttributes(attrs);
         linearGrad.append(tmp)
-    }
+    })
     this.defs.append(linearGrad);
     return 'url(#' + id + ')';
 }
@@ -47,17 +50,19 @@ L.prototype.radialGradient = function radial(steps) {
         id = lid(),
         radialGrad = new Element('radialGradient'),
         i, tmp;
-    radialGrad.setAttributes({id : id});
+    radialGrad.setAttributes({ id: id });
 
-    for (i in steps) {
+    steps.forEach(function(step) {
         tmp = new Element('stop');
-        tmp.setAttributes({
-            offset : i + '%',
+        var attrs = {
+            offset: step.perc + '%',
             // style : 'stop-opacity:1;stop-color:' + steps[i],
-            'stop-color': steps[i]
-        });
+            'stop-color': step.color
+        };
+        if ('style' in step) attrs.style = step.style;
+        tmp.setAttributes(attrs);
         radialGrad.append(tmp)
-    }
+    })
     this.defs.append(radialGrad);
     return 'url(#' + id + ')';
 }

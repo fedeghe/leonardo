@@ -3,13 +3,13 @@
 |  |  |   __|     |   | |  _  | __  |    \|     |
 |  |__|   __|  |  | | | |     |    -|  |  |  |  |
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
-                                                    v. 1.0.14
+                                                    v. 1.0.15
 ```
-A simple library to draw sgv  
+A simple library to draw sgv
 
-## Install Leonardo 
+## Install Leonardo
 
-`> yarn add @fedeghe/leonardo` 
+`> yarn add @fedeghe/leonardo`
 
 
 ## use Leonardo
