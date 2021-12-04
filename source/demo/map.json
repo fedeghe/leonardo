@@ -1,8 +1,8 @@
 {
-	"EXE": [
-		"mkdir -p demo/map/js demo/map/css"
-	],
-	"source/demo/map/index.js" : "demo/map/js -vars=source/vars.json",
-	"source/demo/map/index.less" : "demo/map/css -plugins=malta-less -vars=source/vars.json",
-	"source/demo/map/index.html" : "demo/map -plugins=malta-browser-refresh[files:\"*\"] -vars=source/vars.json"
+    "EXE": [
+        "mkdir -p demo/map/js demo/map/css"
+    ],
+    "source/demo/map/index.js": "demo/map/js -vars=source/vars.json",
+    "source/demo/map/index.less": "demo/map/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/map/index.html": "demo/map -plugins=malta-browser-refresh -vars=source/vars.json"
 }

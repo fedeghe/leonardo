@@ -1,8 +1,8 @@
 {
-	"EXE": [
-		"mkdir -p demo/circles/js demo/circles/css"
-	],
-	"source/demo/circles/index.js" : "demo/circles/js -vars=source/vars.json",
-	"source/demo/circles/index.less" : "demo/circles/css -plugins=malta-less -vars=source/vars.json",
-	"source/demo/circles/index.html" : "demo/circles -plugins=malta-browser-refresh[files:\"*\"] -vars=source/vars.json"
+    "EXE": [
+        "mkdir -p demo/circles/js demo/circles/css"
+    ],
+    "source/demo/circles/index.js": "demo/circles/js -vars=source/vars.json",
+    "source/demo/circles/index.less": "demo/circles/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/circles/index.html": "demo/circles -plugins=malta-browser-refresh -vars=source/vars.json"
 }

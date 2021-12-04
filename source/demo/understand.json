@@ -1,8 +1,8 @@
 {
-	"EXE": [
-		"mkdir -p demo/understand/js demo/understand/css"
-	],
-	"source/demo/understand/index.js" : "demo/understand/js -vars=source/vars.json",
-	"source/demo/understand/index.less" : "demo/understand/css -plugins=malta-less -vars=source/vars.json",
-	"source/demo/understand/index.html" : "demo/understand -plugins=malta-browser-refresh[files:\"*\"] -vars=source/vars.json"
+    "EXE": [
+        "mkdir -p demo/understand/js demo/understand/css"
+    ],
+    "source/demo/understand/index.js": "demo/understand/js -vars=source/vars.json",
+    "source/demo/understand/index.less": "demo/understand/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/understand/index.html": "demo/understand -plugins=malta-browser-refresh -vars=source/vars.json"
 }

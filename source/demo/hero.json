@@ -1,8 +1,8 @@
 {
-	"EXE": [
-		"mkdir -p demo/hero/js demo/hero/css"
-	],
-	"source/demo/hero/index.js" : "demo/hero/js -vars=source/vars.json",
-	"source/demo/hero/index.less" : "demo/hero/css -plugins=malta-less -vars=source/vars.json",
-	"source/demo/hero/index.html" : "demo/hero -plugins=malta-browser-refresh[files:\"*\"] -vars=source/vars.json"
+    "EXE": [
+        "mkdir -p demo/hero/js demo/hero/css"
+    ],
+    "source/demo/hero/index.js": "demo/hero/js -vars=source/vars.json",
+    "source/demo/hero/index.less": "demo/hero/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/hero/index.html": "demo/hero -plugins=malta-browser-refresh -vars=source/vars.json"
 }

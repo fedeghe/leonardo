@@ -1,7 +1,7 @@
 {
-	"EXE": [
-		"mkdir -p demo/synchazard/js demo/synchazard/css"
-	],
-	"source/demo/synchazard/index.js" : "demo/synchazard/js -vars=source/vars.json",
-	"source/demo/synchazard/index.html" : "demo/synchazard -plugins=malta-browser-refresh[files:\"*\"] -vars=source/vars.json"
+    "EXE": [
+        "mkdir -p demo/synchazard/js demo/synchazard/css"
+    ],
+    "source/demo/synchazard/index.js": "demo/synchazard/js -vars=source/vars.json",
+    "source/demo/synchazard/index.html": "demo/synchazard -plugins=malta-browser-refresh -vars=source/vars.json"
 }

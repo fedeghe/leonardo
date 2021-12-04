@@ -1,8 +1,8 @@
 {
-	"EXE": [
-		"mkdir -p demo/cver/js demo/cver/css"
-	],
-	"source/demo/cver/index.js" : "demo/cver/js -vars=source/vars.json",
-	"source/demo/cver/index.less" : "demo/cver/css -plugins=malta-less -vars=source/vars.json",
-	"source/demo/cver/index.html" : "demo/cver -plugins=malta-browser-refresh[files:\"*\"] -vars=source/vars.json"
+    "EXE": [
+        "mkdir -p demo/cver/js demo/cver/css"
+    ],
+    "source/demo/cver/index.js": "demo/cver/js -vars=source/vars.json",
+    "source/demo/cver/index.less": "demo/cver/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/cver/index.html": "demo/cver -plugins=malta-browser-refresh -vars=source/vars.json"
 }
