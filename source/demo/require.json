@@ -16,5 +16,6 @@
     "source/demo/cver.json": true,
     "source/demo/map.json": true,
     "source/demo/kicker.json": true,
-    "source/demo/animate.json": true
+    "source/demo/animate.json": true,
+    "source/demo/jshero.json": true
 }
