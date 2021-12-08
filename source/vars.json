@@ -33,6 +33,9 @@
         },
         "ANIMATE": {
             "TITLE": "Leonardo - animate"
+        },
+        "JSHERO": {
+            "TITLE": "Leonardo - jshero"
         }
     },
     "SERVER": {

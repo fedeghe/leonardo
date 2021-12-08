@@ -1,47 +1,61 @@
 window.onload = function () {
 	var target = document.getElementById('trg'),
         // REF
-        width = 260,
-        height = 200,
-        zoom = 5,
-		center = {
-			x : width / 2,
-			y : height / 2
-		},
-		L = Leonardo(width * zoom, height * zoom, {id : 'hero'}),
+        devSize = 1000,
+        width = devSize,
+        height = devSize,
+        zoom = 1,
+		L = Leonardo(width * zoom, height * zoom, {id : 'hero', target}),
 		title = L.title('hero'),
-		container = L.group(),
-		w = function (i) {return i * zoom;},
-		h = function (i) {return i * zoom;},
+		container = L.group().setAttributes({
+            fill: '#0000FF'
+        }),
+		w = function (i) {return devSize * i/1E3 * zoom;},
+		h = function (i) {return devSize * i/1E3 * zoom;},
         justLine = {
-			"stroke-width" : h(5),
-			"stroke" : 'black',
+			"stroke-width" : h(80),
+			"stroke" : 'red',
 			"stroke-opacity" : 1,
 			"fill-opacity" : 1,
 			"stroke-linejoin" : "round",
-			fill : 'none'
-		},
-        ifact = 0.74,
-        image = L.image(245, 20, 1100*ifact, 820*ifact, '/media/js.png').setAttributes({opacity: 0.5});
+			fill : '#f7df1e'
+		};
     
-    container.setAttributes({viewBox : "0 0 " + width + " " + height});
     
-    var brdExt = L.path(L.pathBuild
-        .M(w(50), h(10))
+    var bg = L.rect(0,0,w(1000),h(1000)).setAttributes({fill: '#0000FF'}),
+        j = L.text(w(250), h(600), 'J').setAttributes({
+            'font-size' : h(450),
+            'font-family' : 'Helvetica',
+            fill:'#0000ff',
+            "stroke" : '#ff0000',
+            "stroke-width" : h(50),
+        }),
+        s = L.text(w(465), h(610), 'S').setAttributes({
+            'font-size' : h(450),
+            'font-family' : 'Helvetica',
+            fill:'#0000ff',
+            "stroke" : '#ff0000',
+            "stroke-width" : h(50),
+        }),
+    brdExt = L.path(L.pathBuild
+        .M(w(200), h(230))
 
-        .L(w(210), h(10))
+        .L(w(800), h(230))
 
-        .L(w(250), h(50))
+        .L(w(910), h(400))
 
-        .L(w(130), h(190))
+        .L(w(500), h(850))
 
-        .L(w(10), h(50))
+        .L(w(90), h(400))
         .Z()
-    );
-    brdExt.setAttributes(justLine);
-	brdExt.setAttributes({fill : 'yellow'});
-    container.append(brdExt);
-    L.append(title, container, image);
+    ).setAttributes(justLine);
 
-	L.render({target: target});
+    container.setAttributes({
+        viewBox : "0 0 " + width + " " + height
+    }).append(brdExt);
+
+    L.append(title, bg, container, j, s);
+
+	L.render();
+    document.body.appendChild(L.downloadAnchor());
 };
