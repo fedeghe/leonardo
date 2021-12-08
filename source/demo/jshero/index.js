@@ -22,7 +22,8 @@ window.onload = function () {
 		};
     
     
-    var bg = L.rect(0,0,w(1000),h(1000)).setAttributes({fill: '#0000FF'}),
+    var bg = L.rect(0,0,w(1000),h(1000)).setAttributes({fill: '#0000ff', rx: h(140), ry: h(140)}),
+        
         j = L.text(w(250), h(600), 'J').setAttributes({
             'font-size' : h(450),
             'font-family' : 'Helvetica',
@@ -54,7 +55,9 @@ window.onload = function () {
         viewBox : "0 0 " + width + " " + height
     }).append(brdExt);
 
-    L.append(title, bg, container, j, s);
+    L.append(title,
+         bg, 
+         container, j, s);
 
 	L.render();
     document.body.appendChild(L.downloadAnchor());
