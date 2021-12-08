@@ -6,7 +6,7 @@ window.onload = function () {
         height = devSize,
         zoom = 1,
 		L = Leonardo(width * zoom, height * zoom, {id : 'hero', target}),
-		title = L.title('hero'),
+		title = L.title('jshero'),
 		container = L.group().setAttributes({
             fill: '#0000FF'
         }),
