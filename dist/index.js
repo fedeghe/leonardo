@@ -7,7 +7,7 @@
                                                   V. 1.0.15
 
 Federico Ghedina <federico.ghedina@gmail.com> 2021
-~25.65KB
+~25.66KB
 */
 (function(w) {
 	
@@ -890,7 +890,7 @@ Federico Ghedina <federico.ghedina@gmail.com> 2021
 	 */
 	Element.prototype.scale = function (sx, sy) {
 		sx = sx || 0;
-		sy = sy || 0;
+		sy = sy || sx || 0;
 		this.transforms.scale = ' scale(' + sx + ', ' + sy + ')';
 		return trans(this);
 	};

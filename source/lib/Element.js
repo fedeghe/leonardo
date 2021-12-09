@@ -153,7 +153,7 @@ Element.prototype.rotate = function (r, rx, ry) {
  */
 Element.prototype.scale = function (sx, sy) {
 	sx = sx || 0;
-	sy = sy || 0;
+	sy = sy || sx || 0;
 	this.transforms.scale = ' scale(' + sx + ', ' + sy + ')';
 	return trans(this);
 };
