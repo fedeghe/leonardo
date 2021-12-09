@@ -21,8 +21,8 @@ window.onload = function () {
 		},
 
         brdStyle = {
-			"stroke-width": h(20),
-			"stroke": 'black',
+			// "stroke-width": h(20),
+			// "stroke": 'black',
 			"stroke-opacity": 1,
 			"stroke-linejoin": "miter",
 			fill: 'none'
@@ -69,14 +69,18 @@ window.onload = function () {
             .Z()
         ).setAttributes(brdStyle),
         family = "Arial",
-        J = L.text(w(260), h(580), "J").setAttributes({
-            'font-size' : h(440),
+        J = L.text(w(270), h(580), "J").setAttributes({
+            'font-size' : h(400),
             'font-family' : family,
+            "stroke-width": h(50),
+			"stroke": '#dd0000',
             color:'black'
         }),
-        S = L.text(w(460), h(590), "S").setAttributes({
-            'font-size' : h(440),
+        S = L.text(w(490), h(580), "S").setAttributes({
+            'font-size' : h(400),
             'font-family' : family,
+            "stroke-width": h(50),
+			"stroke": '#dd0000',
             color:'black'
         }),
         J2 = J.clone().move(w(10), h(10)).setAttributes({
