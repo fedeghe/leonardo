@@ -8,6 +8,7 @@ window.onload = function () {
 		L = Leonardo(width * zoom, height * zoom, {id : 'hero', target}),
 		title = L.title('jshero'),
 		container = L.group(),
+		logo = L.group(),
 		w = function (i) {return devSize * i/1E3 * zoom;},
 		h = function (i) {return devSize * i/1E3 * zoom;},
         
@@ -16,7 +17,7 @@ window.onload = function () {
 			"stroke": '#dd0000',
 			"stroke-opacity": 1,
 			"fill-opacity": 1,
-			"stroke-linejoin": "miter",
+			"stroke-linejoin": "round",
 			fill: '#efda4f'
 		},
 
@@ -29,11 +30,13 @@ window.onload = function () {
 		},
 
         bg = L.rect(0,0,w(1000),h(1000)).setAttributes({
-            fill: L.radialGradient([
+            fill: L.linearGradient([
                 { perc: 0, color: '#000000' },
-                { perc: 30, color: '#000000' },
-                { perc: 100, color: '#0000aa' },
-            ]),
+                { perc: 20, color: '#0000aa' },
+                { perc: 50, color: '#0000ff' },
+                { perc: 80, color: '#000088' },
+                { perc: 100, color: '#000000' },
+            ], 90),
             rx: h(140), 
             ry: h(140)
         }),
@@ -92,16 +95,20 @@ window.onload = function () {
 
     container.setAttributes({
         viewBox : "0 0 " + width + " " + height
-    }).append(brdFill);
+    }).append(bg);
 
-    L.append(title,
-        bg, 
+    logo.append(title, brdFill,  brdIn, brdOut, J, J2, S, S2)
+        .move(0, -20);
+
+    container.append(logo);
+    L.append(
+        // title,
+        // bg, 
         container,
-        // bgimg,
-        brdIn,
-        brdOut,
-        J, J2,
-        S, S2
+        // brdIn,
+        // brdOut,
+        // J, J2,
+        // S, S2
     );
 
 	L.render();
