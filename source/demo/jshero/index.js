@@ -30,13 +30,13 @@ window.onload = function () {
 		},
 
         bg = L.rect(0,0,w(1000),h(1000)).setAttributes({
-            fill: L.linearGradient([
-                { perc: 0, color: '#000000' },
-                { perc: 20, color: '#0000aa' },
-                { perc: 50, color: '#0000ff' },
-                { perc: 80, color: '#000088' },
-                { perc: 100, color: '#000000' },
-            ], 90),
+            fill: L.radialGradient([
+                { perc: 0, color: '#0055aa' },
+                
+                { perc: 50, color: '#0088ff' },
+                
+                { perc: 100, color: '#0055aa' },
+            ]),
             rx: h(140), 
             ry: h(140)
         }),
@@ -71,8 +71,10 @@ window.onload = function () {
             .L(w(140), h(396))
             .Z()
         ).setAttributes(brdStyle),
-        family = "Arial",
-        J = L.text(w(270), h(580), "J").setAttributes({
+
+        family = "Verdana", //Arial
+
+        J = L.text(w(290), h(580), "J").setAttributes({
             'font-size' : h(400),
             'font-family' : family,
             "stroke-width": h(50),
@@ -104,7 +106,7 @@ window.onload = function () {
     L.append(
         // title,
         // bg, 
-        container,
+        container.scale(0.8).move(w(35), h(165)).rotate(-8),
         // brdIn,
         // brdOut,
         // J, J2,
