@@ -507,10 +507,10 @@ malta-browser-refresh@^1.2.16:
   dependencies:
     ws "^7.4.2"
 
-malta-dev-srv@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/malta-dev-srv/-/malta-dev-srv-1.1.7.tgz#eb2220cc0813acb7454df09646853f5556ef5e22"
-  integrity sha512-piqBphgHdIzndyBP1H45GeGlRMhx5T4v7chGjF+UgtWU+e1qYDm5SBX9osBWnsPTLYc8lSOe1b2ljJmpgrYuWw==
+malta-dev-srv@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/malta-dev-srv/-/malta-dev-srv-1.1.8.tgz#61d833a12e351510bab5511f624fbb4703aca02e"
+  integrity sha512-6/mJuQKcsFrxFJFyNCINrzXzvdteBe4JYX4tWuVVr1Jjx8GNdQyRwAaP3qXMF8Fx719iQERj64lHZETH+k++JQ==
 
 malta-header-comment@^1.0.12:
   version "1.0.12"
@@ -538,10 +538,10 @@ malta-markdown-pdf@^1.0.9:
   dependencies:
     markdown-pdf "10.0.0"
 
-malta@^4.1.33:
-  version "4.1.33"
-  resolved "https://registry.yarnpkg.com/malta/-/malta-4.1.33.tgz#f8c294ebbad3e292ec133b6784626a34f41e56e6"
-  integrity sha512-HKQE3GZwvF3AojpTl53o751ZDMCJGQGHEhSFwYkXeMGQBya0p/K8k8i0nrRymmGEB7wG42d7DKeWNSDDRRBQ/A==
+malta@^4.1.35:
+  version "4.1.35"
+  resolved "https://registry.yarnpkg.com/malta/-/malta-4.1.35.tgz#907cf08ca8970f45dd6410605dd828e1d8a8baa9"
+  integrity sha512-RlzKWVeNyEIp0T4gsI58MmxaDz4y5DHxJOKKjUjBQRstL65+OJUiLT2JR32y7ObzC7fnWRS/TrkCAqgjnhaiSg==
 
 markdown-pdf@10.0.0:
   version "10.0.0"

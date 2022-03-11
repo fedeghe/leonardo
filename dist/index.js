@@ -6,8 +6,8 @@
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
                                                   V. 1.0.15
 
-Federico Ghedina <federico.ghedina@gmail.com> 2021
-~10.45KB
+Federico Ghedina <federico.ghedina@gmail.com> 2022
+~10.43KB
 */
 !function(t){function e(t,e,r){this.namespaces=h;var n,o,i=this;r=r||{},this.tag=s("svg"),this.tag.setAttribute("width",t),this.tag.setAttribute("height",e),this.tag.setAttribute("xmlns",h.svg),
 this.tag.setAttribute("viewbox","0 0 "+t+" "+e),this.childs=[];for(n in r)"ns"!==n&&"target"!==n&&this.tag.setAttribute(n,r[n]);if(this.target="target"in r?r.target:null,
@@ -26,11 +26,11 @@ e.appendChild(this.tag),t&&t.cb&&t.cb.call(this),this},e.prototype.downloadAncho
 var r=new XMLSerializer,n='<?xml version="1.0" standalone="no"?>\r\n'+r.serializeToString(this.tag),o=null,i=document.createElement("a");return t=t||"download",e=e||"download",
 n.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)||(n=n.replace(/^<svg/,'<svg xmlns="'+this.namespaces.svg+'"')),
 n.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)||(n=n.replace(/^<svg/,'<svg xmlns:xlink="'+this.namespaces.xlink+'"')),o="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(n),
-i.download=e+ +new Date+".svg",i.href=o,i.addEventListener("click",function(){this.download=e+ +new Date+".svg"}),i.innerHTML=t,i},e.prototype.desc=function(t){var e=new p("desc")
-;return e.tag.innerHTML=t,e},e.prototype.circle=function(t,e,r){var n=new p("circle");return n.setAttributes({cx:t,cy:e,r:r}),n},e.prototype.ellipse=function(t,e,r,n){var o=new p("ellipse")
-;return o.setAttributes({cx:t,cy:e,rx:r,ry:n}),o},e.prototype.group=function(){return new p("g")},e.prototype.image=function(t,e,r,n,o){var i=new p("image");return i.setAttributes({x:t,y:e,width:r,
-height:n}),i.tag.setAttributeNS(h.xlink,"xlink:href",o),i},e.prototype.line=function(t,e,r,n){var o=new p("line");return o.setAttributes({x1:t,y1:e,x2:r,y2:n}),o},e.prototype.path=function(t){
-var e=new p("path");return e.setAttributes({d:t}),e},e.prototype.polygon=function(){var t=new p("polygon"),e=[].slice.call(arguments,0),r=[],n=0,o=e.length;for(null;n<o;n+=2)r.push(e[n]+","+e[n+1])
+i.download=e+".svg",i.href=o,i.addEventListener("click",function(){this.download=e+".svg"}),i.innerHTML=t,i},e.prototype.desc=function(t){var e=new p("desc");return e.tag.innerHTML=t,e},
+e.prototype.circle=function(t,e,r){var n=new p("circle");return n.setAttributes({cx:t,cy:e,r:r}),n},e.prototype.ellipse=function(t,e,r,n){var o=new p("ellipse");return o.setAttributes({cx:t,cy:e,rx:r,
+ry:n}),o},e.prototype.group=function(){return new p("g")},e.prototype.image=function(t,e,r,n,o){var i=new p("image");return i.setAttributes({x:t,y:e,width:r,height:n}),
+i.tag.setAttributeNS(h.xlink,"xlink:href",o),i},e.prototype.line=function(t,e,r,n){var o=new p("line");return o.setAttributes({x1:t,y1:e,x2:r,y2:n}),o},e.prototype.path=function(t){var e=new p("path")
+;return e.setAttributes({d:t}),e},e.prototype.polygon=function(){var t=new p("polygon"),e=[].slice.call(arguments,0),r=[],n=0,o=e.length;for(null;n<o;n+=2)r.push(e[n]+","+e[n+1])
 ;return t.setAttributes({points:r.join(" ")}),t},e.prototype.polyline=function(){var t=new p("polyline"),e=[].slice.call(arguments,0),r=[],n=0,o=e.length;for(null;n<o;n+=2)r.push(e[n]+","+e[n+1])
 ;return t.setAttributes({points:r.join(" ")}),t},e.prototype.rect=function(t,e,r,n){n=n||r;var o=new p("rect");return o.setAttributes({x:t,y:e,width:r,height:n}),o},e.prototype.text=function(t,e,r){
 var n=new p("text");return n.setAttributes({x:t,y:e}),n.tag.innerHTML=r,n},e.prototype.textPath=function(t,e,r){var n=this,o=new p("text"),i=new p("defs"),s=n.path(e),a=new p("textPath")

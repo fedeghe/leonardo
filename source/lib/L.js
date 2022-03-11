@@ -164,7 +164,7 @@ L.prototype.downloadAnchor = function (txt, name) {
 		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag),
         url = null,
         a = document.createElement('a');
-    
+  
     txt = txt || 'download';
     name = name || 'download';
 
@@ -176,10 +176,10 @@ L.prototype.downloadAnchor = function (txt, name) {
 	}
 	url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
 	
-	a.download = name + (+new Date) + '.svg';
+	a.download = name + '\.svg';
 	a.href = url;
 	a.addEventListener('click', function () {
-		this.download = name + (+new Date) + '.svg'
+		this.download = name + '\.svg'
 	})
 	a.innerHTML = txt;
 	return a;

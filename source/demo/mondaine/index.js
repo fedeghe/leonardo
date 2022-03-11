@@ -79,7 +79,7 @@
             perc: 100,
             color: "#fff"
         }]);
-    console.log(width, width / 25)
+
     L.append(container);
     border.append(cir0).setAttributes({ fill: filt });
 
