@@ -1,180 +1,273 @@
 (function() {
     'use strict';
-
-    var viewPortWidth = window.innerWidth || documentElement.clientWidth,
-        qs = Leonardo.getqs(),
-        target = document.getElementById('trg'),
-        maxSize = 800,
-        size = Math.min(viewPortWidth, maxSize),
-        ticksPerSecond = 20,
-        nowH = (new Date).getHours(),
-        theme = ('theme' in qs && qs.theme.match(/white|black/)) ? qs.theme : (nowH > 7 && nowH < 17) ? 'white' : 'black',
-        themes = {
-            white: {
-                background: 'white',
-                color: 'black',
-                secColor: "#CC281E",
-                img: '/media/sbb-logo.png'
+    function getL(target, theme, size, opts){
+        console.log(opts)
+        var L = Leonardo(size, size),
+            themes = {
+                white: {
+                    background: 'white',
+                    color: '#000000',
+                    secColor: "#CC281E",
+                    dateBg: "#dedede",
+                    img: '/media/sbb-logo.png'
+                },
+                black: {
+                    background: '#000000',
+                    color: '#ffffff',
+                    secColor: "#CC281E",
+                    dateBg: "#dedede",
+                    img: '/media/sbb-logo-inverted.png'
+                }
             },
-            black: {
-                background: 'black',
-                color: 'white',
-                secColor: "#CC281E",
-                img: '/media/sbb-logo-inverted.png'
+            days = ['MON','TUE','WED','THU','FRI','SAT','SUN'],
+            width = size,
+            height = size,
+            ticksPerSecond = 20,
+            container = L.group(),
+
+            cx = width / 2,
+            cy = height / 2,
+
+            cir0 = L.circle(cx, cy, size / 2.2),
+
+            circle = L.circle(cx, cy, size / 2.5),
+
+            border = L.group(),
+            secs = L.group().setAttributes({ id: 'seconds' }),
+            secs1 = L.circle(0, height * 0.245, width / 40),
+            secs2 = L.line(0, height * 0.26, 0, height * 0.62),
+            secs3 = L.circle(0, height / 2, width / 120),
+            secsBullet = L.circle(0, height / 2, width / 150),
+
+            mins = L.polygon(
+                cx - width * 0.028, cy + height * 0.09,
+                cx - width * 0.018, size * 0.145,
+                cx + width * 0.018, size * 0.145,
+                cx + width * 0.028, cy + height * 0.09
+            ).setAttributes({ id: 'minutes' }),
+            hours = L.polygon(
+                cx - width * 0.028, cy + height * 0.09,
+                cx - width * 0.018, cy - height * 0.26,
+                cx + width * 0.018, cy - height * 0.26,
+                cx + width * 0.028, cy + height * 0.09
+            ).setAttributes({ id: 'hours' }),
+            text = L.text(cx * 0.78, cy * 0.7, "MONDAINE"),
+            textSM = L.textPath("smade",
+                L.pathBuild
+                .M(cx * 0.925, size * 0.89 * 0.995)
+                .Q(cx, size * 0.89, cx * 1.075, size * 0.89 * 0.995),
+                "swiss made"
+            ),
+            image = L.image(cx - size / 10, cy * 0.7, size / 5, size / 20, themes[theme].img),
+            filt = L.radialGradient([{
+                perc: 0,
+                color: "#fff",
+            }, {
+                perc: 90,
+                color: "#888",
+            }, {
+                perc: 94,
+                color: "#aaa"
+            }, {
+                perc: 97,
+                color: "#aaa"
+            }, {
+                perc: 100,
+                color: "#fff"
+            }]),
+            now = getTime();
+
+        L.append(container);
+        border.append(cir0).setAttributes({ fill: filt });
+
+        container
+            .setAttributes({ viewBox: [0, 0, size, size].join(' ') })
+            .append(border, circle);
+
+        (function() {
+            var small = L.line(cx, size * 0.135, cx, height * 0.16),
+                big = L.line(cx, size * 0.135, cx, height * 0.215),
+                tmp, i;
+
+            big.setAttributes({
+                "stroke-width": size / 40,
+                stroke: themes[theme].color
+            });
+            small.setAttributes({
+                "stroke-width": size / 80,
+                "stroke": themes[theme].color
+            });
+
+            for (i = 0; i < 60; i++) {
+                if ((i * 6) % 5 == 0) {
+                    tmp = big.clone();
+                } else {
+                    tmp = small.clone();
+                }
+                tmp.rotate(i * 6, cx, cy);
+                container.append(tmp);
             }
-        },
-        width = size,
-        height = size,
-        L = Leonardo(width, height),
+        })();
 
-        container = L.group(),
-
-        cx = width / 2,
-        cy = height / 2,
-
-        cir0 = L.circle(cx, cy, size / 2.2),
-
-        circle = L.circle(cx, cy, size / 2.5),
-
-        border = L.group(),
-        secs = L.group().setAttributes({ id: 'seconds' }),
-        secs1 = L.circle(0, height * 0.245, width / 40),
-        secs2 = L.line(0, height * 0.26, 0, height * 0.62),
-        secs3 = L.circle(0, height / 2, width / 120),
-        secsBullet = L.circle(0, height / 2, width / 150),
-
-        mins = L.polygon(
-            cx - width * 0.028, cy + height * 0.09,
-            cx - width * 0.018, size * 0.145,
-            cx + width * 0.018, size * 0.145,
-            cx + width * 0.028, cy + height * 0.09
-        ).setAttributes({ id: 'minutes' }),
-        hours = L.polygon(
-            cx - width * 0.028, cy + height * 0.09,
-            cx - width * 0.018, cy - height * 0.26,
-            cx + width * 0.018, cy - height * 0.26,
-            cx + width * 0.028, cy + height * 0.09
-        ).setAttributes({ id: 'hours' }),
-        text = L.text(cx * 0.78, cy * 0.7, "MONDAINE"),
-        textSM = L.textPath("smade",
-            L.pathBuild
-            .M(cx * 0.925, size * 0.89 * 0.995)
-            .Q(cx, size * 0.89, cx * 1.075, size * 0.89 * 0.995),
-            "swiss made"
-        ),
-        image = L.image(cx - size / 10, cy * 0.7, size / 5, size / 20, themes[theme].img),
-        filt = L.radialGradient([{
-            perc: 0,
-            color: "#fff",
-        }, {
-            perc: 90,
-            color: "#888",
-        }, {
-            perc: 94,
-            color: "#aaa"
-        }, {
-            perc: 97,
-            color: "#aaa"
-        }, {
-            perc: 100,
-            color: "#fff"
-        }]);
-
-    L.append(container);
-    border.append(cir0).setAttributes({ fill: filt });
-
-    container
-        .setAttributes({ viewBox: [0, 0, size, size].join(' ') })
-        .append(border, circle);
-
-    (function() {
-        var small = L.line(cx, size * 0.135, cx, height * 0.16),
-            big = L.line(cx, size * 0.135, cx, height * 0.215),
-            tmp, i;
-
-        big.setAttributes({
-            "stroke-width": size / 40,
-            stroke: themes[theme].color
-        });
-        small.setAttributes({
-            "stroke-width": size / 80,
-            "stroke": themes[theme].color
+        circle.styles({ fill: themes[theme].background });
+        secsBullet.setAttributes({
+            fill: L.radialGradient([ // linear
+                { perc: 0, color: 'black' },
+                { perc: 33, color: themes[theme].secColor },
+                { perc: 66, color: 'white' },
+                { perc: 100, color: 'black' }
+            ]),
+            "stroke-width": 0
         });
 
-        for (i = 0; i < 60; i++) {
-            if ((i * 6) % 5 == 0) {
-                tmp = big.clone();
-            } else {
-                tmp = small.clone();
-            }
-            tmp.rotate(i * 6, cx, cy);
-            container.append(tmp);
+        secs.append(secs1, secs2, secs3, secsBullet)
+            .setAttributes({
+                fill: themes[theme].secColor,
+                stroke: themes[theme].secColor,
+                "stroke-width": size / 80
+            }).move(cx, 0);
+
+        // hours.setAttributes({"fill" : themes[theme].color})
+        hours.setAttributes({ fill: themes[theme].color });
+        mins.setAttributes({ fill: themes[theme].color });
+
+        text.setAttributes({ 'font-size': size / 25, fill: themes[theme].color });
+        textSM.setAttributes({ 'font-size': size / 70, fill: themes[theme].color });
+
+    
+        if (opts.date) {
+            var today = now.getDate().toString(),
+                g = L.group(),
+                textDate = L.text(size/150,size/22, today),
+                rectDate = L.rect(0,0, size/14, size/17);
+                rectDate.setAttributes({
+                    fill: L.radialGradient([ // linear
+                        { perc: 0, color: 'white' },
+                        { perc: 100, color: themes[theme].dateBg },
+                    ]),
+                    strokeWidth: 1,
+                    stroke: '#000000',
+                });
+            g.append(rectDate, textDate).move(cx * 1.4, cy * .945);
+            textDate.setAttributes({
+                'font-size': size / 20,
+                fill: 'black',
+                stroke: '#ffff44',
+                'font-weight': 'bold'
+            });
+            container.append(g)
         }
-    })();
-
-    circle.styles({ fill: themes[theme].background });
-    secsBullet.setAttributes({
-        fill: L.radialGradient([ // linear
-            { perc: 0, color: 'black' },
-            { perc: 33, color: themes[theme].secColor },
-            { perc: 66, color: 'white' },
-            { perc: 100, color: 'black' }
-        ]),
-        "stroke-width": 0
-    });
-
-    secs.append(secs1, secs2, secs3, secsBullet)
-        .setAttributes({
-            fill: themes[theme].secColor,
-            stroke: themes[theme].secColor,
-            "stroke-width": size / 80
-        }).move(cx, 0);
-
-    // hours.setAttributes({"fill" : themes[theme].color})
-    hours.setAttributes({ fill: themes[theme].color });
-    mins.setAttributes({ fill: themes[theme].color });
-
-    text.setAttributes({ 'font-size': size / 25, fill: themes[theme].color });
-    textSM.setAttributes({ 'font-size': size / 70, fill: themes[theme].color });
-
-    container.append(image, text, textSM, hours, mins, secs);
-
-    target.style.width = size + 'px';
+        if (opts.day) {
+            var today = days[now.getDay()],
+                g = L.group(),
+                textDate = L.text(size/150, size/22, today),
+                rectDate = L.rect(0,0, size/8.5, size/17);
+                rectDate.setAttributes({
+                    fill: L.radialGradient([ // linear
+                        { perc: 0, color: 'white' },
+                        { perc: 100, color: themes[theme].dateBg },
+                    ]),
+                    strokeWidth: 1,
+                    stroke: '#000000',
+                });
+            g.append(rectDate, textDate).move(cx * .88, cy * 1.42);
+            textDate.setAttributes({
+                'font-size': size / 20,
+                fill: 'black',
+                stroke: '#ffff44',
+                'font-weight': 'bold'
+            });
+            container.append(g)
+        }
+        
+        container.append(image, text, textSM, hours, mins, secs);
+        target.style.width = size + 'px';
 
 
 
-    function getTime(gmtHmove, gmtMmove) {
-        var time0 = new Date();
-        return arguments.length ? new Date(Date.UTC(
-            time0.getFullYear(),
-            time0.getMonth(),
-            time0.getDay(),
-            time0.getHours() + gmtHmove,
-            time0.getMinutes() + (gmtMmove || 0),
-            time0.getSeconds(),
-            time0.getMilliseconds()
-        )) : time0;
+        function getTime(gmtHmove, gmtMmove) {
+            var time0 = new Date();
+            return arguments.length ? new Date(Date.UTC(
+                time0.getFullYear(),
+                time0.getMonth(),
+                time0.getDay(),
+                time0.getHours() + gmtHmove,
+                time0.getMinutes() + (gmtMmove || 0),
+                time0.getSeconds(),
+                time0.getMilliseconds()
+            )) : time0;
+        }
+
+        window.setInterval(function() {
+            var time = getTime(),
+                ms = time.getMilliseconds(),
+                s = time.getSeconds(),
+                m = time.getMinutes(),
+                h = time.getHours() % 12,
+                fact = 60;
+
+            secs.rotate((s + ms / 1E3) * 6, cx, cy);
+            mins.rotate((m * fact + s + ms / 1E3) * 0.1, cx, cy);
+            hours.rotate((h * fact + m + s / fact) * (360 / (12 * fact)), cx, cy);
+        }, 1000 / ticksPerSecond);
+        return L;
     }
 
-    window.setInterval(function() {
-        var time = getTime(),
-            ms = time.getMilliseconds(),
-            s = time.getSeconds(),
-            m = time.getMinutes(),
-            h = time.getHours() % 12,
-            fact = 60;
+    function render() {
+        var blackButton = document.getElementById('dark'),
+            whiteButton = document.getElementById('light'),
+            withDate = document.getElementById('date'),
+            withDay = document.getElementById('day'),
+            target = document.getElementById('trg'),
+            viewPortWidth = window.innerWidth || documentElement.clientWidth,
+            qs = Leonardo.getqs(),
+            maxSize = 800,
+            size = Math.min(viewPortWidth, maxSize),
+            nowH = (new Date).getHours(),
+            day = 'day' in qs,
+            date = 'date' in qs,
+            theme = ('theme' in qs && qs.theme.match(/white|black/)) ? qs.theme : (nowH > 7 && nowH < 17) ? 'white' : 'black',
 
-        secs.rotate((s + ms / 1E3) * 6, cx, cy);
-        mins.rotate((m * fact + s + ms / 1E3) * 0.1, cx, cy);
-        hours.rotate((h * fact + m + s / fact) * (360 / (12 * fact)), cx, cy);
-    }, 1000 / ticksPerSecond);
+            L  = getL(target, theme, size, {day, date});
 
-    window.setTimeout(function() {
         L.render({
             target: target,
             cb: function() {
+                whiteButton.classList.remove('active');
+                blackButton.classList.remove('active');
+                switch(theme) {
+                    case 'white': whiteButton.classList.add('active');break;
+                    case 'black': blackButton.classList.add('active');break;
+                }
+                withDay.addEventListener('click', function (e) {
+                    var u = new URLSearchParams(document.location.search)
+                    if (e.target.checked) u.set('day', true)
+                    else {u.delete('day', true)}
+                    document.location.search = u.toString()
+                })
+                withDate.addEventListener('click', function (e) {
+                    var u = new URLSearchParams(document.location.search)
+                    if (e.target.checked) u.set('date', true)
+                    else {u.delete('date', true)}
+                    document.location.search = u.toString()
+                })
+                whiteButton.addEventListener('click', function (e) {
+                    var u = new URLSearchParams(document.location.search)
+                    u.set('theme', 'white')
+                    document.location.search = u.toString()
+                })
+                blackButton.addEventListener('click', function (e) {
+                    var u = new URLSearchParams(document.location.search)
+                    u.set('theme', 'black')
+                    document.location.search = u.toString()
+                })
+                withDay.checked = !!day
+                withDate.checked = !!date
                 console.log('rendered')
             }
         });
-    }, 200)
+    }
+
+    render()
+    window.onresize = render
 })();

@@ -21,8 +21,25 @@ body {
 		line-height:28px;
 		font-size:25px;
 		text-decoration: none;
+        opacity:0.5;
 		&:hover{
 			color:red;
+            opacity:1;
 		}
+        &.active{
+            color:green;
+            background-color: white;
+            opacity:1;
+        }
 	}
+    div.option{
+        margin-left:1em;
+        font-size:1.2em;
+        label{line-height:2em}
+        input[type=checkbox]{
+            position:relative;
+            top:.3em;
+            zoom:2
+        }
+    }
 }
