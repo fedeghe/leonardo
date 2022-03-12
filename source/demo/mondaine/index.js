@@ -134,11 +134,18 @@
         text.setAttributes({ 'font-size': size / 25, fill: themes[theme].color });
         textSM.setAttributes({ 'font-size': size / 70, fill: themes[theme].color });
 
-    
-        if (opts.date) {
-            var today = now.getDate().toString(),
-                g = L.group(),
-                textDate = L.text(size/150,size/22, today),
+        [{
+            condition: opts.date,
+            getText: function () {return now.getDate().toString();},
+            position: [cx * 1.4, cy * .945] 
+        },{
+            condition: opts.day,
+            getText: function () {return days[now.getDay()];},
+            position: [cx * .88, cy * 1.42] 
+        }].forEach(function(o) {
+            if (!o.condition) return
+            var g = L.group(),
+                textDate = L.text(size/150,size/22, o.getText()),
                 rectDate = L.rect(0,0, size/14, size/17);
                 rectDate.setAttributes({
                     fill: L.radialGradient([ // linear
@@ -148,7 +155,7 @@
                     strokeWidth: 1,
                     stroke: '#000000',
                 });
-            g.append(rectDate, textDate).move(cx * 1.4, cy * .945);
+            g.append(rectDate, textDate).move(o.position[0], o.position[1]);
             textDate.setAttributes({
                 'font-size': size / 20,
                 fill: 'black',
@@ -156,30 +163,8 @@
                 'font-weight': 'bold'
             });
             container.append(g)
-        }
-        if (opts.day) {
-            var today = days[now.getDay()],
-                g = L.group(),
-                textDate = L.text(size/150, size/22, today),
-                rectDate = L.rect(0,0, size/8.5, size/17);
-                rectDate.setAttributes({
-                    fill: L.radialGradient([ // linear
-                        { perc: 0, color: 'white' },
-                        { perc: 100, color: themes[theme].dateBg },
-                    ]),
-                    strokeWidth: 1,
-                    stroke: '#000000',
-                });
-            g.append(rectDate, textDate).move(cx * .88, cy * 1.42);
-            textDate.setAttributes({
-                'font-size': size / 20,
-                fill: 'black',
-                stroke: '#ffff44',
-                'font-weight': 'bold'
-            });
-            container.append(g)
-        }
-        
+        })
+    
         container.append(image, text, textSM, hours, mins, secs);
         target.style.width = size + 'px';
 
@@ -230,8 +215,16 @@
 
             L  = getL(target, theme, size, {day, date});
 
+        function commitSearch(s) {
+            document.location.search = s.toString()
+        }
+        var search = {
+            commit: function (s) {document.location.search = s.toString()},
+            get: function () {return new URLSearchParams(document.location.search)}
+        }
         L.render({
             target: target,
+            fade:1000,
             cb: function() {
                 whiteButton.classList.remove('active');
                 blackButton.classList.remove('active');
@@ -239,28 +232,24 @@
                     case 'white': whiteButton.classList.add('active');break;
                     case 'black': blackButton.classList.add('active');break;
                 }
-                withDay.addEventListener('click', function (e) {
-                    var u = new URLSearchParams(document.location.search)
-                    if (e.target.checked) u.set('day', true)
-                    else {u.delete('day', true)}
-                    document.location.search = u.toString()
-                })
-                withDate.addEventListener('click', function (e) {
-                    var u = new URLSearchParams(document.location.search)
-                    if (e.target.checked) u.set('date', true)
-                    else {u.delete('date', true)}
-                    document.location.search = u.toString()
-                })
-                whiteButton.addEventListener('click', function (e) {
-                    var u = new URLSearchParams(document.location.search)
-                    u.set('theme', 'white')
-                    document.location.search = u.toString()
-                })
-                blackButton.addEventListener('click', function (e) {
-                    var u = new URLSearchParams(document.location.search)
-                    u.set('theme', 'black')
-                    document.location.search = u.toString()
-                })
+
+                [{el: withDay, s: 'day'}, {el: withDate, s: 'date'}].forEach(function(i) {
+                    i.el.addEventListener('click', function (e) {
+                        var u = search.get()
+                        if (e.target.checked) u.set(i.s, true)
+                        else {u.delete(i.s, true)}
+                        search.commit(u)
+                    })    
+                });
+
+                [{btn: whiteButton, theme: 'white'}, {btn: blackButton, theme: 'black'}].forEach(function(i) {
+                    i.btn.addEventListener('click', function (e) {
+                        var u = search.get()
+                        u.set('theme', i.theme)
+                        search.commit(u)
+                    })    
+                });
+
                 withDay.checked = !!day
                 withDate.checked = !!date
                 console.log('rendered')

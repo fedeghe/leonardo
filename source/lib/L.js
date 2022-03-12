@@ -143,7 +143,6 @@ L.prototype.append = function () {
 /**
  * { function_description }
  *
- * @param      {<type>}    n       { parameter_description }
  * @param      {Function}  cb      { parameter_description }
  * @return     {Object}    { description_of_the_return_value }
  */
@@ -151,11 +150,30 @@ L.prototype.render = function (o) {
     var trg = o && 'target' in o  ? o.target : this.target;
     if (!trg) throw 'Target not set'
 	trg.innerHTML = '';
+    if (o.fade) {
+        this.tag.style.opacity = 0;
+    }
 	trg.appendChild(this.tag);
 	o && o.cb && o.cb.call(this);
+    o.fade && this.fadeIn(parseInt(o.fade, 10))
 	return this;
 };
 
+L.prototype.fadeIn = function (t) {
+    var start = 0,
+        self = this;
+    function fade(now) {
+        console.log(now)
+        var p = (now - start) / t;
+        self.tag.style.opacity = p;
+        if (p < 1) {
+            requestAnimationFrame(fade)
+        } else {
+            self.tag.style.opacity = 1;
+        }
+    }
+    requestAnimationFrame(fade)
+}
 /**
  * 
  */
