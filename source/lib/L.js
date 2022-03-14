@@ -150,12 +150,14 @@ L.prototype.render = function (o) {
     var trg = o && 'target' in o  ? o.target : this.target;
     if (!trg) throw 'Target not set'
 	trg.innerHTML = '';
-    if (o.fade) {
+    if (o && o.fade) {
         this.tag.style.opacity = 0;
     }
 	trg.appendChild(this.tag);
-	o && o.cb && o.cb.call(this);
-    o.fade && this.fadeIn(parseInt(o.fade, 10))
+    if (o) {
+	    o.cb && o.cb.call(this);
+        o.fade && this.fadeIn(parseInt(o.fade, 10))
+    }
 	return this;
 };
 
