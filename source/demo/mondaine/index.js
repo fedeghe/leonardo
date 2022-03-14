@@ -137,16 +137,18 @@
         [{
             condition: opts.date,
             getText: function () {return now.getDate().toString();},
-            position: [cx * 1.4, cy * .945] 
+            position: [cx * 1.4, cy * .945], 
+            size: [size/14, size/17] 
         },{
             condition: opts.day,
             getText: function () {return days[now.getDay()];},
-            position: [cx * .88, cy * 1.42] 
+            position: [cx * .88, cy * 1.42] , 
+            size: [size/8.8, size/17] 
         }].forEach(function(o) {
             if (!o.condition) return
             var g = L.group(),
-                textDate = L.text(size/150,size/22, o.getText()),
-                rectDate = L.rect(0,0, size/14, size/17);
+                textDate = L.text(size/150,size/21, o.getText()),
+                rectDate = L.rect(0,0, o.size[0], o.size[1]);
                 rectDate.setAttributes({
                     fill: L.radialGradient([ // linear
                         { perc: 0, color: 'white' },
@@ -159,7 +161,7 @@
             textDate.setAttributes({
                 'font-size': size / 20,
                 fill: 'black',
-                stroke: '#ffff44',
+                stroke: '#dddddd',
                 'font-weight': 'bold'
             });
             container.append(g)
