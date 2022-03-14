@@ -53,3 +53,11 @@ var lid = (function () {
         return 'leo_id_' + leo_id;
     }
 })()
+
+function getDefs(instance) {
+    if (!instance.defs) {
+        instance.defs = new Element('defs');
+        instance.append(instance.defs);
+    }
+    return instance.defs;
+}

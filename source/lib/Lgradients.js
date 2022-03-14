@@ -1,18 +1,3 @@
-var gradient_id = 0;
-
-function lid() {
-    gradient_id++;
-    return 'leo_id_' + gradient_id;
-}
-
-function getDefs(instance) {
-    if (!instance.defs) {
-        instance.defs = new Element('defs');
-        instance.append(instance.defs);
-    }
-    return instance.defs;
-}
-
 L.prototype.linearGradient = function(steps, rotate) {
     var defs = getDefs(this),
         id = lid(),
