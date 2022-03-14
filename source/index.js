@@ -3,6 +3,7 @@
 	$$lib/L.js$$
 	$$lib/Ltags.js$$	
 	$$lib/Lgradients.js$$	
+	$$lib/Lfilters.js$$	
     $$lib/Lanimate.js$$	
     // ---
 	$$lib/functions.js$$

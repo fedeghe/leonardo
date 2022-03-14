@@ -50,7 +50,22 @@ window.onload = function () {
         v.move(100),
         e.move(250),
         r.move(350)
-    )
+    ).setAttributes({
+        filter: Leo.filter([
+            {type:'feDropShadow',
+                attrs:{
+                    dx:"10.8",
+                    dy:"10.8",
+                    stdDeviation:"0",
+                    "flood-color":"gray",
+                    "flood-opacity":"0.5"
+                }
+            },
+            // {type:'feGaussianBlur', attrs:{stdDeviation: '5 0'}},
+            // {type:'feConvolveMatrix', attrs:{kernelMatrix: "-7 -10 -5 -1 1 -1 0 0 -1"}}
+        ])
+    })
+
     Leo.append(main.move(40, 90));
     Leo.render();
     document.body.appendChild(Leo.downloadAnchor())
