@@ -44,3 +44,12 @@ function deg2rad(deg) {
 function rad2deg(rad) {
 	return rad * 180 / Math.PI;
 }
+
+var lid = (function () {
+    var leo_id = 0;
+
+    return function() {
+        leo_id++;
+        return 'leo_id_' + leo_id;
+    }
+})()
