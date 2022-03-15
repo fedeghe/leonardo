@@ -3,7 +3,7 @@
 |  |  |   __|     |   | |  _  | __  |    \|     |
 |  |__|   __|  |  | | | |     |    -|  |  |  |  |
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
-                                                    v. 1.0.16
+                                                    v. 1.0.17
 ```
 A simple library to draw sgv
 
@@ -383,4 +383,4 @@ Still need to document
 ## Some samples
 
 In the `source` folder there are some examples I use for development purposes.  
-If You run `yarn buildev` (and let it go since it is watching for changes in the `source` folder) and the visit [http://127.0.0.1:3001](http://127.0.0.1:3001) You can see all of them.
+If You run `yarn start` (and let it go since it is watching for changes in the `source` folder) and the visit [http://127.0.0.1:3001](http://127.0.0.1:3001) You can see all of them.
