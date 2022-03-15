@@ -1,0 +1,8 @@
+{
+    "EXE": [
+        "mkdir -p demo/filters/js demo/filters/css"
+    ],
+    "source/demo/filters/index.js": "demo/filters/js -vars=source/vars.json",
+    "source/demo/filters/index.less": "demo/filters/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/filters/index.html": "demo/filters -plugins=malta-browser-refresh -vars=source/vars.json"
+}

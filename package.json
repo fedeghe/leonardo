@@ -11,7 +11,7 @@
     },
     "scripts": {
         "test": "mocha --timeout 10000 test/setup/runner.js test/**.js",
-        "start": "malta source/buildev.json",
+        "start": "malta source/start.json",
         "build": "malta source/build.json",
         "clean": "malta source/clean.json"
     },

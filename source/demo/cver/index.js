@@ -54,15 +54,13 @@ window.onload = function () {
         filter: Leo.filter([
             {type:'feDropShadow',
                 attrs:{
-                    dx:"10.8",
-                    dy:"10.8",
-                    stdDeviation:"0",
+                    dx:5,
+                    dy:5,
+                    stdDeviation:"2.5",
                     "flood-color":"gray",
-                    "flood-opacity":"0.5"
+                    "flood-opacity":"6.5"
                 }
             },
-            // {type:'feGaussianBlur', attrs:{stdDeviation: '5 0'}},
-            // {type:'feConvolveMatrix', attrs:{kernelMatrix: "-7 -10 -5 -1 1 -1 0 0 -1"}}
         ])
     })
 

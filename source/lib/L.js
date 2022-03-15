@@ -180,13 +180,22 @@ L.prototype.fadeIn = function (t) {
  * 
  */
 L.prototype.downloadAnchor = function (txt, name) {
-	var serializer = new XMLSerializer(),
-		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag),
-        url = null,
-        a = document.createElement('a');
+	var a = document.createElement('a');
   
     txt = txt || 'download';
     name = name || 'download';
+	
+	a.download = name + '\.svg';
+	a.href = this.downloadHref();
+	// a.addEventListener('click', function () {
+	// 	this.download = name + '\.svg'
+	// })
+	a.innerHTML = txt;
+	return a;
+};
+L.prototype.downloadHref = function () {
+	var serializer = new XMLSerializer(),
+		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag);
 
 	if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
 		source = source.replace(/^<svg/, '<svg xmlns="' + this.namespaces.svg + '"');
@@ -194,13 +203,5 @@ L.prototype.downloadAnchor = function (txt, name) {
 	if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
 		source = source.replace(/^<svg/, '<svg xmlns:xlink="' + this.namespaces.xlink + '"');
 	}
-	url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
-	
-	a.download = name + '\.svg';
-	a.href = url;
-	a.addEventListener('click', function () {
-		this.download = name + '\.svg'
-	})
-	a.innerHTML = txt;
-	return a;
+	return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
 };
