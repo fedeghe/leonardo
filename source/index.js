@@ -5,6 +5,7 @@
 	$$lib/Lgradients.js$$	
 	$$lib/Lfilters.js$$	
     $$lib/Lanimate.js$$	
+    $$lib/Lextra.js$$	
     // ---
 	$$lib/functions.js$$
 	$$lib/Element.js$$

@@ -90,11 +90,14 @@ L.prototype.line = function (x1, y1, x2, y2) {
  * { function_description }
  *
  * @param      {<type>}   d       { parameter_description }
+ * @param      {<type>}   attrs   { parameter_description }
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.path = function (d) {
+L.prototype.path = function (d, attrs) {
 	var path = new Element('path');
-	path.setAttributes({d : d});
+    attrs = attrs || {}
+    attrs.d = d
+	path.setAttributes(attrs);
 	return path;
 };
 
