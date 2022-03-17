@@ -63,5 +63,7 @@ window.onload = function () {
 
 	tria.rotate(20, 300, 50).move(10, 100);
 
-	L.append(image, polyline, polygon, tria).render({target: target});
+    var centeredText = L.centeredText(502, 100, 'hello', {fill:'#ddd', stroke: 'red'});
+
+	L.append(image, polyline, polygon, tria, centeredText).render({target: target});
 };

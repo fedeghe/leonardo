@@ -19,7 +19,7 @@
                     img: '/media/sbb-logo-inverted.png'
                 }
             },
-            days = ['MON','TUE','WED','THU','FRI','SAT','SUN'],
+            days = ['SUN','MON','TUE','WED','THU','FRI','SAT'],
             width = size,
             height = size,
             ticksPerSecond = 20,
@@ -186,7 +186,7 @@
                 time0.getMilliseconds()
             )) : time0;
         }
-
+        
         window.setInterval(function() {
             var time = getTime(),
                 ms = time.getMilliseconds(),
