@@ -138,6 +138,7 @@
             condition: opts.date,
             getText: function () {return now.getDate().toString();},
             position: [cx * 1.4, cy * .945], 
+            txtPosition: [cx * 1.4, cy * .945], 
             size: [size/14, size/17] 
         },{
             condition: opts.day,
@@ -147,21 +148,22 @@
         }].forEach(function(o) {
             if (!o.condition) return
             var g = L.group(),
-                textDate = L.text(size/150,size/21, o.getText()),
+                // textDate = L.text(size/150,size/21, o.getText()),
+                textDate = L.centeredText(o.size[0],o.size[1]*1.2, o.getText()),
                 rectDate = L.rect(0,0, o.size[0], o.size[1]);
                 rectDate.setAttributes({
                     fill: L.radialGradient([ // linear
                         { perc: 0, color: 'white' },
                         { perc: 100, color: themes[theme].dateBg },
                     ]),
-                    strokeWidth: 1,
+                    'stroke-width': 0.1,
                     stroke: '#000000',
                 });
-            g.append(rectDate, textDate).move(o.position[0], o.position[1]);
+            g.append(
+                rectDate,
+                textDate).move(o.position[0], o.position[1]);
             textDate.setAttributes({
                 'font-size': size / 20,
-                fill: 'black',
-                stroke: '#dddddd',
                 'font-weight': 'bold'
             });
             container.append(g)
