@@ -63,5 +63,15 @@ window.onload = function () {
 
 	tria.rotate(20, 300, 50).move(10, 100);
 
-	L.append(image, polyline, polygon, tria).render({target: target});
+    var centeredText = L.centeredText(502, 100, 'hello', {fill:'#ddd', stroke: 'red'});
+    setInterval(function (){
+        var now = new Date(),
+            sec = now.getSeconds(),
+            round = now.getMinutes() % 2;
+        if (sec == 0) {
+            centeredText.updateText(['even', 'odd'][round])
+        }
+    }, 1000)
+    centeredText.on('click', function(){centeredText.updateText('world')})
+	L.append(image, polyline, polygon, tria, centeredText).render({target: target});
 };

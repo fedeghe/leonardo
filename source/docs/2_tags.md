@@ -1,7 +1,8 @@
 
 # Tags  
 
-To draw something we need to add svg tags. Leonardo let you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `textPath`, `title`, `script`, `textBox`.
+To draw something we need to add svg tags. Leonardo lets you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `title`, `script`.
+Then I added some handy additional function to create more easily some common composed elements: `centeredText`, `textPath`. More will come.
 
 Every tag is a `Element` instance, and thus benefits the following instance methods: `attrs`, `styles`, `add`, `on` ,`off`, `clone`, `trans`, `rotate`, `scale`, `mirrorO`, `mirrorV` and `move`. I will describe all them [soon](#elements).
 
@@ -89,9 +90,9 @@ Returns a `<script>` tag containing the text passed as `content`.
 
 ## extras
 
-### \<textBox\>  
+### \<centeredText\>  
 ```
-var myTextBox = L.textBox(text, h, w, textAttrs)
+var myTextBox = L.centeredText(w, h, text, textAttrs)
 ```
 to be documented
 

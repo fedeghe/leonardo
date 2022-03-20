@@ -3,7 +3,7 @@
 |  |  |   __|     |   | |  _  | __  |    \|     |
 |  |__|   __|  |  | | | |     |    -|  |  |  |  |
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
-                                                    v. 1.0.18
+                                                    v. 1.0.19
 ```
 A simple library to draw sgv
 
@@ -18,10 +18,10 @@ First of all in your html include _Leonardo.js_ in the `<head>` tag:
 
     <script src="path/to/Leonardo.js"></script>
 
-Now create another `<script>` tag to use _Leonardo.js_, and here create an instance using  the _Leonardo_ factory:  
+Now create another `<script>` tag to use _Leonardo.js_, and here create an instance for each svg you need to create using the _Leonardo_ factory:  
 
 ```
-<script>+function(){
+<script>+function(){ // do nto pollute glob
     var L = Leonardo(300, 200, {id: 'theRootSvg', target: theTargetNode});
     // ...
 }()
@@ -30,7 +30,7 @@ Now create another `<script>` tag to use _Leonardo.js_, and here create an insta
 - `width`: mandatory Integer  
 - `height`: mandatory Integer  
 - `options`: an optional object literal which allows to  set some attributes that will be added to the root svg:  
-    - `ns`: set the namespaces that are needed, one or more from `['cc', 'dc', 'ev', 'rdf', 'svg', 'xlink']` if all are needed is enough to pass '*'.  
+    - `ns`: set the namespaces that are needed, one or more from `['cc', 'dc', 'ev', 'rdf', 'svg', 'xlink']` if all are needed is enough to pass `*`.  
     - `target`: define the target node for rendering  
 
 anyway it will be possible to specify the _target_ even when invoking the `render` method on the instance.
@@ -43,7 +43,8 @@ anyway it will be possible to specify the _target_ even when invoking the `rende
 
 # Tags  
 
-To draw something we need to add svg tags. Leonardo let you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `textPath`, `title`, `script`, `textBox`.
+To draw something we need to add svg tags. Leonardo lets you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `title`, `script`.
+Then I added some handy additional function to create more easily some common composed elements: `centeredText`, `textPath`. More will come.
 
 Every tag is a `Element` instance, and thus benefits the following instance methods: `attrs`, `styles`, `add`, `on` ,`off`, `clone`, `trans`, `rotate`, `scale`, `mirrorO`, `mirrorV` and `move`. I will describe all them [soon](#elements).
 
@@ -131,9 +132,9 @@ Returns a `<script>` tag containing the text passed as `content`.
 
 ## extras
 
-### \<textBox\>  
+### \<centeredText\>  
 ```
-var myTextBox = L.textBox(text, h, w, textAttrs)
+var myTextBox = L.centeredText(w, h, text, textAttrs)
 ```
 to be documented
 
@@ -291,13 +292,23 @@ Moves a tag of `x` pixels along _x_ axis and `y` pixels along _y_ axis.
 
 ---
 
+## Filters  
+
+### `<Leonardo instance>.filter(filters [])` -> filter id  
+
+
+Add the requested filters in the `<defs/>` tag and return the id of the filter
+
+---
+
+
+---
+
 ## Gradients
 
 Leonardo comes with two basic gradient, linear and radial:  
 
-### `.linearGradient`
-
-    <Leonardo_instance>.linearGradient(gradient [, orinetationAngle]) -> gradient  
+### `<Leonardo instance>.linearGradient(gradient [, orientationAngle])` -> gradient  
 
 the `gradient` is meant to be specified as an object literal where the keys are supposed to be the percentages from 0 to 100 and the values are expected to be hex colors.  
 The optional `orientationAngle` is a number in degrees which allows to rotate the linear gradient.
@@ -332,9 +343,7 @@ As full small example:
 
 ---
 
-### `.radialGradient`
-
-    <Leonardo_instance>.radialGradient(gradient) -> gradient  
+### `<Leonardo instance>.radialGradient(gradient)` -> gradient  
 
 The radial gradient is supposed to receive the same literal as first parameter, here the orientation does not apply, the usage then is even simpler.
 
@@ -370,12 +379,6 @@ It's also possible to move a tag, changing the `x` and `y` position attributes, 
 
 
 
-
-
----
-
-## utilities  
-Still need to document
 
 
 ---

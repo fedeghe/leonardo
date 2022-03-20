@@ -165,7 +165,6 @@ L.prototype.fadeIn = function (t) {
     var start = 0,
         self = this;
     function fade(now) {
-        console.log(now)
         var p = (now - start) / t;
         self.tag.style.opacity = p;
         if (p < 1) {
