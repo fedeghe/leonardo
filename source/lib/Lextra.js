@@ -68,5 +68,6 @@ L.prototype.centeredText = function(w, h, text, attrs) {
     textPath.tag.innerHTML = text;
     texte.append(textPath);
     ret.append(path, texte);
+    ret.updateText = function(t) {textPath.tag.innerHTML = t;}
     return ret;
 }

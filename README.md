@@ -292,13 +292,23 @@ Moves a tag of `x` pixels along _x_ axis and `y` pixels along _y_ axis.
 
 ---
 
+## Filters  
+
+### `<Leonardo instance>.filter(filters [])` -> filter id  
+
+
+Add the requested filters in the `<defs/>` tag and return the id of the filter
+
+---
+
+
+---
+
 ## Gradients
 
 Leonardo comes with two basic gradient, linear and radial:  
 
-### `.linearGradient`
-
-    <Leonardo_instance>.linearGradient(gradient [, orinetationAngle]) -> gradient  
+### `<Leonardo instance>.linearGradient(gradient [, orientationAngle])` -> gradient  
 
 the `gradient` is meant to be specified as an object literal where the keys are supposed to be the percentages from 0 to 100 and the values are expected to be hex colors.  
 The optional `orientationAngle` is a number in degrees which allows to rotate the linear gradient.
@@ -333,9 +343,7 @@ As full small example:
 
 ---
 
-### `.radialGradient`
-
-    <Leonardo_instance>.radialGradient(gradient) -> gradient  
+### `<Leonardo instance>.radialGradient(gradient)` -> gradient  
 
 The radial gradient is supposed to receive the same literal as first parameter, here the orientation does not apply, the usage then is even simpler.
 
@@ -371,12 +379,6 @@ It's also possible to move a tag, changing the `x` and `y` position attributes, 
 
 
 
-
-
----
-
-## utilities  
-Still need to document
 
 
 ---

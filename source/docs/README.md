@@ -23,16 +23,16 @@ $$4_transformations.md$$
 
 ---
 
-$$5_gradients.md$$
+$$5_filters.md$$
 
 ---
 
-$$6_animate.md$$
+$$6_gradients.md$$
 
 ---
 
-$$7_utilities.md$$
+$$7_animate.md$$
 
 ---
 
-$$8_samples.md$$
+$$9_samples.md$$

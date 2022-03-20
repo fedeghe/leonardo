@@ -1,7 +1,9 @@
 (function() {
     'use strict';
+    var days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    function getDate() {return new Date().getDate().toString();}
+    function getDay() {return days[new Date().getDay()];}
     function getL(target, theme, size, opts){
-        console.log(opts)
         var L = Leonardo(size, size),
             themes = {
                 white: {
@@ -19,7 +21,7 @@
                     img: '/media/sbb-logo-inverted.png'
                 }
             },
-            days = ['SUN','MON','TUE','WED','THU','FRI','SAT'],
+            
             width = size,
             height = size,
             ticksPerSecond = 20,
@@ -74,8 +76,7 @@
             }, {
                 perc: 100,
                 color: "#fff"
-            }]),
-            now = getTime();
+            }]);
 
         L.append(container);
         border.append(cir0).setAttributes({ fill: filt });
@@ -134,53 +135,58 @@
         text.setAttributes({ 'font-size': size / 25, fill: themes[theme].color });
         textSM.setAttributes({ 'font-size': size / 70, fill: themes[theme].color });
 
-        [{
+        var daydate = [{
             condition: opts.date,
-            getText: function () {return now.getDate().toString();},
+            getText: getDate,
             position: [cx * 1.4, cy * .945], 
-            txtPosition: [cx * 1.4, cy * .945], 
             size: [size/14, size/17] 
         },{
             condition: opts.day,
-            getText: function () {return days[now.getDay()];},
-            position: [cx * .88, cy * 1.42] , 
+            getText: getDay,
+            position: [cx * .89, cy * 1.42] , 
             size: [size/8.8, size/17] 
-        }].forEach(function(o) {
-            if (!o.condition) return
+        }];
+        var yyy = daydate.reduce(function(acc, o, i) {
+            if (!o.condition) return acc
+            
             var g = L.group(),
-                // textDate = L.text(size/150,size/21, o.getText()),
-                textDate = L.centeredText(o.size[0],o.size[1]*1.2, o.getText()),
-                rectDate = L.rect(0,0, o.size[0], o.size[1]);
-                rectDate.setAttributes({
-                    fill: L.radialGradient([ // linear
-                        { perc: 0, color: 'white' },
-                        { perc: 100, color: themes[theme].dateBg },
-                    ]),
-                    'stroke-width': 0.1,
-                    stroke: '#000000',
-                });
+                tx = o.getText(),
+                textDate = L.centeredText(o.size[0], o.size[1]*1.2, tx),
+                rectDate = L.rect(0,0, o.size[0], o.size[1])
+                    .setAttributes({
+                        fill: L.radialGradient([ // linear
+                            { perc: 0, color: 'white' },
+                            { perc: 100, color: themes[theme].dateBg },
+                        ]),
+                        'stroke-width': 0.1,
+                        stroke: '#000000',
+                    });
             g.append(
                 rectDate,
-                textDate).move(o.position[0], o.position[1]);
+                textDate
+            ).move(o.position[0], o.position[1]);
             textDate.setAttributes({
                 'font-size': size / 20,
                 'font-weight': 'bold'
             });
+            textDate.k = i
             container.append(g)
-        })
+            acc.push(textDate)
+            return acc
+        }, [])
     
         container.append(image, text, textSM, hours, mins, secs);
         target.style.width = size + 'px';
 
 
-
-        function getTime(gmtHmove, gmtMmove) {
+        var nowdaydate = null
+        function getTime(gmtDmove, gmtHmove, gmtMmove) {
             var time0 = new Date();
             return arguments.length ? new Date(Date.UTC(
                 time0.getFullYear(),
                 time0.getMonth(),
-                time0.getDay(),
-                time0.getHours() + gmtHmove,
+                time0.getDay() + (gmtDmove || 0),
+                time0.getHours() + (gmtHmove || 0),
                 time0.getMinutes() + (gmtMmove || 0),
                 time0.getSeconds(),
                 time0.getMilliseconds()
@@ -194,7 +200,12 @@
                 m = time.getMinutes(),
                 h = time.getHours() % 12,
                 fact = 60;
-
+            if (nowdaydate !== time.getDate()){
+                nowdaydate = time.getDate()
+                yyy.forEach(function (y) {
+                    y.updateText(daydate[y.k].getText())
+                })
+            }
             secs.rotate((s + ms / 1E3) * 6, cx, cy);
             mins.rotate((m * fact + s + ms / 1E3) * 0.1, cx, cy);
             hours.rotate((h * fact + m + s / fact) * (360 / (12 * fact)), cx, cy);

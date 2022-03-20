@@ -99,10 +99,10 @@ window.onload = function () {
         }),
         defenseDown = defenseUp.clone().mirrorH().move(0, height),
         players = [
-            L.group().append(person.use()),
-            L.group().append(person.use()).move(width / 2, 0),
-            L.group().append(person.use()).move(0, height / 2),
-            L.group().append(person.use()).move(width / 2, height / 2),
+            person,
+            person.use().move(width / 2, 0),
+            person.use().move(0, height / 2),
+            person.use().move(width / 2, height / 2),
         ];
     
     logo1.move(width / 2, height/2 + 150);
@@ -116,7 +116,7 @@ window.onload = function () {
         defenseDown,
         center,
         players,
-        person//.setAttributes({display:'none'})
+        //person//.setAttributes({display:'none'})
     ).render({target: target, cb: function () {
         console.log('rendered')
     }});
