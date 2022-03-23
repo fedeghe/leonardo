@@ -1,8 +1,9 @@
 
 # Tags  
 
-To draw something we need to add svg tags. Leonardo lets you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `title`, `script`.
-Then I added some handy additional functions to create more easily some common composed elements: `centeredText`, `textPath`. More will come.
+To draw something we need to add svg tags. Leonardo lets you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `title`, `script`.  
+In case this is not enough a special function will allow you to get any valid tag.  
+Some additional functions allow to create more easily some common composed elements: `centeredText`, `textPath`. More will come.
 
 Every tag is a `Element` instance, and thus benefits the following instance methods: `attrs`, `styles`, `add`, `on` ,`off`, `clone`, `trans`, `rotate`, `scale`, `mirrorO`, `mirrorV` and `move`. I will describe all them [soon below here](#elements).
 
