@@ -9,7 +9,7 @@ Now that we know how to create a root `<svg>` and sub-elements we need some meth
 renders the instance into the target.
 
 In case when invoking the `Leonardo` factory method the `target` parameter has been passed then here it is optional, otherwise must be passed, otherwise an exception will be thrown.  
-```
+``` js
 var root = Leonardo(300, 200, {target: myDomNode})
 root.render(); // now is optional
 // 
@@ -23,21 +23,21 @@ root.render(); // now is not, need to pass `{target: aDomNode}`
 ### tagInstance.setAttributes(attributes) -> tagInstance
 
 Here _attributes_ is an _object literal_ that can contain all the attributes we may need to add to the tag. For example for a `<line>` tag we could write:
-```
+``` js  
 myLine.setAttributes({'stroke-width': 12, stroke: 'black'});
 ```
 ---
 ### tagInstance.styles(styles) -> tagInstance  
 
 Here _styles_ is an _object literal_ that can contain all the styles we may need to add to the tag. For example for a `<recat>` tag we could write:
-```
+``` js
 myRect.styles({cursor: 'pointer'})
 ```
 ---
 ### tagInstance.append(tag1 [, tag2 [, ...]]) -> tagInstance  
 
 This adds all tags passed to it into the instance tag. For example let's say we have a `<g>` of objects and we would like to rotate (see tranformation section) all the elements contained into it; optionally also an array of elements can be passed:
-```
+``` js
 myGroup.append(line, circle)
 // now we can rotate all elements just rotating the group
 ```
@@ -45,7 +45,7 @@ myGroup.append(line, circle)
 ### tagInstance.on(eventName, callback) -> tagInstance  
 
 This method allows to register an event listener for a tag:
-```
+``` js
 myRect.on('click', function (e) {
     console.log(e)
 })
@@ -54,7 +54,7 @@ myRect.on('click', function (e) {
 ### tagInstance.off(eventName, callback) -> tagInstance  
 
 This method allows to unregister an event listener for a tag:
-```
+``` js
 myRect.off('click', function (e) {
     console.log(e)
 })

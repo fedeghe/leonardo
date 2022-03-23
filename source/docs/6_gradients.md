@@ -39,7 +39,7 @@ Small working example:
 ---
 
 ``` js 
-instance.radialGradient(gradient) // returns filling gradient 
+var gradient = instance.radialGradient(gradient) // returns filling gradient 
 ```
 
 The radial gradient is supposed to receive the same literal as first parameter, here the orientation does not apply, the usage then is even simpler.
