@@ -15,25 +15,26 @@ A simple library to draw sgv
 ## use Leonardo
 
 First of all in your html include _Leonardo.js_ in the `<head>` tag:  
-
-    <script src="path/to/Leonardo.js"></script>
-
+``` html
+<script src="path/to/Leonardo.js"></script>
+```
 Now create another `<script>` tag to use _Leonardo.js_, and here create an instance for each svg you need to create using the _Leonardo_ factory:  
 
-```
+``` html
 <script>+function(){ // do not pollute glob
     var L = Leonardo(300, 200, {id: 'theRootSvg', target: theTargetNode});
     // ...
 }()
 </script>
 ```
-- `width`: mandatory Integer  
-- `height`: mandatory Integer  
-- `options`: an optional object literal which allows to  set some attributes that will be added to the root svg:  
+
+- `width`: mandatory **Integer**  
+- `height`: mandatory **Integer**  
+- `options`: an optional **object literal** which allows to  set some attributes that will be added to the root svg tag:  
     - `ns`: set the namespaces that are needed, one or more from `['cc', 'dc', 'ev', 'rdf', 'svg', 'xlink']` if all are needed is enough to pass `*`.  
     - `target`: define the target node for rendering  
 
-anyway it will be possible to specify the _target_ even when invoking the `render` method on the instance.
+anyway it will be possible to set (or override if given already in the instance constructor) the _target_ even when invoking the `render` method on the instance.
 
 
 
@@ -44,87 +45,87 @@ anyway it will be possible to specify the _target_ even when invoking the `rende
 # Tags  
 
 To draw something we need to add svg tags. Leonardo lets you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `title`, `script`.
-Then I added some handy additional function to create more easily some common composed elements: `centeredText`, `textPath`. More will come.
+Then I added some handy additional functions to create more easily some common composed elements: `centeredText`, `textPath`. More will come.
 
-Every tag is a `Element` instance, and thus benefits the following instance methods: `attrs`, `styles`, `add`, `on` ,`off`, `clone`, `trans`, `rotate`, `scale`, `mirrorO`, `mirrorV` and `move`. I will describe all them [soon](#elements).
+Every tag is a `Element` instance, and thus benefits the following instance methods: `attrs`, `styles`, `add`, `on` ,`off`, `clone`, `trans`, `rotate`, `scale`, `mirrorO`, `mirrorV` and `move`. I will describe all them [soon below here](#elements).
 
 there is the list of the methods available to create tags:
 
-### \<desc\>
-```
+### \<desc\> 
+``` js
 var myDesc = L.desc('This is the description of my svg')
 ```
 Returns a `<desc>` tag containing the text passed to it
 
 ### \<circle\>
-```
+``` js
 var myCircle = L.circle(cx, cy, r)
 ```
 Returns a `<circle>` tag centered at `{cx, cy}` with radius `r`.
 
 ### \<ellipse\>
-```
+``` js
 var myEllipse = L.ellipse(cx, cy, rx, ry)
 ```
 Returns a `<ellipse>` tag centered at `{cx, cy}` with radiuses `rx` and `ry`.
 
 ### \<g\>
-```
+``` js
 var myGroup = L.group()
 ```
 Returns a group `<g>` tag.
 
 ### \<image\>
-```
+``` js
 var myImage = L.image(x, y, w, h, src)
 ```
 Returns a `<image>` tag positioned at `{x,y}` about `w` and `h` are meant to be the clearly the sizes but  real image size will win on it, in the end the ratio cannot be modified.
 
 ### \<line\>  
-```
+``` js
 var myLine = L.line(x1, y1, x2, y2)
 ```
 Returns a `<line>` tag representing a segment starting from `{x1,y1}` and ending in `{x2, y2}`.
 
 ### \<path\>  
-```
+``` js
 var myPath = L.path(d)
 ```
 Returns a `<path>` tag with data corresponding to the `d` parameter passed; for example for a simple triangle could be something like `M150 0 L75 200 L225 200 Z` as [here](https://www.w3schools.com/graphics/svg_path.asp). Leonardo makes it easy to create that for you.
 
 
 ### \<polygon\>  
-```
+``` js
 var myPolygon = L.polygon(x1, y1, ...xn, yn)
 ```
 Returns a `<polygon>` tag with _points_ attribute corresponding to those passed; for example for a simple triangle could be something like `200,10 250,190 160,210` as [here](https://www.w3schools.com/graphics/svg_polygon.asp). Leonardo makes it easy to create that for you.
 
 ### \<polyline\>
-```
+``` js
 var myPolyline = L.polyline(x1, y1, ...xn, yn)
 ```
 creates a polyline which can even be opened (it does not close automatically). 
 
 ### \<rect\>  
-```
+``` js
 var myRect = L.rect(x, y, w, h)
 ```
 Returns a `<rect>` tag with the upper left corner positioned at `{x, y}` then `w` is for the width and `h for the height.
 
 ### \<text\>  
-```
+``` js
 var myText = L.text(x, y, content)
 ```
 Returns a `<text>` tag with positioned at the upper left corner positioned at `{x, y}` containing the text passed as `content`.
 
 ### \<title\>  
-```
+``` js
 var myTitle = L.title(txt)
 ```
 Returns a `<title>` tag containing the text passed as `content`.
 
 ### \<script\>  
-```
+``` js
 var myScript = L.script(content)
 ```
 Returns a `<script>` tag containing the text passed as `content`.
@@ -133,18 +134,23 @@ Returns a `<script>` tag containing the text passed as `content`.
 ## extras
 
 ### \<centeredText\>  
-```
+``` js
 var myTextBox = L.centeredText(w, h, text, textAttrs)
 ```
 to be documented
 
 ### \<textPath\>  
-```
+``` js
 var myTextPath = L.textPath(id, d, content)
 ```
 If we want a text to follow a path then a single tag is not [enough](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/textPath)
 This function returns an element which contains all is needed given an `id`, a `d` data for the path and a `content` string. 
 
+## need more
+Svg tag are really [a lot](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) and I just tried to cover the very most common. In case you need to use a tag not contempled here you can still use `.Element`: 
+``` js
+var whatever = L.Element('hatch')
+```
 
 
 ---
@@ -260,31 +266,36 @@ Gets the bounding box of the instance {x, y, w, h}. More infos can be found [her
 
 ## Transform a tag  
 
-    .rotate(deg, x, y) -> instance  
-
+``` js
+instance.rotate(deg, x, y) // -> instance
+```
 Rotates a tag of `deg` degrees around the point `{x, y}`.
 
 ---
 
-    .scale(sx, sy) -> instance  
-
+``` js
+instance.scale(sx, sy) // -> instance
+```
 Scales a tag using `sx` to scale along _x_ axis and `sy` to scale along _y_ axis.  
 
 ---
-
-    .instance.mirrorH() -> instance  
+``` js
+instance.instance.mirrorH() // -> instance
+```
 
 Mirrors a tag horizontally.
 
 ---
-
-    instance.mirrorV() -> instance  
+``` js
+instance.instance.mirrorV() // -> instance
+```
 
 Mirrors a tag vertically.
 
 ---
-
-    instance.move(x, y) -> instance  
+``` js
+instance.instance.move(x, h) // -> instance
+```
 
 Moves a tag of `x` pixels along _x_ axis and `y` pixels along _y_ axis. 
 
@@ -294,8 +305,9 @@ Moves a tag of `x` pixels along _x_ axis and `y` pixels along _y_ axis.
 
 ## Filters  
 
-### `<Leonardo instance>.filter(filters [])` -> filter id  
-
+``` js
+instance.filter(filters []) // -> filter id  
+```
 
 Add the requested filters in the `<defs/>` tag and return the id of the filter
 
@@ -306,44 +318,47 @@ Add the requested filters in the `<defs/>` tag and return the id of the filter
 
 ## Gradients
 
-Leonardo comes with two basic gradient, linear and radial:  
+_Leonardo_ comes with two basic gradient, _linear_ and _radial_:  
 
-### `<Leonardo instance>.linearGradient(gradient [, orientationAngle])` -> gradient  
+``` js
+instance.linearGradient(gradient [, orientationAngle]) //  returns filling gradient
+```
 
 the `gradient` is meant to be specified as an object literal where the keys are supposed to be the percentages from 0 to 100 and the values are expected to be hex colors.  
 The optional `orientationAngle` is a number in degrees which allows to rotate the linear gradient.
 
 then it should be used on a tag simply setting it as the `fill` attribute:
-
-    myTag.setAttributes({fill: myGradient})  
-
-As full small example:  
-
+```js
+myTag.setAttributes({fill: myGradient})  
 ```
+Small working example:  
+
+``` html
 <div id="root"></div>
 <script>
-    (function (){
-        var svg = Leonardo (300, 200, {
-                target: document.getElementById('root')
-            }),
-            gradient = L.linearGradient({ // linear
-                "0" : "#0a0",
-                "5" : "#00a",
-                "95" : "#aa0",
-                "100" : "#f00"
-            }, 90),
-            circle = L.circle(150, 100, 50)
-                .setAttributes({
-                    fill: gradient
-                });
-        svg.render();
-    })()
+(function (){
+    var svg = Leonardo (300, 200, {
+            target: document.getElementById('root')
+        }),
+        circle = L.circle(150, 100, 50)
+            .setAttributes({
+                fill: L.linearGradient({
+                    "0" : "#0a0",
+                    "5" : "#00a",
+                    "95" : "#aa0",
+                    "100" : "#f00"
+                }, 90)
+            });
+    svg.append(circle).render();
+})()
 </script>
 ```
 
 ---
 
-### `<Leonardo instance>.radialGradient(gradient)` -> gradient  
+``` js 
+instance.radialGradient(gradient) // returns filling gradient 
+```
 
 The radial gradient is supposed to receive the same literal as first parameter, here the orientation does not apply, the usage then is even simpler.
 
@@ -351,30 +366,34 @@ The radial gradient is supposed to receive the same literal as first parameter, 
 
 ## Animate
 
-### `<Leonardo instance>.animate.attrs(config)` -> <animate ... /> tag  
+``` js 
+instance.animate.attrs(config) // animate tag  
+```
 
 This method is useful when we need to animate an attribute of a tag. Svg allows to do that creating an `<animate>` tag containing the righ parameters and append it inside the tag that needs to be animated:  
 
 ``` js
-    var circle = LeoInstance.circle(100, 100, 20),
-        animateTag = LeoInstance.animate.attrs({
-            attributeName: 'r',
-            from: 20,
-            to: 1E3,
-            dur: '10s',
-            repeatCont: 'indefinite'
-        });
-    circle.append(animateTag);
+var circle = instance.circle(100, 100, 20),
+    animateTag = instance.animate.attrs({
+        attributeName: 'r',
+        from: 20,
+        to: 1E3,
+        dur: '10s',
+        repeatCount: 'indefinite'
+    });
+circle.append(animateTag);
 ```
 
 It's also possible to move a tag, changing the `x` and `y` position attributes, but this acts directly on the tag:
 
-### `<Leonardo instance>.animate.cartesian(tag, funcX, funcY)` -> stopper function  
-
+``` js 
+instance.animate.cartesian(tag, funcX, funcY) // returns stopper function  
+```
 ...still need to be documented, there's anyway a clear sample
 
-### `<Leonardo instance>.animate.polar(tag, funcR, funcPHI)` -> stopper function  
-
+``` js 
+instance.animate.polar(tag, funcR, funcPHI) // returns stopper function  
+```
 ...still need to be documented, there's anyway a clear sample
 
 
@@ -385,5 +404,5 @@ It's also possible to move a tag, changing the `x` and `y` position attributes, 
 
 ## Some samples
 
-In the `source` folder there are some examples I use for development purposes.  
-If You run `yarn start` (and let it go since it is watching for changes in the `source` folder) and the visit [http://127.0.0.1:3001](http://127.0.0.1:3001) You can see all of them.
+In the `source/demo` folder there are some examples I use for development purposes.  
+If You run `yarn start` (and let it go since it is watching for changes in the `source` folder) and then visit [http://127.0.0.1:3001](http://127.0.0.1:3001) You can see all of them.
