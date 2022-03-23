@@ -57,7 +57,10 @@ window.onload = function () {
                 return t/2 % 360;
             }
         )
-        L.append(circle).render();
+        // try Element
+        var extra = L.Element('text').setAttributes({fill: '#ff0000'}).move(10,20)
+        extra.tag.innerHTML = 'I am polar'
+        L.append(circle, extra).render();
     })();
 
 

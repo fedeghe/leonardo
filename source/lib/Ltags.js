@@ -192,6 +192,15 @@ L.prototype.script = function (cnt) {
 	}
 	return script;
 };
+/**
+ * { function_description }
+ *
+ * @param      {string}   tagNAme     The count
+ * @return     {Element}  { description_of_the_return_value }
+ */
+ L.prototype.Element = function (tagName) {
+	return new Element(tagName);
+};
 
 
 
