@@ -55,8 +55,10 @@ L.prototype.centeredText = function(w, h, text, attrs) {
         textPath = new Element('textPath');
     path.setAttributes({
         id: id,
-        pathLength: w/2,
+        pathLength: w,
         d: 'M0 ' + h/2 + 'h' + w,
+        height:0,
+        "stroke-opacity" : 0,
     })
     attrs = attrs || {}
     attrs.href = '#' + id;

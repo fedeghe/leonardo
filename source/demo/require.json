@@ -18,5 +18,7 @@
     "source/demo/kicker.json": true,
     "source/demo/animate.json": true,
     "source/demo/jshero.json": true,
-    "source/demo/filters.json": true
+    "source/demo/filters.json": true,
+    "source/demo/g-hero.json": true,
+    "source/demo/g-hero2.json": true
 }

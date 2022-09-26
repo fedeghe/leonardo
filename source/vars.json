@@ -39,6 +39,12 @@
         },
         "FILTERS": {
             "TITLE": "Leonardo - filters"
+        },
+        "GHERO": {
+            "TITLE": "G HERO"
+        },
+        "GHERO2": {
+            "TITLE": "G HERO"
         }
     },
     "SERVER": {

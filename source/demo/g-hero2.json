@@ -1,0 +1,8 @@
+{
+    "EXE": [
+        "mkdir -p demo/g-hero2/js demo/g-hero2/css"
+    ],
+    "source/demo/g-hero2/index.js": "demo/g-hero2/js -vars=source/vars.json",
+    "source/demo/g-hero2/index.less": "demo/g-hero2/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/g-hero2/index.html": "demo/g-hero2 -plugins=malta-browser-refresh -vars=source/vars.json"
+}
