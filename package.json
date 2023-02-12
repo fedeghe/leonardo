@@ -16,7 +16,7 @@
         "clean": "malta source/clean.json"
     },
     "devDependencies": {
-        "chai": "^4.1.2",
+        "chai": "^4.3.7",
         "malta": "^4.1.35",
         "malta-browser-refresh": "^1.2.16",
         "malta-dev-srv": "^1.1.8",
