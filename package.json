@@ -22,8 +22,7 @@
         "malta-dev-srv": "^1.1.8",
         "malta-header-comment": "^1.0.12",
         "malta-js-uglify": "^1.0.13",
-        "malta-less": "^1.0.12",
-        "malta-markdown-pdf": "^1.0.9"
+        "malta-less": "^1.0.12"
     },
     "dependencies": {},
     "repository": {
