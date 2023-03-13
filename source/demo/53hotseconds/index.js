@@ -15,11 +15,12 @@ window.onload = function () {
 
         bg = L.rect(0,0,w(1000),h(1000)).setAttributes({
             fill: L.radialGradient([
-                { perc: 0, color: '#440000' },
                 
-                { perc: 30, color: '#110000' },
+                { perc: 10, color: '#000000' },
+                { perc: 20, color: '#330000' },
+                { perc: 90, color: '#cc0000' },
                 
-                { perc: 100, color: '#880000' },
+                { perc: 100, color: '#ee0000' },
             ]),
             rx: h(140), 
             ry: h(140)
