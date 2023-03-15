@@ -5,6 +5,7 @@
     function getDay() {return days[new Date().getDay()];}
     function getL(target, theme, size, opts){
         var L = Leonardo(size, size),
+            family = "Verdana", //Arial
             themes = {
                 white: {
                     background: 'white',
@@ -151,7 +152,7 @@
             
             var g = L.group(),
                 tx = o.getText(),
-                textDate = L.centeredText(o.size[0], o.size[1]*1.2, tx),
+                textDate = L.centeredText(o.size[0]*2, o.size[1]*1.2, tx),
                 rectDate = L.rect(0,0, o.size[0], o.size[1])
                     .setAttributes({
                         fill: L.radialGradient([ // linear
@@ -166,8 +167,9 @@
                 textDate
             ).move(o.position[0], o.position[1]);
             textDate.setAttributes({
-                'font-size': size / 20,
-                'font-weight': 'bold'
+                'font-size': size / 25,
+                'font-weight': 'bold',
+                'font-family': family
             });
             textDate.k = i
             container.append(g)
@@ -228,15 +230,12 @@
             date = 'date' in qs,
             theme = ('theme' in qs && qs.theme.match(/white|black/)) ? qs.theme : (nowH > 7 && nowH < 17) ? 'white' : 'black',
 
-            L  = getL(target, theme, size, {day, date});
+            L  = getL(target, theme, size, {day, date}),
 
-        function commitSearch(s) {
-            document.location.search = s.toString()
-        }
-        var search = {
-            commit: function (s) {document.location.search = s.toString()},
-            get: function () {return new URLSearchParams(document.location.search)}
-        }
+            search = {
+                commit: function (s) {document.location.search = s.toString()},
+                get: function () {return new URLSearchParams(document.location.search)}
+            };
         L.render({
             target: target,
             fade:1000,
