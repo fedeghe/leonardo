@@ -10,16 +10,14 @@ window.onload = function () {
 		container = L.group(),
 		logo = L.group(),
 
-        w = function (i) {return devSize * i/1E3 * zoom;},
-		h = function (i) {return devSize * i/1E3 * zoom;},
+        w = function (i) {return width * i/1E3 * zoom;},
+		h = function (i) {return height * i/1E3 * zoom;},
 
         bg = L.rect(0,0,w(1000),h(1000)).setAttributes({
             fill: L.radialGradient([
-                
                 { perc: 10, color: '#000000' },
                 { perc: 20, color: '#330000' },
                 { perc: 90, color: '#cc0000' },
-                
                 { perc: 100, color: '#ee0000' },
             ]),
             rx: h(140), 
@@ -33,11 +31,8 @@ window.onload = function () {
             L.line(w(500),0,w(500),h(1000)),
             L.line(w(0),h(500),w(1000),h(500)),
             L.circle(w(500), h(500), h(500)),
-
             L.rect(w(500) -oneOnRad2, w(500) -oneOnRad2, 2*oneOnRad2, 2*oneOnRad2),
-            L.rect(mid, mid, w(1000)- 2 * mid, w(1000)- 2 * mid),
-            
-            
+            L.rect(mid, mid, w(1000)- 2 * mid, h(1000)- 2 * mid),
         ].map(l => l.setAttributes({  
             'font-weight':'bold',
 			"stroke": '#ffffff',
@@ -47,7 +42,7 @@ window.onload = function () {
 
         family = "Verdana", //Arial
 
-        J = L.text(w(30), h(532), "5").setAttributes({
+        J = L.text(w(40), h(532), "5").setAttributes({
             'font-size' : h(600),
             'font-family' : family,
             "stroke-width": h(20),
@@ -55,7 +50,7 @@ window.onload = function () {
 			"stroke": '#ffffff',
             fill:'black'
         }),
-        S = L.text(w(522), h(532), "3").setAttributes({
+        S = L.text(w(512), h(532), "3").setAttributes({
             'font-size' : h(600),
             'font-family' : family,
             "stroke-width": h(20),
@@ -93,15 +88,7 @@ window.onload = function () {
     logo.append(J, J2, S, S2, hot, seconds, lines);
 
     container.append(logo);
-    L.append(
-        title,
-        // bg, 
-        container//.scale(0.8)//.move(w(35), h(165)),
-        // brdIn,
-        // brdOut,
-        // J, J2,
-        // S, S2
-    );
+    L.append(title, container);
 
 	L.render();
     document.body.appendChild(L.downloadAnchor());
