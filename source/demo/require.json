@@ -21,5 +21,6 @@
     "source/demo/53hotseconds.json": true,
     "source/demo/filters.json": true,
     "source/demo/g-hero.json": true,
-    "source/demo/g-hero2.json": true
+    "source/demo/g-hero2.json": true,
+    "source/demo/svg/*.svg": "source/demo/png -plugins=malta-svg2png...malta-del[name:\"*.svg\"]"
 }
