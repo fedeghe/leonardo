@@ -61,3 +61,24 @@ function getDefs(instance) {
     }
     return instance.defs;
 }
+
+function polarToCartesian(cx, cy, r, deg) {
+  var rad = (deg-90) * Math.PI / 180.0;
+
+  return {
+    x: cx + (r * Math.cos(rad)),
+    y: cy + (r * Math.sin(rad))
+  };
+}
+
+function describeArc(x, y, radius, startAngle, endAngle){
+    var start = polarToCartesian(x, y, radius, endAngle),
+        end = polarToCartesian(x, y, radius, startAngle),
+        largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+    return [
+        "M", x, y,
+        "L", start.x, start.y, 
+        "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y,
+        "Z" 
+    ].join(" ");     
+}

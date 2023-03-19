@@ -73,3 +73,9 @@ L.prototype.centeredText = function(w, h, text, attrs) {
     ret.updateText = function(t) {textPath.tag.innerHTML = t;}
     return ret;
 }
+
+L.prototype.arcCentered = function(cx, cy, r, from, to) {
+    var p  = new Element('path');
+    p.setAttributes({d: describeArc(cx, cy, r, from, to)});
+    return p;
+}
