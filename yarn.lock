@@ -960,6 +960,11 @@ malta-browser-refresh@^1.2.16:
   dependencies:
     ws "^7.4.2"
 
+malta-del@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/malta-del/-/malta-del-1.0.7.tgz#7a35b1cf4b4664c8b5f7ec7ca67a3480cf5a97de"
+  integrity sha512-YHQTUMZyRRA8OjDf7zuvImPY/CTZHbGsoIESAPb9JmqJ5WGyqMc4Ywm8n8mF2klL/DeAs2mnHySZR/Ej2d3yIA==
+
 malta-dev-srv@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/malta-dev-srv/-/malta-dev-srv-1.1.8.tgz#61d833a12e351510bab5511f624fbb4703aca02e"

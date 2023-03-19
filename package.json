@@ -25,7 +25,9 @@
         "malta-less": "^1.0.12",
         "malta-svg2png": "^1.0.8"
     },
-    "dependencies": {},
+    "dependencies": {
+        "malta-del": "^1.0.7"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/fedeghe/leonardo.git"
