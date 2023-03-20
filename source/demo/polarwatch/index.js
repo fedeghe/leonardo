@@ -7,48 +7,11 @@ window.onload = function () {
             filled: false,
             draw12: false
         },
-        
         themes = {
-            white: {
-                bg: 'white',
-                ms: '#eee',
-                s: '#bbb',
-                m: '#999',
-                h: '#777',
-                D: 'white',
-                M: 'black',
-                Y: 'white'
-            },
-            black: {
-                bg: '#000',
-                ms: '#222',
-                s: '#444',
-                m: '#666',
-                h: '#888',
-                D: 'black',
-                M: 'white',
-                Y: 'black'
-            },
-            rainbow: {
-                bg: 'white',
-                ms: '#77aaff',
-                s: 'yellow',
-                m: 'orange',
-                h: 'red',
-                D: 'black',
-                M: 'white',
-                Y: 'black'
-            },
-            rel: {
-                bg: 'black',
-                ms: 'red',
-                s: 'white',
-                m: 'green',
-                h: 'red',
-                D: 'black',
-                M: 'white',
-                Y: 'black'
-            }
+            white: { bg: 'white', ms: '#eee', s: '#bbb', m: '#999', h: '#777', D: 'white', M: 'black', Y: 'white'},
+            black: { bg: '#000', ms: '#222', s: '#444', m: '#666', h: '#888', D: 'black', M: 'white', Y: 'black' },
+            rainbow: { bg: 'white', ms: '#77aaff', s: 'yellow', m: 'orange', h: 'red', D: 'black', M: 'white', Y: 'black' },
+            rel: { bg: 'black', ms: 'red', s: 'white', m: 'green', h: 'red', D: 'black', M: 'white', Y: 'black'}
         },
         theme = ('theme' in qs && qs.theme in themes)
             ? qs.theme : (nowH > 7 && nowH < 17) ? 'white' : 'black',
@@ -57,8 +20,8 @@ window.onload = function () {
         },
         width = size,
         height = size,
-        Leo = Leonardo(width, height),
 
+        Leo = Leonardo(width, height),
         container = Leo.group(),
         center = {
             x: width / 2,
@@ -73,12 +36,7 @@ window.onload = function () {
             createTimingSlice(3, center, step * 4, color('h'), { step: 1, timestep: 240000, fun: function (d) { return  ((d.getHours() % 12) * 60 + d.getMinutes()) / 2; } }) // hour    0.1 in 24 *1000
         ],
         lines = [],
-        degs = [
-            0, // ms
-            0, // s
-            0, // m
-            0  // h
-        ];
+        degs = [0/* ms */, 0/* s */, 0/* m */, 0/* h */];
 
     function createTimingSlice(index, center, r, col, timing) {
         var now = new Date,
@@ -96,14 +54,9 @@ window.onload = function () {
         }).rotate(-90, center.x, center.y)
         
         setInterval(function () {
-            // var now = new Date,
-                // i = timing.fun(now) % 360
-            
             i = (i + timing.step) % 360
             degs[index] = i;
-
             if (degs[0] === degs[1] === degs[2]) console.log('met');
-            
             circle.setAttributes({
                 d: Leo.slicePath(center.x, center.y, r, 0, -i),
                 fill: col
@@ -138,11 +91,7 @@ window.onload = function () {
         });
         lines.push(tmp)
         container.append(lines)
-    }   
-    
+    }
     Leo.append(container);
-
-    Leo.render({target: target, cb: function () {
-        console.log('rendered')
-    }});
+    Leo.render({target: target, cb: function () {console.log('rendered')}});
 };
