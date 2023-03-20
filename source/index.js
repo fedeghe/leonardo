@@ -1,4 +1,4 @@
-(function(w) {
+const Leonardo = (function(w) {
 	
 	$$lib/L.js$$
 	$$lib/Ltags.js$$	
@@ -10,15 +10,15 @@
 	$$lib/functions.js$$
 	$$lib/Element.js$$
 	
-	var Leonardo = function (w, h, attrs) {
+	var Leo = function (w, h, attrs) {
 		if (!w || !h) 
 			return {
 				ERROR : 'width or height not given!'
 			};
 		return new L(w, h, attrs);
 	};
-	Leonardo.import = L.import;
-	Leonardo.getqs = L.getqs;
-
-	w.Leonardo = Leonardo;
-})(window);
+	Leo.import = L.import;
+	Leo.getqs = L.getqs;
+    return Leo;
+})();
+(typeof exports === 'object') && (module.exports = Leonardo);
