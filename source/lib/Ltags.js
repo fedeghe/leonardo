@@ -198,7 +198,7 @@ L.prototype.script = function (cnt) {
  * @param      {string}   tagNAme     The count
  * @return     {Element}  { description_of_the_return_value }
  */
- L.prototype.Element = function (tagName) {
+L.prototype.Element = function (tagName) {
 	return new Element(tagName);
 };
 

@@ -161,19 +161,44 @@ L.prototype.render = function (o) {
 	return this;
 };
 
-L.prototype.fadeIn = function (t) {
-    var start = 0,
-        self = this;
+L.prototype.fadeIn = function (t, target) {
+    var start = null,
+        self = this,
+        r;
+    target = target ||  self;
+    target.tag.style.opacity = 0;
     function fade(now) {
+        start = start || now;
         var p = (now - start) / t;
-        self.tag.style.opacity = p;
+        target.tag.style.opacity = p;
         if (p < 1) {
-            requestAnimationFrame(fade)
+            r = requestAnimationFrame(fade)
         } else {
-            self.tag.style.opacity = 1;
+            target.tag.style.opacity = 1;
+            cancelAnimationFrame(r)
         }
     }
-    requestAnimationFrame(fade)
+    r = requestAnimationFrame(fade)
+}
+L.prototype.fadeOut = function (t , target) {
+    var start = null,
+        self = this,r;
+    
+    target = target ||  self;
+    target.tag.style.opacity = 1;
+    function fade(now) {
+        start = start || now
+        
+        var p = 1 - parseFloat((now - start) / t, 10);
+        target.tag.style.opacity = p;
+        if (p > 0) {
+            r = requestAnimationFrame(fade)
+        } else {
+            cancelAnimationFrame(r);
+            target.tag.style.opacity = 0;
+        }
+    }
+    r = requestAnimationFrame(fade);
 }
 /**
  * 

@@ -60,7 +60,7 @@ window.onload = function () {
 		console.log(e.target);
 		console.log(e);
 	});
-    var Arc = L.arcCantered(100, 100, 50, 0, 270).setAttributes({fill:'#ddd', stroke: 'red'});
+    var Arc = L.arcCentered(100, 100, 50, 0, 270).setAttributes({fill:'#ddd', stroke: 'red'});
 
 	tria.rotate(20, 300, 50).move(10, 100);
 
@@ -75,4 +75,10 @@ window.onload = function () {
     }, 1000)
     centeredText.on('click', function(){centeredText.updateText('world')})
 	L.append(image, polyline, polygon, tria, centeredText, Arc).render({target: target});
+    
+    // L.fadeIn(5e3, Arc)
+    // setTimeout(() => {
+        L.fadeOut(5e3, Arc)
+    // }, 4000)
+    
 };
