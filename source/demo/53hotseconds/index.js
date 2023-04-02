@@ -14,81 +14,55 @@ window.onload = function () {
 		h = function (i) {return height * i/1E3 * zoom;},
 
         bg = L.rect(0,0,w(1000),h(1000)).setAttributes({
-            fill: L.radialGradient([
-                { perc: 10, color: '#000000' },
-                { perc: 20, color: '#330000' },
-                { perc: 90, color: '#cc0000' },
-                { perc: 100, color: '#ee0000' },
-            ]),
+            fill:'#FF0000',
             rx: h(140), 
             ry: h(140)
         }),
-        oneOnRad2 = w(500) / Math.sqrt(2),
-        mid = w(80),
-        lines = [
-            L.line(0,0,w(1000),h(1000)),
-            L.line(w(1000),0,0,h(1000)),
-            L.line(w(500),0,w(500),h(1000)),
-            L.line(w(0),h(500),w(1000),h(500)),
-            L.circle(w(500), h(500), h(500)),
-            L.rect(w(500) -oneOnRad2, w(500) -oneOnRad2, 2*oneOnRad2, 2*oneOnRad2),
-            L.rect(mid, mid, w(1000)- 2 * mid, h(1000)- 2 * mid),
-        ].map(l => l.setAttributes({  
-            'font-weight':'bold',
-			"stroke": '#ffffff',
-            opacity:'0.3',
-            fill: 'transparent'
-        })),
-
-        family = "Verdana", //Arial
-
-        J = L.text(w(40), h(532), "5").setAttributes({
-            'font-size' : h(600),
-            'font-family' : family,
-            "stroke-width": h(20),
-            'font-weight':'bold',
-			"stroke": '#ffffff',
-            fill:'black'
-        }),
-        S = L.text(w(512), h(532), "3").setAttributes({
-            'font-size' : h(600),
-            'font-family' : family,
-            "stroke-width": h(20),
-            'font-weight':'bold',
-			"stroke": '#ffffff',
-            fill:'black'
-        }),
-        J2 = J.clone().move(w(10), h(10)).setAttributes({
-            'opacity' : 0.4
-        }),
-        S2 = S.clone().move(w(10), h(10)).setAttributes({
-            'opacity' : 0.4
-        }),
-        hot =  L.text(w(248), h(770), "HOT").setAttributes({
-            'font-size' : h(200),
-            'font-family' : family,
-            // "stroke-width": h(10),
-			// "stroke": '#ffffff',
-            'font-weight':'bold',
-            fill:'white'
-        }),
-        seconds =  L.text(w(171), h(916), "seconds").setAttributes({
-            'font-size' : h(150),
-            'font-family' : family,
-            // "stroke-width": h(10),
-			// "stroke": '#ffffff',
-            'font-weight':'bold',
-            fill:'white'
-        });
+        image = L.image(0,0,width, height, './53.jpeg').setAttributes({opacity:  0.2});
+        attrs = {
+			"stroke-width" : h(20),
+			"stroke" : 'white',
+			"stroke-opacity" : 1,
+			"fill-opacity" : 1,
+			"stroke-linejoin" : "round",
+			fill : 'none'
+		},
+        l = 700
+        p1 = L.path(L.pathBuild
+            .M(w(150), h(130))
+            .L(w(l), h(130))
+            .A(w(11), h(10), 0,0,1, w(l), h(460))
+            .A(w(11), h(10), 0,0,1, w(l), h(870))
+            .L(w(150), h(870))
+            .L(w(80), h(840))
+            .L(w(80), h(l))
+            .L(w(300), h(l))
+            .A(w(10), h(10), 0,0,0, w(300), h(550))
+            .L(w(80), h(550))
+            .L(w(80), h(550))
+            .L(w(80), h(160))
+            .Z()
+        ).setAttributes(attrs).setAttributes({fill:'#000'}),
+        p2 = L.path(L.pathBuild
+            .M(w(215), h(270))
+            .L(w(l), h(270))
+            .A(w(5), h(5), 0,0,1, w(l), h(375))
+            .L(w(425), h(375))
+            .A(w(250), h(250), 0,0,1, w(550), h(550))
+            .L(w(l), h(550))
+            .A(w(10), h(10), 0,0,1, w(l), h(700))
+            .L(w(490), h(700))
+            .A(w(250), h(250), 0,0,0, w(210), h(370))
+            .Z()
+        ).setAttributes(attrs).setAttributes({fill:'#F00'}),
 
     container.setAttributes({
         viewBox : "0 0 " + width + " " + height
     }).append(bg);
 
-    logo.append(J, J2, S, S2, hot, seconds, lines);
-
-    container.append(logo);
-    L.append(title, container);
+    // container.append(image);
+    
+    L.append(title, container, p1, p2);
 
 	L.render();
     document.body.appendChild(L.downloadAnchor());

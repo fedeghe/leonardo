@@ -1,6 +1,7 @@
 {
     "EXE": [
-        "mkdir -p demo/53hotseconds/js demo/53hotseconds/css"
+        "mkdir -p demo/53hotseconds/js demo/53hotseconds/css",
+        "cp source/demo/53hotseconds/53.jpeg demo/53hotseconds/"
     ],
     "source/demo/53hotseconds/index.js": "demo/53hotseconds/js -vars=source/vars.json",
     "source/demo/53hotseconds/index.less": "demo/53hotseconds/css -plugins=malta-less -vars=source/vars.json",
