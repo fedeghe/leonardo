@@ -1,0 +1,8 @@
+{
+    "EXE": [
+        "mkdir -p demo/gradients/js demo/gradients/css"
+    ],
+    "source/demo/gradients/index.js": "demo/gradients/js -vars=source/vars.json",
+    "source/demo/gradients/index.less": "demo/gradients/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/gradients/index.html": "demo/gradients -plugins=malta-browser-refresh -vars=source/vars.json"
+}

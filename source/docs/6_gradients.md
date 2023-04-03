@@ -3,11 +3,11 @@
 _Leonardo_ comes with two basic gradient, _linear_ and _radial_:  
 
 ``` js
-instance.linearGradient(gradient [, orientationAngle]) //  returns filling gradient
+instance.linearGradient(gradient [, fromX, fromY, toX, toY]) //  returns filling gradient
 ```
 
 the `gradient` is meant to be specified as an array of objects containing a `perc` and a color fields; percentages from 0 to 100 and the color values are expected to be hex colors.  
-The optional `orientationAngle` is a number in degrees which allows to rotate the linear gradient.
+The optional `fromX, fromY, toX, toY` are the percentage starting and ending coords which allows to rotate the linear gradient (default is 0% 0% 100% 0%, thus from left to right).
 
 then it should be used on a tag simply setting it as the `fill` attribute:
 ```js
@@ -29,7 +29,7 @@ Small working example:
                     {perc: "5", color: "#00a"},
                     {perc: "95", color: "#aa0"},
                     {perc: "100", color: "#f00"},
-                ], 90)
+                ], '0%', '0%', '100%', '0%') //45
             });
     svg.append(circle).render();
 })()

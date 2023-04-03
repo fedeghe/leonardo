@@ -1,32 +1,32 @@
-L.prototype.linearGradient = function(steps, rotate) {
+L.prototype.linearGradient = function(steps, x1, y1, x2, y2) {
     var defs = getDefs(this),
         id = lid(),
         linearGrad = new Element('linearGradient'),
-        i, tmp,
+        tmp,
         attrs = {
             id: id,
-            x1: '0%',
-            y1: '0%',
-            x2: '100%',
-            y2: '0%'
+            x1: x1||'0%',
+            y1: y1||'0%',
+            x2: x2||'100%',
+            y2: y2||'0%'
         };
 
-    if (rotate) {
-        attrs.gradientTransform = 'rotate(' + rotate + ')'
-    }
+    // if (rotate) {
+    //     attrs.gradientTransform = 'rotate(' + rotate + ')'
+    // }
     linearGrad.setAttributes(attrs);
     steps.forEach(function(step) {
         tmp = new Element('stop');
-        var attrs = {
+        var att = {
             offset: step.perc + '%',
             // style : 'stop-opacity:1;stop-color:' + steps[i],
             'stop-color': step.color
         };
-        if ('style' in step) attrs.style = step.style;
-        tmp.setAttributes(attrs);
+        if ('style' in step) att.style = step.style;
+        tmp.setAttributes(att);
         linearGrad.append(tmp)
     })
-    this.defs.append(linearGrad);
+    defs.append(linearGrad);
     return 'url(#' + id + ')';
 }
 
