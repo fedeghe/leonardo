@@ -13,20 +13,29 @@ window.onload = function () {
         w = function (i) {return width * i/1E3 * zoom;},
 		h = function (i) {return height * i/1E3 * zoom;},
         grad = L.linearGradient([
-            {perc: "0", color: "#f00"},
-            {perc: "10", color: "#f60"},
-            {perc: "20", color: "#fa0"},
-            {perc: "30", color: "#ff0"},
-            {perc: "40", color: "#5f8"},
-            {perc: "50", color: "#3a3"},
-            {perc: "60", color: "#58f"},
-            {perc: "70", color: "#15f"},
-            {perc: "80", color: "#13a"},
-            {perc: "90", color: "#73a"},
-            {perc: "100", color: "#f43"},
+            {perc: 0, color: "#f00"},
+            {perc: 10, color: "#f60"},
+            {perc: 20, color: "#fa0"},
+            {perc: 30, color: "#ff0"},
+            {perc: 40, color: "#5f8"},
+            {perc: 50, color: "#3a3"},
+            {perc: 60, color: "#58f"},
+            {perc: 70, color: "#15f"},
+            {perc: 80, color: "#13a"},
+            {perc: 90, color: "#73a"},
+            {perc: 100, color: "#f43"},
         ], '0%', '0%', '100%', '100%'),
+        gradIn = L.linearGradient([
+            {perc: 0, color: "#000"},
+            {perc: 100, color: "#222"},
+        ], '0%', '0%', '100%', '100%'),
+        gradIn2 = L.linearGradient([
+            {perc: 0, color: "#000"},
+            {perc: 100, color: "#222"},
+        ], '0%', '0%', '130%', '130%'),
         bg = L.rect(0,0,w(1000),h(1000)).setAttributes({
-            fill:'#000',
+            // fill:'#000',
+            fill: gradIn,
             rx: h(140), 
             ry: h(140)
         }),
@@ -70,7 +79,7 @@ window.onload = function () {
             .Z()
         )
         .setAttributes(attrs)
-        .setAttributes({fill:'#000'}),
+        .setAttributes({fill:gradIn2}),
         gp = L.group(),
         tattrs = {stroke:'white', 'font-size':'30px', fill:'white'}
         // f = L.text(w(900), h(900), "ƒɛɗɜɢ").setAttributes(tattrs),
