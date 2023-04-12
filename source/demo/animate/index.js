@@ -1,6 +1,7 @@
 window.onload = function () {
     var target1 = document.getElementById('trg1'),
-        target2 = document.getElementById('trg2');
+        target2 = document.getElementById('trg2'),
+        speed = 1;
 
     (function () {
         var width = 500,
@@ -25,13 +26,13 @@ window.onload = function () {
 
         L1.animate.cartesian(
             circle1,
-            function (x, t){ return w2 * (1 + Math.sin(t)); },
-            function (y, t){ return h2 * (1 + Math.sin(t / 4)); }
+            function (x, t){ return w2 * (1 + Math.sin(speed * t)); },
+            function (y, t){ return h2 * (1 + Math.sin(speed * t / 4)); }
         )
         L2.animate.polar(
             circle2,
-            function (r, t){ return  min/2 * Math.sin(t / 20);},
-            function (rho, t){ return t % 360; }
+            function (r, t){ return  min/2 * Math.sin(speed * t / 200);},
+            function (rho, t){ return speed * t % 360; }
         )
         
         extra1.tag.innerHTML = 'Cartesian';
