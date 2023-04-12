@@ -14,33 +14,35 @@ window.onload = function () {
             w = function(n) {return n * wperc; },
             h = function(n) {return n * hperc; },
             m = function(n) {return n * mperc; },
-
-            L1 = Leonardo(width, height, { ns: '*', target: target1 }),
-            circle1 = L1.circle(0,0,10).setAttributes({fill: '#f45'}),
-            L2 = Leonardo(width, height, { ns: '*', target: target2 }),
-            circle2 = L2.circle(width / 2, height / 2, 10).setAttributes({fill: '#45f'}),
             w2 = w(50),
             h2 = h(50),
-            extra1 = L1.Element('text').setAttributes({fill: '#f45'}).move(w(2), h(5)),
-            extra2 = L2.Element('text').setAttributes({fill: '#45f'}).move(w(2), h(5));
-
-        L1.animate.cartesian(
-            circle1,
-            function (x, t){ return w2 * (1 + Math.sin(speed * t)); },
-            function (y, t){ return h2 * (1 + Math.sin(speed * t / 4)); }
-        )
-        L2.animate.polar(
-            circle2,
-            function (r, t){ return  min/2 * Math.sin(speed * t / 200);},
-            function (rho, t){ return speed * t % 360; }
-        )
-        
-        extra1.tag.innerHTML = 'Cartesian';
-        L1.append(circle1, extra1).render();
-
-        
-        extra2.tag.innerHTML = 'Polar';
-        L2.append(circle2, extra2).render();
+            els = [{
+                func: 'cartesian',
+                target: target1,
+                color: '#f45',
+                initial: [0,0],
+                funcs: [
+                    function (x, t){ return w2 * (1 + Math.sin(speed * t)); },
+                    function (y, t){ return h2 * (1 + Math.sin(speed * t / 4)); }
+                ]
+            },{
+                func: 'polar',
+                target: target2,
+                color: '#45f',
+                initial: [width / 2, height / 2],
+                funcs: [
+                    function (r, t){ return  min/2 * Math.sin(speed * t / 20);},
+                    function (rho, t){ return speed * t % 360; }
+                ]
+            }];
+        els.forEach(function(o) {
+            var Lx = Leonardo(width, height, { ns: '*', target: o.target }),
+                circle = Lx.circle.apply(null, o.initial.concat(10)).setAttributes({fill: o.color}),
+                extra = Lx.Element('text').setAttributes({fill: o.color}).move(w(2), h(5));
+            extra.tag.innerHTML = o.func;
+            Lx.animate[o.func].apply(null, [circle].concat(o.funcs));
+            Lx.append(circle, extra).render();
+        });
     })();
 
 
