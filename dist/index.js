@@ -7,7 +7,7 @@
                                                   V. 1.0.25
 
 Federico Ghedina <federico.ghedina@gmail.com> 2023
-~29.91KB
+~30.45KB
 */
 const Leonardo = (function(w) {
 	
@@ -36,6 +36,8 @@ const Leonardo = (function(w) {
 		var self = this,
 			tmp, l;
 		opts = opts || {};
+		this.width = width;
+		this.height = height;
 	
 	    this.tag = create('svg');
 	    this.tag.setAttribute('width', width);
@@ -232,6 +234,25 @@ const Leonardo = (function(w) {
 		// })
 		a.innerHTML = txt;
 		return a;
+	};
+	
+	L.prototype.inspectPosition = function (mode) {
+		var tag = this.tag,
+			boundingBox = tag.getBoundingClientRect(),
+			left = boundingBox.left,
+			top = boundingBox.top,
+			w = this.width,
+			h = this.height,
+			p = function(n, prec){ return parseFloat(n.toFixed(prec || 2), 10)}
+	
+		tag.addEventListener('mousemove', function (e){
+			var x = e.clientX,
+				y = e.clientY,
+				px = 100 * (x - left) / w,
+				py = 100 * (y - top) / h;
+			console.log({px: p(px), py: p(py)})
+		})
+		return this;
 	};
 	L.prototype.downloadHref = function () {
 		var serializer = new XMLSerializer(),
