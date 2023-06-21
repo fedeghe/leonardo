@@ -220,22 +220,54 @@ L.prototype.downloadAnchor = function (txt, name) {
 	return a;
 };
 
-L.prototype.inspectPosition = function (mode) {
+L.prototype.inspectPosition = function (info) {
 	var tag = this.tag,
+		infoTag = info ? document.createElement('div') : null,
+		infoList = info ? document.createElement('ul') : null,
 		boundingBox = tag.getBoundingClientRect(),
 		left = boundingBox.left,
 		top = boundingBox.top,
 		w = this.width,
 		h = this.height,
-		p = function(n, prec){ return parseFloat(n.toFixed(prec || 2), 10)}
-
+		p = function(n, prec){ return parseFloat(n.toFixed(prec || 2), 10)},
+		currentInfo,
+		prev = {
+			x: 0, y: 0
+		}, X, Y;
+	infoTag.style.fontFamily = 'verdana';
+	infoList.style.fontFamily = 'verdana';
+	
 	tag.addEventListener('mousemove', function (e){
 		var x = e.clientX,
-			y = e.clientY,
-			px = 100 * (x - left) / w,
-			py = 100 * (y - top) / h;
-		console.log({px: p(px), py: p(py)})
-	})
+			y = e.clientY;
+		X = x - left, Y = y - top;
+		var px = 100 * X / w,
+			py = 100 * Y / h;
+		currentInfo = '%(' +p(px) + ' ' + p(py) + ')' +
+			'A(' + ~~X + ' ' + ~~Y + ')' +
+			'R(' + (~~X - prev.x) + ' ' + (~~Y - prev.y) + ')';
+		
+		if (info) {
+			infoTag.style.left = x + 'px';
+			infoTag.style.top = y + 'px';
+			infoTag.innerHTML = currentInfo;
+		} else {
+			console.log(currentInfo);
+		}
+	});
+	if(info) {
+		tag.parentNode.appendChild(infoTag);
+		tag.parentNode.appendChild(infoList);
+		tag.addEventListener('click', function () {
+			var item = document.createElement('li');
+			prev = {
+				x: ~~X,
+				y: ~~Y
+			};
+			item.innerHTML = currentInfo;
+			infoList.appendChild(item);
+		})
+	}
 	return this;
 };
 L.prototype.downloadHref = function () {

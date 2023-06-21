@@ -45,6 +45,6 @@ window.onload = function () {
     Leo.append(main);
     
     Leo.render();
-    Leo.inspectPosition();
+    Leo.inspectPosition(true);
     document.body.appendChild(Leo.downloadAnchor())
 }
