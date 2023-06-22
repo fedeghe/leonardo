@@ -231,9 +231,8 @@ L.prototype.positionInspector = function (info) {
 		h = this.height,
 		p = function(n, prec){ return parseFloat(n.toFixed(prec || 2), 10)},
 		currentInfo,
-		prev = {
-			x: 0, y: 0
-		}, X, Y;
+		prev = { x: 0, y: 0},
+		curr = { x: 0, y: 0};
 	infoTag.style.fontFamily = 'verdana';
 	infoList.style.fontFamily = 'verdana';
 	infoList.style.listStyleType = 'decimal';
@@ -244,17 +243,17 @@ L.prototype.positionInspector = function (info) {
 			y = e.clientY,
 			toPercX = function (n){return 100 * n / w; },
 			toPercY = function (n){return 100 * n / h; };
-		X = x - left, Y = y - top;
-		var px = 100 * X / w,
-			py = 100 * Y / h;
+		curr.x = x - left;
+		curr.y = y - top;
+
+		var px = 100 * curr.x / w,
+			py = 100 * curr.y / h;
 		currentInfo = '%(' +p(px) + ' ' + p(py) + ')' +
-			' px (' + ~~X + ' ' + ~~Y + ')' +
-			' r % (' + p(toPercX(~~X - prev.x)) + ' ' + p(toPercY(~~Y - prev.y)) + ')' +
-			' r px (' + (~~X - prev.x) + ' ' + (~~Y - prev.y) + ')';
+			' px(' + ~~curr.x + ' ' + ~~curr.y + ')' +
+			' R%(' + p(toPercX(~~curr.x - prev.x)) + ' ' + p(toPercY(~~curr.y - prev.y)) + ')' +
+			' Rpx(' + (~~curr.x - prev.x) + ' ' + (~~curr.y - prev.y) + ')';
 		
 		if (info) {
-			infoTag.style.left = x + 'px';
-			infoTag.style.top = y + 'px';
 			infoTag.innerHTML = currentInfo;
 		} else {
 			console.log(currentInfo);
@@ -266,8 +265,8 @@ L.prototype.positionInspector = function (info) {
 		tag.addEventListener('click', function () {
 			var item = document.createElement('li');
 			prev = {
-				x: ~~X,
-				y: ~~Y
+				x: ~~curr.x,
+				y: ~~curr.y
 			};
 			item.innerHTML = currentInfo;
 			infoList.appendChild(item);
