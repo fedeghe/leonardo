@@ -220,7 +220,7 @@ L.prototype.downloadAnchor = function (txt, name) {
 	return a;
 };
 
-L.prototype.inspectPosition = function (info) {
+L.prototype.positionInspector = function (info) {
 	var tag = this.tag,
 		infoTag = info ? document.createElement('div') : null,
 		infoList = info ? document.createElement('ul') : null,
@@ -236,16 +236,21 @@ L.prototype.inspectPosition = function (info) {
 		}, X, Y;
 	infoTag.style.fontFamily = 'verdana';
 	infoList.style.fontFamily = 'verdana';
+	infoList.style.listStyleType = 'decimal';
+	infoList.style.fontSize = '0.8em';
 	
 	tag.addEventListener('mousemove', function (e){
 		var x = e.clientX,
-			y = e.clientY;
+			y = e.clientY,
+			toPercX = function (n){return 100 * n / w; },
+			toPercY = function (n){return 100 * n / h; };
 		X = x - left, Y = y - top;
 		var px = 100 * X / w,
 			py = 100 * Y / h;
 		currentInfo = '%(' +p(px) + ' ' + p(py) + ')' +
-			'A(' + ~~X + ' ' + ~~Y + ')' +
-			'R(' + (~~X - prev.x) + ' ' + (~~Y - prev.y) + ')';
+			' px (' + ~~X + ' ' + ~~Y + ')' +
+			' r % (' + p(toPercX(~~X - prev.x)) + ' ' + p(toPercY(~~Y - prev.y)) + ')' +
+			' r px (' + (~~X - prev.x) + ' ' + (~~Y - prev.y) + ')';
 		
 		if (info) {
 			infoTag.style.left = x + 'px';
