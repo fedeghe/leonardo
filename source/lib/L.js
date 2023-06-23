@@ -220,10 +220,11 @@ L.prototype.downloadAnchor = function (txt, name) {
 	return a;
 };
 
-L.prototype.positionInspector = function (info) {
-	var tag = this.tag,
-		infoTag = info ? document.createElement('div') : null,
-		infoList = info ? document.createElement('ul') : null,
+L.prototype.positionInspector = function () {
+	var self = this,
+		tag = this.tag,
+		infoTag = document.createElement('div'),
+		infoList = document.createElement('ul'),
 		boundingBox = tag.getBoundingClientRect(),
 		left = boundingBox.left,
 		top = boundingBox.top,
@@ -232,7 +233,8 @@ L.prototype.positionInspector = function (info) {
 		p = function(n, prec){ return parseFloat(n.toFixed(prec || 2), 10)},
 		currentInfo,
 		prev = { x: 0, y: 0},
-		curr = { x: 0, y: 0};
+		curr = { x: 0, y: 0},
+		markers = [];
 	infoTag.style.fontFamily = 'verdana';
 	infoList.style.fontFamily = 'verdana';
 	infoList.style.listStyleType = 'decimal';
@@ -253,25 +255,43 @@ L.prototype.positionInspector = function (info) {
 			' R%(' + p(toPercX(~~curr.x - prev.x)) + ' ' + p(toPercY(~~curr.y - prev.y)) + ')' +
 			' Rpx(' + (~~curr.x - prev.x) + ' ' + (~~curr.y - prev.y) + ')';
 		
-		if (info) {
-			infoTag.innerHTML = currentInfo;
-		} else {
-			console.log(currentInfo);
-		}
+		
+		infoTag.innerHTML = currentInfo;
+		
 	});
-	if(info) {
-		tag.parentNode.appendChild(infoTag);
-		tag.parentNode.appendChild(infoList);
-		tag.addEventListener('click', function () {
-			var item = document.createElement('li');
-			prev = {
-				x: ~~curr.x,
-				y: ~~curr.y
-			};
-			item.innerHTML = currentInfo;
-			infoList.appendChild(item);
-		})
-	}
+
+	tag.parentNode.appendChild(infoTag);
+	tag.parentNode.appendChild(infoList);
+	tag.addEventListener('click', function () {
+		var item = document.createElement('li'),
+			r = 2,
+			r2 = r / 2,
+			rdub = r * 2,
+			dot = self.circle(~~curr.x + r2, ~~curr.y + r2, r);
+		dot.setAttributes({stroke: 'white', 'stroke-width': 1});
+		dot.on('mouseover', function () {
+			item.style.fontWeight = 'bold';
+			dot.setAttributes({fill: 'red', r : rdub});
+		});
+		dot.on('mouseleave', function () {
+			item.style.fontWeight = 'normal';
+			dot.setAttributes({fill: '', r : r});
+		});
+		markers.push({ item: item, dot: dot });
+		prev = {x: ~~curr.x, y: ~~curr.y};
+
+		item.innerHTML = currentInfo;
+		item.addEventListener('mouseover', function(){
+			item.style.fontWeight = 'bold';
+			dot.setAttributes({fill: 'red', r : rdub});
+		});
+		item.addEventListener('mouseout', function(){
+			item.style.fontWeight = 'normal';
+			dot.setAttributes({fill: '', r : r});
+		});
+		infoList.appendChild(item);
+		self.append(dot);
+	});
 	return this;
 };
 L.prototype.downloadHref = function () {
