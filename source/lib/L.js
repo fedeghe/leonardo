@@ -235,8 +235,7 @@ L.prototype.positionInspector = function () {
 		prev = { x: 0, y: 0},
 		curr = { x: 0, y: 0},
 		markers = [];
-	infoTag.style.fontFamily = 'verdana';
-	infoList.style.fontFamily = 'verdana';
+	infoTag.style.fontFamily = infoList.style.fontFamily = 'verdana';
 	infoList.style.listStyleType = 'decimal';
 	infoList.style.fontSize = '0.8em';
 	
@@ -267,15 +266,16 @@ L.prototype.positionInspector = function () {
 			r = 2,
 			r2 = r / 2,
 			rdub = r * 2,
-			dot = self.circle(~~curr.x + r2, ~~curr.y + r2, r);
-		dot.setAttributes({stroke: 'white', 'stroke-width': 1});
+			dot = self.circle(~~curr.x + r2, ~~curr.y + r2, r),
+			rp = r + 1;
+		dot.setAttributes({stroke: 'black', 'stroke-width': 1, 'stroke-dasharray': rp + ',1'});
 		dot.on('mouseover', function () {
 			item.style.fontWeight = 'bold';
 			dot.setAttributes({fill: 'red', r : rdub});
 		});
 		dot.on('mouseleave', function () {
 			item.style.fontWeight = 'normal';
-			dot.setAttributes({fill: '', r : r});
+			dot.setAttributes({fill: 'white', r : r});
 		});
 		markers.push({ item: item, dot: dot });
 		prev = {x: ~~curr.x, y: ~~curr.y};
@@ -287,7 +287,7 @@ L.prototype.positionInspector = function () {
 		});
 		item.addEventListener('mouseout', function(){
 			item.style.fontWeight = 'normal';
-			dot.setAttributes({fill: '', r : r});
+			dot.setAttributes({fill: 'white', r : r});
 		});
 		infoList.appendChild(item);
 		self.append(dot);
