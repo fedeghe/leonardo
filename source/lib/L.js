@@ -268,7 +268,7 @@ L.prototype.positionInspector = function () {
 			rdub = r * 2,
 			dot = self.circle(~~curr.x + r2, ~~curr.y + r2, r),
 			rp = r + 1;
-		dot.setAttributes({stroke: 'black', 'stroke-width': 1, 'stroke-dasharray': rp + ',1'});
+		dot.setAttributes({stroke: 'black', fill: 'white', 'stroke-width': 1, 'stroke-dasharray': rp + ',1'});
 		dot.on('mouseover', function () {
 			item.style.fontWeight = 'bold';
 			dot.setAttributes({fill: 'red', r : rdub});
