@@ -233,8 +233,7 @@ L.prototype.positionInspector = function () {
 		p = function(n, prec){ return parseFloat(n.toFixed(prec || 2), 10)},
 		currentInfo,
 		prev = { x: 0, y: 0},
-		curr = { x: 0, y: 0},
-		markers = [];
+		curr = { x: 0, y: 0};
 	infoTag.style.fontFamily = infoList.style.fontFamily = 'verdana';
 	infoList.style.listStyleType = 'decimal';
 	infoList.style.fontSize = '0.8em';
@@ -277,7 +276,6 @@ L.prototype.positionInspector = function () {
 			item.style.fontWeight = 'normal';
 			dot.setAttributes({fill: 'white', r : r});
 		});
-		markers.push({ item: item, dot: dot });
 		prev = {x: ~~curr.x, y: ~~curr.y};
 
 		item.innerHTML = currentInfo;
@@ -289,11 +287,16 @@ L.prototype.positionInspector = function () {
 			item.style.fontWeight = 'normal';
 			dot.setAttributes({fill: 'white', r : r});
 		});
+		item.addEventListener('dblclick', function(){
+			dot.tag.parentNode.removeChild(dot.tag);
+			item.parentNode.removeChild(item);
+		});
 		infoList.appendChild(item);
 		self.append(dot);
 	});
 	return this;
 };
+
 L.prototype.downloadHref = function () {
 	var serializer = new XMLSerializer(),
 		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag);

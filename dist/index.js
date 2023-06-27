@@ -7,7 +7,7 @@
                                                   V. 1.0.25
 
 Federico Ghedina <federico.ghedina@gmail.com> 2023
-~13.47KB
+~13.54KB
 */
 const Leonardo=function(t){function e(t,e,n){this.namespaces=c;var r,i,s=this;n=n||{},this.width=t,this.height=e,this.tag=o("svg"),this.tag.setAttribute("width",t),this.tag.setAttribute("height",e),
 this.tag.setAttribute("xmlns",c.svg),this.tag.setAttribute("viewbox","0 0 "+t+" "+e),this.childs=[];for(r in n)"ns"!==r&&"target"!==r&&this.tag.setAttribute(r,n[r])
@@ -29,14 +29,14 @@ e.tag.style.opacity=0,r=requestAnimationFrame(n)},e.prototype.fadeOut=function(t
 s>0?r=requestAnimationFrame(n):(cancelAnimationFrame(r),e.tag.style.opacity=0)}var r,o=null,i=this;e=e||i,e.tag.style.opacity=1,r=requestAnimationFrame(n)},e.prototype.downloadAnchor=function(t,e){
 var n=document.createElement("a");return t=t||"download",e=e||"download",n.download=e+".svg",n.href=this.downloadHref(),n.innerHTML=t,n},e.prototype.positionInspector=function(){
 var t,e=this,n=this.tag,r=document.createElement("div"),o=document.createElement("ul"),i=n.getBoundingClientRect(),s=i.left,a=i.top,p=this.width,u=this.height,l=function(t,e){
-return parseFloat(t.toFixed(e||2),10)},c={x:0,y:0},h={x:0,y:0},f=[];return r.style.fontFamily=o.style.fontFamily="verdana",o.style.listStyleType="decimal",o.style.fontSize="0.8em",
+return parseFloat(t.toFixed(e||2),10)},c={x:0,y:0},h={x:0,y:0};return r.style.fontFamily=o.style.fontFamily="verdana",o.style.listStyleType="decimal",o.style.fontSize="0.8em",
 n.addEventListener("mousemove",function(e){var n=e.clientX,o=e.clientY;h.x=n-s,h.y=o-a;var i=100*h.x/p,f=100*h.y/u;t="%("+l(i)+" "+l(f)+") px("+~~h.x+" "+~~h.y+") R%("+l(function(t){return 100*t/p
 }(~~h.x-c.x))+" "+l(function(t){return 100*t/u}(~~h.y-c.y))+") Rpx("+(~~h.x-c.x)+" "+(~~h.y-c.y)+")",r.innerHTML=t}),n.parentNode.appendChild(r),n.parentNode.appendChild(o),
 n.addEventListener("click",function(){var n=document.createElement("li"),r=e.circle(1+~~h.x,1+~~h.y,2);r.setAttributes({stroke:"black",fill:"white","stroke-width":1,"stroke-dasharray":"3,1"}),
-r.on("mouseover",function(){n.style.fontWeight="bold",r.setAttributes({fill:"red",r:4})}),r.on("mouseleave",function(){n.style.fontWeight="normal",r.setAttributes({fill:"white",r:2})}),f.push({item:n,
-dot:r}),c={x:~~h.x,y:~~h.y},n.innerHTML=t,n.addEventListener("mouseover",function(){n.style.fontWeight="bold",r.setAttributes({fill:"red",r:4})}),n.addEventListener("mouseout",function(){
-n.style.fontWeight="normal",r.setAttributes({fill:"white",r:2})}),o.appendChild(n),e.append(r)}),this},e.prototype.downloadHref=function(){
-var t=new XMLSerializer,e='<?xml version="1.0" standalone="no"?>\r\n'+t.serializeToString(this.tag)
+r.on("mouseover",function(){n.style.fontWeight="bold",r.setAttributes({fill:"red",r:4})}),r.on("mouseleave",function(){n.style.fontWeight="normal",r.setAttributes({fill:"white",r:2})}),c={x:~~h.x,
+y:~~h.y},n.innerHTML=t,n.addEventListener("mouseover",function(){n.style.fontWeight="bold",r.setAttributes({fill:"red",r:4})}),n.addEventListener("mouseout",function(){n.style.fontWeight="normal",
+r.setAttributes({fill:"white",r:2})}),n.addEventListener("dblclick",function(){r.tag.parentNode.removeChild(r.tag),n.parentNode.removeChild(n)}),o.appendChild(n),e.append(r)}),this},
+e.prototype.downloadHref=function(){var t=new XMLSerializer,e='<?xml version="1.0" standalone="no"?>\r\n'+t.serializeToString(this.tag)
 ;return e.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)||(e=e.replace(/^<svg/,'<svg xmlns="'+this.namespaces.svg+'"')),
 e.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)||(e=e.replace(/^<svg/,'<svg xmlns:xlink="'+this.namespaces.xlink+'"')),"data:image/svg+xml;charset=utf-8,"+encodeURIComponent(e)},
 e.prototype.desc=function(t){var e=new u("desc");return e.tag.innerHTML=t,e},e.prototype.circle=function(t,e,n){var r=new u("circle");return r.setAttributes({cx:t,cy:e,r:n}),r},
