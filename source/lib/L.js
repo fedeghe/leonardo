@@ -234,6 +234,7 @@ L.prototype.positionInspector = function () {
 		currentInfo,
 		prev = { x: 0, y: 0},
 		curr = { x: 0, y: 0};
+	
 	infoTag.style.fontFamily = infoList.style.fontFamily = 'verdana';
 	infoList.style.listStyleType = 'decimal';
 	infoList.style.fontSize = '0.8em';
@@ -252,10 +253,7 @@ L.prototype.positionInspector = function () {
 			' px(' + ~~curr.x + ' ' + ~~curr.y + ')' +
 			' R%(' + p(toPercX(~~curr.x - prev.x)) + ' ' + p(toPercY(~~curr.y - prev.y)) + ')' +
 			' Rpx(' + (~~curr.x - prev.x) + ' ' + (~~curr.y - prev.y) + ')';
-		
-		
 		infoTag.innerHTML = currentInfo;
-		
 	});
 
 	tag.parentNode.appendChild(infoTag);
@@ -267,6 +265,7 @@ L.prototype.positionInspector = function () {
 			rdub = r * 2,
 			dot = self.circle(~~curr.x + r2, ~~curr.y + r2, r),
 			rp = r + 1;
+		item.setAttribute('title', 'double click to remove');
 		dot.setAttributes({stroke: 'black', fill: 'white', 'stroke-width': 1, 'stroke-dasharray': rp + ',1'});
 		dot.on('mouseover', function () {
 			item.style.fontWeight = 'bold';
