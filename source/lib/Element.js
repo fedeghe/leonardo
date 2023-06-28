@@ -71,17 +71,31 @@ Element.prototype.off = function (eventName, cb) {
 	return this;
 };
 
+/**
+ * 
+ * @param {*} eventName 
+ * @param {*} cb 
+ * @returns 
+ */
+// Element.prototype.once = function (eventName, cb) {
+//     var self = this;
+// 	if (eventName in this.events) {
+// 		this.events[eventName].push(cb);
+// 	} else {
+// 		this.events[eventName] = [cb];
+// 	}
+// 	this.tag.addEventListener(eventName, function _(e) {
+//         cb(e)
+//         self.off(eventName, _)
+//     });
+// 	return this;
+// };
 Element.prototype.once = function (eventName, cb) {
     var self = this;
-	if (eventName in this.events) {
-		this.events[eventName].push(cb);
-	} else {
-		this.events[eventName] = [cb];
-	}
-	this.tag.addEventListener(eventName, function _(e) {
-        cb(e)
-        self.off(eventName, _)
-    });
+	this.on(eventName, function _(e){
+		self.off(eventName, _);
+		cb(e);
+	});
 	return this;
 };
 
@@ -210,6 +224,10 @@ Element.prototype.timeout = function (fn, ms) {
 	return this;
 };
 
+/**
+ * 
+ * @param {*} where 
+ */
 Element.prototype.bringTo = function (where){
     var parent = this.tag.ownerSVGElement;
     switch (where) {
@@ -238,9 +256,8 @@ Element.prototype.bringTo = function (where){
             }
             break;
     }
-    
-    
 }
+
 Element.prototype.bringToTop = function (){
     var parent = this.tag.ownerSVGElement;
     parent.removeChild(this.tag);
@@ -251,6 +268,11 @@ Element.prototype.clear = function () {
 	this.tag.innerHTML = '';
 };
 
+/**
+ * 
+ * @param {*} currentOne 
+ * @param {*} newOne 
+ */
 Element.prototype.replace = function (currentOne, newOne) {
 	currentOne.tag.parentNode.replaceChild(newOne.tag, currentOne.tag);
 };

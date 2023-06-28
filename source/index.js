@@ -1,6 +1,8 @@
 const Leonardo = (function(w) {
 	
 	$$lib/L.js$$
+	$$lib/Lstatic.js$$
+	$$lib/Lutilities.js$$
 	$$lib/Ltags.js$$	
 	$$lib/Lgradients.js$$	
 	$$lib/Lfilters.js$$	
@@ -12,9 +14,7 @@ const Leonardo = (function(w) {
 	
 	var Leo = function (w, h, attrs) {
 		if (!w || !h) 
-			return {
-				ERROR : 'width or height not given!'
-			};
+			throw 'width or height not given!';
 		return new L(w, h, attrs);
 	};
 	Leo.import = L.import;
