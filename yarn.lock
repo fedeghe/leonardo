@@ -996,10 +996,10 @@ malta-svg2png@^1.0.8:
   dependencies:
     svg-to-png "4.0.0"
 
-malta@^4.1.35:
-  version "4.1.35"
-  resolved "https://registry.yarnpkg.com/malta/-/malta-4.1.35.tgz#907cf08ca8970f45dd6410605dd828e1d8a8baa9"
-  integrity sha512-RlzKWVeNyEIp0T4gsI58MmxaDz4y5DHxJOKKjUjBQRstL65+OJUiLT2JR32y7ObzC7fnWRS/TrkCAqgjnhaiSg==
+malta@^4.1.37:
+  version "4.1.37"
+  resolved "https://registry.yarnpkg.com/malta/-/malta-4.1.37.tgz#2f1cc5584846dff1a43e4199ad181c47d74d0786"
+  integrity sha512-OXNZ1ScSwiqBGNyF89uj2JuXuL+U0+T4ZM9XoxGqEkdFMHp4c2iFmUWqppP6GQ4oIUOndV6AQeRu63NrC2z9Jg==
 
 map-cache@^0.2.2:
   version "0.2.2"
