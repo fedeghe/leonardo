@@ -4,6 +4,7 @@ window.onload = function () {
         height = 300,
         Leo = Leonardo(width, height, { ns: '*', target: target }),
         main = Leo.group(),
+        desc = Leo.desc('description'),
         w = function (n) { return n * width / 100 },
         h = function (n) { return n * height / 100 },
         stroke = 1,
@@ -36,6 +37,7 @@ window.onload = function () {
             ).setAttributes(l)
         )
     }
+    Leo.append(desc)
     main.append(ein)
     main.append(c)
     main.append(c.clone().move(w(30), 0))

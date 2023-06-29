@@ -163,7 +163,7 @@ L.prototype.text = function (x, y, cnt) {
 	var text = new Element('text'),
 		bBox;
 	text.setAttributes({x : x, y : y});
-	text.tag.innerHTML = cnt;
+	text.tag.textContent = cnt;
 	return text;
 };
 
@@ -178,6 +178,7 @@ L.prototype.title = function (txt) {
 	text.tag.innerHTML = txt;
 	return text;
 };
+
 /**
  * { function_description }
  *
@@ -192,6 +193,7 @@ L.prototype.script = function (cnt) {
 	}
 	return script;
 };
+
 /**
  * { function_description }
  *

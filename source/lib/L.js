@@ -49,11 +49,8 @@ function L(width , height, opts) {
 	}
 }
 
-
-
-
 /**
- * { function_description }
+ * set tag attributes
  *
  * @param      {<type>}  attrs   The attributes
  * @return     {Object}  { description_of_the_return_value }
