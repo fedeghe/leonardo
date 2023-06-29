@@ -26,5 +26,6 @@
     "source/demo/g-hero.json": true,
     "source/demo/g-hero2.json": true,
     "source/demo/fg.json": true,
+    "source/demo/god.json": true,
     "source/demo/svg/*.svg": "source/demo/png -plugins=malta-svg2png"
 }

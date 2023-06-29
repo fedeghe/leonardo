@@ -1,0 +1,9 @@
+{
+    "EXE": [
+        "mkdir -p demo/god/js demo/god/css",
+        "cp source/demo/god/god.jpg demo/god/god.jpg"
+    ],
+    "source/demo/god/index.js": "demo/god/js -vars=source/vars.json",
+    "source/demo/god/index.less": "demo/god/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/god/index.html": "demo/god -plugins=malta-browser-refresh -vars=source/vars.json"
+}
