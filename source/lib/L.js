@@ -44,7 +44,7 @@ function L(width , height, opts) {
     if ('ns' in opts){
     	if (opts.ns === '*')
     		opts.ns = Object.keys(namespaces);
-    	for (tmp = 0, l = opts.ns.length;tmp < l; tmp++)
+    	for (tmp = 0, l = opts.ns.length; tmp < l; tmp++)
     		addNs(opts.ns[tmp]);
 	}
 }

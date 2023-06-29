@@ -14,7 +14,9 @@ const Leonardo = (function(w) {
 	
 	var Leo = function (w, h, attrs) {
 		if (!w || !h) 
-			throw 'width or height not given!';
+			return {
+				ERROR : 'width or height not given!'
+			};
 		return new L(w, h, attrs);
 	};
 	Leo.import = L.import;

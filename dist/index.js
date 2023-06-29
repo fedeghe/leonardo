@@ -83,5 +83,5 @@ u.prototype.bringTo=function(t){var e=this.tag.ownerSVGElement;switch(t){case 1/
 e.insertBefore(this.tag,e.firstChild);break;default:var n=this.tag;if(t>0){for(;t++>0&&n.nextSibling;)n=n.nextSibling;e.removeChild(this.tag),e.insertBefore(this.tag,n.nextSibling)}else if(t<0){
 for(;t--<0&&n.previousSibling;)n=n.previousSibling;e.removeChild(this.tag),e.insertBefore(this.tag,n)}}},u.prototype.bringToTop=function(){var t=this.tag.ownerSVGElement;t.removeChild(this.tag),
 t.appendChild(this.tag)},u.prototype.clear=function(){this.tag.innerHTML=""},u.prototype.replace=function(t,e){t.tag.parentNode.replaceChild(e.tag,t.tag)},u.prototype.getBbox=function(){
-return this.tag.getBBox()};var f=function(t,n,r){if(!t||!n)throw"width or height not given!";return new e(t,n,r)};return f.import=e.import,f.getqs=e.getqs,f}()
+return this.tag.getBBox()};var f=function(t,n,r){return t&&n?new e(t,n,r):{ERROR:"width or height not given!"}};return f.import=e.import,f.getqs=e.getqs,f}()
 ;"object"==typeof exports&&(module.exports=Leonardo);
