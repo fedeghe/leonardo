@@ -69,7 +69,12 @@ L.prototype.downloadAnchor = function (txt, name) {
  * 
  * @returns 
  */
-L.prototype.positionInspector = function () {
+L.prototype.positionInspector = function (tpl) {
+	tpl = tpl || '%({Px} {Py}) '+ // +p(px) + ' ' + p(py) + ')' +
+			' R%({RPx} {RPy}) ' + //p(toPercX(~~curr.x - prev.x)) + ' ' + p(toPercY(~~curr.y - prev.y)) + ')' +
+			
+			' PX({x} {y})' + //' px(' + ~~curr.x + ' ' + ~~curr.y + ')' +
+			' RPX({rx} {ry})';// ' Rpx(' + (~~curr.x - prev.x) + ' ' + (~~curr.y - prev.y) + ')'
 	var self = this,
 		tag = this.tag,
 		infoTag = document.createElement('div'),
@@ -80,7 +85,7 @@ L.prototype.positionInspector = function () {
 		w = this.width,
 		h = this.height,
 		p = function(n, prec){ return parseFloat(n.toFixed(prec || 2), 10)},
-		currentInfo,
+		currentInfo = tpl,
 		prev = { x: 0, y: 0},
 		curr = { x: 0, y: 0};
 	
@@ -91,17 +96,28 @@ L.prototype.positionInspector = function () {
 	tag.addEventListener('mousemove', function (e){
 		var x = e.clientX,
 			y = e.clientY,
-			toPercX = function (n){return 100 * n / w; },
-			toPercY = function (n){return 100 * n / h; };
+			toPercX = function (n){ return 100 * n / w; },
+			toPercY = function (n){ return 100 * n / h; };
 		curr.x = x - left;
 		curr.y = y - top;
-
+		currentInfo = tpl;
 		var px = 100 * curr.x / w,
-			py = 100 * curr.y / h;
-		currentInfo = '%(' +p(px) + ' ' + p(py) + ')' +
-			' px(' + ~~curr.x + ' ' + ~~curr.y + ')' +
-			' R%(' + p(toPercX(~~curr.x - prev.x)) + ' ' + p(toPercY(~~curr.y - prev.y)) + ')' +
-			' Rpx(' + (~~curr.x - prev.x) + ' ' + (~~curr.y - prev.y) + ')';
+			py = 100 * curr.y / h,
+			tplValues = {
+				Px: p(px), Py: p(py),
+				RPx: p(toPercX(~~curr.x - prev.x)), RPy: p(toPercY(~~curr.y - prev.y)),
+				x: ~~curr.x, y: ~~curr.y,
+				rx: ~~curr.x - prev.x, ry: ~~curr.y - prev.y
+			};
+
+		// currentInfo = '%(' +p(px) + ' ' + p(py) + ')' +
+		// 	' px(' + ~~curr.x + ' ' + ~~curr.y + ')' +
+		// 	' R%(' + p(toPercX(~~curr.x - prev.x)) + ' ' + p(toPercY(~~curr.y - prev.y)) + ')' +
+		// 	' Rpx(' + (~~curr.x - prev.x) + ' ' + (~~curr.y - prev.y) + ')';
+		for (var k in tplValues) {
+			currentInfo = currentInfo.replace('{' + k + '}', tplValues[k]);
+		}
+
 		infoTag.innerHTML = currentInfo;
 	});
 
@@ -114,7 +130,7 @@ L.prototype.positionInspector = function () {
 			rdub = r * 2,
 			dot = self.circle(~~curr.x + r2, ~~curr.y + r2, r),
 			rp = r + 1;
-		item.setAttribute('title', 'double click to remove');
+
 		dot.setAttributes({stroke: 'black', fill: 'white', 'stroke-width': 1, 'stroke-dasharray': rp + ',1'});
 		dot.on('mouseover', function () {
 			item.style.fontWeight = 'bold';
@@ -135,10 +151,7 @@ L.prototype.positionInspector = function () {
 			item.style.fontWeight = 'normal';
 			dot.setAttributes({fill: 'white', r : r});
 		});
-		item.addEventListener('dblclick', function(){
-			dot.tag.parentNode.removeChild(dot.tag);
-			item.parentNode.removeChild(item);
-		});
+
 		infoList.appendChild(item);
 		self.append(dot);
 	});
