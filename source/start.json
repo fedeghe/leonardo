@@ -1,7 +1,8 @@
 {
     "EXE": [
-        "rm -rf lib demo dist",
-        "mkdir -p dist demo/dist"
+        "rm -rf lib demo dist media",
+        "mkdir -p dist demo/dist",
+        "cp -R source/media ."
     ],
     "source/docs/README.md": ". -vars=source/vars.json",
     "source/index.js": [

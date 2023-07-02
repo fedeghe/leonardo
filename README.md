@@ -400,6 +400,7 @@ instance.animate.polar(tag, funcR, funcPHI) // returns stopper function
 
 
 
+
 ---
 
 ## Some samples

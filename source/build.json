@@ -1,7 +1,8 @@
 {
     "EXE": [
-        "rm -rf dist demo",
-        "mkdir dist"
+        "rm -rf dist demo media",
+        "mkdir dist",
+        "cp -R source/media ."
     ],
     "#source/index.js": "dist -plugins=malta-js-uglify[compress:true,output:{max_line_len:200}]...malta-header-comment[name:\"source/lib/head.txt\"] -vars=source/vars.json",
     "#source/LICENSE": ".",

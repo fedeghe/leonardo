@@ -70,11 +70,10 @@ L.prototype.downloadAnchor = function (txt, name) {
  * @returns 
  */
 L.prototype.positionInspector = function (tpl) {
-	tpl = tpl || '%({Px} {Py}) '+ // +p(px) + ' ' + p(py) + ')' +
-			' R%({RPx} {RPy}) ' + //p(toPercX(~~curr.x - prev.x)) + ' ' + p(toPercY(~~curr.y - prev.y)) + ')' +
-			
-			' PX({x} {y})' + //' px(' + ~~curr.x + ' ' + ~~curr.y + ')' +
-			' RPX({rx} {ry})';// ' Rpx(' + (~~curr.x - prev.x) + ' ' + (~~curr.y - prev.y) + ')'
+	tpl = tpl || '%({Px} {Py}) '+
+			' R%({RPx} {RPy}) ' +
+			' PX({x} {y})' +
+			' RPX({rx} {ry})';
 	var self = this,
 		tag = this.tag,
 		infoTag = document.createElement('div'),

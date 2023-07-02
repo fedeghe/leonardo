@@ -296,5 +296,6 @@ window.onload = function () {
     
     Leo.render();
     Leo.positionInspector('[{RPx}, {RPy}],');
+    Leo.positionInspector();
     document.body.appendChild(Leo.downloadAnchor())
 }
