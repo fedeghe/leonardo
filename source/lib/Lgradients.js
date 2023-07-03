@@ -48,6 +48,6 @@ L.prototype.radialGradient = function radial(steps) {
         tmp.setAttributes(attrs);
         radialGrad.append(tmp)
     })
-    this.defs.append(radialGrad);
+    defs.append(radialGrad);
     return 'url(#' + id + ')';
 }

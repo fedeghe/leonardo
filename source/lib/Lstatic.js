@@ -8,7 +8,7 @@ L.import = function (d) {
 		d = L.toDocument(d);
 	}
 	var newL = new L(1, 1);
-	newL.tag = d.children[0];
+	newL.tag = d;
 	return newL;
 };
 
@@ -16,7 +16,7 @@ L.import = function (d) {
  * 
  */
 L.getqs = function () {
-	var q = document.location.search.substr(1),
+	var q = window.location.search.substring(1),
 		els = q.split('&'),
 		qs = {}, tmp, el;
 	for (tmp in els) {
@@ -40,5 +40,5 @@ L.toString = function (SVGDocument) {
  */
 L.toDocument = function (SVGString) {
 	const parser = new DOMParser();
-	return parser.parseFromString(SVGString, 'image/svg+xml');
+	return parser.parseFromString(SVGString, 'image/svg+xml').children[0];
 };

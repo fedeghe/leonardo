@@ -21,6 +21,8 @@ const Leonardo = (function(w) {
 	};
 	Leo.import = L.import;
 	Leo.getqs = L.getqs;
+	Leo.toString = L.toString;
+	Leo.toDocument = L.toDocument;
     return Leo;
 })();
 (typeof exports === 'object') && (module.exports = Leonardo);
