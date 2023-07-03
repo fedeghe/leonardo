@@ -75,10 +75,10 @@ window.onload = function () {
     }, 1000)
     centeredText.on('click', function(){centeredText.updateText('world')})
 	L.append(image, polyline, polygon, tria, centeredText, Arc).render({target: target});
-    
-    // L.fadeIn(5e3, Arc)
-    // setTimeout(() => {
-        L.fadeOut(5e3, Arc)
-    // }, 4000)
+    var t = 1e3
+    L.fadeIn(t, Arc)
+    setTimeout(() => {
+        L.fadeOut(t, Arc)
+    }, t)
     
 };
