@@ -1,4 +1,4 @@
-function fade(out, t, target) {
+function fade (out, t, target) {
 	var start = null,
         self = this,
         r;
@@ -24,51 +24,15 @@ function fade(out, t, target) {
 
 
 L.prototype.fadeIn = function (t, target) {
-    var start = null,
-        self = this,
-        r;
-    target = target ||  self;
-    target.tag.style.opacity = 0;
-    function fade(now) {
-        start = start || now;
-        var p = parseFloat((now - start) / t, 10);
-        target.tag.style.opacity = p;
-        if (p < 1) {
-            r = requestAnimationFrame(fade)
-        } else {
-            target.tag.style.opacity = 1;
-            cancelAnimationFrame(r)
-        }
-    }
-    r = requestAnimationFrame(fade)
+    fade.apply(this, [false, t, target])
+	return this;
 }
 
-/**
- * 
- * @param {*} t 
- * @param {*} target 
- */
-L.prototype.fadeOut = function (t , target) {
-    var start = null,
-        self = this,
-		r;
-    
-    target = target ||  self;
-    target.tag.style.opacity = 1;
-    function fade(now) {
-        start = start || now
-        
-        var p = 1 - parseFloat((now - start) / t, 10);
-        target.tag.style.opacity = p;
-        if (p > 0) {
-            r = requestAnimationFrame(fade)
-        } else {
-            cancelAnimationFrame(r);
-            target.tag.style.opacity = 0;
-        }
-    }
-    r = requestAnimationFrame(fade);
+L.prototype.fadeOut = function (t, target) {
+    fade.apply(this, [true, t, target])
+	return this;
 }
+
 
 /**
  * 
