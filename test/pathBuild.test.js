@@ -21,8 +21,7 @@ describe('PathBuild', () => {
             C: 9, c:10,
             Q: 11, q:12,
             S: 13, s:14,
-        }).forEach(([key, value]) => {
-            
+        }).forEach(([key, value]) => {  
             p[key](value, value);
             s += `${key} ${value},${value} `;
             expect(p.path).toBe(s);

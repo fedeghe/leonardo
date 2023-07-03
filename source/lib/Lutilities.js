@@ -1,3 +1,28 @@
+function fade(out, t, target) {
+	var start = null,
+        self = this,
+        r;
+	target = target ||  self;
+	target.tag.style.opacity = out ? 1 : 0;
+
+	function fade(now) {
+        start = start || now;
+        var p = parseFloat((now - start) / t, 10);
+		if (out) p = 1 - p;
+		var cnd = out ? p > 0 : p < 1;
+        target.tag.style.opacity = p;
+        if (cnd) {
+            r = requestAnimationFrame(fade);
+        } else {
+            target.tag.style.opacity = out ? 0 : 1;
+            cancelAnimationFrame(r);
+        }
+    }
+    r = requestAnimationFrame(fade);
+	return this;
+}
+
+
 L.prototype.fadeIn = function (t, target) {
     var start = null,
         self = this,
@@ -6,7 +31,7 @@ L.prototype.fadeIn = function (t, target) {
     target.tag.style.opacity = 0;
     function fade(now) {
         start = start || now;
-        var p = (now - start) / t;
+        var p = parseFloat((now - start) / t, 10);
         target.tag.style.opacity = p;
         if (p < 1) {
             r = requestAnimationFrame(fade)
@@ -25,7 +50,8 @@ L.prototype.fadeIn = function (t, target) {
  */
 L.prototype.fadeOut = function (t , target) {
     var start = null,
-        self = this,r;
+        self = this,
+		r;
     
     target = target ||  self;
     target.tag.style.opacity = 1;
