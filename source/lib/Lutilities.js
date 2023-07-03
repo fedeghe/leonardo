@@ -99,14 +99,7 @@ L.prototype.positionInspector = function (tpl) {
 				rx: ~~curr.x - prev.x, ry: ~~curr.y - prev.y
 			};
 
-		// currentInfo = '%(' +p(px) + ' ' + p(py) + ')' +
-		// 	' px(' + ~~curr.x + ' ' + ~~curr.y + ')' +
-		// 	' R%(' + p(toPercX(~~curr.x - prev.x)) + ' ' + p(toPercY(~~curr.y - prev.y)) + ')' +
-		// 	' Rpx(' + (~~curr.x - prev.x) + ' ' + (~~curr.y - prev.y) + ')';
-		for (var k in tplValues) {
-			currentInfo = currentInfo.replace('{' + k + '}', tplValues[k]);
-		}
-
+		for (var k in tplValues) currentInfo = currentInfo.replace('{' + k + '}', tplValues[k]);
 		infoTag.innerHTML = currentInfo;
 	});
 
