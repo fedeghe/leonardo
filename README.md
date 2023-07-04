@@ -1,3 +1,5 @@
+
+
 ```
  __    _____ _____ _____ _____ _____ ____  _____ 
 |  |  |   __|     |   | |  _  | __  |    \|     |
@@ -5,6 +7,9 @@
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
                                                     v. 1.0.25
 ```
+
+[![Coverage Status](https://coveralls.io/repos/github/fedeghe/leonardo/badge.svg?branch=master)](https://coveralls.io/github/fedeghe/leonardo?branch=master)
+
 A simple library to draw sgv
 
 ## Install Leonardo

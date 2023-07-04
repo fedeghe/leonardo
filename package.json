@@ -14,11 +14,13 @@
         "jest": "jest",
         "watch": "jest --watch",
         "cover": "jest --coverage",
+        "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
         "start": "malta source/start.json",
         "dist": "malta source/build.json",
         "clean": "malta source/clean.json"
     },
     "devDependencies": {
+        "coveralls": "^3.1.1",
         "jest": "^29.5.0",
         "jest-environment-jsdom": "^29.5.0",
         "malta": "^4.1.37",

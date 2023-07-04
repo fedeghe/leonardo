@@ -1,3 +1,5 @@
+
+
 ```
  __    _____ _____ _____ _____ _____ ____  _____ 
 |  |  |   __|     |   | |  _  | __  |    \|     |
@@ -5,6 +7,9 @@
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
                                                     v. $PACKAGE.version$
 ```
+
+[![Coverage Status](https://coveralls.io/repos/github/fedeghe/leonardo/badge.svg?branch=master)](https://coveralls.io/github/fedeghe/leonardo?branch=master)
+
 $PACKAGE.description$
 
 $$1_intro.md$$

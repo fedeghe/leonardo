@@ -2,5 +2,7 @@
 /node_modules
 .printVersion
 .buildNum.json
+.coveralls.yml
 /test
 /demo
+/coverage
