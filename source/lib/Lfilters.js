@@ -3,7 +3,14 @@ L.prototype.filter = function(filters) {
     getDefs(this)
     var id = lid(),
         filter = new Element('filter'),
-        availables = ['feGaussianBlur','feDropShadow','feMorphology','feDisplacementMap','feBlend','feColorMatrix','feConvolveMatrix','feComponentTransfer','feSpecularLighting','feDiffuseLighting','feFlood','feTurbulence','feImage','feTile','feOffset','feComposite','feMerge'];
+        availables = [
+            'feGaussianBlur', 'feDropShadow', 'feMorphology',
+            'feDisplacementMap', 'feBlend', 'feColorMatrix',
+            'feConvolveMatrix', 'feComponentTransfer', 'feSpecularLighting',
+            'feDiffuseLighting', 'feFlood', 'feTurbulence',
+            'feImage', 'feTile', 'feOffset',
+            'feComposite','feMerge'
+        ];
     filter.setAttributes({id: id});
 
     for(
