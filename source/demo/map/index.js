@@ -1,10 +1,9 @@
 window.onload = function () {
-
 	var target = document.getElementById('trg'),
 		size = 250,
 		width = size,
 		height = size,
-		gridNum = 10,
+		gridNum = 50,
 		tileSize = size / gridNum,
 		L = Leonardo(width, height, {ns : '*', target : target}),
 		id = 0;

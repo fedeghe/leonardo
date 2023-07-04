@@ -1,9 +1,9 @@
-(function() {
+(function () {
     'use strict';
     var days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-    function getDate() {return new Date().getDate().toString();}
-    function getDay() {return days[new Date().getDay()];}
-    function getL(target, theme, size, opts){
+    function getDate() { return new Date().getDate().toString(); }
+    function getDay() { return days[new Date().getDay()]; }
+    function getL(target, theme, size, opts) {
         var L = Leonardo(size, size),
             family = "Verdana", //Arial
             themes = {
@@ -22,7 +22,7 @@
                     img: '/media/sbb-logo-inverted.png'
                 }
             },
-            
+
             width = size,
             height = size,
             ticksPerSecond = 20,
@@ -57,8 +57,8 @@
             text = L.text(cx * 0.78, cy * 0.7, "MONDAINE"),
             textSM = L.textPath("smade",
                 L.pathBuild
-                .M(cx * 0.925, size * 0.89 * 0.995)
-                .Q(cx, size * 0.89, cx * 1.075, size * 0.89 * 0.995),
+                    .M(cx * 0.925, size * 0.89 * 0.995)
+                    .Q(cx, size * 0.89, cx * 1.075, size * 0.89 * 0.995),
                 "swiss made"
             ),
             image = L.image(cx - size / 10, cy * 0.7, size / 5, size / 20, themes[theme].img),
@@ -86,7 +86,7 @@
             .setAttributes({ viewBox: [0, 0, size, size].join(' ') })
             .append(border, circle);
 
-        (function() {
+        (function () {
             var small = L.line(cx, size * 0.135, cx, height * 0.16),
                 big = L.line(cx, size * 0.135, cx, height * 0.215),
                 tmp, i;
@@ -139,21 +139,21 @@
         var daydate = [{
             condition: opts.date,
             getText: getDate,
-            position: [cx * 1.4, cy * .945], 
-            size: [size/14, size/17] 
-        },{
+            position: [cx * 1.4, cy * .945],
+            size: [size / 14, size / 17]
+        }, {
             condition: opts.day,
             getText: getDay,
-            position: [cx * .89, cy * 1.42] , 
-            size: [size/8.8, size/17] 
+            position: [cx * .89, cy * 1.42],
+            size: [size / 8.8, size / 17]
         }];
-        var yyy = daydate.reduce(function(acc, o, i) {
-            if (!o.condition) return acc
-            
+        var yyy = daydate.reduce(function (acc, o, i) {
+            if (!o.condition) return acc;
+
             var g = L.group(),
                 tx = o.getText(),
-                textDate = L.centeredText(o.size[0]*2, o.size[1]*1.2, tx),
-                rectDate = L.rect(0,0, o.size[0], o.size[1])
+                textDate = L.centeredText(o.size[0] * 2, o.size[1] * 1.2, tx),
+                rectDate = L.rect(0, 0, o.size[0], o.size[1])
                     .setAttributes({
                         fill: L.radialGradient([ // linear
                             { perc: 0, color: 'white' },
@@ -171,17 +171,17 @@
                 'font-weight': 'bold',
                 'font-family': family
             });
-            textDate.k = i
-            container.append(g)
-            acc.push(textDate)
-            return acc
+            textDate.k = i;
+            container.append(g);
+            acc.push(textDate);
+            return acc;
         }, [])
-    
+
         container.append(image, text, textSM, hours, mins, secs);
         target.style.width = size + 'px';
 
 
-        var nowdaydate = null
+        var nowdaydate = null;
         function getTime(gmtDmove, gmtHmove, gmtMmove) {
             var time0 = new Date();
             return arguments.length ? new Date(Date.UTC(
@@ -194,19 +194,19 @@
                 time0.getMilliseconds()
             )) : time0;
         }
-        
-        window.setInterval(function() {
+
+        window.setInterval(function () {
             var time = getTime(),
                 ms = time.getMilliseconds(),
                 s = time.getSeconds(),
                 m = time.getMinutes(),
                 h = time.getHours() % 12,
                 fact = 60;
-            if (nowdaydate !== time.getDate()){
-                nowdaydate = time.getDate()
+            if (nowdaydate !== time.getDate()) {
+                nowdaydate = time.getDate();
                 yyy.forEach(function (y) {
                     y.updateText(daydate[y.k].getText())
-                })
+                });
             }
             secs.rotate((s + ms / 1E3) * 6, cx, cy);
             mins.rotate((m * fact + s + ms / 1E3) * 0.1, cx, cy);
@@ -230,47 +230,46 @@
             date = 'date' in qs,
             theme = ('theme' in qs && qs.theme.match(/white|black/)) ? qs.theme : (nowH > 7 && nowH < 17) ? 'white' : 'black',
 
-            L  = getL(target, theme, size, {day, date}),
+            L = getL(target, theme, size, { day, date }),
 
             search = {
-                commit: function (s) {document.location.search = s.toString()},
-                get: function () {return new URLSearchParams(document.location.search)}
+                commit: function (s) { document.location.search = s.toString() },
+                get: function () { return new URLSearchParams(document.location.search) }
             };
         L.render({
             target: target,
-            fade:1000,
-            cb: function() {
+            fade: 1000,
+            cb: function () {
                 whiteButton.classList.remove('active');
                 blackButton.classList.remove('active');
-                switch(theme) {
-                    case 'white': whiteButton.classList.add('active');break;
-                    case 'black': blackButton.classList.add('active');break;
+                switch (theme) {
+                    case 'white': whiteButton.classList.add('active'); break;
+                    case 'black': blackButton.classList.add('active'); break;
                 }
 
-                [{el: withDay, s: 'day'}, {el: withDate, s: 'date'}].forEach(function(i) {
+                [{ el: withDay, s: 'day' }, { el: withDate, s: 'date' }].forEach(function (i) {
                     i.el.addEventListener('click', function (e) {
-                        var u = search.get()
-                        if (e.target.checked) u.set(i.s, true)
-                        else {u.delete(i.s, true)}
-                        search.commit(u)
-                    })    
+                        var u = search.get();
+                        if (e.target.checked) u.set(i.s, true);
+                        else { u.delete(i.s, true); }
+                        search.commit(u);
+                    })
                 });
 
-                [{btn: whiteButton, theme: 'white'}, {btn: blackButton, theme: 'black'}].forEach(function(i) {
+                [{ btn: whiteButton, theme: 'white' }, { btn: blackButton, theme: 'black' }].forEach(function (i) {
                     i.btn.addEventListener('click', function (e) {
-                        var u = search.get()
-                        u.set('theme', i.theme)
-                        search.commit(u)
-                    })    
+                        var u = search.get();
+                        u.set('theme', i.theme);
+                        search.commit(u);
+                    })
                 });
 
-                withDay.checked = !!day
-                withDate.checked = !!date
-                console.log('rendered')
+                withDay.checked = !!day;
+                withDate.checked = !!date;
+                console.log('rendered');
             }
         });
     }
-
-    render()
-    window.onresize = render
+    render();
+    window.onresize = render;
 })();
