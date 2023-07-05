@@ -27,11 +27,11 @@ Here _attributes_ is an _object literal_ that can contain all the attributes we 
 myLine.setAttributes({'stroke-width': 12, stroke: 'black'});
 ```
 ---
-### tagInstance.styles(styles) -> tagInstance  
+### tagInstance.setStyles(styles) -> tagInstance  
 
 Here _styles_ is an _object literal_ that can contain all the styles we may need to add to the tag. For example for a `<recat>` tag we could write:
 ``` js
-myRect.styles({cursor: 'pointer'})
+myRect.setStyles({cursor: 'pointer'})
 ```
 ---
 ### tagInstance.append(tag1 [, tag2 [, ...]]) -> tagInstance  

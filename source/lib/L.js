@@ -42,8 +42,7 @@ function L(width , height, opts) {
     	&& self.tag.setAttribute('xmlns:' + l, namespaces[l]);
     }
     if ('ns' in opts){
-    	if (opts.ns === '*')
-    		opts.ns = Object.keys(namespaces);
+    	opts.ns === '*' && (opts.ns = Object.keys(namespaces));
     	for (tmp = 0, l = opts.ns.length; tmp < l; tmp++)
     		addNs(opts.ns[tmp]);
 	}
@@ -55,23 +54,39 @@ function L(width , height, opts) {
  * @param      {<type>}  attrs   The attributes
  * @return     {Object}  { description_of_the_return_value }
  */
-L.prototype.setAttributes = function (attrs) {	
-	var k;
-	if (typeof attrs == 'string') return this.tag.getAttribute(attrs);
-	for (k in attrs) this.tag.setAttribute(k, attrs[k]);
+L.prototype.setAttributes = function (attrs) {
+	for (var k in attrs) this.tag.setAttribute(k, attrs[k]);
 	return this;
+};
+
+L.prototype.getAttributes = function () {	
+	var attrs = [].slice.call(arguments, 0),
+		r = {}, k, l;
+	for (k = 0, l = attrs.length; k < l; k++) {
+		r[attrs[k]] = this.tag.getAttribute(attrs[k]);
+	}
+	return r;
 };
 
 /**
  * { function_description }
- *
+ *	`
  * @param      {<type>}  styles  The styles
  * @return     {Object}  { description_of_the_return_value }
  */
-L.prototype.styles = function (styles) {	
+L.prototype.setStyles = function (styles) {	
 	var k;
 	for (k in styles) this.tag.style[k] = styles[k];
 	return this;
+};
+
+L.prototype.getStyles = function () {	
+	var styles = [].slice.call(arguments, 0),
+		r = {}, k, l;
+	for (k = 0, l = styles.length; k < l; k++) {
+		r[styles[k]] = this.tag.style[styles[k]];
+	}
+	return r;
 };
 
 /**
@@ -85,7 +100,7 @@ L.prototype.append = function () {
 	els.forEach(function (el) {
 		if( el instanceof Array){
 			el.forEach(function (k) {
-				self.childs.push(k);
+				// self.childs.push(k);
 				self.append(k);
 			});
 		} else {

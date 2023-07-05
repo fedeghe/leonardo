@@ -87,7 +87,7 @@ window.onload = function () {
             id:"person",
             "font-size": fsize,
             fill: 'transparent'
-        }).styles({
+        }).setStyles({
             cursor: 'default'
         }),
         defenseUp = L.group().append(

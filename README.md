@@ -153,7 +153,7 @@ If we want a text to follow a path then a single tag is not [enough](https://dev
 This function returns an element which contains all is needed given an `id`, a `d` data for the path and a `content` string. 
 
 ## need more
-Svg tag are really [a lot](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) and I just tried to cover the very most common. In case you need to use a tag not contempled here you can still use `.Element`: 
+Svg tags are really [so many](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) and I just tried to cover the very most common. In case you need to use a tag not contempled here you can still use `.Element`: 
 ``` js
 var whatever = L.Element('hatch')
 ```
@@ -190,11 +190,11 @@ Here _attributes_ is an _object literal_ that can contain all the attributes we 
 myLine.setAttributes({'stroke-width': 12, stroke: 'black'});
 ```
 ---
-### tagInstance.styles(styles) -> tagInstance  
+### tagInstance.setStyles(styles) -> tagInstance  
 
 Here _styles_ is an _object literal_ that can contain all the styles we may need to add to the tag. For example for a `<recat>` tag we could write:
 ``` js
-myRect.styles({cursor: 'pointer'})
+myRect.setStyles({cursor: 'pointer'})
 ```
 ---
 ### tagInstance.append(tag1 [, tag2 [, ...]]) -> tagInstance  

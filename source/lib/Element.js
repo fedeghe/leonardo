@@ -21,11 +21,13 @@ function Element(tag, ns) {
  * { item_description }
  */
 Element.prototype.setAttributes = L.prototype.setAttributes;
+Element.prototype.getAttributes = L.prototype.getAttributes;
 
 /**
  * { item_description }
  */
-Element.prototype.styles = L.prototype.styles;
+Element.prototype.setStyles = L.prototype.setStyles;
+Element.prototype.getStyles = L.prototype.getStyles;
 
 /**
  * { item_description }

@@ -123,7 +123,7 @@
             }
         })();
 
-        circle.styles({ fill: themes[theme].background });
+        circle.setStyles({ fill: themes[theme].background });
         secsBullet.setAttributes({
             fill: L.radialGradient([ // linear
                 { perc: 0, color: 'black' },

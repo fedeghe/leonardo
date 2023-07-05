@@ -8,7 +8,7 @@ window.onload = function () {
 		L = Leonardo(
 			width, height,
 			{ns: '*'}
-		).styles({
+		).setStyles({
 			border: '1px solid red'
 		});
 

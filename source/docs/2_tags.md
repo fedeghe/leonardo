@@ -105,7 +105,7 @@ If we want a text to follow a path then a single tag is not [enough](https://dev
 This function returns an element which contains all is needed given an `id`, a `d` data for the path and a `content` string. 
 
 ## need more
-Svg tag are really [a lot](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) and I just tried to cover the very most common. In case you need to use a tag not contempled here you can still use `.Element`: 
+Svg tags are really [so many](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) and I just tried to cover the very most common. In case you need to use a tag not contempled here you can still use `.Element`: 
 ``` js
 var whatever = L.Element('hatch')
 ```
