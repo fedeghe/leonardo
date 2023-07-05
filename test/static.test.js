@@ -6,18 +6,43 @@ const circle = '<circle cx="10" cy="10" r="5" fill="rgb(174, 222, 113)" fill-opa
 
 describe('Static', () => {
 
-    it('import', () => {
-        const L = Leo.import(circle);
-        expect(L.tag.outerHTML).toBe(circle);
-        expect(L.tag.tagName).toBe('circle');
+    describe ('import', () => {
+        it('as string', () => {
+            const L = Leo.import(circle);
+            expect(L.tag.outerHTML).toBe(circle);
+            expect(L.tag.tagName).toBe('circle');
+        });
+        it('as element', () => {
+            const circleEl = document.createElement('circle');
+            circleEl.setAttribute('cx', 4)
+            circleEl.setAttribute('cy', 5)
+            circleEl.setAttribute('r', 6)
+            const L = Leo.import(circleEl);
+            // expect(L.tag.outerHTML).toBe(circle);
+            expect(L.tag.tagName).toBe('CIRCLE');
+            expect(L.tag.getAttribute('cx')).toBe('4');
+            expect(L.tag.getAttribute('cy')).toBe('5');
+            expect(L.tag.getAttribute('r')).toBe('6');
+        });
+
     });
 
-    it('getqs', () => {
-        delete window.location;
-        window.location = { search: '?a=1&b=aa%20a' };
-        const qs = Leo.getqs();
-        expect(qs.a).toBe('1');
-        expect(qs.b).toBe('aa a');
+    describe('getqs', () => {
+        it('straight', () => {
+            delete window.location;
+            window.location = { search: '?a=1&b=aa%20a' };
+            const qs = Leo.getqs();
+            expect(qs.a).toBe('1');
+            expect(qs.b).toBe('aa a');
+        });
+        it('missing & empty el', () => {
+            delete window.location;
+            window.location = { search: '?a&b=aa%20a&c=' };
+            const qs = Leo.getqs();
+            expect(qs.a).toBe(null);
+            expect(qs.b).toBe('aa a');
+            expect(qs.c).toBe('');
+        });
     });
 
     it('toString', () => {

@@ -80,15 +80,28 @@ describe('Tags', () => {
 
 
 
-    test('<script> ', () => {
-        const width = 200, height = 100,
-            L = Leo(width, height, {ns : '*'}),
-            cnt = 'var s = "hello";'
-            tag = L.script(cnt);
-        L.append(tag);
-        const spot = L.tag.children[0];
-        expect(spot.tagName).toBe('script');
-        expect(spot.innerHTML.includes(cnt)).toBeTruthy();
+    describe('<script> ', () => {
+        test('<script> with content', () => {
+            const width = 200, height = 100,
+                L = Leo(width, height, {ns : '*'}),
+                cnt = 'var s = "hello";'
+                tag = L.script(cnt);
+            L.append(tag);
+            const spot = L.tag.children[0];
+            expect(spot.tagName).toBe('script');
+            expect(spot.innerHTML.includes(cnt)).toBeTruthy();
+        });
+        test('<script> with src', () => {
+            const width = 200, height = 100,
+                L = Leo(width, height, {ns : '*'}),
+                src = 'http://www.example.com/index.js'
+                tag = L.script().setAttributes({src});
+            
+            L.append(tag);
+            const spot = L.tag.children[0];
+            expect(spot.tagName).toBe('script');
+            expect(spot.getAttribute('src')).toBe(src);
+        });
     });
     
 
@@ -144,6 +157,20 @@ describe('Tags', () => {
                 }
             });
 
+        })
+        test('<rect> squared case', () => {
+            const width = 200,
+                    height = 100,
+                    L = Leo(width, height, {ns : '*'}),
+                    tag = L.rect(10, 11, 20);
+                L.append(tag);
+                const rect = L.tag.children[0]
+                expect(rect.tagName).toBe('rect');
+                
+                expect(rect.getAttribute('x')).toBe('10');
+                expect(rect.getAttribute('y')).toBe('11');
+                expect(rect.getAttribute('width')).toBe('20');
+                expect(rect.getAttribute('height')).toBe('20');
         })
     
     });

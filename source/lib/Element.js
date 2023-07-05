@@ -101,6 +101,12 @@ Element.prototype.once = function (eventName, cb) {
 	return this;
 };
 
+Element.prototype.trigger = function (event) { 
+	var self = this.tag;
+	self.dispatchEvent(new Event(event, {target: self}));
+}
+
+
 /**
  * Creates a new instance of the object with same properties than original.
  *

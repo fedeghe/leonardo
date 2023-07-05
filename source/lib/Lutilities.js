@@ -1,7 +1,11 @@
 function fade (out, t, target) {
 	var start = null,
         self = this,
-        r;
+        r,
+		done = false;
+	setTimeout(function () {
+		done = true;
+	}, t)
 	target = target ||  self;
 	target.tag.style.opacity = out ? 1 : 0;
 
@@ -11,7 +15,7 @@ function fade (out, t, target) {
 		if (out) p = 1 - p;
 		var cnd = out ? p > 0 : p < 1;
         target.tag.style.opacity = p;
-        if (cnd) {
+        if (cnd && !done) {
             r = requestAnimationFrame(fade);
         } else {
             target.tag.style.opacity = out ? 0 : 1;

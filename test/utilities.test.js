@@ -40,20 +40,38 @@ describe('Utilities', () => {
         });
     });
 
-    it('downloadAnchor', done => {
-        const width = 200,
-            height = 100,
-            L = Leo(width, height, {ns : '*', target: document.body}),
-            c = L.circle(50, 50, 10);
-        L.append(c);
-        L.render({
-            cb: function () {
-                const a = L.downloadAnchor('download this', 'xxx');
-                expect(a.tagName).toBe('A');
-                expect(a.textContent).toBe('download this');
-                expect(a.download).toBe('xxx.svg');
-                done();
-            }
+    describe('downloadAnchor', () => {
+        it('basic', done => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height, {ns : '*', target: document.body}),
+                c = L.circle(50, 50, 10);
+            L.append(c);
+            L.render({
+                cb: function () {
+                    const a = L.downloadAnchor('download this', 'xxx');
+                    expect(a.tagName).toBe('A');
+                    expect(a.textContent).toBe('download this');
+                    expect(a.download).toBe('xxx.svg');
+                    done();
+                }
+            });
+        });
+        it('default label and name', done => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height, {ns : '*', target: document.body}),
+                c = L.circle(50, 50, 10);
+            L.append(c);
+            L.render({
+                cb: function () {
+                    const a = L.downloadAnchor();
+                    expect(a.tagName).toBe('A');
+                    expect(a.textContent).toBe('download');
+                    expect(a.download).toBe('download.svg');
+                    done();
+                }
+            });
         });
     });
 

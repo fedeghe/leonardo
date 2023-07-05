@@ -23,7 +23,7 @@ describe('Constructor', () => {
     });
 
     describe('basic L instance methods', () => {
-        it('<instance>.setAttributes', () => {
+        test('<instance>.setAttributes', () => {
             const width = 200,
                 height = 100,
                 L = Leo(width, height, {ns : '*'});
@@ -32,7 +32,7 @@ describe('Constructor', () => {
             expect(L.tag.getAttribute('id')).toBe('69');
         });
 
-        it('<instance>.getAttributes', () => {
+        test('<instance>.getAttributes', () => {
             const width = 200,
                 height = 100,
                 L = Leo(width, height, {ns : '*', title: 'stocazzo', id:'69'}),
@@ -41,7 +41,7 @@ describe('Constructor', () => {
             expect(attrs.id).toBe('69');
         });
 
-        it('<instance>.setStyles', () => {
+        test('<instance>.setStyles', () => {
             const width = 200,
                 height = 100,
                 L = Leo(width, height, {ns : '*'});
@@ -50,7 +50,7 @@ describe('Constructor', () => {
             expect(L.tag.style.fontSize).toBe('69px');
         });
 
-        it('<instance>.getStyles', () => {
+        test('<instance>.getStyles', () => {
             const width = 200,
                 height = 100,
                 L = Leo(width, height, {ns : '*'});
@@ -62,8 +62,7 @@ describe('Constructor', () => {
             expect(res.fontSize).toBe('69px');
         });
 
-
-        it('<instance>.append', () => {
+        test('<instance>.append', () => {
             const width = 200,
                 height = 100,
                 L = Leo(width, height),
@@ -80,20 +79,62 @@ describe('Constructor', () => {
                 expect(L.childs[i].tag.tagName).toBe('circle');
                 expect(L.childs[i].getAttributes('cx', 'cy')).toMatchObject({cx: `${n}`, cy: `${n}`})
             }
+        });
+
+        test('<instance>.render with fade', done => {
+            const width = 200,
+                height = 100,
+                fade = 5e2,
+                L = Leo(width, height, { target: document.body }),
+                c1 = L.circle(10, 10, 10);
+            L.append(c1).render({fade});
+            expect(L.tag.style.opacity).toBe('0');
+            setTimeout(() => {
+                expect(L.tag.style.opacity).toBe('1');
+                done()
+            }, fade*1.1)
+        });
+        test('<instance>.render with late target', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.circle(10, 10, 10);
+            L.append(c1).render({ target: document.body });
+            expect(L.childs[0].tag.tagName).toBe('circle');
+        });
+        test('<instance>.render with cb', done => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.circle(10, 10, 10);
+            L.append(c1).render({ cb: done, target: document.body });
+        });
+    });
+
+    describe('throws as expected', () => {
+        it('when render does not have a target', () => {
+            let l;
+            try{
+                l = Leo(10, 10);
+                l.render();
+            } catch(e) {
+                expect(e.message).toBe('Target not set');;
+                expect(e.constructor.name).toBe('Error')
+            }
             
         });
     });
 
-
-
-    test('throws as expected', () => {
-        [[0,0], [0,1], [1,0]].forEach(p => {
-            try{
-                Leo(p[0], p[1], {ns : '*'});
-            } catch(e) {
-                expect(e.message).toBe('width or height not given!')
-                expect(e.constructor.name).toBe('Error')
-            }
-        })
+    describe('constructor throws as expected', () => {
+        it('when does not get positive sizes', () => {
+            [[0,0], [0,1], [1,0], [1,-1], [-1,1]].forEach(p => {
+                try{
+                    Leo(p[0], p[1], {ns : '*'});
+                } catch(e) {
+                    expect(e.message).toBe('width or height not given!');;
+                    expect(e.constructor.name).toBe('Error')
+                }
+            });
+        });
     });
 });

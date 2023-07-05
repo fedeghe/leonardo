@@ -24,9 +24,9 @@ L.prototype.filter = function(filters) {
             inner.setAttributes(f.attrs);
         }
 
-        filter.append(inner);
+        inner && filter.append(inner);
     }
     
     this.defs.append(filter);
-    return filters.length ? 'url(#' + id + ')' : '';
+    return 'url(#' + id + ')';
 }
