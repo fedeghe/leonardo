@@ -118,8 +118,8 @@ describe('Constructor', () => {
                 l = Leo(10, 10);
                 l.render();
             } catch(e) {
-                expect(e.message).toBe('Target not set');;
-                expect(e.constructor.name).toBe('Error')
+                expect(e.message).toBe('Target not set');
+                expect(e.constructor.name).toBe('Error');
             }
             
         });
