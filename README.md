@@ -1,5 +1,5 @@
 ![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.svg "Title")
-leonardo javascript svg library v. 1.0.25
+leonardo javascript svg library v. 1.0.26
 
 [![Coverage Status](https://coveralls.io/repos/github/fedeghe/leonardo/badge.svg?branch=master)](https://coveralls.io/github/fedeghe/leonardo?branch=master)
 
