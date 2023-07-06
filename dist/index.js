@@ -4,10 +4,10 @@
 |  |  |   __|     |   | |  _  | __  |    \|     |
 |  |__|   __|  |  | | | |     |    -|  |  |  |  |
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
-                                                  V. 1.0.26
+                                                  V. 1.0.27
 
 Federico Ghedina <federico.ghedina@gmail.com> 2023
-~14KB
+~14.01KB
 */
 const Leonardo=function(t){function e(t,e,r){this.namespaces=h;var n,o,s=this;r=r||{},this.width=t,this.height=e,this.tag=i("svg"),this.tag.setAttribute("width",t),this.tag.setAttribute("height",e),
 this.tag.setAttribute("xmlns",h.svg),this.tag.setAttribute("viewbox","0 0 "+t+" "+e),this.childs=[];for(n in r)"ns"!==n&&"target"!==n&&this.tag.setAttribute(n,r[n])
@@ -30,11 +30,11 @@ var t,e,r=window.location.search.substring(1),n=r.split("&"),o={};for(t in n)e=n
 var e=document.createElement("div");return e.appendChild(t),e.innerHTML},e.toDocument=function(t){return(new DOMParser).parseFromString(t,"image/svg+xml").children[0]},
 e.prototype.fadeIn=function(t,e){return r.apply(this,[!1,t,e]),this},e.prototype.fadeOut=function(t,e){return r.apply(this,[!0,t,e]),this},e.prototype.downloadAnchor=function(t,e){
 var r=document.createElement("a");return t=t||"download",e=e||"download",r.download=e+".svg",r.href=this.downloadHref(),r.innerHTML=t,r},e.prototype.positionInspector=function(t){
-t=t||"%({Px} {Py})  R%({RPx} {RPy})  PX({x} {y}) RPX({rx} {ry})"
+t=t||"%({%x} {%y})  rel-%({r%x} {r%y})  px({x} {y}) rel-px({rx} {ry})"
 ;var e=this,r=this.tag,n=document.createElement("div"),o=document.createElement("ul"),i=r.getBoundingClientRect(),s=i.left,a=i.top,p=this.width,u=this.height,l=function(t,e){
 return parseFloat(t.toFixed(e||2),10)},c=t,h={x:0,y:0},f={x:0,y:0};return n.style.fontFamily=o.style.fontFamily="verdana",o.style.listStyleType="decimal",o.style.fontSize="0.8em",
-r.addEventListener("mousemove",function(e){var r=e.clientX,o=e.clientY;f.x=r-s,f.y=o-a,c=t;var i=100*f.x/p,d=100*f.y/u,y={Px:l(i),Py:l(d),RPx:l(function(t){return 100*t/p}(~~f.x-h.x)),
-RPy:l(function(t){return 100*t/u}(~~f.y-h.y)),x:~~f.x,y:~~f.y,rx:~~f.x-h.x,ry:~~f.y-h.y};for(var g in y)c=c.replace("{"+g+"}",y[g]);n.innerHTML=c}),r.parentNode.appendChild(n),
+r.addEventListener("mousemove",function(e){var r=e.clientX,o=e.clientY;f.x=r-s,f.y=o-a,c=t;var i=100*f.x/p,d=100*f.y/u,y={"%x":l(i),"%y":l(d),"r%x":l(function(t){return 100*t/p}(~~f.x-h.x)),
+"r%y":l(function(t){return 100*t/u}(~~f.y-h.y)),x:~~f.x,y:~~f.y,rx:~~f.x-h.x,ry:~~f.y-h.y};for(var g in y)c=c.replace("{"+g+"}",y[g]);n.innerHTML=c}),r.parentNode.appendChild(n),
 r.parentNode.appendChild(o),r.addEventListener("click",function(){var t=document.createElement("li"),r=e.circle(1+~~f.x,1+~~f.y,2);r.setAttributes({stroke:"black",fill:"white","stroke-width":1,
 "stroke-dasharray":"3,1"}),r.on("mouseover",function(){t.style.fontWeight="bold",r.setAttributes({fill:"red",r:4})}),r.on("mouseleave",function(){t.style.fontWeight="normal",r.setAttributes({
 fill:"white",r:2})}),h={x:~~f.x,y:~~f.y},t.innerHTML=c,t.addEventListener("mouseover",function(){t.style.fontWeight="bold",r.setAttributes({fill:"red",r:4})}),t.addEventListener("mouseout",function(){

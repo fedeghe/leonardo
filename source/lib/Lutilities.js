@@ -65,10 +65,10 @@ L.prototype.downloadAnchor = function (txt, name) {
  */
 /* istanbul ignore next */
 L.prototype.positionInspector = function (tpl) {
-	tpl = tpl || '%({Px} {Py}) '+
-			' R%({RPx} {RPy}) ' +
-			' PX({x} {y})' +
-			' RPX({rx} {ry})';
+	tpl = tpl || '%({%x} {%y}) '+
+			' rel-%({r%x} {r%y}) ' +
+			' px({x} {y})' +
+			' rel-px({rx} {ry})';
 	var self = this,
 		tag = this.tag,
 		infoTag = document.createElement('div'),
@@ -98,8 +98,8 @@ L.prototype.positionInspector = function (tpl) {
 		var px = 100 * curr.x / w,
 			py = 100 * curr.y / h,
 			tplValues = {
-				Px: p(px), Py: p(py),
-				RPx: p(toPercX(~~curr.x - prev.x)), RPy: p(toPercY(~~curr.y - prev.y)),
+				'%x': p(px), '%y': p(py),
+				'r%x': p(toPercX(~~curr.x - prev.x)), 'r%y': p(toPercY(~~curr.y - prev.y)),
 				x: ~~curr.x, y: ~~curr.y,
 				rx: ~~curr.x - prev.x, ry: ~~curr.y - prev.y
 			};
