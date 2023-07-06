@@ -21,12 +21,12 @@ circle.append(animateTag);
 It's also possible to move a tag, changing the `x` and `y` position attributes, but this acts directly on the tag:
 
 ``` js 
-instance.animate.cartesian(tag, funcX, funcY) // returns stopper function  
+instance.animate.cartesian(tag, funcX, funcY, t) // returns stopper function  
 ```
 ...still need to be documented, there's anyway a clear sample
 
 ``` js 
-instance.animate.polar(tag, funcR, funcPHI) // returns stopper function  
+instance.animate.polar(tag, funcR, funcPHI, t) // returns stopper function  
 ```
 ...still need to be documented, there's anyway a clear sample
 
