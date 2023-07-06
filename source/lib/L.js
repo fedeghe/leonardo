@@ -100,11 +100,11 @@ L.prototype.append = function () {
 	els.forEach(function (el) {
 		if( el instanceof Array){
 			el.forEach(function (k) {
-				// self.childs.push(k);
 				self.append(k);
 			});
 		} else {
 			self.childs.push(el);
+			el.parent = self;
 			self.tag.appendChild(el.tag);
 		}
 	});

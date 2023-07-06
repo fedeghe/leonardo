@@ -45,6 +45,7 @@ describe('Element', () => {
             // and when cloning an element containing id's does not take any action to ensure unicity
         });
     });
+
     describe('use', () => {
         it('use single', () => {
             
@@ -77,6 +78,7 @@ describe('Element', () => {
             }
         });
     });
+
     describe('rotate', () => {
         it('with center', () => {
             const width = 200,
@@ -98,6 +100,100 @@ describe('Element', () => {
             L.append(c1);
             expect(L.childs[0].getAttributes('transform').transform).toMatch(/rotate\(90\s0\s0\)/);
         });
-
     });
+
+    describe('scale', () => {
+        it('with full', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15)
+                    .setAttributes({fill: '#ff0000', id:1})
+                    .scale(1.2, 0.8)
+            L.append(c1);
+            expect(L.childs[0].getAttributes('transform').transform).toMatch(/scale\(1.2,\s0.8\)/);
+        });
+        it('one', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15)
+                    .setAttributes({fill: '#ff0000', id:1})
+                    .scale(1.2)
+            L.append(c1);
+            expect(L.childs[0].getAttributes('transform').transform).toMatch(/scale\(1.2,\s1.2\)/);
+        });
+        it('none', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15)
+                    .setAttributes({fill: '#ff0000', id:1})
+                    .scale()
+            L.append(c1);
+            expect(L.childs[0].getAttributes('transform').transform).toMatch(/scale\(0,\s0\)/);
+        });
+    });
+
+    
+    it('mirrorH', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height),
+            c1 = L.rect(10, 10, 5, 15)
+                .setAttributes({fill: '#ff0000', id:1})
+                .mirrorH()
+        L.append(c1);
+        expect(L.childs[0].getAttributes('transform').transform).toMatch(/scale\(1,\s-1\)/);
+    });
+
+    it('mirrorV', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height),
+            c1 = L.rect(10, 10, 5, 15)
+                .setAttributes({fill: '#ff0000', id:1})
+                .mirrorV()
+        L.append(c1);
+        expect(L.childs[0].getAttributes('transform').transform).toMatch(/scale\(-1,\s1\)/);
+    });
+
+    describe('move', () => {
+        it('with center', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15)
+                    .move(90, 15)
+            L.append(c1);
+            expect(L.childs[0].getAttributes('transform').transform).toMatch(/translate\(90\s15\)/);
+        });
+        it('nowhere', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15)
+                    .setAttributes({fill: '#ff0000', id:1})
+                    .move()
+            L.append(c1);
+            expect(L.childs[0].getAttributes('transform').transform).toMatch(/translate\(0\s0\)/);
+        });
+    });
+
+    describe('remove', () => {
+        it('with center', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15);
+            L.append(c1);
+            expect(L.childs[0].tag.tagName).toBe('rect');
+            c1.remove();
+            expect(L.childs.length).toBe(0);
+        });
+    });
+
+
+
+       
 });

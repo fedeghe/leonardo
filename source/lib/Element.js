@@ -1,3 +1,4 @@
+var iii = 0;
 /**
  * { function_description }
  *
@@ -7,7 +8,9 @@
  */
 function Element(tag, ns) {
 	this.t = tag;
+	this._id = 'i_'+(++iii);
 	this.tag = create(tag, ns);
+	this.parent = null;
 	this.childs = [];
 	this.events = {};
 	this.transforms = {
@@ -215,7 +218,13 @@ Element.prototype.move = function (rx, ry) {
 };
 
 Element.prototype.remove = function () {
+	var self = this;
 	this.tag.parentNode.removeChild(this.tag);
+	if (this.parent) {
+		this.parent.childs = this.parent.childs.filter(function (c) {
+			return c._id !== self._id
+		})
+	}
 };
 
 Element.prototype.bringToTop = function (){
