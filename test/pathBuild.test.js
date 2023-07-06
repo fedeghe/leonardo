@@ -26,5 +26,7 @@ describe('PathBuild', () => {
             s += `${key} ${value},${value} `;
             expect(p.path).toBe(s);
         });
+        p.s(12,12)
+        expect(p.path).toBe(`${s}  12,12 `);
     });
 });

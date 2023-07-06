@@ -24,4 +24,15 @@ describe('Path ', () => {
         expect(slice.tag.getAttribute('d')).toBe('M 0,0 L 200,100 M 200,0 L 0,100 M 100,50 L 110,50 A 10,10,0,0,0,90,50 L 100,50 ');
         
     });
+    it('slicePath ', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height, {ns : '*'}),
+            p = L.pathBuild.M(0,0).L(width, height).M(width, 0).L(0, height),
+            slicePath = L.slicePath(width/ 2, height / 2, 10, 210, 0),
+            slice = L.path(slicePath);
+        
+        expect(slice.tag.getAttribute('d')).toBe('M 0,0 L 200,100 M 200,0 L 0,100 M 100,50 L 110,50 A 10,10,0,1,0,91.33974596215562,55 L 100,50 ');
+        
+    });
 });

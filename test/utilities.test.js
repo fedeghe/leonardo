@@ -89,4 +89,25 @@ describe('Utilities', () => {
             }
         });
     });
+
+    it('positionInspector', done => {
+        const width = 200,
+            height = 200,
+            L = Leo(width, height, { target: document.body}),
+            p1 = L.circle(10, 10, 2),
+            p2 = L.circle(50, 10, 2),
+            p3 = L.circle(50, 50, 2),
+            p4 = L.circle(10, 50, 2);
+
+
+        L.render({
+            cb: function () {                
+                p1.trigger('click');
+                p2.trigger('click');
+                p3.trigger('click');
+                p4.trigger('click');
+                done();
+            }
+        }).positionInspector()
+    })
 });

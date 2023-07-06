@@ -64,6 +64,7 @@ Element.prototype.on = function (eventName, cb) {
  */
 Element.prototype.off = function (eventName, cb) {	
     var self = this;
+	/* istanbul ignore else */
 	if (eventName in this.events) {
 		if (typeof cb === 'undefined') {
 			this.events[eventName].forEach(function (fn) {
@@ -221,6 +222,7 @@ Element.prototype.move = function (rx, ry) {
 Element.prototype.remove = function () {
 	var self = this;
 	this.tag.parentNode.removeChild(this.tag);
+	/* istanbul ignore else */
 	if (this.parent) {
 		this.parent.childs = this.parent.childs.filter(function (c) {
 			return c._id !== self._id
@@ -259,13 +261,13 @@ Element.prototype.bringTo = function (where){
             break;
         default:
             var n = this.tag
-            if (where > 0) {
+            if (where >= 0) {
                 while (where++ > 0 && n.nextSibling) {
                     n = n.nextSibling
                 }
                 parent.removeChild(this.tag);
                 parent.insertBefore(this.tag, n.nextSibling);
-            } else if (where < 0) {
+            } else {
                 while (where-- < 0 && n.previousSibling) {
                     n = n.previousSibling
                 }

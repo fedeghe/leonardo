@@ -36,6 +36,8 @@ describe('extra', () => {
         expect(centeredText.childs[0].tag.tagName).toBe('path');
         expect(centeredText.childs[1].tag.tagName).toBe('text');
         expect(centeredText.childs[1].childs[0].tag.textContent).toBe('hello');
+        centeredText.updateText('hello world');
+        expect(centeredText.childs[1].childs[0].tag.textContent).toBe('hello world');
     });
 
     it('arcCentered ', () => {

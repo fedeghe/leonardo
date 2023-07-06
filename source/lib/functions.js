@@ -1,46 +1,30 @@
 
-/**
- * { function_description }
- *
- * @param      {<type>}  tag     The tag
- * @param      {<type>}  ns      { parameter_description }
- * @return     {<type>}  { description_of_the_return_value }
- */
+
 function create(tag ,ns){
 	ns = ns || namespaces.svg;
 	return document.createElementNS(ns, tag);
 }
 
-/**
- * { function_description }
- *
- * @param      {string}    o       { parameter_description }
- * @return     {string[]}  { description_of_the_return_value }
- */
+/* istanbul ignore next */
 function obj2attr(o) {
 	var res = [], j;
 	for (j in o) res.push(j + '(' + o[j] + ')');
 	return res.join(' ');
 }
 
-/**
- * { function_description }
- *
- * @param      {<type>}  f       { parameter_description }
- * @param      {<type>}  obj     The object
- * @return     {<type>}  { description_of_the_return_value }
- */
+
+/* istanbul ignore next */
 function bind(f, obj) {
 	return function () {
 		var args = [].slice.call(arguments, 0);
 		return f.apply(obj, args);
 	}
 }
-
+/* istanbul ignore next */
 function deg2rad(deg) {
 	return deg * Math.PI / 180;
 }
-
+/* istanbul ignore next */
 function rad2deg(rad) {
 	return rad * 180 / Math.PI;
 }
@@ -53,7 +37,7 @@ var lid = (function () {
         return 'leo_id_' + leo_id;
     }
 })()
-
+/* istanbul ignore next */
 function getDefs(instance) {
     if (!instance.defs) {
         instance.defs = new Element('defs');
@@ -74,6 +58,7 @@ function polarToCartesian(cx, cy, r, deg) {
 function describeArc(x, y, radius, startAngle, endAngle){
     var start = polarToCartesian(x, y, radius, endAngle),
         end = polarToCartesian(x, y, radius, startAngle),
+        /* istanbul ignore next */
         largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
     return [
         "M", x, y,

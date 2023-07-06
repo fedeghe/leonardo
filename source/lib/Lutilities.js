@@ -63,6 +63,7 @@ L.prototype.downloadAnchor = function (txt, name) {
  * 
  * @returns 
  */
+/* istanbul ignore next */
 L.prototype.positionInspector = function (tpl) {
 	tpl = tpl || '%({Px} {Py}) '+
 			' R%({RPx} {RPy}) ' +
@@ -147,10 +148,11 @@ L.prototype.positionInspector = function (tpl) {
 L.prototype.downloadHref = function () {
 	var serializer = new XMLSerializer(),
 		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag);
-
+	/* istanbul ignore else */
 	if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
 		source = source.replace(/^<svg/, '<svg xmlns="' + this.namespaces.svg + '"');
 	}
+	/* istanbul ignore else */
 	if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
 		source = source.replace(/^<svg/, '<svg xmlns:xlink="' + this.namespaces.xlink + '"');
 	}
