@@ -32,6 +32,7 @@ Element.prototype.getAttributes = L.prototype.getAttributes;
 Element.prototype.setStyles = L.prototype.setStyles;
 Element.prototype.getStyles = L.prototype.getStyles;
 
+
 /**
  * { item_description }
  */
@@ -228,11 +229,11 @@ Element.prototype.remove = function () {
 };
 
 Element.prototype.bringToTop = function (){
-    this.bringTo(Infinity)
+    this.bringTo(Infinity);
 };
 
 Element.prototype.bringToBottom = function (){
-    this.bringTo(-Infinity)
+    this.bringTo(-Infinity);
 };
 
 Element.prototype.timeout = function (fn, ms) {
@@ -275,14 +276,15 @@ Element.prototype.bringTo = function (where){
     }
 }
 
-Element.prototype.bringToTop = function (){
-    var parent = this.tag.ownerSVGElement;
-    parent.removeChild(this.tag);
-    parent.appendChild(this.tag);
-}
 
 Element.prototype.clear = function () {
 	this.tag.innerHTML = '';
+	this.childs = [];
+	this.transforms = {
+		rotate : '',
+		move : '',
+		scale : ''
+	};
 };
 
 /**
@@ -292,8 +294,11 @@ Element.prototype.clear = function () {
  */
 Element.prototype.replace = function (currentOne, newOne) {
 	currentOne.tag.parentNode.replaceChild(newOne.tag, currentOne.tag);
+	currentOne.parent.childs = currentOne.parent.childs.map(function (c) {
+		return c._id == currentOne._id ? newOne : c;
+	});
 };
 
-Element.prototype.getBbox = function () {
-	return this.tag.getBBox();
-};
+// Element.prototype.getBbox = function () {
+// 	return this.tag.getBBox();
+// };

@@ -193,7 +193,110 @@ describe('Element', () => {
         });
     });
 
+    describe('bringToTop', () => {
+        it('base', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15),
+                c2 = L.rect(5, 5, 5, 15);
+            L.append(c1, c2);
+            expect(L.tag.children[0].getAttribute('x')).toBe("10");
+            c1.bringToTop();
+            expect(L.childs.length).toBe(2);
+            expect(L.tag.children[0].getAttribute('x')).toBe("5");
+        });
+    });
 
+    describe('bringToBottom', () => {
+        it('base', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15),
+                c2 = L.rect(5, 5, 5, 15);
+            L.append(c1, c2);
+            expect(L.tag.children[0].getAttribute('x')).toBe("10");
+            c2.bringToBottom();
+            // expect(L.tag).toBe('');
+            expect(L.childs.length).toBe(2);
+            expect(L.tag.children[0].getAttribute('x')).toBe("5");
+        });
+    });
+    describe('bringTo', () => {
+        it('+', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15),
+                c2 = L.rect(5, 5, 5, 15);
+            L.append(c1, c2);
+            expect(L.tag.children[0].getAttribute('x')).toBe("10");
+            c1.bringTo(1);
+            expect(L.childs.length).toBe(2);
+            expect(L.tag.children[0].getAttribute('x')).toBe("5");
+        });
+        it('-', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15),
+                c2 = L.rect(5, 5, 5, 15);
+            L.append(c1, c2);
+            expect(L.tag.children[0].getAttribute('x')).toBe("10");
+            c2.bringTo(-1);
+            // expect(L.tag).toBe('');
+            expect(L.childs.length).toBe(2);
+            expect(L.tag.children[0].getAttribute('x')).toBe("5");
+        });
+    });
 
-       
+    describe('timeout', done => {
+        it('base', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15);
+            L.append(c1);
+            c1.timeout(function (){
+                expect(this.getAttributes('x').x).toBe("10");
+                done()
+            }, 100);
+        });
+    });
+
+    it('clear', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height),
+            g = L.group();
+            c1 = L.rect(10, 10, 5, 15);
+        g.append(c1);
+        L.append(g);
+        
+        expect(g.childs.length).toBe(1);
+        expect(g.tag.children.length).toBe(1);
+        g.clear();
+        expect(g.childs.length).toBe(0);
+        expect(g.tag.children.length).toBe(0);
+    });
+
+    it('base', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height),
+            g = L.group(),
+            circle1 = L.circle(10, 10, 5),
+            circle2 = L.circle(10, 10, 5),
+            rect = L.rect(10, 10, 5, 15);
+
+        g.append(circle1, circle2);
+        L.append(g);
+        
+        expect(g.childs.length).toBe(2);
+        expect(g.childs[0].tag.tagName).toBe('circle');
+        g.replace(circle1, rect)
+        expect(g.childs.length).toBe(2);
+        expect(g.childs[0].tag.tagName).toBe('rect');
+    });
 });
