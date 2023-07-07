@@ -11,7 +11,7 @@ describe('Path ', () => {
             p = L.pathBuild.M(0,0).L(width, height).M(width, 0).L(0, height),
             slice = L.slice(width/ 2, height / 2, 10, 0, 180);
         
-        expect(slice.tag.getAttribute('d')).toBe('M 0,0 L 200,100 M 200,0 L 0,100 M 100,50 L 110,50 A 10,10,0,0,0,90,50 L 100,50 ');
+        expect(slice.tag.getAttribute('d')).toBe('M0,0L200,100M200,0L0,100M100,50L110,50A10,10,0,0,0,90,50L100,50');
         
     });
     it('should slice - inverted ', () => {
@@ -21,7 +21,7 @@ describe('Path ', () => {
             p = L.pathBuild.M(0,0).L(width, height).M(width, 0).L(0, height),
             slice = L.slice(width/ 2, height / 2, 10, 180, 0);
         
-        expect(slice.tag.getAttribute('d')).toBe('M 0,0 L 200,100 M 200,0 L 0,100 M 100,50 L 110,50 A 10,10,0,0,0,90,50 L 100,50 ');
+        expect(slice.tag.getAttribute('d')).toBe('M0,0L200,100M200,0L0,100M100,50L110,50A10,10,0,0,0,90,50L100,50');
         
     });
     it('slicePath ', () => {
@@ -32,7 +32,7 @@ describe('Path ', () => {
             slicePath = L.slicePath(width/ 2, height / 2, 10, 210, 0),
             slice = L.path(slicePath);
         
-        expect(slice.tag.getAttribute('d')).toBe('M 0,0 L 200,100 M 200,0 L 0,100 M 100,50 L 110,50 A 10,10,0,1,0,91.33974596215562,55 L 100,50 ');
+        expect(slice.tag.getAttribute('d')).toBe('M0,0L200,100M200,0L0,100M100,50L110,50A10,10,0,1,0,91.33974596215562,55L100,50');
         
     });
 });

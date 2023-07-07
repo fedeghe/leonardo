@@ -10,8 +10,7 @@
         "test": "test"
     },
     "scripts": {
-        "test": "mocha --timeout 10000 test/setup/runner.js test/**.js",
-        "jest": "jest",
+        "test": "jest",
         "watch": "jest --watch",
         "cover": "jest --coverage",
         "coverw": "jest --coverage --watch",

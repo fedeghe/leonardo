@@ -23,10 +23,10 @@ describe('PathBuild', () => {
             S: 13, s:14,
         }).forEach(([key, value]) => {  
             p[key](value, value);
-            s += `${key} ${value},${value} `;
+            s += `${key}${value},${value}`;
             expect(p.path).toBe(s);
         });
         p.s(12,12)
-        expect(p.path).toBe(`${s}  12,12 `);
+        expect(p.path).toBe(`${s} 12,12`);
     });
 });

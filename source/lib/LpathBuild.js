@@ -19,7 +19,7 @@ function Pathbuild() {
 function createFun(letter) {
 	return function () {
 		var l = this.previous === letter ? ' ' : letter;
-		this.path += [l].concat([[].slice.call(arguments, 0).join(',')]).join(' ') + ' ';
+		this.path += [l].concat([[].slice.call(arguments, 0).join(',')]).join('');
 		this.previous = letter;
 		return this;
 	};
