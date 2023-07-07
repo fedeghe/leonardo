@@ -1,5 +1,5 @@
-![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.svg "Title")
-leonardo javascript svg library v. 1.0.27
+![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.svg "... do not dare scum human!")
+leonardo javascript svg library v. 1.0.28
 
 [![Coverage Status](https://coveralls.io/repos/github/fedeghe/leonardo/badge.svg?branch=master)](https://coveralls.io/github/fedeghe/leonardo?branch=master)
 

@@ -30,9 +30,15 @@ window.onload = function () {
 			"stroke-linejoin": "round",
 			fill: 'transparent'
 		},
-        builder = function (acc, e) {
-            return acc.l(w(e[0]), h(e[1]))
-        };
+        crunch = function (dots) {
+            return Leo.path(
+                dots.slice(1)
+                .reduce(
+                    function (acc, e) { return acc.l(w(e[0]), h(e[1]))}, //then (l) lines
+                    Leo.pathBuild.M(w(dots[0][0]), h(dots[0][1])) // first (M) absolute
+                )
+            ).setAttributes(fillStyle)
+        },;
     
     main.append(img);
     Leo.append(main);

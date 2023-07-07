@@ -109,5 +109,50 @@ describe('Utilities', () => {
                 done();
             }
         }).positionInspector()
-    })
+    });
+
+    describe('positionCruncher', () => {
+        it('basic', () => {
+            const width = 200,
+                height = 200,
+                L = Leo(width, height, { target: document.body}),
+                fillStyle = {
+                    "stroke-width": 2,
+                    "stroke": '#ef88d8',
+                    "stroke-opacity": 1,
+                    "fill-opacity": 10,
+                    "stroke-linejoin": "round",
+                    fill: 'transparent'
+                },
+                cruncher = L.positionCruncher(width, height, 'M', 'l', fillStyle),
+                crunchedPath = cruncher([
+                    [10,10], [20,20], [40,40], [50,50]
+                ]);
+
+
+            expect(crunchedPath.tag.tagName).toBe('path');
+            expect(crunchedPath.getAttributes('d').d).toBe("M 20,20 l 40,40   80,80   100,100 ");
+        });
+        it('with and', () => {
+            const width = 200,
+                height = 200,
+                L = Leo(width, height, { target: document.body}),
+                fillStyle = {
+                    "stroke-width": 2,
+                    "stroke": '#ef88d8',
+                    "stroke-opacity": 1,
+                    "fill-opacity": 10,
+                    "stroke-linejoin": "round",
+                    fill: 'transparent'
+                },
+                cruncher = L.positionCruncher(width, height, 'M', 'l', fillStyle, true),
+                crunchedPath = cruncher([
+                    [10,10], [20,20], [40,40], [50,50]
+                ]);
+
+
+            expect(crunchedPath.tag.tagName).toBe('path');
+            expect(crunchedPath.getAttributes('d').d).toBe("M 20,20 l 40,40   80,80   100,100 Z  ");
+        });
+    });
 });

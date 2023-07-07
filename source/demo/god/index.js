@@ -15,18 +15,9 @@ window.onload = function () {
 			"stroke-linejoin": "round",
 			fill: 'transparent'
 		},
-        builder = function (acc, e) {
-            return acc.l(w(e[0]), h(e[1]))
-        },
-        crunch = function (dots) {
-            return Leo.path(
-                dots.slice(1)
-                .reduce(
-                    builder,
-                    Leo.pathBuild.M(w(dots[0][0]), h(dots[0][1]))
-                )
-            ).setAttributes(fillStyle)
-        },
+
+        crunch = Leo.positionCruncher(width, height, 'M', 'l', fillStyle)
+
         leftmid = crunch([
             [44.07, 50.61],
             [0.3, 3.07],
