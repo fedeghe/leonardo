@@ -34,9 +34,11 @@ window.onload = function () {
     main.append(img);
     Leo.append(main);
     Leo.render();
-    Leo.positionInspector(); // this is the one !!!
 }
 ```
 to get 
 
 ![out bro](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/readme1.png "")
+
+now, we would want to have a quick way to get the right `d` attribute content to be used in a `<path/>` tag so to draw what we want, all we need to do is invoke `Leo.positionInspector()`:
+
