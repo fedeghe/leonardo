@@ -84,19 +84,6 @@ Element.prototype.off = function (eventName, cb) {
  * @param {*} cb 
  * @returns 
  */
-// Element.prototype.once = function (eventName, cb) {
-//     var self = this;
-// 	if (eventName in this.events) {
-// 		this.events[eventName].push(cb);
-// 	} else {
-// 		this.events[eventName] = [cb];
-// 	}
-// 	this.tag.addEventListener(eventName, function _(e) {
-//         cb(e)
-//         self.off(eventName, _)
-//     });
-// 	return this;
-// };
 Element.prototype.once = function (eventName, cb) {
     var self = this;
 	this.on(eventName, function _(e){
@@ -219,16 +206,7 @@ Element.prototype.move = function (rx, ry) {
 	return trans(this);
 };
 
-Element.prototype.remove = function () {
-	var self = this;
-	this.tag.parentNode.removeChild(this.tag);
-	/* istanbul ignore else */
-	if (this.parent) {
-		this.parent.childs = this.parent.childs.filter(function (c) {
-			return c._id !== self._id
-		})
-	}
-};
+Element.prototype.remove = L.prototype.remove;
 
 Element.prototype.bringToTop = function (){
     this.bringTo(Infinity);

@@ -181,7 +181,7 @@ describe('Element', () => {
     });
 
     describe('remove', () => {
-        it('with center', () => {
+        it('self', () => {
             const width = 200,
                 height = 100,
                 L = Leo(width, height),
@@ -190,6 +190,33 @@ describe('Element', () => {
             expect(L.childs[0].tag.tagName).toBe('rect');
             c1.remove();
             expect(L.childs.length).toBe(0);
+        });
+        it('parent', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15),
+                c2 = L.rect(20, 10, 5, 15),
+                c3 = L.rect(30, 10, 5, 15);
+            L.append(c1, c2, c3);
+            expect(L.childs[0].tag.tagName).toBe('rect');
+            expect(L.childs.length).toBe(3);
+            L.remove(c1, c2);
+            expect(L.childs.length).toBe(1);
+        });
+        it('from tag - multiple', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                g = L.group(),
+                c1 = L.rect(10, 10, 5, 15),
+                c2 = L.rect(20, 10, 5, 15),
+                c3 = L.rect(30, 10, 5, 15);
+            g.append(c1, c2, c3);
+            expect(g.childs[0].tag.tagName).toBe('rect');
+            expect(g.childs.length).toBe(3);
+            g.remove(c1, c2);
+            expect(g.childs.length).toBe(1);
         });
     });
 

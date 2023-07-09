@@ -130,4 +130,23 @@ L.prototype.render = function (o) {
 	return this;
 };
 
-
+/**
+ * { function_description }
+ *
+ * @param      {Function}  cb      { parameter_description }
+ * @return     {Object}    { description_of_the_return_value }
+ */
+L.prototype.remove = function () {
+    var els = [].slice.call(arguments, 0);
+	if (els.length === 0) els.push(this);
+	els.forEach(function (el) {
+		el.tag.parentNode.removeChild(el.tag);
+		/* istanbul ignore else */
+		if (el.parent) {
+			el.parent.childs = el.parent.childs.filter(function (c) {
+				return c._id !== el._id
+			})
+		}
+	})
+	return this;
+};

@@ -149,9 +149,16 @@ L.prototype.positionCruncher = function (width, height, styles, ends) {
 	var self = this,
 		precision = 1,
 		startFn = 'M',
-		midFn = 'l';
-	function w(p) {return (width * p/100).toFixed(precision);}
-    function h(p) {return (height * p/100).toFixed(precision);}
+		midFn = 'l',
+		getPsize = function (n) {
+			return function (p){
+				return parseFloat((n * p/100).toFixed(precision), 10);
+			}
+		},
+		w = getPsize(width),
+		h = getPsize(height);
+	// function w(p) {return parseFloat((width * p/100).toFixed(precision), 10);}
+    // function h(p) {return parseFloat((height * p/100).toFixed(precision), 10);}
 	function builder(acc, e) {
 		return acc[midFn](w(e[0]), h(e[1]));
 	}

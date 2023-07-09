@@ -273,12 +273,12 @@ window.onload = function () {
 
     Leo.append(img);
     
-    // Leo.append(left1, leftmid, leftmid2, leftLast, leftHole, right1, right2, right3, right4);
+    Leo.append(left1, leftmid, leftmid2, leftLast, leftHole, right1, right2, right3, right4);
     
     
     
     Leo.render();
-    // Leo.positionInspector('[{r%x}, {r%y}],');
-    Leo.positionInspector();
+    Leo.positionInspector('[{r%x}, {r%y}],');
+    // Leo.positionInspector();
     //document.body.appendChild(Leo.downloadAnchor())
 }
