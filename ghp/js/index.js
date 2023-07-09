@@ -15,7 +15,7 @@ window.onload = function () {
 			fill: 'transparent'
 		},
 
-        crunch = Leo.positionCruncher(width, height, fillStyle)
+        crunch = Leo.positionCruncher(width, height, fillStyle),
 
         leftmid = crunch([
             [44.07, 50.61],
@@ -281,4 +281,4 @@ window.onload = function () {
     // Leo.positionInspector('[{r%x}, {r%y}],');
     Leo.positionInspector();
     //document.body.appendChild(Leo.downloadAnchor())
-}
+};
