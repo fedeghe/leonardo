@@ -7,7 +7,7 @@
                                                   V. 1.0.28
 
 Federico Ghedina <federico.ghedina@gmail.com> 2023
-~14.29KB
+~14.32KB
 */
 const Leonardo=function(t){function e(t,e,r){this.namespaces=h;var n,o,s=this;r=r||{},this.width=t,this.height=e,this.tag=i("svg"),this.tag.setAttribute("width",t),this.tag.setAttribute("height",e),
 this.tag.setAttribute("xmlns",h.svg),this.tag.setAttribute("viewbox","0 0 "+t+" "+e),this.childs=[];for(n in r)"ns"!==n&&"target"!==n&&this.tag.setAttribute(n,r[n])
@@ -37,9 +37,9 @@ r.addEventListener("mousemove",function(e){var r=e.clientX,o=e.clientY;f.x=r-s,f
 r.parentNode.appendChild(o),r.addEventListener("click",function(){var t=document.createElement("li"),r=e.circle(1+~~f.x,1+~~f.y,2);r.setAttributes({stroke:"black",fill:"white","stroke-width":1,
 "stroke-dasharray":"3,1"}),r.on("mouseover",function(){t.style.fontWeight="bold",r.setAttributes({fill:"red",r:4})}),r.on("mouseleave",function(){t.style.fontWeight="normal",r.setAttributes({
 fill:"white",r:2})}),h={x:~~f.x,y:~~f.y},t.innerHTML=c,t.addEventListener("mouseover",function(){t.style.fontWeight="bold",r.setAttributes({fill:"red",r:4})}),t.addEventListener("mouseout",function(){
-t.style.fontWeight="normal",r.setAttributes({fill:"white",r:2})}),o.appendChild(t),e.append(r)}),this},e.prototype.positionCruncher=function(t,e,r,n,o,i){function s(e){return t*e/100}function a(t){
-return e*t/100}function p(t,e){return t[n](s(e[0]),a(e[1]))}var u=this;return function(t){var e=t.slice(1).reduce(p,u.pathBuild[r](s(t[0][0]),a(t[0][1])));return i&&e.Z(),u.path(e).setAttributes(o)}},
-e.prototype.downloadHref=function(){var t=new XMLSerializer,e='<?xml version="1.0" standalone="no"?>\r\n'+t.serializeToString(this.tag)
+t.style.fontWeight="normal",r.setAttributes({fill:"white",r:2})}),o.appendChild(t),e.append(r)}),this},e.prototype.positionCruncher=function(t,e,r,n){function o(e){return(t*e/100).toFixed(p)}
+function i(t){return(e*t/100).toFixed(p)}function s(t,e){return t[u](o(e[0]),i(e[1]))}var a=this,p=1,u="l";return function(t){var e=t.slice(1).reduce(s,a.pathBuild.M(o(t[0][0]),i(t[0][1])))
+;return n&&e.Z(),a.path(e).setAttributes(r)}},e.prototype.downloadHref=function(){var t=new XMLSerializer,e='<?xml version="1.0" standalone="no"?>\r\n'+t.serializeToString(this.tag)
 ;return e.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)||(e=e.replace(/^<svg/,'<svg xmlns="'+this.namespaces.svg+'"')),
 e.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)||(e=e.replace(/^<svg/,'<svg xmlns:xlink="'+this.namespaces.xlink+'"')),"data:image/svg+xml;charset=utf-8,"+encodeURIComponent(e)},
 e.prototype.desc=function(t){var e=new l("desc");return e.tag.innerHTML=t,e},e.prototype.circle=function(t,e,r){var n=new l("circle");return n.setAttributes({cx:t,cy:e,r:r}),n},
