@@ -8,6 +8,21 @@
         <script src="ghp/js/index.js"></script>
     </head>
     <body>
-       <div id="trg"></div>
+        <div id="trg"></div>
+        <p><pre>Leo.positionInstpector</pre> accepts a template whith by default is:  </p>
+        <pre><code>'%({%x} {%y}) rel-%({r%x} {r%y}) px({x} {y}) rel-px({rx} {ry})'</code></pre>
+        <br />
+        Where
+        <ul>
+            <li><code>{%x}</code>: width relative percentage of x coordinate</li>
+            <li><code>{%y}</code>: height relative percentage of y coordinate</li>
+            <li><code>{r%x}</code>: width relative percentage of x coordinate relative to previous point</li>
+            <li><code>{r%y}</code>: height relative percentage of y coordinate relative to previous point</li>
+            <li><code>{x}</code>: x coordinate</li>
+            <li><code>{y}</code>: y coordinate</li>
+            <li><code>{rx}</code>: x coordinate relative to previous point</li>
+            <li><code>{ry}</code>: y coordinate relative to previous point</li>
+        </ul>
+        In this page was invoked as <code>Leo.positionInspector('[{r%x}, {r%y}],');</code>
     </body>
 </html>
