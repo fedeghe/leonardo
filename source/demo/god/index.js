@@ -4,9 +4,8 @@ window.onload = function () {
         height = 652,
         w = function (p) {return width * p/100;},
         h = function (p) {return height * p/100;},
-        Leo = Leonardo(width, height, { ns: '*', target: target }),
-        img = Leo.image(0,0,width, height, './god.jpg').setAttributes({opacity: 0.6}),
-        main = Leo.group(),
+        Leo = Leonardo(width, height, { ns: '*', target: target }).setStyles({backgroundColor: '#222'}),
+        img = Leo.image(0,0,width, height, './god.jpg').setAttributes({opacity: 1}),
         fillStyle = {
 			"stroke-width": 2,
 			"stroke": '#ef88d8',
@@ -16,7 +15,7 @@ window.onload = function () {
 			fill: 'transparent'
 		},
 
-        crunch = Leo.positionCruncher(width, height, 'M', 'l', fillStyle)
+        crunch = Leo.positionCruncher(width, height, fillStyle)
 
         leftmid = crunch([
             [44.07, 50.61],
@@ -272,15 +271,14 @@ window.onload = function () {
         ]);
 
 
-    // main.append(img);
-    Leo.append(main);
-    Leo.append(left1, leftmid, leftmid2, leftLast, leftHole);
-    Leo.append(right1, right2, right3, right4);
+    Leo.append(img);
+    
+    // Leo.append(left1, leftmid, leftmid2, leftLast, leftHole, right1, right2, right3, right4);
     
     
     
     Leo.render();
     // Leo.positionInspector('[{r%x}, {r%y}],');
     // Leo.positionInspector();
-    document.body.appendChild(Leo.downloadAnchor())
+    //document.body.appendChild(Leo.downloadAnchor())
 }

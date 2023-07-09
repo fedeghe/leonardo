@@ -145,17 +145,20 @@ L.prototype.positionInspector = function (tpl) {
 	return this;
 };
 
-L.prototype.positionCruncher = function (width, height, initFn, midFn, styles, ends) {
-	var self = this;
-	function w(p) {return width * p/100;}
-    function h(p) {return height * p/100;}
+L.prototype.positionCruncher = function (width, height, styles, ends) {
+	var self = this,
+		precision = 1,
+		startFn = 'M',
+		midFn = 'l';
+	function w(p) {return (width * p/100).toFixed(precision);}
+    function h(p) {return (height * p/100).toFixed(precision);}
 	function builder(acc, e) {
 		return acc[midFn](w(e[0]), h(e[1]));
 	}
 	return function (dots) {
 		var build = dots.slice(1).reduce(	
 			builder,
-			self.pathBuild[initFn](w(dots[0][0]), h(dots[0][1]))
+			self.pathBuild[startFn](w(dots[0][0]), h(dots[0][1]))
 		);
 		if (ends) build.Z();
 		return self.path(build).setAttributes(styles);

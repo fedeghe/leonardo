@@ -9,7 +9,7 @@ If you ever tried you are perfectly aware of how much time this can take (I'm cl
 
 Let's say we target a random image 🥰, and we would have a raw silouhette version of it : 
 
-![image](media/god.jpg)
+![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.jpg "... do not dare scum human!")
 
 we can start a simple file: 
 ```js
@@ -29,16 +29,7 @@ window.onload = function () {
 			"fill-opacity": 10,
 			"stroke-linejoin": "round",
 			fill: 'transparent'
-		},
-        crunch = function (dots) {
-            return Leo.path(
-                dots.slice(1)
-                .reduce(
-                    function (acc, e) { return acc.l(w(e[0]), h(e[1]))}, //then (l) lines
-                    Leo.pathBuild.M(w(dots[0][0]), h(dots[0][1])) // first (M) absolute
-                )
-            ).setAttributes(fillStyle)
-        },;
+		};
     
     main.append(img);
     Leo.append(main);
@@ -46,3 +37,6 @@ window.onload = function () {
     Leo.positionInspector(); // this is the one !!!
 }
 ```
+to get 
+
+![out bro](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/readme1.png "")

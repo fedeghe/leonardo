@@ -32,6 +32,9 @@ $$6_gradients.md$$
 
 $$7_animate.md$$
 
+---
+
+$$8_utilities.md$$
 
 ---
 

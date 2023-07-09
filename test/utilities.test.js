@@ -124,7 +124,7 @@ describe('Utilities', () => {
                     "stroke-linejoin": "round",
                     fill: 'transparent'
                 },
-                cruncher = L.positionCruncher(width, height, 'M', 'l', fillStyle),
+                cruncher = L.positionCruncher(width, height, fillStyle),
                 crunchedPath = cruncher([
                     [10,10], [20,20], [40,40], [50,50]
                 ]);
@@ -144,7 +144,7 @@ describe('Utilities', () => {
                     "stroke-linejoin": "round",
                     fill: 'transparent'
                 },
-                cruncher = L.positionCruncher(width, height, 'M', 'l', fillStyle, true),
+                cruncher = L.positionCruncher(width, height, fillStyle, true),
                 crunchedPath = cruncher([
                     [10,10], [20,20], [40,40], [50,50]
                 ]);
