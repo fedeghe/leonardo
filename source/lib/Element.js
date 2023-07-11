@@ -38,6 +38,8 @@ Element.prototype.getStyles = L.prototype.getStyles;
  */
 Element.prototype.append = L.prototype.append;
 
+Element.prototype.remove = L.prototype.remove;
+
 /**
  * { function_description }
  *
@@ -205,8 +207,6 @@ Element.prototype.move = function (rx, ry) {
 	this.transforms.move = ' translate(' + rx + ' ' + ry + ')';
 	return trans(this);
 };
-
-Element.prototype.remove = L.prototype.remove;
 
 Element.prototype.bringToTop = function (){
     this.bringTo(Infinity);
