@@ -81,15 +81,22 @@ L.prototype.positionInspector = function (tpl) {
 		p = function(n, prec){ return parseFloat(n.toFixed(prec || 2), 10)},
 		currentInfo = tpl,
 		prev = { x: 0, y: 0},
-		curr = { x: 0, y: 0};
+		scroll = { left: 0, top: 0},
+		curr = { x: 0, y: 0},
+		onScroll = function () {
+			scroll.left = document.documentElement.scrollLeft;
+			scroll.top = document.documentElement.scrollTop;
+		};
 	
 	infoTag.style.fontFamily = infoList.style.fontFamily = 'verdana';
 	infoList.style.listStyleType = 'decimal';
 	infoList.style.fontSize = '0.8em';
 	
+	
+	window.addEventListener('scroll', onScroll);
 	tag.addEventListener('mousemove', function (e){
-		var x = e.clientX,
-			y = e.clientY,
+		var x = e.clientX + scroll.left,
+			y = e.clientY + scroll.top,
 			toPercX = function (n){ return 100 * n / w; },
 			toPercY = function (n){ return 100 * n / h; };
 		curr.x = x - left;
@@ -115,8 +122,11 @@ L.prototype.positionInspector = function (tpl) {
 			r = 2,
 			r2 = r / 2,
 			rdub = r * 2,
-			dot = self.circle(~~curr.x + r2, ~~curr.y + r2, r),
+			dot = self.circle(~~curr.x + r2 , ~~curr.y + r2, r),
 			rp = r + 1;
+
+		scroll.left = document.documentElement.scrollLeft;
+		scroll.top = document.documentElement.scrollTop;
 
 		dot.setAttributes({stroke: 'black', fill: 'white', 'stroke-width': 1, 'stroke-dasharray': rp + ',1'});
 		dot.on('mouseover', function () {
