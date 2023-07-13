@@ -7,7 +7,7 @@
                                                   V. 1.0.28
 
 Federico Ghedina <federico.ghedina@gmail.com> 2023
-~14.68KB
+~14.8KB
 */
 const Leonardo=function(t){function e(t,e,r){this.namespaces=h;var n,o,s=this;r=r||{},this.width=t,this.height=e,this.tag=i("svg"),this.tag.setAttribute("width",t),this.tag.setAttribute("height",e),
 this.tag.setAttribute("xmlns",h.svg),this.tag.setAttribute("viewbox","0 0 "+t+" "+e),this.childs=[];for(n in r)"ns"!==n&&"target"!==n&&this.tag.setAttribute(n,r[n])
@@ -28,10 +28,10 @@ t.append(e)}):(t.childs.push(e),e.parent=t,t.tag.appendChild(e.tag))}),this},e.p
 var t=[].slice.call(arguments,0);return 0===t.length&&t.push(this),t.forEach(function(t){t.tag.parentNode.removeChild(t.tag),t.parent&&(t.parent.childs=t.parent.childs.filter(function(e){
 return e._id!==t._id}))}),this},e.import=function(t){"string"==typeof t&&(t=e.toDocument(t));var r=new e(1,1);return r.tag=t,r},e.getqs=function(){
 var t,e,r=window.location.search.substring(1),n=r.split("&"),o={};for(t in n)e=n[t].split("="),o[e[0]]=e.length>1?decodeURIComponent(e[1]):null;return o},e.toString=function(t){
-var e=document.createElement("div");return e.appendChild(t),e.innerHTML},e.toDocument=function(t){return(new DOMParser).parseFromString(t,"image/svg+xml").children[0]},
-e.prototype.fadeIn=function(t,e){return r.apply(this,[!1,t,e]),this},e.prototype.fadeOut=function(t,e){return r.apply(this,[!0,t,e]),this},e.prototype.downloadAnchor=function(t,e){
-var r=document.createElement("a");return t=t||"download",e=e||"download",r.download=e+".svg",r.href=this.downloadHref(),r.innerHTML=t,r},e.prototype.positionInspector=function(t){
-t=t||"%({%x} {%y})  rel-%({r%x} {r%y})  px({x} {y}) rel-px({rx} {ry})"
+var e=document.createElement("div");return e.appendChild(t),e.innerHTML},e.toDocument=function(t){return(new DOMParser).parseFromString(t,"image/svg+xml").children[0]},e.randomColor=function(t){
+for(var e=t?6:3,r=t?16777215:4095,n=(~~(Math.random()*r)).toString(16);n.length<e;)n="0"+n;return n},e.prototype.fadeIn=function(t,e){return r.apply(this,[!1,t,e]),this},
+e.prototype.fadeOut=function(t,e){return r.apply(this,[!0,t,e]),this},e.prototype.downloadAnchor=function(t,e){var r=document.createElement("a");return t=t||"download",e=e||"download",
+r.download=e+".svg",r.href=this.downloadHref(),r.innerHTML=t,r},e.prototype.positionInspector=function(t){t=t||"%({%x} {%y})  rel-%({r%x} {r%y})  px({x} {y}) rel-px({rx} {ry})"
 ;var e=this,r=this.tag,n=document.createElement("div"),o=document.createElement("ul"),i=r.getBoundingClientRect(),s=i.left,a=i.top,p=this.width,u=this.height,l=function(t,e){
 return parseFloat(t.toFixed(e||2),10)},c=t,h={x:0,y:0},f={left:0,top:0},d={x:0,y:0},y=function(){f.left=document.documentElement.scrollLeft,f.top=document.documentElement.scrollTop}
 ;return n.style.fontFamily=o.style.fontFamily="verdana",o.style.listStyleType="decimal",o.style.fontSize="0.8em",window.addEventListener("scroll",y),r.addEventListener("mousemove",function(e){

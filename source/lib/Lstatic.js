@@ -42,3 +42,11 @@ L.toDocument = function (SVGString) {
 	const parser = new DOMParser();
 	return parser.parseFromString(SVGString, 'image/svg+xml').children[0];
 };
+
+L.randomColor = function (full) {
+	var len = full ? 6 : 3,
+		base = full ? 16777215 : 4095,
+		r = (~~(Math.random() * base)).toString(16);
+	while (r.length < len) r = '0' + r;
+	return r;
+};
