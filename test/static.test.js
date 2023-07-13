@@ -63,7 +63,8 @@ describe('Static', () => {
 
     describe('randomColor', () => {
         it('full', () => {
-            expect(Leo.randomColor(true)).toMatch(/^[0-9A-Fa-f]{6}$/);
+            for(var i = 0; i < 1000; i++)
+                expect(Leo.randomColor(true)).toMatch(/^[0-9A-Fa-f]{6}$/);
         });
         it('half', () => {
             expect(Leo.randomColor()).toMatch(/^[0-9A-Fa-f]{3}$/);
