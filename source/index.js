@@ -21,6 +21,7 @@ const Leonardo = (function(w) {
 	Leo.getqs = L.getqs;
 	Leo.toString = L.toString;
 	Leo.toDocument = L.toDocument;
+	Leo.randomColor = L.randomColor;
     return Leo;
 })();
 (typeof exports === 'object') && (module.exports = Leonardo);

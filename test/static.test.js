@@ -61,4 +61,12 @@ describe('Static', () => {
         expect(str.outerHTML).toBe('<svg height="300" id="hero" viewbox="0 0 900 300" width="900" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" fill="rgb(174, 222, 113)" fill-opacity="100%" r="5"/></svg>');
     });
 
+    describe('randomColor', () => {
+        it('full', () => {
+            expect(Leo.randomColor(true)).toMatch(/^[0-9A-Fa-f]{6}$/);
+        });
+        it('half', () => {
+            expect(Leo.randomColor()).toMatch(/^[0-9A-Fa-f]{3}$/);
+        });
+    });
 });
