@@ -94,11 +94,11 @@ L.prototype.positionInspector = function (tpl) {
 	
 	
 	window.addEventListener('scroll', onScroll);
-	tag.addEventListener('mousemove', function (e){
+	tag.addEventListener('mousemove', function (e) {
 		var x = e.clientX + scroll.left,
 			y = e.clientY + scroll.top,
-			toPercX = function (n){ return 100 * n / w; },
-			toPercY = function (n){ return 100 * n / h; };
+			toPercX = function (n) { return 100 * n / w; },
+			toPercY = function (n) { return 100 * n / h; };
 		curr.x = x - left;
 		curr.y = y - top;
 		currentInfo = tpl;
@@ -140,11 +140,11 @@ L.prototype.positionInspector = function (tpl) {
 		prev = {x: ~~curr.x, y: ~~curr.y};
 
 		item.innerHTML = currentInfo;
-		item.addEventListener('mouseover', function(){
+		item.addEventListener('mouseover', function () {
 			item.style.fontWeight = 'bold';
 			dot.setAttributes({fill: 'red', r : rdub});
 		});
-		item.addEventListener('mouseout', function(){
+		item.addEventListener('mouseout', function () {
 			item.style.fontWeight = 'normal';
 			dot.setAttributes({fill: 'white', r : r});
 		});
@@ -161,14 +161,13 @@ L.prototype.positionCruncher = function (width, height, styles, ends) {
 		startFn = 'M',
 		midFn = 'l',
 		getPsize = function (n) {
-			return function (p){
+			return function (p) {
 				return parseFloat((n * p/100).toFixed(precision), 10);
 			}
 		},
 		w = getPsize(width),
 		h = getPsize(height);
-	// function w(p) {return parseFloat((width * p/100).toFixed(precision), 10);}
-    // function h(p) {return parseFloat((height * p/100).toFixed(precision), 10);}
+
 	function builder(acc, e) {
 		return acc[midFn](w(e[0]), h(e[1]));
 	}
