@@ -15,23 +15,27 @@
             border: 1px dotted black;
             margin-bottom: 20px
         }
+        .cnt {display:flex; flex-direction: row;}
+        .box {flex:1; align-items: center; align-self: center;}
     </style>
 </head>
 
 <body>
-
-    <div id="trg1">...</div>
-    <p>
-        $$x = f(t) = w / 2 * (1 + sin(t))$$
-        $$y = f(t) = h / 2 * (1 + sin(t / 4))$$
-    </p>
+    <div class="cnt">
+        <div id="trg1" class="box">...</div>
+        <div class="box">
+            $$x = f(t) = w / 2 * (1 + sin(t))$$
+            $$y = f(t) = h / 2 * (1 + sin(t / 4))$$
+        </div>
+    </div>
     <hr />
-
-    <div id="trg2">...</div>
-    <p>
-        $$r = f(t) = w / 2 * sin(t / 20)$$
-        $$\rho = f(t) = t \bmod 360$$
-    </p>
+    <div class="cnt">
+        <div id="trg2" class="box">...</div>
+        <div class="box">
+            $$r = f(t) = w / 2 * sin(t / 20)$$
+            $$\rho = f(t) = t \bmod 360$$
+        </div>
+    </div>
     <script src="js/index.js"></script>
 </body>
 
