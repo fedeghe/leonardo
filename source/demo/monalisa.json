@@ -1,0 +1,10 @@
+{
+    "EXE": [
+        "mkdir -p demo/monalisa/js demo/monalisa/css",
+        "cp source/demo/monalisa/monalisa.jpeg demo/monalisa/monalisa.jpeg",
+        "cp source/demo/monalisa/monaleo.jpg demo/monalisa/monaleo.jpg"
+    ],
+    "source/demo/monalisa/index.js": "demo/monalisa/js -vars=source/vars.json",
+    "source/demo/monalisa/index.less": "demo/monalisa/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/monalisa/index.html": "demo/monalisa -plugins=malta-browser-refresh -vars=source/vars.json"
+}

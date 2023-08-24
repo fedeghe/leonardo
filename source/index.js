@@ -12,11 +12,9 @@ const Leonardo = (function(w) {
 	$$lib/functions.js$$
 	$$lib/Element.js$$
 	
-	var Leo = function (w, h, attrs) {
-		if (!w || !h || w < 0 || h < 0) 
-			throw new Error('width or height not given!');
-		return new L(w, h, attrs);
-	};
+	$$lib/constructor.js$$
+
+	// imports
 	Leo.import = L.import;
 	Leo.getqs = L.getqs;
 	Leo.toString = L.toString;

@@ -172,6 +172,8 @@ L.prototype.positionCruncher = function (width, height, styles, ends) {
 		return acc[midFn](w(e[0]), h(e[1]));
 	}
 	return function (dots) {
+		dots = dots || [];
+		if (!dots.length) return;
 		var build = dots.slice(1).reduce(	
 			builder,
 			self.pathBuild[startFn](w(dots[0][0]), h(dots[0][1]))
