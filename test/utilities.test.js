@@ -127,9 +127,11 @@ describe('Utilities', () => {
                 cruncher = L.positionCruncher(width, height, fillStyle),
                 crunchedPath = cruncher([
                     [10,10], [20,20], [40,40], [50,50]
-                ]);
+                ]),
+                crunched0 = cruncher();
 
 
+            expect(crunched0).toBeUndefined();
             expect(crunchedPath.tag.tagName).toBe('path');
             expect(crunchedPath.getAttributes('d').d).toBe("M20,20l40,40 80,80 100,100");
         });

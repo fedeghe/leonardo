@@ -14,7 +14,9 @@ describe('Animate', () => {
             from: '5',
             to: '10',
             dur: '0.1s',
-            repeatCount: '1'
+            repeatCount: '1',
+            values: 'x',
+            type: 'r'
         }));
         
         expect(c1.childs.length).toBe(1)
