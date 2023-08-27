@@ -38,7 +38,6 @@ window.onload = function () {
                 }),
                 ani1 = Leo.animate.attr({
                     attributeName: 'r',
-                    attributeType: 'XML',
                     type:'scale',
                     from: 1,
                     to: max,
@@ -48,7 +47,6 @@ window.onload = function () {
                 }),
                 ani2 = Leo.animate.attr({
                     attributeName: 'opacity',
-                    attributeType: 'XML',
                     type:'scale',
                     from: 1,
                     to: 0,

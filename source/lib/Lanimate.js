@@ -39,14 +39,18 @@ L.prototype.animate = (function () {
 	}
 
 	function attr(params /* {attributeName, from, to, dur, repeatCount} */) {
-		var animate = new Element('animate');
-		animate.setAttributes({
-			attributeName: params.attributeName,
-			values: params.values,
-            dur: params.dur,
-            begin: params.begin || '0s',
-			repeatCount: params.repeatCount
-		});
+		var animate = new Element('animate'),
+			attrs = {
+				attributeName: params.attributeName,
+				dur: params.dur,
+				begin: params.begin || '0s',
+				repeatCount: params.repeatCount
+			};
+		'from' in params && (attrs.from = params.from);
+		'to' in params && (attrs.to = params.to);
+		'values' in params && (attrs.values = params.values);
+		'type' in params && (attrs.type = params.type);
+		animate.setAttributes(attrs);
 		return animate;
 	};
 
