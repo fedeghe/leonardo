@@ -5,15 +5,12 @@ window.onload = function () {
         rndTuner = document.getElementById('rnd'),
         speed = 0.5,
         rnd = false,
-		width = 500,
-        height = 500,
+		width = 500, height = 500,
         hm = 20,
-		w20 = width / hm,
-		h20 = height / hm,
+		w20 = width / hm, h20 = height / hm,
 		
 		L = Leonardo(width, height, {ns : '*', target : target}),
 		
-		textsG = L.group(),
 		circlesG = L.group(),
 		cg1 = L.group(),
 		cg2 = L.group(),
@@ -25,14 +22,10 @@ window.onload = function () {
 		cg8 = L.group(),
 		cg9 = L.group(),
 		
-		// texts = [],
 		circles = [],
 		
-		text1 = L.text(0, 0, "THINK").setAttributes({'font-size': 30}).move(w20*8.15, h20*18.5),
-		// text2 = L.text(10, 10, "WHAT I WRITE").move(w20*6, h20*2.5),
-		// text3 = L.text(10, 10, "WHAT I SAY").move(w20*7, h20*3.5),
-        // text4 = L.text(10, 10, "WHAT OTHERS UNDESTAND").move(w20*8, h20*5),
-        minWH2 = Math.min(width, height)/2,
+		text1 = L.text(0, 0, "THINK").setAttributes({'font-size': 30}).move(w20 * 8.15, h20 * 18.5),
+        minWH2 = Math.min(width, height) / 2,
 
 		circle1 = L.circle(w20 * 10, h20 * 10, 1 * minWH2).setAttributes({fill : '#FF0D28'}),
 		circle2 = L.circle(w20 * 10, h20 * 11, 0.9 * minWH2).setAttributes({fill : '#F59908'}),
@@ -43,8 +36,6 @@ window.onload = function () {
 		circle7 = L.circle(w20 * 10, h20 * 16, 0.4 * minWH2).setAttributes({fill : '#E475ED'}),
 		circle8 = L.circle(w20 * 10, h20 * 17, 0.3 * minWH2).setAttributes({fill : 'pink'}),
 		circle9 = L.circle(w20 * 10, h20 * 18, 0.2 * minWH2).setAttributes({fill : 'white'});
-
-	// texts.push(text1, text2, text3, text4);
 
 	cg9.append(circle9, text1);
 	cg8.append(circle8, cg9);
@@ -58,10 +49,6 @@ window.onload = function () {
     
 	circles.push(cg1);
 
-	// textsG.append(texts).setAttributes({
-	// 	"stroke-width" : 1.5,
-	// 	"stroke" : 'white'
-	// });;
 	circlesG.append(circles).setAttributes({
 		"stroke-width" : 2.5,
 		"stroke" : 'black',

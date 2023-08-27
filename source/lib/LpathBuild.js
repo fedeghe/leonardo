@@ -13,14 +13,14 @@
  */
 function Pathbuild() {
 	this.path = '';
-	this.previous = null;
+	this.prev = null;
 }
 
-function createFun(letter) {
+function createFun(l /*letter*/) {
 	return function () {
-		var l = this.previous === letter ? ' ' : letter;
-		this.path += [l].concat([[].slice.call(arguments, 0).join(',')]).join('');
-		this.previous = letter;
+		var lp = this.prev === l ? ' ' : l;
+		this.path += [lp].concat([[].slice.call(arguments, 0).join(',')]).join('');
+		this.prev = l;
 		return this;
 	};
 }
@@ -61,40 +61,40 @@ L.prototype.pathBuild = (function () {
 	return pb;
 })();
 
-L.prototype.slice = function (cx, cy, radius, startAngle, endAngle) {
+L.prototype.slice = function (cx, cy, r /* radius */, sa /* startAngle */, ea /* endAngle */) {
 	var self = this,
-		p = self.slicePath(cx, cy, radius, startAngle, endAngle);
+		p = self.slicePath(cx, cy, r, sa, ea);
 	return self.path(p);
 };
 
-L.prototype.slicePath = function (cx, cy, radius, startAngle, endAngle) {
-	var largeArc = 0;
+L.prototype.slicePath = function (cx, cy, r /* radius */, sa /* startAngle */, ea /* endAngle */) {
+	var la /*largeArc*/ = 0;
 
-	if (startAngle > endAngle) {
-		var s = startAngle;
-		startAngle = endAngle;
-		endAngle = s;
+	if (sa > ea) {
+		var s = sa;
+		sa = ea;
+		ea = s;
 	}
-	/*if (Math.abs(endAngle - startAngle) > 360) {
-		endAngle = 359.999;
+	/*if (Math.abs(ea - sa) > 360) {
+		ea = 359.999;
 	}*/
-	largeArc = endAngle - startAngle <= 180 ? 0 : 1;
-	startAngle = deg2rad(startAngle);
-	endAngle = deg2rad(endAngle);
+	la = ea - sa <= 180 ? 0 : 1;
+	sa = deg2rad(sa);
+	ea = deg2rad(ea);
 	return this.pathBuild
 		.M(cx, cy)
 		.L(
-			cx + Math.cos(startAngle) * radius,
-			cy - Math.sin(startAngle) * radius
+			cx + Math.cos(sa) * r,
+			cy - Math.sin(sa) * r
 		)
 		.A(
-			radius,
-			radius,
+			r,
+			r,
 			0,
-			largeArc,
+			la,
 			0,
-			cx + Math.cos(endAngle) * radius,
-			cy - Math.sin(endAngle) * radius
+			cx + Math.cos(ea) * r,
+			cy - Math.sin(ea) * r
 		)
 		.L(cx, cy);
 };

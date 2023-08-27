@@ -62,15 +62,13 @@ window.onload = function () {
                 .move(0, 200);
         thunder.append(L.animate.attr({
             attributeName: 'stroke',
-            from: '#ff660077;#ffaa00aa;#ff660077',
-            to: '#fede7677;#ffaa00aa;#fede7677',
+            values: '#ff660077;#ffaa00aa;#ff660077',
             dur: '0.3s',
             repeatCount: 'indefinite'
         }))
         thunder.append(L.animate.attr({
             attributeName: 'fill',
-            from: '#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#000',
-            to: '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff',
+            values: '#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#aa55ff;#000',
             dur: '5s',
             repeatCount: 'indefinite'
         }))
@@ -146,16 +144,14 @@ window.onload = function () {
 
         thunder.append(L.animate.attr({
             attributeName: 'stroke',
-            from: '#ff660077;#ffaa00aa;#ff660077',
-            to: '#aa660077;#ffaa00aa;#aa660077',
+            values: '#ff6600;#ffaa00aa;#ff660077',
             dur: '0.3s',
             repeatCount: 'indefinite'
         }));
 
         thunder.append(L.animate.attr({
             attributeName: 'fill',
-            from: '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff',
-            to: '#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00ee00;#00',
+            values: '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff',
             dur: '5s',
             repeatCount: 'indefinite'
         }));
@@ -217,15 +213,13 @@ window.onload = function () {
                 .move(0, 200);
         thunder.append(L.animate.attr({
             attributeName: 'stroke',
-            from: '#ff660077;#ffaa00aa;#ff660077',
-            to: '#ff66ff77;#ffaa00aa;#ff66ff77',
+            values: '#ff660077;#ffaa00aa;#ff660077',
             dur: '0.3s',
             repeatCount: 'indefinite'
         }))
         thunder.append(L.animate.attr({
             attributeName: 'fill',
-            from: '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff',
-            to: '#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#11aa55;#555',
+            values: '#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#eeee00;#fff',
             dur: '5s',
             repeatCount: 'indefinite'
         }))

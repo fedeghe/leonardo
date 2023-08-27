@@ -41,10 +41,8 @@ L.prototype.animate = (function () {
 	function attr(params /* {attributeName, from, to, dur, repeatCount} */) {
 		var animate = new Element('animate');
 		animate.setAttributes({
-			attributeType: 'XML',
 			attributeName: params.attributeName,
-			from: params.from,
-			to: params.to,
+			values: params.values,
             dur: params.dur,
             begin: params.begin || '0s',
 			repeatCount: params.repeatCount
