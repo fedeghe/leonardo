@@ -1,0 +1,8 @@
+{
+    "EXE": [
+        "mkdir -p demo/vrr/js demo/vrr/css",
+        "touch demo/vrr/css/index.css"
+    ],
+    "source/demo/vrr/index.js": "demo/vrr/js -vars=source/vars.json",
+    "source/demo/vrr/index.html": "demo/vrr -plugins=malta-browser-refresh -vars=source/vars.json"
+}

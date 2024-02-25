@@ -1,5 +1,5 @@
 ![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.svg "... do not dare scum human!")
-leonardo javascript svg library v. 1.0.31
+leonardo javascript svg library v. 1.0.32
 
 [![Coverage Status](https://coveralls.io/repos/github/fedeghe/leonardo/badge.svg?branch=master)](https://coveralls.io/github/fedeghe/leonardo?branch=master)
 
@@ -74,6 +74,10 @@ Returns a `<ellipse>` tag centered at `{cx, cy}` with radiuses `rx` and `ry`.
 var myGroup = L.group()
 ```
 Returns a group `<g>` tag.
+Optionally you can pass one or more elements to it  
+`L.group(a, b, c)`  
+for appending instead of invoke after `myGroup.append(a, b, c)`  
+
 
 ### \<image\>
 ``` js

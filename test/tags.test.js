@@ -44,11 +44,20 @@ describe('Tags', () => {
         const width = 200,
             height = 100,
             L = Leo(width, height, {ns : '*'}),
-            txt = 'a text',
             tag = L.group();
         L.append(tag);
         const spot = L.tag.children[0]
         expect(spot.tagName).toBe('g');
+    })
+    test('<g> append in constructor', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height, {ns : '*'}),
+            txt = L.line(0, 0, 5, 5),
+            rootg = L.group(txt);
+        L.append(rootg);
+        const line = rootg.tag.children[0]
+        expect(line.tagName).toBe('line');
     });
 
     test('<image> ', () => {

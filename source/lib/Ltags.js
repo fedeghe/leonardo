@@ -50,8 +50,10 @@ L.prototype.ellipse = function (cx, cy, rx, ry) {
  *
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.group = function () {
-	return new Element('g');
+L.prototype.group = function (a) {
+	var g = new Element('g');
+	if (a) g.append([].slice.call(arguments, 0))
+	return g;
 };
 
 /**

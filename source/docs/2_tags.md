@@ -32,6 +32,10 @@ Returns a `<ellipse>` tag centered at `{cx, cy}` with radiuses `rx` and `ry`.
 var myGroup = L.group()
 ```
 Returns a group `<g>` tag.
+Optionally you can pass one or more elements to it  
+`L.group(a, b, c)`  
+for appending instead of invoke after `myGroup.append(a, b, c)`  
+
 
 ### \<image\>
 ``` js

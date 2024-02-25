@@ -1,6 +1,9 @@
 {
     "AUTHOR": "Federico Ghedina <federico.ghedina@gmail.com>",
     "DEMO": {
+        "VRR": {
+            "TITLE": "Leonardo VRR"
+        },
         "MONDAINE": {
             "TITLE": "Leonardo MONDAINE"
         },

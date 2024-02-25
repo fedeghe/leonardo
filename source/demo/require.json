@@ -2,7 +2,8 @@
     "EXE": [
         "mkdir -p demo/media",
         "cp -r source/demo/media/* demo/media/",
-        "cp -r dist demo/"
+        "cp -r dist demo/",
+        "touch demo/index.css"
     ],
     "source/demo/*.html": "demo -plugins=malta-browser-refresh...malta-dev-srv[folder:\"demo\"] -vars=source/vars.json",
     "source/demo/mondaine.json": true,
@@ -11,6 +12,7 @@
     "source/demo/understand.json": true,
     "source/demo/playground.json": true,
     "source/demo/synchazard.json": true,
+    "source/demo/vrr.json": true,
     "source/demo/polarwatch.json": true,
     "source/demo/circles.json": true,
     "source/demo/cver.json": true,
