@@ -53,9 +53,18 @@ describe('extra', () => {
         const width = 200,
             height = 100,
             L = Leo(width, height, {ns : '*'}),
-            arcSection = L.arcSection(50, 50, 10, 20, Math.PI/3, 2*Math.PI/3);
+            arcSection1 = L.arcSection(50, 50, 10, 20, Math.PI/3, 2*Math.PI/3);
+            arcSection2 = L.arcSection(50, 50, 10, 20, Math.PI/3, 2*Math.PI/3, 0);
+            arcSection3 = L.arcSection(50, 50, 10, 20, Math.PI/3, 2*Math.PI/3, 0, 1);
+            arcSection4 = L.arcSection(50, 50, 10, 20, Math.PI/3, 2*Math.PI/3, 1, 1);
         
-        expect(arcSection.tag.tagName).toBe('path');
-        expect(arcSection.tag.getAttribute('d')).toBe('M55,58.66025403784438L60,67.32050807568876A20,20,0,0,1,40,67.32050807568878L45,58.66025403784439A10,10,0,0,0,55,58.66025403784438Z');
+        expect(arcSection1.tag.tagName).toBe('path');
+        expect(arcSection2.tag.tagName).toBe('path');
+        expect(arcSection3.tag.tagName).toBe('path');
+        expect(arcSection4.tag.tagName).toBe('path');
+        expect(arcSection1.tag.getAttribute('d')).toBe('M55,58.66025403784438L60,67.32050807568876A20,20,0,0,1,40,67.32050807568878L45,58.66025403784439A10,10,0,0,0,55,58.66025403784438Z');
+        expect(arcSection2.tag.getAttribute('d')).toBe('M55,58.66025403784438L60,67.32050807568876A20,20,0,0,0,40,67.32050807568878L45,58.66025403784439A10,10,0,0,0,55,58.66025403784438Z');
+        expect(arcSection3.tag.getAttribute('d')).toBe('M55,58.66025403784438L60,67.32050807568876A20,20,0,0,0,40,67.32050807568878L45,58.66025403784439A10,10,0,0,1,55,58.66025403784438Z');
+        expect(arcSection4.tag.getAttribute('d')).toBe('M55,58.66025403784438L60,67.32050807568876A20,20,0,0,1,40,67.32050807568878L45,58.66025403784439A10,10,0,0,1,55,58.66025403784438Z');
     });
 });
