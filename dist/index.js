@@ -4,7 +4,7 @@
 |  |  |   __|     |   | |  _  | __  |    \|     |
 |  |__|   __|  |  | | | |     |    -|  |  |  |  |
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
-                                                  V. 1.0.33
+                                                  V. 1.0.34
 
 Federico Ghedina <federico.ghedina@gmail.com> 2024
 ~15.17KB
@@ -72,7 +72,7 @@ attributeName:t.attributeName,dur:t.dur,begin:t.begin||"0s",repeatCount:t.repeat
 ;return s.setAttributes({id:t}),a.tag.innerHTML=n,a.tag.setAttributeNS(h.xlink,"xlink:href","#"+t),o.append(i),o.append(a),i.append(s),o},e.prototype.centeredText=function(t,e,n,r){
 var o=this.group(),i=d(),s=new l("path"),a=new l("text"),p=new l("textPath");return s.setAttributes({id:i,pathLength:t,d:"M0 "+e/2+"h"+t,height:0,"stroke-opacity":0}),r=r||{},r.href="#"+i,
 r["text-anchor"]="middle",r["dominant-baseline"]="middle",r.startOffset=t/4,p.setAttributes(r),p.tag.innerHTML=n,a.append(p),o.append(s,a),o.updateText=function(t){p.tag.innerHTML=t},o},
-e.prototype.arcCentered=function(t,e,n,r,o){var i=new l("path");return i.setAttributes({d:u(t,e,n,r,o)}),i},e.prototype.arcSection=function(t,e,n,r,o,i,s,a){return s=void 0===s?1:s,a=void 0===a?1:a,
+e.prototype.arcCentered=function(t,e,n,r,o){var i=new l("path");return i.setAttributes({d:u(t,e,n,r,o)}),i},e.prototype.arcSection=function(t,e,n,r,o,i,s,a){return s=void 0===s?1:s,a=void 0===a?0:a,
 this.path(this.pathBuild.M(t+n*Math.cos(o),e+n*Math.sin(o)).L(t+r*Math.cos(o),e+r*Math.sin(o)).A(r,r,0,0,s,t+r*Math.cos(i),e+r*Math.sin(i)).L(t+n*Math.cos(i),e+n*Math.sin(i)).A(n,n,0,0,a,t+n*Math.cos(o),e+n*Math.sin(o)).Z())
 };var d=function(){var t=0;return function(){return"leo_id_"+ ++t}}(),y=0;l.prototype.setAttributes=e.prototype.setAttributes,l.prototype.getAttributes=e.prototype.getAttributes,
 l.prototype.setStyles=e.prototype.setStyles,l.prototype.getStyles=e.prototype.getStyles,l.prototype.append=e.prototype.append,l.prototype.remove=e.prototype.remove,l.prototype.on=function(t,e){

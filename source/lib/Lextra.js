@@ -82,7 +82,7 @@ L.prototype.arcCentered = function (cx, cy, r, from, to) {
 
 L.prototype.arcSection = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
     vrs1 = typeof vrs1 === 'undefined' ? 1 : vrs1;
-    vrs2 = typeof vrs2 === 'undefined' ? 1 : vrs2;
+    vrs2 = typeof vrs2 === 'undefined' ? 0 : vrs2;
     return this.path(
         this.pathBuild
             .M(cx + r1 * Math.cos(from), cy + r1 * Math.sin(from))

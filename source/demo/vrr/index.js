@@ -55,26 +55,26 @@ window.onload = function () {
             cx = 400, cy = 400,
             linex = Leo.line(400,0,400,800).setAttributes(attrs),
             liney = Leo.line(0,400,800,400).setAttributes(attrs),
-            // slice2 = Leo.path(Leo.pathBuild
-            //     // .M(cx, cy)
-            //     .M(cx + r1*Math.cos(A1), cy + r1*Math.sin(A1))
-            //     .L(cx + r2*Math.cos(A1), cy + r2*Math.sin(A1))
+            slice2 = Leo.path(Leo.pathBuild
+                // .M(cx, cy)
+                .M(cx + r1*Math.cos(A1), cy + r1*Math.sin(A1))
+                .L(cx + r2*Math.cos(A1), cy + r2*Math.sin(A1))
                 
-            //     .A(
-            //         r2, r2,
-            //         0,0,1,
-            //         cx +r2*Math.cos(A2), cy+r2*Math.sin(A2),
-            //     )
-            //     .L(cx + r1*Math.cos(A2), cy+r1*Math.sin(A2))
-            //     .A(
-            //         r1,r1,
-            //         0,0,0,
-            //         cx+ r1*Math.cos(A1), cy + r1*Math.sin(A1),
-            //     )
-            //     .Z()
-            // ).setAttributes(attrs).setAttributes({fill:'#f00'}),
+                .A(
+                    r2, r2,
+                    0,0,1,
+                    cx +r2*Math.cos(A2), cy+r2*Math.sin(A2),
+                )
+                .L(cx + r1*Math.cos(A2), cy+r1*Math.sin(A2))
+                .A(
+                    r1,r1,
+                    0,0,0,
+                    cx+ r1*Math.cos(A1), cy + r1*Math.sin(A1),
+                )
+                .Z()
+            ).setAttributes(attrs).setAttributes({fill:'#f00'}),
             //done in one line by the following
-            slice2 = Leo.arcSection(cx, cy, r1,r2,A1,A2).setAttributes(attrs).setAttributes({fill:'#f00'}),
+            // slice2 = Leo.arcSection(cx, cy, r1,r2,A1,A2).setAttributes(attrs).setAttributes({fill:'#f00'}),
             slice3 = Leo.arcSection(cx, cy, r1,r2,A3,A4).setAttributes(attrs).setAttributes({fill:'#f70'}),
 
 
