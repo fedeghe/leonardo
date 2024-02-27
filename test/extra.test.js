@@ -49,4 +49,13 @@ describe('extra', () => {
         expect(arcCentered.tag.tagName).toBe('path');
         expect(arcCentered.tag.getAttribute('d')).toBe('M 50 50 L 55 41.33974596215562 A 10 10 0 0 0 45 41.33974596215561 Z');
     });
+    it('arcSection ', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height, {ns : '*'}),
+            arcSection = L.arcSection(50, 50, 10, 20, Math.PI/3, 2*Math.PI/3);
+        
+        expect(arcSection.tag.tagName).toBe('path');
+        expect(arcSection.tag.getAttribute('d')).toBe('M55,58.66025403784438L60,67.32050807568876A20,20,0,0,1,40,67.32050807568878L45,58.66025403784439A10,10,0,0,0,55,58.66025403784438Z');
+    });
 });

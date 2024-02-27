@@ -106,7 +106,14 @@ to be documented
 var myTextPath = L.textPath(id, d, content)
 ```
 If we want a text to follow a path then a single tag is not [enough](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/textPath)
-This function returns an element which contains all is needed given an `id`, a `d` data for the path and a `content` string. 
+This function returns an element which contains all is needed given an `id`, a `d` data for the path and a `content` string.
+
+
+### \<arcSection\>  
+``` js
+var myArcSection = L.arcSection(centerX, centerX, innerRadius, outerRadius, fromAngle, toAngle, outerVersus=1, innerVersus=0)
+```
+If we want a section of a circle slice.
 
 ## need more
 Svg tags are really [so many](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) and I just tried to cover the very most common. In case you need to use a tag not contempled here you can still use `.Element`: 

@@ -28,8 +28,8 @@ window.onload = function () {
             h = function (i) {return size * i/1E3;},
             attrs = {
                 // "stroke-width" : h(20),
-                // "stroke" : 'white',
-                // "stroke-opacity" : 1,
+                "stroke" : 'red',
+                "stroke-opacity" : 1,
                 "fill-opacity" : 1,
                 // "stroke-linejoin" : "round",
                 fill : 'none'
@@ -39,15 +39,44 @@ window.onload = function () {
             Leo = Leonardo(size, size),
             slice = Leo.path(Leo.pathBuild
                 .M(w(500), h(500))
-                .L(w(500), h(0))
+                .L(w(0), h(500))
                 .A(
                     w(500), w(500),
                     0,0,1,
-                    w(1000), w(500),
+                    w(500), w(0),
                 )
                 .M(w(500), h(500))
                 .Z()
             ).setAttributes(attrs).setAttributes({fill:'#f00'}),
+            r1 = 100, r2 = 200,
+            // A1 = Math.PI/3, A2 = 2*Math.PI/3,
+            A1 = Math.PI/3, A2 = 2*Math.PI/3,
+            A3 = 4*Math.PI/3, A4 = 5*Math.PI/3,
+            cx = 400, cy = 400,
+            linex = Leo.line(400,0,400,800).setAttributes(attrs),
+            liney = Leo.line(0,400,800,400).setAttributes(attrs),
+            // slice2 = Leo.path(Leo.pathBuild
+            //     // .M(cx, cy)
+            //     .M(cx + r1*Math.cos(A1), cy + r1*Math.sin(A1))
+            //     .L(cx + r2*Math.cos(A1), cy + r2*Math.sin(A1))
+                
+            //     .A(
+            //         r2, r2,
+            //         0,0,1,
+            //         cx +r2*Math.cos(A2), cy+r2*Math.sin(A2),
+            //     )
+            //     .L(cx + r1*Math.cos(A2), cy+r1*Math.sin(A2))
+            //     .A(
+            //         r1,r1,
+            //         0,0,0,
+            //         cx+ r1*Math.cos(A1), cy + r1*Math.sin(A1),
+            //     )
+            //     .Z()
+            // ).setAttributes(attrs).setAttributes({fill:'#f00'}),
+            //done in one line by the following
+            slice2 = Leo.arcSection(cx, cy, r1,r2,A1,A2).setAttributes(attrs).setAttributes({fill:'#f00'}),
+            slice3 = Leo.arcSection(cx, cy, r1,r2,A3,A4).setAttributes(attrs).setAttributes({fill:'#f70'}),
+
 
 
             
@@ -62,8 +91,10 @@ window.onload = function () {
                 .setAttributes({fill:'#000'}),
             arc4 = Leo.arcCentered(w(500), h(500), h(500), 300.5, 360)
                 .setAttributes(attrs)
-                .setAttributes({fill:'#a0a'});
-            g = Leo.group(arc, arc2, arc3, arc4);
+                .setAttributes({fill:'#a0a'}),
+            g = Leo.group(linex, liney, slice2, slice3);
+                // , arc, arc2, arc3, arc4
+                // );
 
         
         // g.append();
