@@ -83,20 +83,24 @@ L.prototype.arcCentered = function (cx, cy, r, from, to) {
 L.prototype.arcSection = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
     vrs1 = typeof vrs1 === 'undefined' ? 1 : vrs1;
     vrs2 = typeof vrs2 === 'undefined' ? 0 : vrs2;
+    var startOut = polarToCartesian(cx, cy, r2, from),
+        endOut = polarToCartesian(cx, cy, r2, to),
+        startIn = polarToCartesian(cx, cy, r1, to),
+        endIn = polarToCartesian(cx, cy, r1, from);
     return this.path(
         this.pathBuild
-            .M(cx + r1 * Math.cos(from), cy + r1 * Math.sin(from))
-            .L(cx + r2 * Math.cos(from), cy + r2 * Math.sin(from))
+            .M(endIn.x, endIn.y)
+            .L(startOut.x, startOut.y)
             .A(
                 r2, r2,
                 0, 0, vrs1,
-                cx + r2 * Math.cos(to), cy + r2 * Math.sin(to)
+                endOut.x, endOut.y
             )
-            .L(cx + r1 * Math.cos(to), cy + r1 * Math.sin(to))
+            .L(startIn.x, startIn.y)
             .A(
                 r1, r1,
                 0, 0, vrs2,
-                cx + r1 * Math.cos(from), cy + r1 * Math.sin(from)
+                endIn.x, endIn.y
             )
             .Z()
     );

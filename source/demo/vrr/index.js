@@ -51,7 +51,7 @@ window.onload = function () {
             r1 = 100, r2 = 200,
             // A1 = Math.PI/3, A2 = 2*Math.PI/3,
             A1 = Math.PI/3, A2 = 2*Math.PI/3,
-            A3 = 4*Math.PI/3, A4 = 5*Math.PI/3,
+            A3 = 60, A4 = 120,
             cx = 400, cy = 400,
             linex = Leo.line(400,0,400,800).setAttributes(attrs),
             liney = Leo.line(0,400,800,400).setAttributes(attrs),
@@ -92,7 +92,7 @@ window.onload = function () {
             arc4 = Leo.arcCentered(w(500), h(500), h(500), 300.5, 360)
                 .setAttributes(attrs)
                 .setAttributes({fill:'#a0a'}),
-            g = Leo.group(linex, liney, slice2, slice3);
+            g = Leo.group(arc, linex, liney, /*slice2,*/ slice3);
                 // , arc, arc2, arc3, arc4
                 // );
 
