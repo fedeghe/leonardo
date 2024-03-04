@@ -51,7 +51,7 @@ L.prototype.downloadAnchor = function (txt, name) {
     name = name || 'download';
 	
 	a.download = name + '\.svg';
-	a.href = this.downloadHref();
+	a.href = this.dataEncoded();
 	// a.addEventListener('click', function () {
 	// 	this.download = name + '\.svg'
 	// })
@@ -71,7 +71,7 @@ L.prototype.toImageTag = function (title, alt) {
     alt = alt || '';
 	i.setAttribute('title', title);
 	i.setAttribute('alt', alt);
-	i.src = this.downloadHref();
+	i.src = this.dataEncoded();
 	return i;
 };
 
@@ -199,7 +199,7 @@ L.prototype.positionCruncher = function (width, height, styles, ends) {
 	};
 }
 
-L.prototype.downloadHref = function () {
+L.prototype.dataEncoded = function () {
 	var serializer = new XMLSerializer(),
 		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag);
 	/* istanbul ignore else */
