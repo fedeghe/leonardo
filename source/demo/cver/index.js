@@ -67,4 +67,7 @@ window.onload = function () {
     Leo.append(main.move(40, 90));
     Leo.render();
     document.body.appendChild(Leo.downloadAnchor())
+
+    var img = Leo.toImageTag();
+    target.appendChild(img);
 }

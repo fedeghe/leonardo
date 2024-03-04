@@ -61,6 +61,22 @@ L.prototype.downloadAnchor = function (txt, name) {
 
 /**
  * 
+ * @param {*} title 
+ * @param {*} alt 
+ * @returns 
+ */
+L.prototype.toImageTag = function (title, alt) {
+	var i = document.createElement('img');
+    title = title || '';
+    alt = alt || '';
+	i.setAttribute('title', title);
+	i.setAttribute('alt', alt);
+	i.src = this.downloadHref();
+	return i;
+};
+
+/**
+ * 
  * @returns 
  */
 /* istanbul ignore next */
