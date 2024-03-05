@@ -4,7 +4,7 @@ leonardo javascript svg library v. 1.0.38
 [![Coverage Status](https://coveralls.io/repos/github/fedeghe/leonardo/badge.svg?branch=master)](https://coveralls.io/github/fedeghe/leonardo?branch=master)
 
 
-A simple library to draw sgv
+A simple library to draw sgv programmatically
 
 
 ... no, neither this libray neither the svg above have nothing to deal with [Leonardo da Vinci](https://en.wikipedia.org/wiki/Leonardo_da_Vinci), it is inspired by "La creazione di Adamo" painted by [Michelangelo Buonarroti](https://en.wikipedia.org/wiki/Michelangelo) (Cappella Sistina, Rome, 1508–1512 A.C.)
