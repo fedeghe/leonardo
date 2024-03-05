@@ -1,0 +1,9 @@
+{
+    "EXE": [
+        "mkdir -p demo/vitruvian/js demo/vitruvian/css",
+        "cp source/demo/vitruvian/vitruvian.jpg demo/vitruvian/vitruvian.jpg"
+    ],
+    "source/demo/vitruvian/index.js": "demo/vitruvian/js -vars=source/vars.json",
+    "source/demo/vitruvian/index.less": "demo/vitruvian/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/vitruvian/index.html": "demo/vitruvian -plugins=malta-browser-refresh -vars=source/vars.json"
+}
