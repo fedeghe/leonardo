@@ -7,7 +7,7 @@ leonardo javascript svg library v. 1.0.38
 A simple library to draw sgv
 
 
-... no, neither this libray neither the svg above have nothing to deal with [Leonardo da Vinci](https://en.wikipedia.org/wiki/Leonardo_da_Vinci), it is takes from "La creazione di Adamo" painted by [Michelangelo Buonarroti](https://en.wikipedia.org/wiki/Michelangelo) (Cappella Sistina, Rome, 1508–1512 A.C.)
+... no, neither this libray neither the svg above have nothing to deal with [Leonardo da Vinci](https://en.wikipedia.org/wiki/Leonardo_da_Vinci), it is inspired by "La creazione di Adamo" painted by [Michelangelo Buonarroti](https://en.wikipedia.org/wiki/Michelangelo) (Cappella Sistina, Rome, 1508–1512 A.C.)
 
 ## Install Leonardo
 
