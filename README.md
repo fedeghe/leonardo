@@ -1,10 +1,13 @@
-![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/leonardo.svg "... do not dare scum human!")
+![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.svg "... do not dare scum human!")
 leonardo javascript svg library v. 1.0.38
 
 [![Coverage Status](https://coveralls.io/repos/github/fedeghe/leonardo/badge.svg?branch=master)](https://coveralls.io/github/fedeghe/leonardo?branch=master)
 
 
 A simple library to draw sgv
+
+
+... no, neither this libray neither the svg above have nothing to deal with [Leonardo da Vinci](https://en.wikipedia.org/wiki/Leonardo_da_Vinci), it is takes from "La creazione di Adamo" painted by [Michelangelo Buonarroti](https://en.wikipedia.org/wiki/Michelangelo) (Cappella Sistina, Rome, 1508–1512 A.C.)
 
 ## Install Leonardo
 
