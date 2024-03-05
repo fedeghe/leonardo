@@ -8,7 +8,7 @@ window.onload = function () {
             height = parseInt(width / prop, 10),
             w = function (p) {return width * p/100;},
             h = function (p) {return height * p/100;},
-            Leo = Leonardo(width, height, { ns: '*', target: target }).setStyles({backgroundColor: '#222'}),
+            Leo = Leonardo(width, height, { ns: '*', target: target }).setStyles({backgroundColor: '#22222200'}),
             img = Leo.image(0,0,width, height, './vitruvian.jpg').setAttributes({opacity: 0.4}),
             fillStyle = {
                 "stroke-width": 2,
