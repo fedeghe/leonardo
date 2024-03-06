@@ -283,6 +283,7 @@ window.onload = function () {
         
         Leo.render();
         Leo.positionInspector('[{r%x}, {r%y}],');
+        document.body.appendChild(Leo.downloadAnchor());
     }
     render();
     window.addEventListener('resize', render);
