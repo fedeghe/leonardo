@@ -1,14 +1,15 @@
 window.onload = function () {
 
     function render() {
+        console.log(Leonardo);
         var target = document.getElementById('trg'),
             prop = 422 / 436,
             // width = Math.min(987, window.innerWidth-50),
             width = window.innerWidth - 50,
             height = parseInt(width / prop, 10),
-            w = function (p) { return width * p / 100; },
-            h = function (p) { return height * p / 100; },
             Leo = Leonardo(width, height, { ns: '*', target: target }).setStyles({ backgroundColor: '#22222200' }),
+            w = Leonardo.getScaler(width), //function (p) { return width * p / 100; },
+            h = Leonardo.getScaler(height), //function (p) { return height * p / 100; },
             img = Leo.image(0, 0, width, height, './vitruvian.jpg').setAttributes({ opacity: 0.4 }),
             fillStyle = {
                 "stroke-width": 2,
@@ -685,7 +686,9 @@ window.onload = function () {
 
         Leo.render();
         Leo.positionInspector('[{r%x}, {r%y}],');
-        document.body.appendChild(Leo.downloadAnchor());
+        Leo.downloadAnchor('download', 'vitruvian', document.body);
+
+        
     }
     render();
     window.addEventListener('resize', render);

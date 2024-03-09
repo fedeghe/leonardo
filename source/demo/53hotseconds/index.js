@@ -10,8 +10,10 @@ window.onload = function () {
 		container = L.group(),
 		logo = L.group(),
 
-        w = function (i) {return width * i/1E3 * zoom;},
-		h = function (i) {return height * i/1E3 * zoom;},
+        // w = function (i) {return width * i/1E3 * zoom;},
+		// h = function (i) {return height * i/1E3 * zoom;},
+        w = L.getScaler(width, 1e3, zoom),
+        h = L.getScaler(height, 1e3, zoom),
 
         bg = L.rect(0,0,w(1000),h(1000)).setAttributes({
             fill:'#FF0000',

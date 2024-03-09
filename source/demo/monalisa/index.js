@@ -6,8 +6,7 @@ window.onload = function () {
             // width = Math.min(987, window.innerWidth-50),
             width = window.innerWidth-50,
             height = parseInt(width / prop, 10),
-            w = function (p) {return width * p/100;},
-            h = function (p) {return height * p/100;},
+            
             Leo = Leonardo(width, height, { ns: '*', target: target }).setStyles({backgroundColor: '#222'}),
             img = Leo.image(0,0,width, height, './monaleo.jpg').setAttributes({opacity: 0.4}),
             fillStyle = {

@@ -11,8 +11,10 @@ window.onload = function () {
 		L = Leonardo(width, height, {id : 'hero'}),
 		title = L.title('hero'),
 		container = L.group(),
-		w = function (i) {return i * width/800;},
-		h = function (i) {return i * height/1600;},
+		// w = function (i) {return i * width/800;},
+		// h = function (i) {return i * height/1600;},
+		w = L.getScaler(width, 800),
+        h = L.getScaler(height, 1600),
 
 		vest = L.path(L.pathBuild
 			.M(w(300), h(605))

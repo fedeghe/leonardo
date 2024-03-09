@@ -7,13 +7,8 @@ window.onload = function () {
         var width = 500,
             height = 500,
             min = width > height ? height : width,
-            wperc = width / 100,
-            hperc = height / 100,
-            mperc = min / 100,
-            
-            w = function(n) {return n * wperc; },
-            h = function(n) {return n * hperc; },
-            m = function(n) {return n * mperc; },
+            w = Leonardo.getScaler(width),
+            h = Leonardo.getScaler(height),
             w2 = w(50),
             h2 = h(50),
             els = [{

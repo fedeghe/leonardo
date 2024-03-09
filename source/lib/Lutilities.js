@@ -44,18 +44,20 @@ L.prototype.fadeOut = function (t, target) {
  * @param {*} name 
  * @returns 
  */
-L.prototype.downloadAnchor = function (txt, name) {
-	var a = document.createElement('a');
-  
-    txt = txt || 'download';
-    name = name || 'download';
-	
-	a.download = name + '\.svg';
+L.prototype.downloadAnchor = function (txt, name, appendTo) {
+	var a = document.createElement('a'),
+		id = appendTo && 'leo---append-anchor-id';
+	a.download = (name || 'download') + '\.svg';
 	a.href = this.dataEncoded();
-	// a.addEventListener('click', function () {
-	// 	this.download = name + '\.svg'
-	// })
-	a.innerHTML = txt;
+	a.innerHTML = txt || 'download';
+	if (id) {
+		a.id = id;
+		if (document.getElementById(id)) {
+			return null
+		} else {
+			appendTo.appendChild(a);
+		}
+	}
 	return a;
 };
 
@@ -173,16 +175,10 @@ L.prototype.positionInspector = function (tpl) {
 
 L.prototype.positionCruncher = function (width, height, styles, ends) {
 	var self = this,
-		precision = 1,
 		startFn = 'M',
 		midFn = 'l',
-		getPsize = function (n) {
-			return function (p) {
-				return parseFloat((n * p/100).toFixed(precision), 10);
-			}
-		},
-		w = getPsize(width),
-		h = getPsize(height);
+		w = L.getScaler(width),
+		h = L.getScaler(height);
 
 	function builder(acc, e) {
 		return acc[midFn](w(e[0]), h(e[1]));

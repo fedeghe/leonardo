@@ -10,8 +10,10 @@ window.onload = function () {
 		container = L.group(),
 		logo = L.group(),
 
-        w = function (i) {return width * i/1E3 * zoom;},
-		h = function (i) {return height * i/1E3 * zoom;},
+        // w = function (i) {return width * i/1E3 * zoom;},
+		// h = function (i) {return height * i/1E3 * zoom;},
+        w = L.getScaler(width, 1e3, zoom),
+        h = L.getScaler(height, 1e3, zoom),
         grad = L.linearGradient([
             {perc: 0, color: "#f00"},
             {perc: 10, color: "#f60"},
