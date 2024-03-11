@@ -1,36 +1,106 @@
 window.onload = function () {
 	var target = document.getElementById('trg'),
-		size = 250,
+		size = 600,
 		width = size,
 		height = size,
-		gridNum = 50,
+		gridNum = 100,
 		tileSize = size / gridNum,
 		L = Leonardo(width, height, {ns : '*', target : target}),
-		id = 0;
+		base = L.rect(0, 0, tileSize);
 
-	var rect = L.rect(0, 0, tileSize),
-		g = L.group();
+	function Cell(x, y, alive){
+		this.tag = base.clone();
+		this.alive = alive;
+		this.x = x;
+		this.y = y;
+		this.tag.move(
+			this.x * tileSize,
+			this.y * tileSize
+		).setAttributes({
+			fill: this.alive ? '#000' : 'transparent'
+		});
+	}
+	Cell.prototype.setState = function (s) {this.alive = s;};
 
-	for (var i = 0; i < gridNum; i++) {
-		for (var j = 0, attrs = {}, t; j < gridNum; j++) {
-			fixed = Math.random() > 0.8;
-			attrs = {'fill': fixed ? '#000' : 'transparent'};
-			if (!fixed) {
-				t = ['circle', 'dot', 'link'][~~(Math.random() * 3)];
-				attrs['data-element-id']= 'ID' + id++;
-				attrs['data-element-type'] = t;
-				attrs['data-element-data'] = t + '_data';
-			}
-
-			L.append(g.clone().setAttributes(attrs).append(
-				rect.clone().move(
-					i * tileSize,
-					(j % gridNum) * tileSize
-				)
-			));
-		}
+	function Matrix (target,) {
+		var self = this;
+		this.target = target;
+		this.data = Array.from({ length: gridNum}, (_, i) => 
+			Array.from({ length: gridNum}, (_, j) => new Cell(i, j,  Math.random() > 0.8))
+		);
+		this.data.forEach(row => row.forEach(cell => self.target.append(cell.tag)));
 	}
 
+
+	function getNeighbours(mat, r, c) {
+		return [
+			mat?.[r-1]?.[c-1],
+			mat?.[r-1]?.[c],
+			mat?.[r-1]?.[c+1],
+			mat?.[r]?.[c-1],
+			
+			// mat?.[r]?.[c],
+			
+			mat?.[r]?.[c+1],
+			mat?.[r+1]?.[c-1],
+			mat?.[r+1]?.[c],
+			mat?.[r+1]?.[c+1],
+		]
+	}
+	Matrix.prototype.getAliveNeighboursCount = function (r, c) {
+		var self = this;
+		var neighbours = getNeighbours(self.data, r, c);
+		// debugger;
+		// console.log({r,c, neighbours})
+		return neighbours.reduce((acc, el) => {
+			// debugger;
+			return acc + (el ? (self.data[el.x][el.y].alive ? 1 : 0) : 0);
+		}, 0)
+	};
+
+	Matrix.prototype.calculateNextState = function () {
+		var self = this,
+			newState = this.data.map(
+				(row, i) => row.map(
+					(_, j) => {
+						var n = self.getAliveNeighboursCount(i, j),
+							newState = false; //default death
+						
+						if (n === 2) {
+							newState = self.data[i][j].alive;
+						} else if (n === 3) {
+							newState = true;
+						}
+						return newState;
+					}
+				)
+			);
+		
+		newState.forEach((row, i) => 
+			row.forEach((v, j) => {
+				self.data[i][j].alive = v;
+				self.data[i][j].tag.setAttributes({
+					fill: v ? '#f70' : 'transparent'
+				})
+
+			})
+		);
+		
+		requestAnimationFrame(() => self.calculateNextState())
+	};
+
+
+
+	var m = new Matrix(L
+	// 	, [
+	// 	[1,1], [1,2], [1,3]
+	// 		   [2,2], [2,3]
+	// ]
+	);
+	
+	m.calculateNextState();
+
 	L.render({target: document.getElementById('trg')});
+
 	document.body.appendChild(L.downloadAnchor());
 };
