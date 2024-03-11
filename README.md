@@ -421,10 +421,10 @@ instance.animate.polar(tag, funcR, funcPHI, t) // returns stopper function
 instance.positionInspector(config)
 ```
 
-To me happened many times to draw by hand something and then having the need to move that into an `<svg>`.  
-If you ever tried you are perfectly aware of how much time this can take (I'm clearly considering the programmatinc way). The `positionInspector` utility aim to offer a tool to come and help in such cases.
+To me happened many times to draw by hand something or target a specific image and then having the need to move that into an `<svg>` path.  
+If you ever tried you are perfectly aware of how much time this can take (I'm clearly considering the programmatinc way). The `positionInspector` utility aims to offer a tool to come and help in such cases.
 
-Let's say we target a random image 🥰, and we would have a raw silouhette version of it : 
+Let's say we target a random image 🥰, and we want a raw silouhette path (`<p>`) of it : 
 
 ![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.jpg "... do not dare scum human!")
 
@@ -450,6 +450,11 @@ window.onload = function () {
     
     main.append(img);
     Leo.append(main);
+
+    // here it is
+    Leo.positionInspector();
+    //
+
     Leo.render();
 }
 ```

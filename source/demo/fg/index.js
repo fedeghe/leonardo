@@ -5,8 +5,8 @@ window.onload = function () {
         Leo = Leonardo(width, height, { ns: '*', target: target }),
         main = Leo.group(),
         desc = Leo.desc('description'),
-        w = function (n) { return n * width / 100 },
-        h = function (n) { return n * height / 100 },
+        w = Leo.getScaler(width),
+        h = Leo.getScaler(height),
         stroke = 1,
         outer = Leo.ellipse(w(50), h(50), w(50), h(50)).setAttributes({
             fill : 'transparent',

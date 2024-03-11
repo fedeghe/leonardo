@@ -9,8 +9,10 @@ window.onload = function () {
 		title = L.title('jshero'),
 		container = L.group(),
 		logo = L.group(),
-		w = function (i) {return devSize * i/1E3 * zoom;},
-		h = function (i) {return devSize * i/1E3 * zoom;},
+		// w = function (i) {return devSize * i/1E3 * zoom;},
+		// h = function (i) {return devSize * i/1E3 * zoom;},
+        w = L.getScaler(devSize, 1e3, zoom),
+        h = L.getScaler(devSize, 1e3, zoom),
         
         fillStyle = {
 			"stroke-width": h(80),

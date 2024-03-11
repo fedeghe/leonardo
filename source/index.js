@@ -1,6 +1,7 @@
 const Leonardo = (function(w) {
 	
 	$$lib/L.js$$
+	$$lib/constructor.js$$
 	$$lib/Lstatic.js$$
 	$$lib/Lutilities.js$$
 	$$lib/Ltags.js$$	
@@ -12,7 +13,7 @@ const Leonardo = (function(w) {
 	$$lib/functions.js$$
 	$$lib/Element.js$$
 	
-	$$lib/constructor.js$$
+	
 
 	// imports
 	Leo.import = L.import;

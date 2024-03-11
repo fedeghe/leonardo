@@ -12,8 +12,8 @@ window.onload = function () {
 		L = Leonardo(width, height, {id : 'hero', target}),
 		title = L.title('hero'),
 		container = L.group(),
-		w = function (i) {return i * width / 100;},
-		h = function (i) {return i * height / 100;},
+        w = L.getScaler(width),
+        h = L.getScaler(height),
         bgcolor = 'rgba(200, 200, 200, 1)'
         base = L.rect(0, 0, width, height).setAttributes({
 			fill : bgcolor

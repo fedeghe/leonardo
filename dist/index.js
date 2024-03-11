@@ -7,7 +7,7 @@
                                                   V. 1.0.38
 
 Federico Ghedina <federico.ghedina@gmail.com> 2024
-~35.66KB
+~36.36KB
 */
 const Leonardo = (function(w) {
 	
@@ -168,13 +168,24 @@ const Leonardo = (function(w) {
 	};
 	
 	/*
+	[Malta] lib/constructor.js
+	*/
+	var Leo = function (w, h, attrs) {
+	    if (!w || !h || w < 0 || h < 0) 
+	        throw new Error('width or height not given!');
+	    return new L(w, h, attrs);
+	};
+	/*
 	[Malta] lib/Lstatic.js
 	*/
 	/**
 	 * static function to import a documentor a string
 	 * @param {*} d 
 	 */
-	L.import = function (d) {
+	// external use with Leo
+	// internal use with L
+	// proto
+	Leo.import = L.import = L.prototype.import =function (d) {
 		// document of string ?
 		if (typeof d === 'string') {
 			d = L.toDocument(d);
@@ -187,7 +198,7 @@ const Leonardo = (function(w) {
 	/**
 	 * 
 	 */
-	L.getqs = function () {
+	Leo.getqs = L.getqs= L.prototype.getqs = function () {
 		var q = window.location.search.substring(1),
 			els = q.split('&'),
 			qs = {}, tmp, el;
@@ -201,7 +212,7 @@ const Leonardo = (function(w) {
 	/**
 	 * 
 	 */
-	L.toString = function (SVGDocument) {
+	Leo.toString = L.toString= L.prototype.toString = function (SVGDocument) {
 		var tmpParent = document.createElement('div');
 		tmpParent.appendChild(SVGDocument);
 		return tmpParent.innerHTML;
@@ -209,18 +220,41 @@ const Leonardo = (function(w) {
 	
 	/**
 	 * 
+	 * @param {*} SVGString 
+	 * @returns 
 	 */
-	L.toDocument = function (SVGString) {
+	Leo.toDocument = L.toDocument = L.prototype.toDocument = function (SVGString) {
 		const parser = new DOMParser();
 		return parser.parseFromString(SVGString, 'image/svg+xml').children[0];
 	};
 	
-	L.randomColor = function (full) {
+	/**
+	 * 
+	 * @param {\} full 
+	 * @returns 
+	 */
+	Leo.randomColor = L.randomColor = L.prototype.randomColor = function (full) {
 		var len = full ? 6 : 3,
 			base = full ? 16777215 : 4095,
 			r = (~~(Math.random() * base)).toString(16);
 		while (r.length < len) r = '0' + r;
 		return r;
+	};
+	
+	/**
+	 * 
+	 * @param {*} n 
+	 * @param {*} scale 
+	 * @param {*} precision 
+	 * @returns 
+	 */
+	Leo.getScaler = L.getScaler = L.prototype.getScaler = function (top, scale, zoom, precision) {
+		scale = 'undefined' !== typeof scale ? ~~scale : 100;
+		zoom = 'undefined' !== typeof zoom ? ~~zoom : 1;
+		precision = 'undefined' !== typeof precision ? ~~precision : 1;
+		return function (p) {
+			return parseFloat((p * zoom * top / scale).toFixed(precision), 10);
+		}
 	};
 	/*
 	[Malta] lib/Lutilities.js
@@ -271,18 +305,20 @@ const Leonardo = (function(w) {
 	 * @param {*} name 
 	 * @returns 
 	 */
-	L.prototype.downloadAnchor = function (txt, name) {
-		var a = document.createElement('a');
-	  
-	    txt = txt || 'download';
-	    name = name || 'download';
-		
-		a.download = name + '\.svg';
+	L.prototype.downloadAnchor = function (txt, name, appendTo) {
+		var a = document.createElement('a'),
+			id = appendTo && 'leo---append-anchor-id';
+		a.download = (name || 'download') + '\.svg';
 		a.href = this.dataEncoded();
-		// a.addEventListener('click', function () {
-		// 	this.download = name + '\.svg'
-		// })
-		a.innerHTML = txt;
+		a.innerHTML = txt || 'download';
+		if (id) {
+			a.id = id;
+			if (document.getElementById(id)) {
+				return null
+			} else {
+				appendTo.appendChild(a);
+			}
+		}
 		return a;
 	};
 	
@@ -400,16 +436,10 @@ const Leonardo = (function(w) {
 	
 	L.prototype.positionCruncher = function (width, height, styles, ends) {
 		var self = this,
-			precision = 1,
 			startFn = 'M',
 			midFn = 'l',
-			getPsize = function (n) {
-				return function (p) {
-					return parseFloat((n * p/100).toFixed(precision), 10);
-				}
-			},
-			w = getPsize(width),
-			h = getPsize(height);
+			w = L.getScaler(width),
+			h = L.getScaler(height);
 	
 		function builder(acc, e) {
 			return acc[midFn](w(e[0]), h(e[1]));
@@ -1378,14 +1408,7 @@ const Leonardo = (function(w) {
 	// 	return this.tag.getBBox();
 	// };
 	
-	/*
-	[Malta] lib/constructor.js
-	*/
-	var Leo = function (w, h, attrs) {
-	    if (!w || !h || w < 0 || h < 0) 
-	        throw new Error('width or height not given!');
-	    return new L(w, h, attrs);
-	};
+	
 
 	// imports
 	Leo.import = L.import;

@@ -7,15 +7,10 @@ window.onload = function () {
         var width = 500,
             height = 500,
             min = width > height ? height : width,
-            wperc = width / 100,
-            hperc = height / 100,
-            mperc = min / 100,
-            
-            w = function(n) {return n * wperc; },
-            h = function(n) {return n * hperc; },
-            m = function(n) {return n * mperc; },
-
             L = Leonardo(width, height, { ns: '*', target: target1 }),
+            w = L.getScaler(width),
+            h = L.getScaler(height),
+            m = L.getScaler(min),
             attrs = {
                 cloud: {fill: '#3C3C3B'},
                 thunder: {
@@ -24,7 +19,6 @@ window.onload = function () {
                     'stroke-width': 15
                 },
             },
-
             elements = {
                 cloud: [
                     L.circle(w(20), h(50), m(15)),

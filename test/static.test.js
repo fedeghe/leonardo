@@ -70,4 +70,34 @@ describe('Static', () => {
             expect(Leo.randomColor()).toMatch(/^[0-9A-Fa-f]{3}$/);
         });
     });
+
+    describe('getScaler', () => {
+        it('basic', () => {
+            var scaler = Leo.getScaler(200);
+            expect(scaler(10)).toBe(20);
+            expect(scaler(95)).toBe(190);
+            expect(scaler(110)).toBe(220);
+        });
+        
+        it('with scale', () => {
+            var scaler = Leo.getScaler(200, 1000);
+            expect(scaler(10)).toBe(2);
+            expect(scaler(95)).toBe(19);
+            expect(scaler(110)).toBe(22);
+        });
+        
+        it('with scale and zoom', () => {
+            var scaler = Leo.getScaler(200, 1000, 2);
+            expect(scaler(10)).toBe(4);
+            expect(scaler(95)).toBe(38);
+            expect(scaler(110)).toBe(44);
+        });
+
+        it('with scale, zoom and precision', () => {
+            var scaler = Leo.getScaler(20, 100, 2, 3);
+            expect(scaler(10.544)).toBe(4.218);
+            expect(scaler(95.3453)).toBe(38.138);
+            expect(scaler(110.34534)).toBe(44.138);
+        });
+    });
 });

@@ -73,6 +73,40 @@ describe('Utilities', () => {
                 }
             });
         });
+        it('append mode', done => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height, {ns : '*', target: document.body}),
+                c = L.circle(50, 50, 10);
+            L.append(c);
+            L.render({
+                cb: function () {
+                    const a = L.downloadAnchor('aaa', 'bbb', document.body);
+                    expect(a.tagName).toBe('A');
+                    expect(a.textContent).toBe('aaa');
+                    expect(a.download).toBe('bbb.svg');
+                    expect(document.body.querySelector('#leo---append-anchor-id')).toBeTruthy();
+                    done();
+                }
+            });
+        });
+        it('append if not already', done => {       
+            const width = 200,
+                height = 100,
+                L = Leo(width, height, {ns : '*', target: document.body}),
+                c = L.circle(50, 50, 10);
+            L.append(c);
+            L.render({
+                cb: function () {
+                    document.body.innerHTML +='<div>' +
+                        '  <p id="leo---append-anchor-id" >hello</p>' +
+                    '</div>';
+                    const a = L.downloadAnchor('aaa', 'bbb', document.body);
+                    expect(a).toBe(null);
+                    done();
+                }
+            });
+        });
     });
 
     it('dataEncoded', done => {

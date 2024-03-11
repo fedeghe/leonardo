@@ -63,6 +63,9 @@
         },
         "VITRUVIAN": {
             "TITLE": "Vitruvian"
+        },
+        "CONWAY": {
+            "TITLE": "Conway's game of life"
         }
     },
     "SERVER": {
