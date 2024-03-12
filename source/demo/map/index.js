@@ -6,7 +6,11 @@ window.onload = function () {
 		gridNum = 100,
 		tileSize = size / gridNum,
 		L = Leonardo(width, height, {ns : '*', target : target}),
-		base = L.rect(0, 0, tileSize);
+		base = L.rect(0, 0, tileSize),
+		/**
+		 * border to border
+		 */
+		border = true;
 
 	function Cell(x, y, alive){
 		this.tag = base.clone();
@@ -33,18 +37,29 @@ window.onload = function () {
 
 
 	function getNeighbours(mat, r, c) {
+		var els = border ? {
+			rPlus: (r + 1 + gridNum) % gridNum,
+			rMinus: (r - 1 + gridNum) % gridNum,
+			cPlus: (c + 1 + gridNum) % gridNum,
+			cMinus: (c - 1 + gridNum) % gridNum,
+		} : {
+			rPlus: r+1,
+			rMinus: r-1,
+			cPlus: c+1,
+			cMinus: c-1,
+		};
 		return [
-			mat?.[r-1]?.[c-1],
-			mat?.[r-1]?.[c],
-			mat?.[r-1]?.[c+1],
-			mat?.[r]?.[c-1],
+			mat?.[els.rMinus]?.[els.cMinus],
+			mat?.[els.rMinus]?.[c],
+			mat?.[els.rMinus]?.[els.cPlus],
+			mat?.[r]?.[els.cMinus],
 			
 			// mat?.[r]?.[c],
 			
-			mat?.[r]?.[c+1],
-			mat?.[r+1]?.[c-1],
-			mat?.[r+1]?.[c],
-			mat?.[r+1]?.[c+1],
+			mat?.[r]?.[els.cPlus],
+			mat?.[els.rPlus]?.[els.cMinus],
+			mat?.[els.rPlus]?.[c],
+			mat?.[els.rPlus]?.[els.cPlus],
 		]
 	}
 	Matrix.prototype.getAliveNeighboursCount = function (r, c) {
