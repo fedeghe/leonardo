@@ -1,9 +1,9 @@
 window.onload = function () {
 	var target = document.getElementById('trg'),
-		size = 600,
+		size = 800,
 		width = size,
 		height = size,
-		gridNum = 100,
+		gridNum = 200,
 		tileSize = size / gridNum,
 		L = Leonardo(width, height, {ns : '*', target : target}),
 		base = L.rect(0, 0, tileSize),
@@ -30,7 +30,7 @@ window.onload = function () {
 		var self = this;
 		this.target = target;
 		this.data = Array.from({ length: gridNum}, (_, i) => 
-			Array.from({ length: gridNum}, (_, j) => new Cell(i, j,  Math.random() > 0.8))
+			Array.from({ length: gridNum}, (_, j) => new Cell(i, j,  Math.random() > 0.5))
 		);
 		this.data.forEach(row => row.forEach(cell => self.target.append(cell.tag)));
 	}
@@ -63,12 +63,9 @@ window.onload = function () {
 		]
 	}
 	Matrix.prototype.getAliveNeighboursCount = function (r, c) {
-		var self = this;
-		var neighbours = getNeighbours(self.data, r, c);
-		// debugger;
-		// console.log({r,c, neighbours})
+		var self = this,
+			neighbours = getNeighbours(this.data, r, c);
 		return neighbours.reduce((acc, el) => {
-			// debugger;
 			return acc + (el ? (self.data[el.x][el.y].alive ? 1 : 0) : 0);
 		}, 0)
 	};
