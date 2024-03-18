@@ -5,17 +5,12 @@ window.onload = function () {
 		width = 900,
 		height = 600,
 		tileSize = 30,
-
-
-
 		nr = height/tileSize,
 		nc = width/tileSize,
-
-color1 = '#333',
-color2 = '#a60',
-
+		color1 = '#333',
+		color2 = '#a60',
 		L = Leonardo(width, height, {ns : '*', target : target}),
-		
+		tiles = [],
 		base = L.rect(0, 0, width, height),
 		outG = L.group(),
 		getNeighbours = function (i,j){
@@ -24,30 +19,14 @@ color2 = '#a60',
 				hasLeft = j > 0,
 				hasRight = j < nc-1,
 				neighbours = [];
-			// topLeft
 			hasTop && hasLeft && neighbours.push([i-1, j-1]);
-			// top
 			hasTop && neighbours.push([i-1, j]);
-			// topRight
 			hasTop && hasRight && neighbours.push([i-1, j+1]);
-			// right
 			hasRight && neighbours.push([i, j+1]);
-			// bottomRight
 			hasBottom && hasRight && neighbours.push([i+1, j+1]);
-			// bottom
 			hasBottom  && neighbours.push([i+1, j]);
-			// bottomLeft
 			hasBottom && hasLeft && neighbours.push([i+1, j-1]);
-			// left
 			hasLeft && neighbours.push([i, j-1]);
-			// console.log({
-			// 	hasTop,
-			// 	hasBottom,
-			// 	hasLeft,
-			// 	hasRight
-			// })
-
-
 			return neighbours;
 		};
 
@@ -73,7 +52,6 @@ color2 = '#a60',
 			2.8*tileSize/10,
 			7.4*tileSize/10,
 			this.bomb ? '💣' : ''
-			// Math.floor(1 + Math.random()*6)//
 		).setAttributes({
 			stroke:'white',
 			visibility: 'hidden',
@@ -90,7 +68,6 @@ color2 = '#a60',
 
 		this.tag.on('click', e => {
 			if (self.solved) return;
-			// console.log(e)
 			if (e.metaKey) {
 				self.onFlag(e);
 			}
@@ -106,7 +83,8 @@ color2 = '#a60',
 		this.flag();
 		e.preventDefault();
 		return false;
-	}
+	};
+
 	Tile.prototype.solve = function(){
 		this.uncover();	
 		this.solved = true;
@@ -117,7 +95,8 @@ color2 = '#a60',
 		} else if (this.n > 0){
 			this.txt.tag.innerHTML = this.n;
 		}
-	}
+	};
+
 	Tile.prototype.loose = function(){
 		this.txt.tag.innerHTML = '💣';
 		var splitted = Object.values(tiles).reduce(
@@ -128,10 +107,7 @@ color2 = '#a60',
 					})
 					return acc
 				},
-				{
-					bombs:[],
-					safe:[],
-				}
+				{ bombs:[], safe:[],}
 			);
 		splitted.bombs.forEach(t => 
 			t.txt.setAttributes({
@@ -149,15 +125,13 @@ color2 = '#a60',
 		this.tag.setAttributes({
 			fill: 'red'
 		})
-		
-	}
+	};
+
 	Tile.prototype.solveNeighbours = function(){
 		var neighbours = getNeighbours(this.i, this.j),
 			unsolvedNeighbours = neighbours.filter(
 				n => !tiles[n[0]][n[1]].solved
 			);
-			
-				// console.log({neighbours, unsolvedNeighbours})
 		unsolvedNeighbours.forEach(
 			function (neighbour){
 				var t = tiles[neighbour[0]][neighbour[1]]
@@ -165,6 +139,7 @@ color2 = '#a60',
 			}
 		)
 	};
+
 	Tile.prototype.flag = function(){
 		this.flagged = !this.flagged;
 		this.txt.tag.innerHTML = this.flagged ? '🚩' : (this.solved ? this.n : '' );
@@ -193,40 +168,26 @@ color2 = '#a60',
 		
 		if (stats.flaggedBombs === stats.bombs) alert('you won')
 	};
+
 	Tile.prototype.uncover = function(){
-		
 		this.tag.setAttributes({fill: 'black'});
-		// console.log(`uncovering [${this.i}, ${this.j}] visible`);
 		this.txt.setAttributes({visibility: 'visible'})
 	};
+
 	Tile.prototype.setNumber = function(){
 		if (!this.bomb) {
 			var neighbours = getNeighbours(this.i, this.j);
 			neighbourBombs = neighbours.reduce((acc, el) => acc + (tiles[el[0]][el[1]].bomb ? 1 : 0), 0);
 			this.n = neighbourBombs;
 			this.txt.tag.innerHTML = neighbourBombs;
-			var c = [
-				'black',// 0
-				'#46a', // 1
-				'green', // 2
-				'red', // 3
-				'orange', // 4
-				'yellow', // 5
-				'white', // 6
-				'azure', // 7
-				'blue', // 8
-			][neighbourBombs]
+			var c = ['black', '#46a', 'green', 'red', 'orange', 'yellow', 'white', 'azure', 'blue'][neighbourBombs]
 			this.txt.setAttributes({
 				stroke: c,
 				fill:c
 			});
 		}
 	};
-	var tiles = [];
 
-
-
-	
 	for (var i = 0; i < nr; i++) {
 		tiles[i] = []
 		for (var j = 0; j < nc; j++) {
@@ -235,18 +196,11 @@ color2 = '#a60',
 		}
 		outG.append(tiles[i].map(t =>t.tag));
 	}
-
-	// console.log(tiles)
 	for (var i = 0; i < nr; i++) {
 		for (var j = 0; j < nc; j++) {
 			tiles[i][j].setNumber();
 		}
 	}
-
-	
 	L.append(base, outG);
-
 	L.render({target: document.getElementById('trg')});
-
-	
 };
