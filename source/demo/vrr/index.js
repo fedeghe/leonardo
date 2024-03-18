@@ -59,7 +59,7 @@ window.onload = function () {
             }, 10)
         }   
 
-        g.on('click', function () { spin(g, 50); });
+        g.on('mousedown', function () { spin(g, 50); });
 
         Leo.append(g);
         Leo.render({ target: target, cb: function () { console.log('rendered') } });

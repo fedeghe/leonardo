@@ -64,7 +64,7 @@ window.onload = function () {
 
 	tria.rotate(20, 300, 50).move(10, 100);
 
-    var centeredText = L.centeredText(502, 100, 'hello', {fill:'#ddd', stroke: 'red'});
+    var centeredText = L.centeredText(502, 100, 'hello', {fill:'#ddd', stroke: 'red' });
     setInterval(function (){
         var now = new Date(),
             sec = now.getSeconds(),

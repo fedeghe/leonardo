@@ -1,0 +1,38 @@
+@panelHeight: 80px;
+
+body{
+	margin:0;
+	padding: 0;
+	background-color: black;
+	svg{
+		outline:1px solid white
+	}
+	.root{
+		background-color: white;
+		width:100vw;
+		height:100vh;
+	}
+	.panel{
+		display:flex;
+		justify-content: space-between;
+		height: @panelHeight;
+		background-color: gray;
+		.mines{
+			display:flex;
+			background-color: aqua;
+		}
+		.facey{
+			display:flex;
+			background-color:brown;
+		}
+		.time{
+			display:flex;
+			background-color: coral;
+		}
+	}
+	.board{
+		height: calc(100vh - @panelHeight);
+		background-color: lightgray;
+		
+	}
+}

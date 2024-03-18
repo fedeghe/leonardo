@@ -10,6 +10,7 @@ function Element(tag, ns) {
 	this.t = tag;
 	this._id = 'i_'+(++iii);
 	this.tag = create(tag, ns);
+	this.tag.Element = this;
 	this.parent = null;
 	this.childs = [];
 	this.events = {};
@@ -74,7 +75,7 @@ Element.prototype.off = function (eventName, cb) {
 			});
 			this.events[eventName] = null;
 		} else {
-			self.tag.removeEventListener(eventName, cb);
+			this.tag.removeEventListener(eventName, cb);
 		}
 	}
 	return this;

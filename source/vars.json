@@ -66,6 +66,9 @@
         },
         "CONWAY": {
             "TITLE": "Conway's game of life"
+        },
+        "MINEFIELD": {
+            "TITLE": "Minefield"
         }
     },
     "SERVER": {
