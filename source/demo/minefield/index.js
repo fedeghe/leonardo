@@ -1,9 +1,9 @@
 window.onload = function () {
-	var target = document.getElementById('trg'),
+	var target = document.getElementById('root'),
 		
-		levelCut = 0.9,
-		width = 900,
-		height = 600,
+		levelCut = 0.85,
+		width = 120,
+		height = 90,
 		tileSize = 30,
 		nr = height/tileSize,
 		nc = width/tileSize,
@@ -57,7 +57,6 @@ window.onload = function () {
 			visibility: 'hidden',
 			'font-family': 'verdana',
 			'font-weight': 'bold',
-			
 			'font-size': 2*tileSize/3,
 		});
 		this.tag.append(this.tile, this.txt);
@@ -171,7 +170,13 @@ window.onload = function () {
 
 	Tile.prototype.uncover = function(){
 		this.tag.setAttributes({fill: 'black'});
-		this.txt.setAttributes({visibility: 'visible'})
+		this.txt.setAttributes({visibility: 'visible'});
+		this.txt.tag.innerHTML = neighbourBombs;
+		var c = ['black', '#46a', 'green', 'red', 'orange', 'yellow', 'white', 'azure', 'blue'][this.n]
+		this.txt.setAttributes({
+			stroke: c,
+			fill:c
+		});
 	};
 
 	Tile.prototype.setNumber = function(){
@@ -179,12 +184,13 @@ window.onload = function () {
 			var neighbours = getNeighbours(this.i, this.j);
 			neighbourBombs = neighbours.reduce((acc, el) => acc + (tiles[el[0]][el[1]].bomb ? 1 : 0), 0);
 			this.n = neighbourBombs;
-			this.txt.tag.innerHTML = neighbourBombs;
-			var c = ['black', '#46a', 'green', 'red', 'orange', 'yellow', 'white', 'azure', 'blue'][neighbourBombs]
-			this.txt.setAttributes({
-				stroke: c,
-				fill:c
-			});
+
+			// this.txt.tag.innerHTML = neighbourBombs;
+			// var c = ['black', '#46a', 'green', 'red', 'orange', 'yellow', 'white', 'azure', 'blue'][neighbourBombs]
+			// this.txt.setAttributes({
+			// 	stroke: c,
+			// 	fill:c
+			// });
 		}
 	};
 
@@ -202,5 +208,5 @@ window.onload = function () {
 		}
 	}
 	L.append(base, outG);
-	L.render({target: document.getElementById('trg')});
+	L.render();
 };
