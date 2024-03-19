@@ -1,9 +1,9 @@
 window.onload = function () {
 	var target = document.getElementById('root'),
 		
-		levelCut = 0.85,
-		width = 120,
-		height = 90,
+		levelCut = 0.8,
+		width = 1200,
+		height = 900,
 		tileSize = 30,
 		nr = height/tileSize,
 		nc = width/tileSize,
