@@ -1,6 +1,7 @@
 window.onload = function () {
 	var target = document.getElementById('root'),
-		
+		startTime = false,
+		endTime = false,
 		levelCut = 0.8,
 		width = 1200,
 		height = 900,
@@ -30,8 +31,11 @@ window.onload = function () {
 			return neighbours;
 		};
 
+	
+
 	function Tile(i, j) {
 		var self = this;
+		
 		this.i = i;
 		this.j = j;
 		this.solved = false;
@@ -61,11 +65,15 @@ window.onload = function () {
 		});
 		this.tag.append(this.tile, this.txt);
 		this.tag.on('contextmenu', function (e){
-			if (self.solved) return;
+			if (self.solved) {
+				e.preventDefault();
+				return false;
+			}
 			self.onFlag(e);
 		});
 
 		this.tag.on('click', e => {
+			startTime = startTime || +new Date;
 			if (self.solved) return;
 			if (e.metaKey) {
 				self.onFlag(e);
@@ -165,7 +173,10 @@ window.onload = function () {
 		stats.tot = nr*nc
 		console.log(JSON.stringify(stats, null, 2))
 		
-		if (stats.flaggedBombs === stats.bombs) alert('you won')
+		if (stats.flaggedBombs === stats.bombs){
+			endTime = +new Date;
+			alert(`you won in ${((endTime - startTime) / 1e3).toFixed(1)} seconds`)
+		}
 	};
 
 	Tile.prototype.uncover = function(){
@@ -184,29 +195,32 @@ window.onload = function () {
 			var neighbours = getNeighbours(this.i, this.j);
 			neighbourBombs = neighbours.reduce((acc, el) => acc + (tiles[el[0]][el[1]].bomb ? 1 : 0), 0);
 			this.n = neighbourBombs;
-
-			// this.txt.tag.innerHTML = neighbourBombs;
-			// var c = ['black', '#46a', 'green', 'red', 'orange', 'yellow', 'white', 'azure', 'blue'][neighbourBombs]
-			// this.txt.setAttributes({
-			// 	stroke: c,
-			// 	fill:c
-			// });
 		}
 	};
 
-	for (var i = 0; i < nr; i++) {
-		tiles[i] = []
-		for (var j = 0; j < nc; j++) {
-			var t = new Tile(i, j);
-			tiles[i].push(t);
+	function start(){
+		startTime = false;
+		outG.clear()
+		for (var i = 0; i < nr; i++) {
+			tiles[i] = []
+			for (var j = 0; j < nc; j++) {
+				var t = new Tile(i, j);
+				tiles[i].push(t);
+			}
+			outG.append(tiles[i].map(t =>t.tag));
 		}
-		outG.append(tiles[i].map(t =>t.tag));
-	}
-	for (var i = 0; i < nr; i++) {
-		for (var j = 0; j < nc; j++) {
-			tiles[i][j].setNumber();
+		for (var i = 0; i < nr; i++) {
+			for (var j = 0; j < nc; j++) {
+				tiles[i][j].setNumber();
+			}
 		}
 	}
+	start();
+	document.body.addEventListener('keyup', function (e){
+		if(e.key === 'n') start()
+	});
+
+	
 	L.append(base, outG);
 	L.render();
 };
