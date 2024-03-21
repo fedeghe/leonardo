@@ -280,6 +280,6 @@ Element.prototype.replace = function (currentOne, newOne) {
 	});
 };
 
-// Element.prototype.getBbox = function () {
-// 	return this.tag.getBBox();
-// };
+Element.prototype.getBbox = function () {
+	return this.tag.getBBox();
+};

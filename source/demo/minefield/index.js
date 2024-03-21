@@ -13,7 +13,7 @@ window.onload = function () {
 		L = Leonardo(width, height, {ns : '*', target : target}),
 		tiles = [],
 		base = L.rect(0, 0, width, height),
-		outG = L.group(),
+		outG = L.group().setAttributes({ width, height }),
 		getNeighbours = function (i,j){
 			var hasTop = i > 0,
 				hasBottom = i < nr-1,
@@ -30,8 +30,6 @@ window.onload = function () {
 			hasLeft && neighbours.push([i, j-1]);
 			return neighbours;
 		};
-
-	
 
 	function Tile(i, j) {
 		var self = this;
@@ -83,7 +81,6 @@ window.onload = function () {
 		this.tag.on('mouseover', () => self.tag.setAttributes({opacity: 1}));
 		this.tag.on('mouseout', () => self.tag.setAttributes({opacity: 0.9}));
 	}
-
 
 	Tile.prototype.onFlag = function(e){
 		
@@ -171,7 +168,7 @@ window.onload = function () {
 			bombs: 0
 		});
 		stats.tot = nr*nc
-		console.log(JSON.stringify(stats, null, 2))
+		
 		
 		if (stats.flaggedBombs === stats.bombs){
 			endTime = +new Date;
@@ -200,20 +197,21 @@ window.onload = function () {
 
 	function start(){
 		startTime = false;
-		outG.clear()
-		for (var i = 0; i < nr; i++) {
-			tiles[i] = []
-			for (var j = 0; j < nc; j++) {
+		outG.clear();
+		console.log({bb: outG.getBbox()});
+		for (var i = 0, j; i < nr; i++) {
+			tiles[i] = [];
+			for (j = 0; j < nc; j++) {
 				var t = new Tile(i, j);
 				tiles[i].push(t);
 			}
-			outG.append(tiles[i].map(t =>t.tag));
+			outG.append(tiles[i].map(t => t.tag));
 		}
-		for (var i = 0; i < nr; i++) {
-			for (var j = 0; j < nc; j++) {
+		for (var i = 0, j; i < nr; i++) 
+			for (j = 0; j < nc; j++) 
 				tiles[i][j].setNumber();
-			}
-		}
+			
+		
 	}
 	start();
 	document.body.addEventListener('keyup', function (e){

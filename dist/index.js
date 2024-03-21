@@ -7,7 +7,7 @@
                                                   V. 1.0.38
 
 Federico Ghedina <federico.ghedina@gmail.com> 2024
-~15.68KB
+~15.74KB
 */
 const Leonardo=function(t){function e(t,e,r){this.namespaces=h;var n,o,s=this;r=r||{},this.width=t,this.height=e,this.tag=i("svg"),this.tag.setAttribute("width",t),this.tag.setAttribute("height",e),
 this.tag.setAttribute("xmlns",h.svg),this.tag.setAttribute("viewbox","0 0 "+t+" "+e),this.childs=[];for(n in r)"ns"!==n&&"target"!==n&&this.tag.setAttribute(n,r[n])
@@ -93,5 +93,5 @@ this.bringTo(1/0)},l.prototype.bringToBottom=function(){this.bringTo(-1/0)},l.pr
 var e=this.tag.ownerSVGElement;switch(t){case 1/0:e.removeChild(this.tag),e.appendChild(this.tag);break;case-1/0:e.removeChild(this.tag),e.insertBefore(this.tag,e.firstChild);break;default:
 var r=this.tag;if(t>=0){for(;t++>0&&r.nextSibling;)r=r.nextSibling;e.removeChild(this.tag),e.insertBefore(this.tag,r.nextSibling)}else{for(;t--<0&&r.previousSibling;)r=r.previousSibling
 ;e.removeChild(this.tag),e.insertBefore(this.tag,r)}}},l.prototype.clear=function(){this.tag.innerHTML="",this.childs=[],this.transforms={rotate:"",move:"",scale:""}},
-l.prototype.replace=function(t,e){t.tag.parentNode.replaceChild(e.tag,t.tag),t.parent.childs=t.parent.childs.map(function(r){return r._id==t._id?e:r})},f.import=e.import,f.getqs=e.getqs,
-f.toString=e.toString,f.toDocument=e.toDocument,f.randomColor=e.randomColor,f}();"object"==typeof exports&&(module.exports=Leonardo);
+l.prototype.replace=function(t,e){t.tag.parentNode.replaceChild(e.tag,t.tag),t.parent.childs=t.parent.childs.map(function(r){return r._id==t._id?e:r})},l.prototype.getBbox=function(){
+return this.tag.getBBox()},f.import=e.import,f.getqs=e.getqs,f.toString=e.toString,f.toDocument=e.toDocument,f.randomColor=e.randomColor,f}();"object"==typeof exports&&(module.exports=Leonardo);
