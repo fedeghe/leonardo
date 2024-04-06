@@ -3,7 +3,8 @@
 body{
 	margin:0;
 	padding: 0;
-	background-color: black;
+	font-family: verdana;
+	background-color: blue;
 	svg{
 		outline:1px solid white;
 		text {
@@ -11,9 +12,7 @@ body{
 		}
 	}
 	.root{
-		background-color: white;
-		width:100vw;
-		height:100vh;
+		// background-color: red;
 	}
 	.panel{
 		display:flex;
@@ -23,19 +22,31 @@ body{
 		.mines{
 			display:flex;
 			background-color: aqua;
+			width: 100px;
+			display:flex;
+			justify-content: center;
+			align-items: center;
 		}
 		.facey{
 			display:flex;
 			background-color:brown;
+			width: 100px;
+			display:flex;
+			justify-content: center;
+			align-items: center;
 		}
 		.time{
 			display:flex;
 			background-color: coral;
+			width: 100px;
+			display:flex;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 	.board{
 		height: calc(100vh - @panelHeight);
-		background-color: lightgray;
+		background-color: green;
 		
 	}
 }

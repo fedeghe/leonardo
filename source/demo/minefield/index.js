@@ -4,12 +4,12 @@ window.onload = function () {
 		endTime = false,
 		levelCut = 0.8,
 		width = 1200,
-		height = 900,
-		tileSize = 30,
+		height = 1000,
+		tileSize = 25,
 		nr = height/tileSize,
 		nc = width/tileSize,
 		color1 = '#333',
-		color2 = '#a60',
+		color2 = '#f60',
 		L = Leonardo(width, height, {ns : '*', target : target}),
 		tiles = [],
 		base = L.rect(0, 0, width, height),
@@ -33,7 +33,6 @@ window.onload = function () {
 
 	function Tile(i, j) {
 		var self = this;
-		
 		this.i = i;
 		this.j = j;
 		this.solved = false;
@@ -62,7 +61,7 @@ window.onload = function () {
 			'font-size': 2*tileSize/3,
 		});
 		this.tag.append(this.tile, this.txt);
-		this.tag.on('contextmenu', function (e){
+		this.tag.on('contextmenu', e => {
 			if (self.solved) {
 				e.preventDefault();
 				return false;
@@ -83,7 +82,6 @@ window.onload = function () {
 	}
 
 	Tile.prototype.onFlag = function(e){
-		
 		this.flag();
 		e.preventDefault();
 		return false;
@@ -150,7 +148,7 @@ window.onload = function () {
 		this.txt.setAttributes({visibility: !this.solved ? 'visible' : 'hidden'})
 		
 		var stats = tiles.reduce((acc, row) => {
-			var res =  row.reduce((a,tile) => {
+			var res =  row.reduce((a, tile) => {
 				return {
 					flaggedBombs: a.flaggedBombs + ~~(tile.flagged && tile.bomb),
 					bombs: a.bombs + ~~tile.bomb
@@ -198,7 +196,7 @@ window.onload = function () {
 	function start(){
 		startTime = false;
 		outG.clear();
-		console.log({bb: outG.getBbox()});
+		// console.log({bb: outG.getBbox()});
 		for (var i = 0, j; i < nr; i++) {
 			tiles[i] = [];
 			for (j = 0; j < nc; j++) {
