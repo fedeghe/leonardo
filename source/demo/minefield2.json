@@ -1,0 +1,8 @@
+{
+    "EXE": [
+        "mkdir -p demo/minefield2/js demo/minefield2/css"
+    ],
+    "source/demo/minefield2/index.js": "demo/minefield2/js -vars=source/vars.json -options=placeholderMode:'func'",
+    "source/demo/minefield2/index.less": "demo/minefield2/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/minefield2/index.html": "demo/minefield2 -plugins=malta-browser-refresh -vars=source/vars.json"
+}

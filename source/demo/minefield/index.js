@@ -2,7 +2,7 @@ window.onload = function () {
 	var target = document.getElementById('root'),
 		startTime = false,
 		endTime = false,
-		levelCut = 0.8,
+		levelCut = 0.2,
 		width = 1200,
 		height = 1000,
 		tileSize = 25,
@@ -31,13 +31,13 @@ window.onload = function () {
 			return neighbours;
 		};
 
-	function Tile(i, j) {
+	function Tile(i, j, isBomb) {
 		var self = this;
 		this.i = i;
 		this.j = j;
 		this.solved = false;
 		this.flagged = false;
-		this.bomb = Math.random() > levelCut;
+		this.bomb = isBomb;//Math.random() > levelCut;
 		this.tag = L.group().setAttributes({
 			// fill: this.bomb ? 'gray' : color1,
 			fill: color1,
@@ -60,6 +60,7 @@ window.onload = function () {
 			'font-weight': 'bold',
 			'font-size': 2*tileSize/3,
 		});
+		if (this.bomb)this.txt.move(-5,0);
 		this.tag.append(this.tile, this.txt);
 		this.tag.on('contextmenu', e => {
 			if (self.solved) {
@@ -127,6 +128,8 @@ window.onload = function () {
 		this.tag.setAttributes({
 			fill: 'red'
 		})
+		this.txt.tag.innerHTML = '💥'
+		this.txt.move(-5,0)
 	};
 
 	Tile.prototype.solveNeighbours = function(){
@@ -167,7 +170,6 @@ window.onload = function () {
 		});
 		stats.tot = nr*nc
 		
-		
 		if (stats.flaggedBombs === stats.bombs){
 			endTime = +new Date;
 			alert(`you won in ${((endTime - startTime) / 1e3).toFixed(1)} seconds`)
@@ -193,14 +195,28 @@ window.onload = function () {
 		}
 	};
 
+	function scramble(a, n) {
+		var out = a
+		do {
+			out = out.sort(() => Math.random() > .5 ? 1 : -1);
+		} while (n--)
+		return out;
+	}
 	function start(){
 		startTime = false;
 		outG.clear();
-		// console.log({bb: outG.getBbox()});
+		// prerandomize bombs
+		
+		var nrBombs = parseInt(nr * nc * levelCut, 10),
+			tls = scramble(
+				Array.from({length: nr*nc}, (_, i) => i < nrBombs),
+				3
+			);
+		console.log({nrBombs, tls});
 		for (var i = 0, j; i < nr; i++) {
 			tiles[i] = [];
 			for (j = 0; j < nc; j++) {
-				var t = new Tile(i, j);
+				var t = new Tile(i, j, tls[i*nc +j]);
 				tiles[i].push(t);
 			}
 			outG.append(tiles[i].map(t => t.tag));
