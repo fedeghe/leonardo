@@ -149,6 +149,7 @@ window.onload = function () {
 		this.flagged = !this.flagged;
 		this.txt.tag.innerHTML = this.flagged ? '🚩' : (this.solved ? this.n : '' );
 		this.txt.setAttributes({visibility: !this.solved ? 'visible' : 'hidden'})
+		if (this.flagged) this.txt.move(0,0);
 		
 		var stats = tiles.reduce((acc, row) => {
 			var res =  row.reduce((a, tile) => {
