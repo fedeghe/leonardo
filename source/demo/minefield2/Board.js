@@ -2,8 +2,13 @@ function Board(p){
     var self = this;
     this.target = p.target;
     this.game = p.game;
-    this.width = self.game.tileSize * this.game.cols;
-    this.height = self.game.tileSize * this.game.rows;
+    
+    // this.width = self.game.tileSize * this.game.cols;
+    // this.height = self.game.tileSize * this.game.rows;
+    this.width = self.game.viewport.width;
+    this.height = self.game.viewport.height;
+    console.log(self.game.viewport);
+
     this.rootSvg = Leonardo(this.width, this.height, {ns : '*'});
     this.cells = Array.from({
         length: this.game.rows

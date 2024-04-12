@@ -1,18 +1,22 @@
 function Game(p){
+    this.viewport = {
+        width: window.innerWidth,
+        height: window.innerHeight
+    };
     this.rows = p.rows || 200;
     this.cols = p.cols || 100;
     this.tileSize = p.tileSize || 20;
     this.perc = p.perc || 0.2;
 
-    this.width = 300;
+    this.width = 600;
     this.height = 300;
 
     this.cells = this.rows * this.cols;
     // this.initDom();
     this.started = false;
     this.rootSvg = Leonardo(
-        this.width,
-        this.height,
+        this.viewport.width,
+        this.viewport.height,
         {
             ns : '*',
             target: p.target
@@ -46,5 +50,6 @@ function Game(p){
 Game.prototype.render = function() {
     // this.Panel.render();
     // this.Board.render();
+    // console.log(this.viewport)
     this.rootSvg.render();
 };
