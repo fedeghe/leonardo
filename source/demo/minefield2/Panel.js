@@ -1,31 +1,59 @@
 function Panel(p){
-    this.target = p.target
-    this.onStart = p.onStart;
-    this.Game = p.game;
-    this.initDom()
-}
-Panel.prototype.initDom = function(){
-    var self = this;
-    var start = dom.create('button');
-    start.innerHTML = 'start';
-    start.addEventListener('click', function (){
-        self.Game.start()
-    });
-    var mines = dom.create('span', {class: 'minesText'});
-    mines.innerHTML = this.Game.mines;
-    var time = dom.create('span', {class: 'timeText'});
-    time.innerHTML = 0;
+    this.game = p.game;
 
-    this.mines = dom.create('div', {class: 'mines'}, [mines]),
-    this.facey = dom.create('div', {class: 'facey'}, [start]),
-    this.time = dom.create('div', {class: 'time'}, [time]),
-    this.root = dom.create('div', { class: 'panel'}, [
-        this.mines, this.facey, this.time
-    ]);
-};
+    var l = this.game.rootSvg,
+        self = this,
+        g = this.game;
+    // this.render();
+    this.leo = l;
+    this.bomb = l.text('1%', 20, '100').setAttributes({
+        'text-anchor': 'start',
+        'font-weight': 'bold',
+    });
+    this.time = l.text('10%', 20, '0s').setAttributes({
+        'text-anchor': 'start',
+        'font-style': 'italic',
+    });
+    this.start = l.text('50%', 20, 'start').setAttributes({
+        'text-anchor': 'middle',
+        cursor: 'pointer',
+    });
+    this.setting = l.text('99%', 20, '⚙').setAttributes({
+        'text-anchor': 'end',
+        cursor: 'pointer'
+    });
+    this.line = l.line(0,25, this.game.width, 25).setAttributes({
+        'stroke': 'gray',
+        'stroke-width': 0.5,
+    });
+
+    this.start.on('click', function () {
+        console.log('click')
+        self.startGame();
+        // console.log(self.time)
+    })
+    this.setting.on('click', function (){
+        if(!g.playing)g.Starter.show();
+    })
+    this.render();
+
+}
+Panel.prototype.startGame = function(){
+    this.game.start();
+}
 Panel.prototype.updateTime = function(t){
-    this.time.children[0].innerHTML = (t/1e3).toFixed(1);
+    console.log(this.time)
+    this.time.tag.innerHTML = t+'s'
 };
 Panel.prototype.render = function(){
-    this.target.appendChild(this.root);
+    var self = this;
+    // console.log(this.game.Starter)
+    this.leo.append([
+        this.bomb,
+        this.start,
+        this.time,
+        this.setting,
+        this.line,
+        // this.game.Starter.tag
+    ])
 };
