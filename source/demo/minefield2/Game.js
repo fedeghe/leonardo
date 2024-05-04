@@ -1,20 +1,31 @@
+var levels = {
+    'easy': { prop: 0.5, mines: 0.15 },
+    'medium': { prop: 0.7, mines: 0.18 },
+    'hard':{ prop: 0.85, mines: 0.22 },
+    'impossible': { prop: 1, mines: 0.25 }
+}
 function Game(p){
     var perc = 80,
         prop = perc/100;
+    this.level = Storage.get();
     this.labels = {
-        mine: '💣', //'💣',
+        mine: '💣',
         flag: '🚩',
         expl: '💥',
         settings: '⚙',
     };
+    
+    this.levelData = levels[this.level];
+
     this.viewport = {
-        width: window.innerWidth * prop,
-        height: window.innerHeight * prop
+        width: window.innerWidth * this.levelData.prop,
+        height: window.innerHeight * this.levelData.prop
     };
-    this.rows = p.rows || 200;
-    this.cols = p.cols || 100;
-    this.tileSize = p.tileSize || 20;
-    this.perc = p.perc || 0.2;
+    
+    this.rows = 200;
+    this.cols = 100;
+    this.tileSize =  20;
+
 
     this.width = this.viewport.width;
     this.height = this.viewport.height;
@@ -24,7 +35,7 @@ function Game(p){
     this.playing = false;
 
     this.cells = this.rows * this.cols;
-    // this.initDom();
+
     this.started = false;
     this.rootSvg = Leonardo(
         this.viewport.width,
@@ -34,7 +45,7 @@ function Game(p){
             target: p.target
         }
     );
-    this.mines = Math.floor(this.cells * this.perc);
+    this.mines = Math.floor(this.cells * this.levelData.mines);
     this.startTime = null;
     this.init();
     
@@ -64,8 +75,6 @@ Game.prototype.start = function() {
     }, 10)
 };
 Game.prototype.render = function() {
-    // this.Panel.render();
-    // this.Board.render();
-    // console.log(this.viewport)
+
     this.rootSvg.render();
 };
