@@ -1,0 +1,8 @@
+{
+    "EXE": [
+        "mkdir -p demo/lotkavolterra/js demo/lotkavolterra/css"
+    ],
+    "source/demo/lotkavolterra/index.js": "demo/lotkavolterra/js -vars=source/vars.json",
+    "source/demo/lotkavolterra/index.less": "demo/lotkavolterra/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/lotkavolterra/index.html": "demo/lotkavolterra -plugins=malta-browser-refresh -vars=source/vars.json"
+}

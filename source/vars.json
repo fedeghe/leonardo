@@ -72,6 +72,9 @@
         },
         "MINEFIELD2": {
             "TITLE": "Minefield 2"
+        },
+        "LOTKAVOLTERRA": {
+            "TITLE": "Lotka Volterra"
         }
     },
     "SERVER": {
