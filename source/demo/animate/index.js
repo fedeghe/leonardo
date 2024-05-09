@@ -1,6 +1,7 @@
 window.onload = function () {
     var target1 = document.getElementById('trg1'),
         target2 = document.getElementById('trg2'),
+        target3 = document.getElementById('trg3'),
         speed = 1;
 
     (function () {
@@ -15,10 +16,10 @@ window.onload = function () {
                 func: 'cartesian',
                 target: target1,
                 color: '#f45',
-                initial: [0,0],
+                initial: [w2,h2],
                 funcs: [
-                    function (x, t){ return w2 * (1 + Math.sin(speed * t)); },
-                    function (y, t){ return h2 * (1 + Math.sin(speed * t / 4)); }
+                    function (x, t){ return w2 * Math.sin(speed * t); },
+                    function (y, t){ return h2 * Math.sin(speed * t / 4); }
                 ]
             },{
                 func: 'polar',
@@ -28,6 +29,15 @@ window.onload = function () {
                 funcs: [
                     function (r, t){ return  min/2 * Math.sin(speed * t / 20);},
                     function (rho, t){ return speed * t % 360; }
+                ]
+            },{
+                func: 'cartesian',
+                target: target3,
+                color: '#f45',
+                initial: [w2,h2],
+                funcs: [
+                    function (x, t){ return w2*.8 * Math.cos(speed * t); },
+                    function (y, t){ return h2*.8 * Math.cos((1.5*t)%(2*Math.PI)+speed); }
                 ]
             }];
         els.forEach(function(o) {
