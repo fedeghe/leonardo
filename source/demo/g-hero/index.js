@@ -18,56 +18,65 @@ window.onload = function () {
         base = L.rect(0, 0, width, height).setAttributes({
 			fill : bgcolor
         }),
-		G = L.text(w(5), h(80), 'G'),
-		HERO = L.text(w(40), h(80), 'HERO').setAttributes({
-			"text-align" : 'right'
-        }),
-        GIZMO = L.group(),
-        center = { x: w(30), y: h(53)},
-        stroke = 15,
-        r = h(30),
-        ARRup = L.line(center.x, center.y, center.x, center.y - r).setAttributes({
-            "stroke" : 'blue',
-            "stroke-width" : h(stroke),
-            "stroke-opacity" : 1,
-            "stroke-lincap": "miter" 
-        }),
-        ARRleft = L.line(
-            center.x,
-            center.y,
-            center.x - r * Math.sin(Math.PI / 3),
-            center.y + r * Math.cos(Math.PI / 3)
-        ).setAttributes({
-            "stroke" : 'blue',
-            "stroke-width" : h(stroke),
-            "stroke-opacity" : 1,
-        }),
-        ARRright = L.line(
-            center.x,
-            center.y,
-            center.x + r * Math.sin(Math.PI / 3),
-            center.y + r * Math.cos(Math.PI / 3)
-        ).setAttributes({
-            "stroke" : 'blue',
-            "stroke-width" : h(stroke),
-            "stroke-opacity" : 1,
-        }),
-		justLine = {
-			// "stroke-width" : h(8),
+        stroke = h(15),
+
+        textStyle={
+			"stroke-width" : stroke,
 			"stroke" : 'black',
-            "font-size": h(80),
-			"stroke-opacity" : h(0.1),
+            // "font-size": h(80),
+			// "stroke-opacity" : h(0.1),
+			"stroke-linejoin" : "round",
+            // "font-family": 'impact',
+            // "stroke-width" : stroke,
+			fill : 'transparent'
+		},
+        boldLine = {
+			// "stroke-width" : stroke,
+            
+			"stroke" : 'black',
+            // "font-size": h(80),
+			// "stroke-opacity" : h(1),
 			
 			"stroke-linejoin" : "round",
-            "font-family": 'impact',
-			fill : 'black'
-		};
-    GIZMO.append(ARRup, ARRleft, ARRright);
+			// "stroke-linejoin" : "arcs",
+            // "font-family": 'impact',
+			fill : 'transparent'
+		},
+        arrowStyle = {
+            "stroke" : 'blue',
+            "stroke-width" : stroke,
+            "stroke-opacity" : 1,
+            "stroke-linejoin" : "round",
+        },
+		G = L.text(w(5), h(80), 'g'),
+        G2 = L.path(L.pathBuild
+            // .M(w(10), h(10))
+            .M(w(20), h(20))
+            .M(w(10), h(10))
+            // .A(w(10), w(10), 0,0,1, w(0), w(10))
+            .Z()
+        ).setAttributes(textStyle),
+		HERO = L.text(w(40), h(80), 'HERO').setAttributes({
+			"text-align" : 'right',
+            ...textStyle
+        }),
+        GIZMO = L.group(),
+        arrPos = { x: w(30), y: h(20)},
+        r = h(60),
+       
+        arrow = L.polygon(
+            arrPos.x, arrPos.y,
+            arrPos.x, arrPos.y + r,
+            arrPos.x - w(5), arrPos.y + r - h(10),
+            arrPos.x + w(5), arrPos.y + r - h(10),
+            arrPos.x, arrPos.y + r,
+        ).setAttributes(arrowStyle);
+    GIZMO.append(arrow);
 
 
-	container.setAttributes({viewBox : "0 0 " + size + " " + size, ...justLine});
+	container.setAttributes({viewBox : "0 0 " + size + " " + size});
 
-	container.append(base, G, HERO, GIZMO);
+	container.append(base, G2, HERO, GIZMO);
 
 	L.append(title, container);
 
