@@ -62,11 +62,15 @@ Leo.randomColor = L.randomColor = L.prototype.randomColor = function (full) {
 };
 
 /**
+ * @param top input top range value needed
+ * @param scale defaulted to 100
+ * @param zoom
+ * @param precision
  * 
- * @param {*} n 
- * @param {*} scale 
- * @param {*} precision 
- * @returns 
+ * @returns function
+ * scaler function accepting a number in [0,scale] and
+ * returning the mapped value in [0, top]
+ * 
  */
 Leo.getScaler = L.getScaler = L.prototype.getScaler = function (top, scale, zoom, precision) {
 	scale = 'undefined' !== typeof scale ? ~~scale : 100;
