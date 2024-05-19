@@ -268,11 +268,6 @@ Removes a tag.
 
 Replaces `oldTag` with `newTag`.
 
----
-
-### tagInstance.getBbox() -> void
-
-Gets the bounding box of the instance {x, y, w, h}. More infos can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/SVGGraphicsElement/getBBox)
 
 
 

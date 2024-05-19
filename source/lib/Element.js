@@ -279,7 +279,3 @@ Element.prototype.replace = function (currentOne, newOne) {
 		return c._id == currentOne._id ? newOne : c;
 	});
 };
-
-Element.prototype.getBbox = function () {
-	return this.tag.getBBox();
-};
