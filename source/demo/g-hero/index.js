@@ -99,11 +99,11 @@ window.onload = function () {
         arrPos = { x: w(30), y: h(20)},
         r = h(60),
        
-        arrow = L.polygon(
+        arrow = L.polyline(
             arrPos.x, arrPos.y,
             arrPos.x, arrPos.y + r,
-            arrPos.x - w(5), arrPos.y + r - h(10),
             arrPos.x + w(5), arrPos.y + r - h(10),
+            arrPos.x - w(5), arrPos.y + r - h(10),
             arrPos.x, arrPos.y + r,
         ).setAttributes(arrowStyle).move(s(-5), 0);
     GIZMO.append(arrow);

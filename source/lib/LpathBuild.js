@@ -1,3 +1,13 @@
+
+function createFun(l /*letter*/) {
+	return function () {
+		var lp = this.prev === l ? ' ' : l;
+		this.path += [lp].concat([[].slice.call(arguments, 0).join(',')]).join('');
+		this.prev = l;
+		return this;
+	};
+}
+
 /*
  * 	M	moveto (x y)+
  *	Z	closepath (none)
@@ -15,36 +25,43 @@ function Pathbuild() {
 	this.path = '';
 	this.prev = null;
 }
+[
+	'M', 'm',
+	'Z', 'z',
+	'L', 'l',
+	'H', 'h',
+	'V', 'v',
+	'C', 'c',
+	'Q', 'q',
+	'S', 's',
+	'T', 't',
+	'A', 'a',
+	'R', 'r'
+].forEach(function (f) {
+	Pathbuild.prototype[f]= createFun(f);
+})
 
-function createFun(l /*letter*/) {
-	return function () {
-		var lp = this.prev === l ? ' ' : l;
-		this.path += [lp].concat([[].slice.call(arguments, 0).join(',')]).join('');
-		this.prev = l;
-		return this;
-	};
-}
 
-Pathbuild.prototype.M = createFun('M');
-Pathbuild.prototype.m = createFun('m');
-Pathbuild.prototype.Z = createFun('Z');
-Pathbuild.prototype.L = createFun('L');
-Pathbuild.prototype.l = createFun('l');
-Pathbuild.prototype.H = createFun('H');
-Pathbuild.prototype.h = createFun('h');
-Pathbuild.prototype.V = createFun('V');
-Pathbuild.prototype.v = createFun('v');
-Pathbuild.prototype.C = createFun('C');
-Pathbuild.prototype.c = createFun('c');
-Pathbuild.prototype.Q = createFun('Q');
-Pathbuild.prototype.q = createFun('q');
-Pathbuild.prototype.S = createFun('S');
-Pathbuild.prototype.s = createFun('s');
-Pathbuild.prototype.T = createFun('T');
-Pathbuild.prototype.t = createFun('t');
-Pathbuild.prototype.A = createFun('A');
-Pathbuild.prototype.a = createFun('a');
-Pathbuild.prototype.R = createFun('R');
+// Pathbuild.prototype.M = createFun('M');
+// Pathbuild.prototype.m = createFun('m');
+// Pathbuild.prototype.Z = createFun('Z');
+// Pathbuild.prototype.L = createFun('L');
+// Pathbuild.prototype.l = createFun('l');
+// Pathbuild.prototype.H = createFun('H');
+// Pathbuild.prototype.h = createFun('h');
+// Pathbuild.prototype.V = createFun('V');
+// Pathbuild.prototype.v = createFun('v');
+// Pathbuild.prototype.C = createFun('C');
+// Pathbuild.prototype.c = createFun('c');
+// Pathbuild.prototype.Q = createFun('Q');
+// Pathbuild.prototype.q = createFun('q');
+// Pathbuild.prototype.S = createFun('S');
+// Pathbuild.prototype.s = createFun('s');
+// Pathbuild.prototype.T = createFun('T');
+// Pathbuild.prototype.t = createFun('t');
+// Pathbuild.prototype.A = createFun('A');
+// Pathbuild.prototype.a = createFun('a');
+// Pathbuild.prototype.R = createFun('R');
 
 /**
  * { function_description }
