@@ -233,8 +233,8 @@
             L = getL(target, theme, size, { day, date }),
 
             search = {
-                commit: function (s) { document.location.search = s.toString() },
-                get: function () { return new URLSearchParams(document.location.search) }
+                commit: function (s) { document.location.search = s.toString(); },
+                get: function () { return new URLSearchParams(document.location.search); }
             };
         L.render({
             target: target,
