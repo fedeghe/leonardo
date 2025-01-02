@@ -1,6 +1,6 @@
 {
     "name": "@fedeghe/leonardo",
-    "version": "1.0.40",
+    "version": "1.0.41",
     "description": "A simple library to draw sgv programmatically",
     "main": "dist/index.js",
     "author": "Federico Ghedina <fedeghe@gmail.com>",
