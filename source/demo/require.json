@@ -34,5 +34,6 @@
     "source/demo/minefield.json": true,
     "source/demo/minefield2.json": true,
     "source/demo/lotkavolterra.json": true,
+    "source/demo/gbelt.json": true,
     "source/demo/svg/*.svg": "source/demo/png -plugins=malta-svg2png"
 }

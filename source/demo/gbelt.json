@@ -1,0 +1,9 @@
+{
+    "EXE": [
+        "mkdir -p demo/gbelt/js demo/gbelt/css",
+        "cp source/media/gbelt.png demo/gbelt/gbelt.png"
+    ],
+    "source/demo/gbelt/index.js": "demo/gbelt/js -vars=source/vars.json",
+    "source/demo/gbelt/index.less": "demo/gbelt/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/gbelt/index.html": "demo/gbelt -plugins=malta-browser-refresh -vars=source/vars.json"
+}

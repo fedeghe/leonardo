@@ -1,5 +1,5 @@
 ![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.svg "... do not dare scum human!")
-leonardo javascript svg library v. 1.0.40
+leonardo javascript svg library v. 1.0.41
 
 [![Coverage Status](https://coveralls.io/repos/github/fedeghe/leonardo/badge.svg?branch=master)](https://coveralls.io/github/fedeghe/leonardo?branch=master)
 
@@ -185,7 +185,7 @@ var root = Leonardo(300, 200, {target: myDomNode})
 root.render(); // now is optional
 // 
 var rootOrphan = Leonardo(300, 200)
-root.render(); // now is not, need to pass `{target: aDomNode}`
+rootOrphan.render(); // now is not, need to pass `{target: aDomNode}`
                // otherwise will throw an exception
 
 ```  

@@ -4,9 +4,9 @@
 |  |  |   __|     |   | |  _  | __  |    \|     |
 |  |__|   __|  |  | | | |     |    -|  |  |  |  |
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
-                                                  V. 1.0.40
+                                                  V. 1.0.41
 
-Federico Ghedina <federico.ghedina@gmail.com> 2024
+Federico Ghedina <federico.ghedina@gmail.com> 2025
 ~15.4KB
 */
 const Leonardo=function(t){function e(t,e,n){this.namespaces=h;var r,o,s=this;n=n||{},this.width=t,this.height=e,this.tag=i("svg"),this.tag.setAttribute("width",t),this.tag.setAttribute("height",e),

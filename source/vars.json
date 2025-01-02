@@ -75,6 +75,9 @@
         },
         "LOTKAVOLTERRA": {
             "TITLE": "Lotka Volterra"
+        },
+        "GBELT": {
+            "TITLE": "G - belts"
         }
     },
     "SERVER": {

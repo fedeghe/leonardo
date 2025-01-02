@@ -14,7 +14,7 @@ var root = Leonardo(300, 200, {target: myDomNode})
 root.render(); // now is optional
 // 
 var rootOrphan = Leonardo(300, 200)
-root.render(); // now is not, need to pass `{target: aDomNode}`
+rootOrphan.render(); // now is not, need to pass `{target: aDomNode}`
                // otherwise will throw an exception
 
 ```  
