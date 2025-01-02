@@ -1,5 +1,5 @@
 ![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.svg "... do not dare scum human!")
-leonardo javascript svg library v. 1.0.41
+leonardo javascript svg library v. 1.0.42
 
 [![Coverage Status](https://coveralls.io/repos/github/fedeghe/leonardo/badge.svg?branch=master)](https://coveralls.io/github/fedeghe/leonardo?branch=master)
 
@@ -289,21 +289,21 @@ Scales a tag using `sx` to scale along _x_ axis and `sy` to scale along _y_ axis
 
 ---
 ``` js
-instance.instance.mirrorH() // -> instance
+instance.mirrorH() // -> instance
 ```
 
 Mirrors a tag horizontally.
 
 ---
 ``` js
-instance.instance.mirrorV() // -> instance
+instance.mirrorV() // -> instance
 ```
 
 Mirrors a tag vertically.
 
 ---
 ``` js
-instance.instance.move(x, h) // -> instance
+instance.move(x, h) // -> instance
 ```
 
 Moves a tag of `x` pixels along _x_ axis and `y` pixels along _y_ axis. 
@@ -355,7 +355,7 @@ Small working example:
                     {perc: "5", color: "#00a"},
                     {perc: "95", color: "#aa0"},
                     {perc: "100", color: "#f00"},
-                ], '0%', '0%', '100%', '0%') //45
+                ], '0%', '0%', '100%', '0%')
             });
     svg.append(circle).render();
 })()
@@ -419,7 +419,7 @@ instance.positionInspector(config)
 To me happened many times to draw by hand something or target a specific image and then having the need to move that into an `<svg>` path.  
 If you ever tried you are perfectly aware of how much time this can take (I'm clearly considering the programmatinc way). The `positionInspector` utility aims to offer a tool to come and help in such cases.
 
-Let's say we target a random image 🥰, and we want a raw silouhette path (`<p>`) of it : 
+Let's say we target a random image 🥰, and we want a raw silouhette path (`<path/>`) of it : 
 
 ![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.jpg "... do not dare scum human!")
 

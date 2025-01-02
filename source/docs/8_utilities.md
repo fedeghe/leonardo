@@ -7,7 +7,7 @@ instance.positionInspector(config)
 To me happened many times to draw by hand something or target a specific image and then having the need to move that into an `<svg>` path.  
 If you ever tried you are perfectly aware of how much time this can take (I'm clearly considering the programmatinc way). The `positionInspector` utility aims to offer a tool to come and help in such cases.
 
-Let's say we target a random image 🥰, and we want a raw silouhette path (`<p>`) of it : 
+Let's say we target a random image 🥰, and we want a raw silouhette path (`<path/>`) of it : 
 
 ![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.jpg "... do not dare scum human!")
 

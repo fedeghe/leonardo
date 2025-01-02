@@ -29,7 +29,7 @@ Small working example:
                     {perc: "5", color: "#00a"},
                     {perc: "95", color: "#aa0"},
                     {perc: "100", color: "#f00"},
-                ], '0%', '0%', '100%', '0%') //45
+                ], '0%', '0%', '100%', '0%')
             });
     svg.append(circle).render();
 })()

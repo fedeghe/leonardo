@@ -14,21 +14,21 @@ Scales a tag using `sx` to scale along _x_ axis and `sy` to scale along _y_ axis
 
 ---
 ``` js
-instance.instance.mirrorH() // -> instance
+instance.mirrorH() // -> instance
 ```
 
 Mirrors a tag horizontally.
 
 ---
 ``` js
-instance.instance.mirrorV() // -> instance
+instance.mirrorV() // -> instance
 ```
 
 Mirrors a tag vertically.
 
 ---
 ``` js
-instance.instance.move(x, h) // -> instance
+instance.move(x, h) // -> instance
 ```
 
 Moves a tag of `x` pixels along _x_ axis and `y` pixels along _y_ axis. 
