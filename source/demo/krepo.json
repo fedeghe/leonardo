@@ -1,0 +1,9 @@
+{
+    "EXE": [
+        "mkdir -p demo/krepo/js demo/krepo/css",
+        "cp source/demo/krepo/*.jpg demo/krepo/"
+    ],
+    "source/demo/krepo/index.js": "demo/krepo/js -vars=source/vars.json",
+    "source/demo/krepo/index.less": "demo/krepo/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/krepo/index.html": "demo/krepo -plugins=malta-browser-refresh -vars=source/vars.json"
+}

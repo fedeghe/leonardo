@@ -78,6 +78,12 @@
         },
         "GBELT": {
             "TITLE": "G - belts"
+        },
+        "KREPO": {
+            "TITLE": "Krepo arald"
+        },
+        "UOULLET": {
+            "TITLE": "Uoullet"
         }
     },
     "SERVER": {

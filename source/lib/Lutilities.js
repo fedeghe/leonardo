@@ -195,6 +195,55 @@ L.prototype.positionCruncher = function (width, height, styles, ends) {
 	};
 }
 
+L.prototype.bezierThroughPoints = function(points, styles) {
+	var self = this, i;
+    if (!points || points.length < 2) return [];
+
+    // Helper to compute control points for smooth cubic Bézier through points
+    function getControlPoints(pts) {
+        var n = pts.length - 1,
+			cps = [];
+        // Special case for 2 points: straight line
+        if (n === 1) {
+            cps.push([
+                pts[0],
+                [ (2*pts[0][0] + pts[1][0])/3, (2*pts[0][1] + pts[1][1])/3 ],
+                [ (pts[0][0] + 2*pts[1][0])/3, (pts[0][1] + 2*pts[1][1])/3 ],
+                pts[1]
+            ]);
+            return cps;
+        }
+        // Calculate control points for each segment
+        for (i = 0; i < n; i++) {
+            var p0 = pts[i === 0 ? i : i-1],
+				p1 = pts[i],
+				p2 = pts[i+1],
+				p3 = pts[i+2 < pts.length ? i+2 : i+1],
+
+            // Catmull-Rom to Bezier conversion
+				c1 = [
+					p1[0] + (p2[0] - p0[0]) / 6,
+					p1[1] + (p2[1] - p0[1]) / 6
+				],
+				c2 = [
+					p2[0] - (p3[0] - p1[0]) / 6,
+					p2[1] - (p3[1] - p1[1]) / 6
+				];
+            cps.push([p1, c1, c2, p2]);
+        }
+        return cps;
+    }
+
+    var controlPoints =  getControlPoints(points),
+		d = 'M' + controlPoints[0][0][0] + ',' + controlPoints[0][0][1];
+    controlPoints.forEach(function(seg){
+        d += '  C'+seg[1][0]+','+seg[1][1]+' '+seg[2][0]+','+seg[2][1]+' '+seg[3][0]+','+seg[3][1];
+    });
+	return self.path(d).setAttributes(styles);
+};
+
+
+
 L.prototype.dataEncoded = function () {
 	var serializer = new XMLSerializer(),
 		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag);

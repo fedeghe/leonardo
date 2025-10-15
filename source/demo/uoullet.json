@@ -1,0 +1,9 @@
+{
+    "EXE": [
+        "mkdir -p demo/uoullet/js demo/uoullet/css",
+        "cp source/media/uoullet.jpg demo/uoullet/uoullet.jpg"
+    ],
+    "source/demo/uoullet/index.js": "demo/uoullet/js -vars=source/vars.json",
+    "source/demo/uoullet/index.less": "demo/uoullet/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/uoullet/index.html": "demo/uoullet -plugins=malta-browser-refresh -vars=source/vars.json"
+}

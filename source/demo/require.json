@@ -31,9 +31,11 @@
     "source/demo/god.json": true,
     "source/demo/monalisa.json": true,
     "source/demo/vitruvian.json": true,
+    "source/demo/uoullet.json": true,
     "source/demo/minefield.json": true,
     "source/demo/minefield2.json": true,
     "source/demo/lotkavolterra.json": true,
     "source/demo/gbelt.json": true,
+    "source/demo/krepo.json": true,
     "source/demo/svg/*.svg": "source/demo/png -plugins=malta-svg2png"
 }
