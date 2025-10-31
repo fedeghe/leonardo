@@ -3,15 +3,16 @@ window.onload = function () {
     function render() {
         console.log(Leonardo);
         var target = document.getElementById('trg'),
-            bxWidth = 150,
-            bxHeight = 80,
+
+            width = 1050,
+            height = 100,
+
+
             letters = 7
-            height = bxHeight,
-            width = bxWidth  * letters,
+            bxHeight = height,
+            bxWidth = width / letters,
             prop = width / height,
-            // width = Math.min(987, window.innerWidth-50),
-            // width = window.innerWidth - 50,
-            // height = parseInt(width / prop, 10),
+            
             Leo = Leonardo(width, height, { ns: '*', target: target }).setStyles({
                 // backgroundColor: '#222222aa' 
             }),
@@ -32,9 +33,9 @@ window.onload = function () {
             crunch = Leo.positionCruncher(width, height, fillStyle),
             crunchClose = Leo.positionCruncher(width, height, fillStyle, true),
 
-            gap = 5,
-            hGapMul = 4,
-            wGapMul = 8,
+            gap = w(0.5),
+            hGapMul = h(4),
+            wGapMul = w(0.8),
             bx1 = Leo.group(
                 Leo.rect(0, 0, bxWidth, bxHeight).setAttributes(boxStyle),
                 Leo.group(
@@ -188,33 +189,10 @@ window.onload = function () {
                 u2,
                 l1, l2,
                 e,t
-            // ).setAttributes(fillStyle);
-            ).setAttributes({...fillStyle, "stroke": '#000', fill: '#00000055'});
+            ).setAttributes({...fillStyle, "stroke": '#000', fill: '#00228877'});
 
         // Leo.append(img);
-        Leo.append(
-            g,
-            
-            // bx1.move(0, 0),
-            // bx2.move(150, 0),
-            // bx3.move(300, 0),
-            // bx4.move(450, 0),
-            // bx5.move(600, 0),
-            // bx6.move(750, 0),
-            // bx7.move(900, 0),
-        );
-        Leo.append(
-            
-            g
-            // bx1.move(0, 0),
-            // bx2.move(150, 0),
-            // bx3.move(300, 0),
-            // bx4.move(450, 0),
-            // bx5.move(600, 0),
-            // bx6.move(750, 0),
-            // bx7.move(900, 0),
-        );
-        // Leo.append(u1);
+        Leo.append(g);
 
         
 
