@@ -44,20 +44,12 @@ L.prototype.fadeOut = function (t, target) {
  * @param {*} name 
  * @returns 
  */
-L.prototype.downloadAnchor = function (txt, name, appendTo) {
-	var a = document.createElement('a'),
-		id = appendTo && 'leo---append-anchor-id';
+L.prototype.downloadAnchor = function (txt, name) {
+	var a = document.createElement('a');
 	a.download = (name || 'download') + '\.svg';
 	a.href = this.dataEncoded();
 	a.innerHTML = txt || 'download';
-	if (id) {
-		a.id = id;
-		if (document.getElementById(id)) {
-			return null
-		} else {
-			appendTo.appendChild(a);
-		}
-	}
+	a.style.display = 'block';
 	return a;
 };
 
@@ -194,7 +186,7 @@ L.prototype.positionCruncher = function (width, height, styles, ends) {
 		return self.path(build).setAttributes(styles);
 	};
 }
-
+ /*
 L.prototype.bezierThroughPoints = function(points, styles) {
 	var self = this, i;
     if (!points || points.length < 2) return [];
@@ -241,7 +233,7 @@ L.prototype.bezierThroughPoints = function(points, styles) {
     });
 	return self.path(d).setAttributes(styles);
 };
-
+*/
 
 
 L.prototype.dataEncoded = function () {

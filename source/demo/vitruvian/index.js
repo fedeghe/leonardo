@@ -686,7 +686,7 @@ window.onload = function () {
 
         Leo.render();
         Leo.positionInspector('[{r%x}, {r%y}],');
-        Leo.downloadAnchor('download', 'vitruvian', document.body);
+        document.body.appendChild(Leo.downloadAnchor('download', 'vitruvian'));
 
         
     }

@@ -1,30 +1,39 @@
 window.onload = function () {
 
-    function render() {
+    function render(target, theme) {
         console.log(Leonardo);
-        var target = document.getElementById('trg'),
-            bxWidth = 150,
-            bxHeight = 80,
+        var themes = {
+                black: {
+                    // background: '#000000',
+                    stroke: '#ffffff',
+                    fill: '#000000'
+                },
+                white: {
+                    // background: '#ffffff',
+                    stroke: '#000000',
+                    fill: '#ffffff'
+                }
+            },
+
+            bxWidth = 170,
+            bxHeight = 90,
             letters = 7
             height = bxHeight,
             width = bxWidth  * letters,
             prop = width / height,
-            // width = Math.min(987, window.innerWidth-50),
-            // width = window.innerWidth - 50,
-            // height = parseInt(width / prop, 10),
             Leo = Leonardo(width, height, { ns: '*', target: target }).setStyles({
-                // backgroundColor: '#222222aa' 
+                backgroundColor: themes[theme].background
             }),
             w = Leonardo.getScaler(width), //function (p) { return width * p / 100; },
             h = Leonardo.getScaler(height), //function (p) { return height * p / 100; },
             img = Leo.image(0, 0, width, height, './uoullet.jpg').setAttributes({ opacity: 0.4 }),
             fillStyle = {
-                "stroke-width": 2,
+                "stroke-width": 5,
                 "stroke-opacity": 1,
                 "fill-opacity": 10,
                 "stroke-linejoin": "round",
-                "stroke": '#fff',
-                fill: '#ffffff55'
+                "stroke": themes[theme].stroke,
+                fill: themes[theme].fill
             },
             gridStyle = {...fillStyle, "stroke-width": 2, "stroke-opacity": 0.2,"stroke": '#fff',},
             boxStyle = {...fillStyle, "stroke-width": 2, "stroke-opacity": 0.2,"stroke": '#00f',},
@@ -33,8 +42,8 @@ window.onload = function () {
             crunchClose = Leo.positionCruncher(width, height, fillStyle, true),
 
             gap = 5,
-            hGapMul = 4,
-            wGapMul = 8,
+            hGapMul = 3.5,
+            wGapMul = 9.5,
             bx1 = Leo.group(
                 Leo.rect(0, 0, bxWidth, bxHeight).setAttributes(boxStyle),
                 Leo.group(
@@ -100,6 +109,7 @@ window.onload = function () {
                     .A(gap*wGapMul, gap*hGapMul, 0, 0, 0, bxWidth - gap*wGapMul, gap)
                     .L(gap*wGapMul, gap)
                     .A(gap*wGapMul, gap*hGapMul, 0, 0, 0, gap, gap*hGapMul)
+                    .Z()
                     .M(gap*wGapMul+gap, gap*hGapMul)
                     .L(bxWidth-gap*wGapMul -gap, gap*hGapMul)
                     .A(gap, gap, 0,0,1,bxWidth-gap*wGapMul, gap*hGapMul + gap)
@@ -189,7 +199,7 @@ window.onload = function () {
                 l1, l2,
                 e,t
             // ).setAttributes(fillStyle);
-            ).setAttributes({...fillStyle, "stroke": '#000', fill: '#00000055'});
+            ).setAttributes({...fillStyle});
 
         // Leo.append(img);
         Leo.append(
@@ -219,14 +229,19 @@ window.onload = function () {
         
 
 
-
+        
         Leo.render();
+        target.appendChild(Leo.downloadAnchor('download '+ theme, 'uoullet'+theme));
         // Leo.positionInspector('[{r%x}, {r%y}],');
-        Leo.downloadAnchor('download', 'uoullet', document.body);
 
+        // document.body.style.backgroundColor = themes[theme].background;
         
     }
-    render();
+    render(this.document.getElementById('trg1'  ), 'black');
+    render(this.document.getElementById('trg2'  ), 'white');
     window.addEventListener('resize', render);
+
+
+    
 
 }
