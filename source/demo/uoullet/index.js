@@ -1,7 +1,31 @@
 window.onload = function () {
 
-    function render(target, theme) {
-        console.log(Leonardo);
+    function GimmeU(L, gap, bxWidth, bxHeight, wGapMul, hGapMul) {
+        return L.path(
+            L.pathBuild
+            .M(gap, gap*hGapMul)
+            .L(gap, bxHeight - gap*hGapMul)
+            .A(gap*wGapMul, gap*hGapMul, 0, 0, 0, gap*wGapMul, bxHeight - gap)
+            .L(bxWidth - gap*wGapMul, bxHeight - gap)
+            .A(gap*wGapMul, gap*hGapMul, 0, 0, 0, bxWidth - gap, bxHeight - gap*hGapMul)
+            .L(bxWidth - gap, gap*hGapMul)
+            .A(gap*wGapMul, gap*hGapMul, 0, 0, 0, bxWidth - gap*wGapMul, gap)
+
+            .L(bxWidth - gap*wGapMul - 10, gap)
+            .A(10, gap*hGapMul, 0, 0, 1, bxWidth - gap*wGapMul, gap*(hGapMul+1))
+            .L(bxWidth - gap*wGapMul, bxHeight - gap*(hGapMul+1))
+            .A(gap, gap, 0, 0, 1, bxWidth - gap*wGapMul - gap, bxHeight - gap*(hGapMul+1)+gap)
+            .L(gap*wGapMul + gap, bxHeight - gap*hGapMul)
+            .A(gap, gap, 0, 0, 1, gap*wGapMul, bxHeight - gap*hGapMul - gap)
+            .L(gap*wGapMul, gap*(hGapMul+1))
+            .A(10, gap*hGapMul, 0, 0, 1, gap*wGapMul + 10, gap)
+            .A(gap*wGapMul, gap*hGapMul, 0, 0, 0, gap, gap*hGapMul)
+            .Z()
+        )
+    }
+
+
+    function getTheme(label) {
         var themes = {
                 black: {
                     // background: '#000000',
@@ -13,91 +37,43 @@ window.onload = function () {
                     stroke: '#000000',
                     fill: '#ffffff'
                 }
+            }
+        return {
+            fillStyle: {
+                "stroke-width": 5,
+                "stroke-opacity": 1,
+                "fill-opacity": 10,
+                "stroke-linejoin": "round",
+                "stroke": themes[label].stroke,
+                fill: themes[label].fill
             },
+            background: 'background' in themes[label] ? themes[label].background : '#ffffff00'
+        }
+    }
 
-            bxWidth = 170,
-            bxHeight = 90,
+    var gap = 5,
+        hGapMul = 3.5,
+        wGapMul = 9.5,
+        bxWidth = 170,
+        bxHeight = 90;
+
+    function render(target, themeLabel) {
+
+        var theme = getTheme(themeLabel),
+            
             letters = 7
             height = bxHeight,
             width = bxWidth  * letters,
             prop = width / height,
             Leo = Leonardo(width, height, { ns: '*', target: target }).setStyles({
-                backgroundColor: themes[theme].background
+                backgroundColor: theme.background
             }),
-            w = Leonardo.getScaler(width), //function (p) { return width * p / 100; },
-            h = Leonardo.getScaler(height), //function (p) { return height * p / 100; },
-            img = Leo.image(0, 0, width, height, './uoullet.jpg').setAttributes({ opacity: 0.4 }),
-            fillStyle = {
-                "stroke-width": 5,
-                "stroke-opacity": 1,
-                "fill-opacity": 10,
-                "stroke-linejoin": "round",
-                "stroke": themes[theme].stroke,
-                fill: themes[theme].fill
-            },
-            gridStyle = {...fillStyle, "stroke-width": 2, "stroke-opacity": 0.2,"stroke": '#fff',},
-            boxStyle = {...fillStyle, "stroke-width": 2, "stroke-opacity": 0.2,"stroke": '#00f',},
-         
-            crunch = Leo.positionCruncher(width, height, fillStyle),
-            crunchClose = Leo.positionCruncher(width, height, fillStyle, true),
+            w = Leonardo.getScaler(width),
+            h = Leonardo.getScaler(height),
+            fillStyle = theme.fillStyle,
+            
 
-            gap = 5,
-            hGapMul = 3.5,
-            wGapMul = 9.5,
-            bx1 = Leo.group(
-                Leo.rect(0, 0, bxWidth, bxHeight).setAttributes(boxStyle),
-                Leo.group(
-                    Leo.line(0, gap, bxWidth, gap),
-                    Leo.line(0, gap*hGapMul, bxWidth, gap*hGapMul),
-                    Leo.line(0, gap*(hGapMul+1), bxWidth, gap*(hGapMul+1)),
-                    Leo.line(0, bxHeight-gap,bxWidth,bxHeight-gap),
-                    Leo.line(0,bxHeight-gap*hGapMul,bxWidth,bxHeight-gap*hGapMul),
-                    Leo.line(0,bxHeight-gap*(hGapMul+1),bxWidth,bxHeight-gap*(hGapMul+1)),
-
-
-                    Leo.line(gap, 0, gap, bxHeight),
-                    Leo.line(gap*wGapMul,0,gap*wGapMul,bxHeight),
-                    Leo.line(bxWidth - gap,0,bxWidth - gap,bxHeight),
-                    Leo.line(bxWidth - gap*wGapMul,0,bxWidth - gap*wGapMul,bxHeight),
-                    
-                ).setAttributes(gridStyle)
-            ),
-            bx2 = bx1.clone(),
-            bx3 = bx1.clone(),
-            bx4 = bx1.clone(),
-            bx5 = bx1.clone(),
-            bx6 = bx1.clone(),
-            bx7 = bx1.clone()
-            u1 = Leo.path(
-                Leo.pathBuild
-                    .M(gap, gap*hGapMul)
-                    .L(gap, bxHeight - gap*hGapMul)
-                    .A(gap*wGapMul, gap*hGapMul, 0, 0, 0, gap*wGapMul, bxHeight - gap)
-                    .L(bxWidth - gap*wGapMul, bxHeight - gap)
-                    .A(gap*wGapMul, gap*hGapMul, 0, 0, 0, bxWidth - gap, bxHeight - gap*hGapMul)
-                    .L(bxWidth - gap, gap*hGapMul)
-                    .A(gap*wGapMul, gap*hGapMul, 0, 0, 0, bxWidth - gap*wGapMul, gap)
-
-                    .L(bxWidth - gap*wGapMul - 10, gap)
-                    .A(10, gap*hGapMul, 0, 0, 1, bxWidth - gap*wGapMul, gap*(hGapMul+1))
-                    .L(bxWidth - gap*wGapMul, bxHeight - gap*(hGapMul+1))
-                    .A(gap, gap, 0, 0, 1, bxWidth - gap*wGapMul - gap, bxHeight - gap*(hGapMul+1)+gap)
-                    .L(gap*wGapMul + gap, bxHeight - gap*hGapMul)
-                    .A(gap, gap, 0, 0, 1, gap*wGapMul, bxHeight - gap*hGapMul - gap)
-                    .L(gap*wGapMul, gap*(hGapMul+1))
-                    .A(10, gap*hGapMul, 0, 0, 1, gap*wGapMul + 10, gap)
-                    .A(gap*wGapMul, gap*hGapMul, 0, 0, 0, gap, gap*hGapMul)
-                    .Z()
-
-                    // .L(gap*(wGapMul+4), bxHeight - gap*hGapMul)
-                    // .A(gap*wGapMul + 10, bxHeight - gap*hGapMul, 0, 0, 1, gap*wGapMul, bxHeight - gap*(hGapMul+1))
-                    // .L(gap*wGapMul, gap*(hGapMul+1))
-                    
-                    // .L(bxWidth - gap*wGapMul - 10, gap)
-
-                    // .A(gap*wGapMul, gap*hGapMul, 0, 0, 0, gap, gap*hGapMul)
-                    // .Z()
-                    ),
+            u1 = GimmeU(Leo, gap, bxWidth, bxHeight, wGapMul, hGapMul),
             o = Leo.path(
                 Leo.pathBuild
                     .M(gap, gap*hGapMul)
@@ -120,7 +96,6 @@ window.onload = function () {
                     .L(gap*wGapMul, gap*hGapMul+gap)
                     .A(gap, gap, 0,0,1,gap*wGapMul+gap, gap*hGapMul)
                     .Z()
-                    
             ).move(bxWidth, 0),
             l1 = Leo.path(
                 Leo.pathBuild
@@ -191,54 +166,41 @@ window.onload = function () {
                     
             ).move(bxWidth*6, 0)
             u2 = u1.clone().move(bxWidth * 2, 0),
-
             g = Leo.group(
                 u1,
                 o,
                 u2,
                 l1, l2,
                 e,t
-            // ).setAttributes(fillStyle);
-            ).setAttributes({...fillStyle});
+            ).setAttributes(fillStyle);
 
-        // Leo.append(img);
-        Leo.append(
-            g,
-            
-            // bx1.move(0, 0),
-            // bx2.move(150, 0),
-            // bx3.move(300, 0),
-            // bx4.move(450, 0),
-            // bx5.move(600, 0),
-            // bx6.move(750, 0),
-            // bx7.move(900, 0),
-        );
-        Leo.append(
-            
-            g
-            // bx1.move(0, 0),
-            // bx2.move(150, 0),
-            // bx3.move(300, 0),
-            // bx4.move(450, 0),
-            // bx5.move(600, 0),
-            // bx6.move(750, 0),
-            // bx7.move(900, 0),
-        );
-        // Leo.append(u1);
-
-        
-
-
-        
-        Leo.render();
-        target.appendChild(Leo.downloadAnchor('download '+ theme, 'uoullet'+theme));
-        // Leo.positionInspector('[{r%x}, {r%y}],');
-
-        // document.body.style.backgroundColor = themes[theme].background;
-        
+        Leo.append(g).render();
+        target.appendChild(Leo.downloadAnchor('download '+ themeLabel, 'uoullet'+themeLabel));
     }
     render(this.document.getElementById('trg1'  ), 'black');
     render(this.document.getElementById('trg2'  ), 'white');
+
+
+    function renderU(){
+        var LeoU = Leonardo(900, 500, { ns: '*', target: document.getElementById('trgU') }).setStyles({
+                backgroundColor: '#00000022'
+            }),
+            theme = getTheme('black'),
+            txt = LeoU.text(0, 0, 'uoullet.com').setAttributes({
+                    'font-size': 50,
+                    'fill': '#ffffff',
+                    'font-family': 'Verdana, sans-serif',
+                    'font-weight': 'bold'
+                })
+                .scale(0.8, 0.6)
+                .rotate(-90,600,-215),
+        U = GimmeU(LeoU , gap, bxWidth, bxHeight, wGapMul, hGapMul).setAttributes(theme.fillStyle);
+
+        LeoU.append(U.scale(5).move(25,25),txt).render();
+        // 
+    }
+    renderU();
+
     window.addEventListener('resize', render);
 
 
