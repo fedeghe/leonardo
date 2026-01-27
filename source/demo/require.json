@@ -5,7 +5,7 @@
         "cp -r dist demo/",
         "touch demo/index.css"
     ],
-    "source/demo/*.html": "demo -plugins=malta-browser-refresh...malta-dev-srv[folder:\"demo\"] -vars=source/vars.json",
+    "source/demo/*.html": "demo -plugins=malta-browser-refresh...malta-dev-srv[folder:\"demo\",port:8787] -vars=source/vars.json",
     "source/demo/mondaine.json": true,
     "source/demo/hero.json": true,
     "source/demo/malta.json": true,

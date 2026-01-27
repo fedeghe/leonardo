@@ -174,7 +174,8 @@ window.onload = function () {
                 e,t
             ).setAttributes(fillStyle);
 
-        Leo.append(g).render();
+        Leo.append(g)
+        .render();
         target.appendChild(Leo.downloadAnchor('download '+ themeLabel, 'uoullet'+themeLabel));
     }
     render(this.document.getElementById('trg1'  ), 'black');
