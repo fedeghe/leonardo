@@ -58,7 +58,7 @@ window.onload = function () {
         bxHeight = 90;
 
     function render(target, themeLabel) {
-
+        console.log({themeLabel});
         var theme = getTheme(themeLabel),
             
             letters = 7
@@ -184,7 +184,7 @@ window.onload = function () {
 
     function renderU(){
         var LeoU = Leonardo(900, 500, { ns: '*', target: document.getElementById('trgU') }).setStyles({
-                backgroundColor: '#00000022'
+                backgroundColor: '#00000055'
             }),
             theme = getTheme('black'),
             txt = LeoU.text(0, 0, 'uoullet.com').setAttributes({
@@ -202,7 +202,8 @@ window.onload = function () {
     }
     renderU();
 
-    window.addEventListener('resize', render);
+    // whould need target and label
+    // window.addEventListener('resize', render);
 
 
     
