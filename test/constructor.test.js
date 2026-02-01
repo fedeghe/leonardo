@@ -4,7 +4,7 @@
 const Leo = require('../dist');
 
 describe('Constructor', () => {
-    test('construct as expected', () => {
+    it('construct as expected', () => {
         const width = 200,
             height = 100,
             L = Leo(width, height, {ns : '*', title: 'stocazzo'});
@@ -23,7 +23,7 @@ describe('Constructor', () => {
     });
 
     describe('basic L instance methods', () => {
-        test('<instance>.setAttributes', () => {
+        it('<instance>.setAttributes', () => {
             const width = 200,
                 height = 100,
                 L = Leo(width, height, {ns : '*'});
@@ -32,7 +32,7 @@ describe('Constructor', () => {
             expect(L.tag.getAttribute('id')).toBe('69');
         });
 
-        test('<instance>.getAttributes', () => {
+        it('<instance>.getAttributes', () => {
             const width = 200,
                 height = 100,
                 L = Leo(width, height, {ns : '*', title: 'stocazzo', id:'69'}),
@@ -41,7 +41,7 @@ describe('Constructor', () => {
             expect(attrs.id).toBe('69');
         });
 
-        test('<instance>.setStyles', () => {
+        it('<instance>.setStyles', () => {
             const width = 200,
                 height = 100,
                 L = Leo(width, height, {ns : '*'});
@@ -50,7 +50,7 @@ describe('Constructor', () => {
             expect(L.tag.style.fontSize).toBe('69px');
         });
 
-        test('<instance>.getStyles', () => {
+        it('<instance>.getStyles', () => {
             const width = 200,
                 height = 100,
                 L = Leo(width, height, {ns : '*'});
@@ -62,7 +62,7 @@ describe('Constructor', () => {
             expect(res.fontSize).toBe('69px');
         });
 
-        test('<instance>.append', () => {
+        it('<instance>.append', () => {
             const width = 200,
                 height = 100,
                 L = Leo(width, height),
@@ -81,7 +81,7 @@ describe('Constructor', () => {
             }
         });
 
-        test('<instance>.render with fade', done => {
+        it('<instance>.render with fade', done => {
             const width = 200,
                 height = 100,
                 fade = 5e2,
@@ -94,7 +94,7 @@ describe('Constructor', () => {
                 done()
             }, fade*1.1)
         });
-        test('<instance>.render with late target', () => {
+        it('<instance>.render with late target', () => {
             const width = 200,
                 height = 100,
                 L = Leo(width, height),
@@ -102,12 +102,22 @@ describe('Constructor', () => {
             L.append(c1).render({ target: document.body });
             expect(L.childs[0].tag.tagName).toBe('circle');
         });
-        test('<instance>.render with cb', done => {
+        it('<instance>.render with cb', done => {
             const width = 200,
                 height = 100,
                 L = Leo(width, height),
                 c1 = L.circle(10, 10, 10);
             L.append(c1).render({ cb: done, target: document.body });
+        });
+        it('<instance>.autoScale', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height); 
+            var l = L.autoScale();
+            expect(L.tag.hasAttribute('width')).toBe(false);
+            expect(L.tag.hasAttribute('height')).toBe(false);
+            expect(L.tag.getAttribute('preserveAspectRatio')).toBe('xMidYMid meet');
+            expect(l).toBe(L);
         });
     });
 
@@ -131,10 +141,28 @@ describe('Constructor', () => {
                 try{
                     Leo(p[0], p[1], {ns : '*'});
                 } catch(e) {
-                    expect(e.message).toBe('width or height not given!');;
+                    expect(e.message).toBe(Leo.ERRORS.factory_invalid_params.message);
                     expect(e.constructor.name).toBe('Error')
                 }
             });
+        });
+    });
+    describe('should throw errors', () => {
+        it('when invalid width is given', () => {
+            try{
+                Leo('ciao', 10, {ns : '*'});
+            } catch(e) {
+                expect(e.message).toBe(Leo.ERRORS.validation_failed('num').message);
+                expect(e.constructor.name).toBe('Error')
+            }
+        });
+        it('when invalid height is given', () => {
+            try{
+                Leo(10, 'ciao', {ns : '*'});
+            } catch(e) {
+                expect(e.message).toBe(Leo.ERRORS.validation_failed('num').message);
+                expect(e.constructor.name).toBe('Error')
+            }
         });
     });
 });

@@ -1,7 +1,9 @@
 const Leonardo = (function(w) {
-	
+
 	$$lib/L.js$$
-	$$lib/constructor.js$$
+	$$lib/errs.js$$
+	$$lib/validators.js$$
+	$$lib/factory.js$$
 	$$lib/Lstatic.js$$
 	$$lib/Lutilities.js$$
 	$$lib/Ltags.js$$	
@@ -15,12 +17,7 @@ const Leonardo = (function(w) {
 	
 	
 
-	// imports
-	Leo.import = L.import;
-	Leo.getqs = L.getqs;
-	Leo.toString = L.toString;
-	Leo.toDocument = L.toDocument;
-	Leo.randomColor = L.randomColor;
+	Leo.ERRORS = ERRORS;
     return Leo;
 })();
 (typeof exports === 'object') && (module.exports = Leonardo);

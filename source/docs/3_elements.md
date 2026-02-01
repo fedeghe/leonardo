@@ -46,18 +46,17 @@ myGroup.append(line, circle)
 
 This method allows to register an event listener for a tag:
 ``` js
-myRect.on('click', function (e) {
+var han = function (e) {
     console.log(e)
-})
+};
+myRect.on('click', han);
 ```
 ---
 ### tagInstance.off(eventName, callback) -> tagInstance  
 
 This method allows to unregister an event listener for a tag:
 ``` js
-myRect.off('click', function (e) {
-    console.log(e)
-})
+myRect.off('click', han);
 ```
 As expected if You plan to register and unregister an handler function You must use the same referenced handler function in both calls.
 

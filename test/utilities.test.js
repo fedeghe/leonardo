@@ -191,4 +191,31 @@ describe('Utilities', () => {
             expect(crunchedPath.getAttributes('d').d).toBe("M20,20l40,40 80,80 100,100Z");
         });
     });
+
+    describe('bezierThroughPoints', () => {
+        it('basic', () => {
+            const width = 200,
+                height = 200,
+                L = Leo(width, height, { target: document.body}),
+                bezierPath = L.bezierThroughPoints([
+                    [10,10], [20,20], [40,40], [50,50]
+                ]),
+                bezierPath2 = L.bezierThroughPoints([
+                    [10,10]
+                ]); 
+            expect(bezierPath.tag.tagName).toBe('path');
+            expect(bezierPath.getAttributes('d').d).toBe("M10,10  C11.666666666666666,11.666666666666666 15,15 20,20  C25,25 35,35 40,40  C45,45 48.333333333333336,48.333333333333336 50,50");
+            expect(bezierPath2).toEqual([]);
+        });
+        it('also with just two points', () => {
+            const width = 200,
+                height = 200,
+                L = Leo(width, height, { target: document.body}),
+                bezierPath = L.bezierThroughPoints([
+                    [10,10], [20,20]
+                ]);
+            expect(bezierPath.tag.tagName).toBe('path');
+            expect(bezierPath.getAttributes('d').d).toBe("M10,10  C13.333333333333334,13.333333333333334 16.666666666666668,16.666666666666668 20,20");
+        });
+    });
 });

@@ -1,5 +1,5 @@
 
-var getgradcmp = function (g) {
+var getgradStepper = function (g) {
     return function(st) {
         var tmp = new Element('stop'),
             att = {
@@ -11,6 +11,16 @@ var getgradcmp = function (g) {
         g.append(tmp)
     }
 }
+
+/**
+ * 
+ * @param {*} sts 
+ * @param {*} x1 
+ * @param {*} y1 
+ * @param {*} x2 
+ * @param {*} y2 
+ * @returns 
+ */
 L.prototype.linearGradient = function(sts /* steps */, x1, y1, x2, y2) {
     var defs = getDefs(this),
         id = lid(),
@@ -22,7 +32,7 @@ L.prototype.linearGradient = function(sts /* steps */, x1, y1, x2, y2) {
             x2: x2||'100%',
             y2: y2||'0%'
         },
-        stepper = getgradcmp(linearGrad);
+        stepper = getgradStepper(linearGrad);
 
     linearGrad.setAttributes(attrs);
     sts.forEach(stepper);
@@ -30,11 +40,16 @@ L.prototype.linearGradient = function(sts /* steps */, x1, y1, x2, y2) {
     return 'url(#' + id + ')';
 }
 
+/**
+ * 
+ * @param {*} sts 
+ * @returns 
+ */
 L.prototype.radialGradient = function radial(sts) {
     var defs = getDefs(this),
         id = lid(),
         radialGrad = new Element('radialGradient'),
-        stepper = getgradcmp(radialGrad);
+        stepper = getgradStepper(radialGrad);
     radialGrad.setAttributes({ id: id });
 
     sts.forEach(stepper);

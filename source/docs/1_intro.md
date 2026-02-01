@@ -15,7 +15,7 @@ First of all in your html include _Leonardo.js_ in the `<head>` tag:
 Now create another `<script>` tag to use _Leonardo.js_, and here create an instance for each svg you need to create using the _Leonardo_ factory:  
 
 ``` html
-<script>+function(){ // do not pollute glob
+<script>+function(){
     var L = Leonardo(300, 200, {id: 'theRootSvg', target: theTargetNode});
     // ...
 }()

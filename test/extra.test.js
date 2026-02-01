@@ -49,6 +49,7 @@ describe('extra', () => {
         expect(arcCentered.tag.tagName).toBe('path');
         expect(arcCentered.tag.getAttribute('d')).toBe('M 50 50 L 55 41.33974596215562 A 10 10 0 0 0 45 41.33974596215561 Z');
     });
+    
     it('arcSection ', () => {
         const width = 200,
             height = 100,
@@ -66,5 +67,40 @@ describe('extra', () => {
         expect(arcSection2.tag.getAttribute('d')).toBe('M50.18276027628548,40.0016702054087L50.365520552570956,30.003340410817405A20,20,0,0,0,50.730919006261125,30.01336052743518L50.365459503130566,40.00668026371759A10,10,0,0,0,50.18276027628548,40.0016702054087Z');
         expect(arcSection3.tag.getAttribute('d')).toBe('M50.18276027628548,40.0016702054087L50.365520552570956,30.003340410817405A20,20,0,0,0,50.730919006261125,30.01336052743518L50.365459503130566,40.00668026371759A10,10,0,0,1,50.18276027628548,40.0016702054087Z');
         expect(arcSection4.tag.getAttribute('d')).toBe('M50.18276027628548,40.0016702054087L50.365520552570956,30.003340410817405A20,20,0,0,1,50.730919006261125,30.01336052743518L50.365459503130566,40.00668026371759A10,10,0,0,1,50.18276027628548,40.0016702054087Z');
+    });
+
+    describe('textBox ', () => {
+        it('trasparent bg', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height, {ns : '*'}),
+                textBox = L.textBox('Hello World', 150, 50, {
+                    "font-size" : 16,
+                    "fill" : '#000000',
+                    "stroke" : '#ff0000',
+                    "text-anchor" : 'middle'
+                });
+            
+            expect(textBox.tag.tagName).toBe('svg');
+            expect(textBox.childs[0].tag.tagName).toBe('rect');
+            expect(textBox.childs[0].tag.getAttribute('fill')).toBe('transparent');
+            expect(textBox.childs[1].tag.tagName).toBe('text');
+            expect(textBox.childs[1].tag.getAttribute('x')).toBe('50%');
+            expect(textBox.childs[1].tag.getAttribute('y')).toBe('50%');
+            expect(textBox.childs[1].tag.textContent).toBe('Hello World');
+        });
+        it('colored bg', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height, {ns : '*'}),
+                textBox = L.textBox('Hello World', 150, 50, {
+                    "font-size" : 16,
+                    "fill" : '#000000',
+                    "stroke" : '#ff0000',
+                    "text-anchor" : 'middle'
+                }, '#00ff00');
+            
+            expect(textBox.childs[0].tag.getAttribute('fill')).toBe('#00ff00');
+        });
     });
 });

@@ -18,6 +18,9 @@ Leo.import = L.import = L.prototype.import =function (d) {
 /**
  * 
  */
+// external use with Leo
+// internal use with L
+// proto
 Leo.getqs = L.getqs= L.prototype.getqs = function () {
 	var q = window.location.search.substring(1),
 		els = q.split('&'),
@@ -30,7 +33,7 @@ Leo.getqs = L.getqs= L.prototype.getqs = function () {
 };
 
 /**
- * 
+ * 	
  */
 Leo.toString = L.toString= L.prototype.toString = function (SVGDocument) {
 	var tmpParent = document.createElement('div');

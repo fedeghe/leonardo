@@ -23,7 +23,7 @@ First of all in your html include _Leonardo.js_ in the `<head>` tag:
 Now create another `<script>` tag to use _Leonardo.js_, and here create an instance for each svg you need to create using the _Leonardo_ factory:  
 
 ``` html
-<script>+function(){ // do not pollute glob
+<script>+function(){
     var L = Leonardo(300, 200, {id: 'theRootSvg', target: theTargetNode});
     // ...
 }()
@@ -217,18 +217,17 @@ myGroup.append(line, circle)
 
 This method allows to register an event listener for a tag:
 ``` js
-myRect.on('click', function (e) {
+var han = function (e) {
     console.log(e)
-})
+};
+myRect.on('click', han);
 ```
 ---
 ### tagInstance.off(eventName, callback) -> tagInstance  
 
 This method allows to unregister an event listener for a tag:
 ``` js
-myRect.off('click', function (e) {
-    console.log(e)
-})
+myRect.off('click', han);
 ```
 As expected if You plan to register and unregister an handler function You must use the same referenced handler function in both calls.
 
@@ -460,6 +459,11 @@ to get
 now, we would want to have a quick way to get the right `d` attribute content to be used in a `<path/>` tag so to draw what we want, all we need to do is invoke `Leo.positionInspector()`:
 
 <video src="https://raw.githubusercontent.com/fedeghe/leonardo/master/media/readme1.mov"/>
+
+
+---
+
+## Some extra
 
 
 ---

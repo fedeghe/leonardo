@@ -4,7 +4,7 @@
 const Leo = require('../dist');
 
 describe('Tags', () => {
-    test('<desc> ', () => {
+    it('<desc> ', () => {
         const width = 200,
             height = 100,
             L = Leo(width, height, {ns : '*'}),
@@ -16,7 +16,7 @@ describe('Tags', () => {
         expect(spot.textContent).toBe(desc);
     });
 
-    test('<title> ', () => {
+    it('<title> ', () => {
         const width = 200,
             height = 100,
             L = Leo(width, height, {ns : '*'}),
@@ -28,7 +28,7 @@ describe('Tags', () => {
         expect(spot.textContent).toBe(title);
     });
 
-    test('<text> ', () => {
+    it('<text> ', () => {
         const width = 200,
             height = 100,
             L = Leo(width, height, {ns : '*'}),
@@ -40,7 +40,7 @@ describe('Tags', () => {
         expect(spot.textContent).toBe(txt);
     });
 
-    test('<g> ', () => {
+    it('<g> ', () => {
         const width = 200,
             height = 100,
             L = Leo(width, height, {ns : '*'}),
@@ -49,7 +49,7 @@ describe('Tags', () => {
         const spot = L.tag.children[0]
         expect(spot.tagName).toBe('g');
     })
-    test('<g> append in constructor', () => {
+    it('<g> append in constructor', () => {
         const width = 200,
             height = 100,
             L = Leo(width, height, {ns : '*'}),
@@ -60,7 +60,7 @@ describe('Tags', () => {
         expect(line.tagName).toBe('line');
     });
 
-    test('<image> ', () => {
+    it('<image> ', () => {
         const width = 200, height = 100,
             L = Leo(width, height, {ns : '*'}),
             tag = L.image(0, 0, 30, 30, './source/demo/god/god.jpg');
@@ -69,16 +69,25 @@ describe('Tags', () => {
         expect(spot.tagName).toBe('image');
     });
 
-    test('<polygon> ', () => {
-        const width = 200, height = 100,
+    describe('<polygon>', () => {
+        it('basic usage ', () => {
+            const width = 200, height = 100,
             L = Leo(width, height, {ns : '*'}),
             tag = L.polygon(0,50, 50,0, 100,50, 125,25, 175,25, 75,125);
-        L.append(tag);
-        const spot = L.tag.children[0]
-        expect(spot.tagName).toBe('polygon');
-    });
+            L.append(tag);
+            const spot = L.tag.children[0]
+            expect(spot.tagName).toBe('polygon');
+        });
+        it('error: odd number of points', () => {
+            const width = 200, height = 100,
+            L = Leo(width, height, {ns : '*'});
+            expect(() => {
+                L.polygon(0,50, 50,0, 100);
+            }).toThrow(Leo.ERRORS.odd_number_of_points);
+        });
+    })
 
-    test('<polyline> ', () => {
+    it('<polyline> ', () => {
         const width = 200, height = 100,
             L = Leo(width, height, {ns : '*'}),
             tag = L.polyline(0,50, 50,0, 100,50, 125,25, 175,25, 75,125);
@@ -90,7 +99,7 @@ describe('Tags', () => {
 
 
     describe('<script> ', () => {
-        test('<script> with content', () => {
+        it('<script> with content', () => {
             const width = 200, height = 100,
                 L = Leo(width, height, {ns : '*'}),
                 cnt = 'var s = "hello";'
@@ -100,7 +109,7 @@ describe('Tags', () => {
             expect(spot.tagName).toBe('script');
             expect(spot.innerHTML.includes(cnt)).toBeTruthy();
         });
-        test('<script> with src', () => {
+        it('<script> with src', () => {
             const width = 200, height = 100,
                 L = Leo(width, height, {ns : '*'}),
                 src = 'http://www.example.com/index.js'
@@ -114,7 +123,7 @@ describe('Tags', () => {
     });
     
 
-    test('<path> ', () => {
+    it('<path> ', () => {
         const width = 200, height = 100,
             L = Leo(width, height, {ns : '*'}),
             tag = L.path(
@@ -128,7 +137,7 @@ describe('Tags', () => {
         expect(spot.tagName).toBe('path');
     });
 
-    test('Generic element ', () => {
+    it('Generic element ', () => {
         const width = 200,
             height = 100,
             L = Leo(width, height, {ns : '*'}),
@@ -153,7 +162,7 @@ describe('Tags', () => {
             tag: 'rect',
             attrs: {x: 10, y: 20, width: 5, height: 7}
         }].forEach(o => {
-            test(`<${o.tag}> tag attributes`, () => {
+            it(`<${o.tag}> tag attributes`, () => {
                 const width = 200,
                     height = 100,
                     L = Leo(width, height, {ns : '*'}),
@@ -167,7 +176,7 @@ describe('Tags', () => {
             });
 
         })
-        test('<rect> squared case', () => {
+        it('<rect> squared case', () => {
             const width = 200,
                     height = 100,
                     L = Leo(width, height, {ns : '*'}),

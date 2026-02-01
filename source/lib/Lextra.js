@@ -1,5 +1,13 @@
-/*
-L.prototype.textBox = function (txt, w, h, textAttrs) {
+/**
+ * 
+ * @param {*} txt 
+ * @param {*} w 
+ * @param {*} h 
+ * @param {*} textAttrs 
+ * @param {*} boxFill 
+ * @returns 
+ */
+L.prototype.textBox = function (txt, w, h, textAttrs, boxFill) {
     var cnt = new Element('svg'),
         rect = new Element('rect'),
         text = new Element('text');
@@ -8,7 +16,9 @@ L.prototype.textBox = function (txt, w, h, textAttrs) {
         width: w, height: h,
         "stroke-width" : 0,
         stroke : 'transparent',
+        fill: boxFill || 'transparent'
     });
+    
     cnt.setAttributes({width : w, height : h});
     text.setAttributes({
         x: '50%',
@@ -21,7 +31,7 @@ L.prototype.textBox = function (txt, w, h, textAttrs) {
     cnt.append(rect, text);
     return cnt;
 }
-*/
+
 
 /**
  * { function_description }
@@ -46,7 +56,14 @@ L.prototype.textPath = function (id, d, cnt) {
     return text;
 };
 
-
+/**
+ * 
+ * @param {*} w 
+ * @param {*} h 
+ * @param {*} text 
+ * @param {*} attrs 
+ * @returns 
+ */
 L.prototype.centeredText = function (w, h, text, attrs) {
     var ret = this.group(),
         id = lid(),
@@ -74,12 +91,33 @@ L.prototype.centeredText = function (w, h, text, attrs) {
     return ret;
 }
 
+/**
+ * 
+ * @param {*} cx 
+ * @param {*} cy 
+ * @param {*} r 
+ * @param {*} from 
+ * @param {*} to 
+ * @returns 
+ */
 L.prototype.arcCentered = function (cx, cy, r, from, to) {
     var p = new Element('path');
     p.setAttributes({ d: describeArc(cx, cy, r, from, to) });
     return p;
 }
 
+/**
+ * 
+ * @param {*} cx 
+ * @param {*} cy 
+ * @param {*} r1 
+ * @param {*} r2 
+ * @param {*} from 
+ * @param {*} to 
+ * @param {*} vrs1 
+ * @param {*} vrs2 
+ * @returns 
+ */
 L.prototype.arcSection = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
     vrs1 = typeof vrs1 === 'undefined' ? 1 : vrs1;
     vrs2 = typeof vrs2 === 'undefined' ? 0 : vrs2;

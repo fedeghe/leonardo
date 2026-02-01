@@ -17,6 +17,8 @@ var namespaces = {
  */
 function L(width , height, opts) {
 	this.namespaces = namespaces;
+	validate(width, 'num');
+	validate(height, 'num');
 	var self = this,
 		tmp, l;
 	opts = opts || {};
@@ -48,6 +50,12 @@ function L(width , height, opts) {
 	}
 }
 
+L.prototype.autoScale = function () {
+	this.tag.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+	this.tag.removeAttribute('width');
+	this.tag.removeAttribute('height');
+	return this;
+};
 /**
  * set tag attributes
  *

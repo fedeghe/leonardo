@@ -29,13 +29,20 @@ window.onload = function () {
         var themes = {
                 black: {
                     // background: '#000000',
-                    stroke: '#ffffff',
+                    stroke: 'white',
                     fill: '#000000'
                 },
                 white: {
                     // background: '#ffffff',
                     stroke: '#000000',
                     fill: '#ffffff'
+                },
+                blue: {
+                    // background: '#ffffff',
+                    stroke: '#000000',
+                    fill: 'red',
+                    // fill: 'gold',
+                    
                 }
             }
         return {
@@ -45,7 +52,8 @@ window.onload = function () {
                 "fill-opacity": 10,
                 "stroke-linejoin": "round",
                 "stroke": themes[label].stroke,
-                fill: themes[label].fill
+                fill: themes[label].fill,
+                // "stroke-linejoin": "miter",
             },
             background: 'background' in themes[label] ? themes[label].background : '#ffffff00'
         }
@@ -58,7 +66,6 @@ window.onload = function () {
         bxHeight = 90;
 
     function render(target, themeLabel) {
-        console.log({themeLabel});
         var theme = getTheme(themeLabel),
             
             letters = 7
@@ -175,29 +182,41 @@ window.onload = function () {
             ).setAttributes(fillStyle);
 
         Leo.append(g)
+        // .autoScale()
         .render();
+
+        
         target.appendChild(Leo.downloadAnchor('download '+ themeLabel, 'uoullet'+themeLabel));
+        return Leo.tag;
     }
     render(this.document.getElementById('trg1'  ), 'black');
-    render(this.document.getElementById('trg2'  ), 'white');
+    var r = render(this.document.getElementById('trg2'  ), 'white');
+
+    console.log(r)
 
 
     function renderU(){
-        var LeoU = Leonardo(900, 500, { ns: '*', target: document.getElementById('trgU') }).setStyles({
+        var target = document.getElementById('trgU'),
+            theme = getTheme('blue'),
+            LeoU = Leonardo(900, 500, { ns: '*', target }).setStyles({
                 backgroundColor: '#00000055'
             }),
-            theme = getTheme('black'),
             txt = LeoU.text(0, 0, 'uoullet.com').setAttributes({
                     'font-size': 50,
-                    'fill': '#ffffff',
+                    'fill': theme.fillStyle.stroke,
                     'font-family': 'Verdana, sans-serif',
-                    'font-weight': 'bold'
+                    'font-weight': 'bold',
                 })
-                .scale(0.8, 0.6)
-                .rotate(-90,600,-215),
-        U = GimmeU(LeoU , gap, bxWidth, bxHeight, wGapMul, hGapMul).setAttributes(theme.fillStyle);
+                .scale(0.8, 1.6)
+                .rotate(-90,600,-220),
+            U = GimmeU(LeoU , gap, bxWidth, bxHeight, wGapMul, hGapMul).setAttributes({
+                ...theme.fillStyle,
+                // "stroke-linejoin": "miter",
+            }),
+            I =  LeoU.image(300, 70,300, 300, '/media/qr.png');
 
-        LeoU.append(U.scale(5).move(25,25),txt).render();
+        LeoU.append(U.scale(5).move(25,25),txt,I).render();
+        target.appendChild(LeoU.downloadAnchor('download print', 'uoullet print'));
         // 
     }
     renderU();

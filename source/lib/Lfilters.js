@@ -1,4 +1,9 @@
 
+/**
+ * 
+ * @param {*} filters 
+ * @returns 
+ */
 L.prototype.filter = function(filters) {
     getDefs(this)
     var id = lid(),

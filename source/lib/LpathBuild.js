@@ -25,43 +25,14 @@ function Pathbuild() {
 	this.path = '';
 	this.prev = null;
 }
-[
-	'M', 'm',
-	'Z', 'z',
-	'L', 'l',
-	'H', 'h',
-	'V', 'v',
-	'C', 'c',
-	'Q', 'q',
-	'S', 's',
-	'T', 't',
-	'A', 'a',
-	'R', 'r'
-].forEach(function (f) {
+
+['m', 'z', 'l', 'h', 'v', 'c', 'q', 's', 't', 'a', 'r'].forEach(function (f, up) {
+	up = f.toUpperCase();
 	Pathbuild.prototype[f]= createFun(f);
+	Pathbuild.prototype[up]= createFun(up);
+
 })
 
-
-// Pathbuild.prototype.M = createFun('M');
-// Pathbuild.prototype.m = createFun('m');
-// Pathbuild.prototype.Z = createFun('Z');
-// Pathbuild.prototype.L = createFun('L');
-// Pathbuild.prototype.l = createFun('l');
-// Pathbuild.prototype.H = createFun('H');
-// Pathbuild.prototype.h = createFun('h');
-// Pathbuild.prototype.V = createFun('V');
-// Pathbuild.prototype.v = createFun('v');
-// Pathbuild.prototype.C = createFun('C');
-// Pathbuild.prototype.c = createFun('c');
-// Pathbuild.prototype.Q = createFun('Q');
-// Pathbuild.prototype.q = createFun('q');
-// Pathbuild.prototype.S = createFun('S');
-// Pathbuild.prototype.s = createFun('s');
-// Pathbuild.prototype.T = createFun('T');
-// Pathbuild.prototype.t = createFun('t');
-// Pathbuild.prototype.A = createFun('A');
-// Pathbuild.prototype.a = createFun('a');
-// Pathbuild.prototype.R = createFun('R');
 
 /**
  * { function_description }
@@ -78,12 +49,30 @@ L.prototype.pathBuild = (function () {
 	return pb;
 })();
 
+/**
+ * 
+ * @param {*} cx 
+ * @param {*} cy 
+ * @param {*} r 
+ * @param {*} sa 
+ * @param {*} ea 
+ * @returns 
+ */
 L.prototype.slice = function (cx, cy, r /* radius */, sa /* startAngle */, ea /* endAngle */) {
 	var self = this,
 		p = self.slicePath(cx, cy, r, sa, ea);
 	return self.path(p);
 };
 
+/**
+ * 
+ * @param {*} cx 
+ * @param {*} cy 
+ * @param {*} r 
+ * @param {*} sa 
+ * @param {*} ea 
+ * @returns 
+ */
 L.prototype.slicePath = function (cx, cy, r /* radius */, sa /* startAngle */, ea /* endAngle */) {
 	var la /*largeArc*/ = 0;
 
@@ -115,5 +104,3 @@ L.prototype.slicePath = function (cx, cy, r /* radius */, sa /* startAngle */, e
 		)
 		.L(cx, cy);
 };
-
-

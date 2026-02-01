@@ -113,6 +113,7 @@ L.prototype.polygon = function () {
 		points = [].slice.call(arguments, 0),
 		pp = [],
 		i = 0, l = points.length;
+	if (l % 2 !== 0) throw ERRORS.odd_number_of_points
 	for (null; i < l; i+=2) {
 		pp.push(points[i] + ',' + points[i+1])
 	}

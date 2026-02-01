@@ -3,9 +3,7 @@ function fade (out, t, target) {
         self = this,
         r,
 		done = false;
-	setTimeout(function () {
-		done = true;
-	}, t)
+	setTimeout(function () { done = true; }, t);
 	target = target ||  self;
 	target.tag.style.opacity = out ? 1 : 0;
 
@@ -26,12 +24,23 @@ function fade (out, t, target) {
 	return this;
 }
 
-
+/**
+ * 
+ * @param {*} t 
+ * @param {*} target 
+ * @returns 
+ */
 L.prototype.fadeIn = function (t, target) {
     fade.apply(this, [false, t, target])
 	return this;
 }
 
+/**
+ * 
+ * @param {*} t 
+ * @param {*} target 
+ * @returns 
+ */
 L.prototype.fadeOut = function (t, target) {
     fade.apply(this, [true, t, target])
 	return this;
@@ -92,6 +101,7 @@ L.prototype.positionInspector = function (tpl) {
 		currentInfo = tpl,
 		prev = { x: 0, y: 0},
 		scroll = { left: 0, top: 0},
+		init = {x: document.documentElement.scrollLeft, y: document.documentElement.scrollTop},
 		curr = { x: 0, y: 0},
 		onScroll = function () {
 			scroll.left = document.documentElement.scrollLeft;
@@ -102,11 +112,10 @@ L.prototype.positionInspector = function (tpl) {
 	infoList.style.listStyleType = 'decimal';
 	infoList.style.fontSize = '0.8em';
 	
-	
 	window.addEventListener('scroll', onScroll);
 	tag.addEventListener('mousemove', function (e) {
-		var x = e.clientX + scroll.left,
-			y = e.clientY + scroll.top,
+		var x = e.clientX + scroll.left - init.x,
+			y = e.clientY + scroll.top - init.y,
 			toPercX = function (n) { return 100 * n / w; },
 			toPercY = function (n) { return 100 * n / h; };
 		curr.x = x - left;
@@ -165,6 +174,14 @@ L.prototype.positionInspector = function (tpl) {
 	return this;
 };
 
+/**
+ * 
+ * @param {*} width 
+ * @param {*} height 
+ * @param {*} styles 
+ * @param {*} ends 
+ * @returns 
+ */
 L.prototype.positionCruncher = function (width, height, styles, ends) {
 	var self = this,
 		startFn = 'M',
@@ -186,7 +203,13 @@ L.prototype.positionCruncher = function (width, height, styles, ends) {
 		return self.path(build).setAttributes(styles);
 	};
 }
- /*
+ 
+/**
+ * 
+ * @param {*} points 
+ * @param {*} styles 
+ * @returns 
+ */
 L.prototype.bezierThroughPoints = function(points, styles) {
 	var self = this, i;
     if (!points || points.length < 2) return [];
@@ -233,9 +256,11 @@ L.prototype.bezierThroughPoints = function(points, styles) {
     });
 	return self.path(d).setAttributes(styles);
 };
-*/
 
-
+/**
+ * 
+ * @returns 
+ */
 L.prototype.dataEncoded = function () {
 	var serializer = new XMLSerializer(),
 		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag);
