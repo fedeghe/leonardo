@@ -1,11 +1,12 @@
-var namespaces = {
-    cc: 'http://creativecommons.org/ns#',
-    dc: 'http://purl.org/dc/elements/1.1/',
-    ev: 'http://www.w3.org/2001/xml-events',
-    rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-    svg: 'http://www.w3.org/2000/svg',
-    xlink: 'http://www.w3.org/1999/xlink'
-};
+var ht = 'http://',
+	namespaces = {
+		cc: ht + 'creativecommons.org/ns#',
+		dc: ht + 'purl.org/dc/elements/1.1/',
+		ev: ht + 'www.w3.org/2001/xml-events',
+		rdf: ht + 'www.w3.org/1999/02/22-rdf-syntax-ns#',
+		svg: ht + 'www.w3.org/2000/svg',
+		xlink: ht + 'www.w3.org/1999/xlink'
+	};
 
 /**
  * { function_description }
@@ -16,9 +17,8 @@ var namespaces = {
  * @param      {<type>}  opts    The options
  */
 function L(width , height, opts) {
-	this.namespaces = namespaces;
-	validate(width, 'num');
-	validate(height, 'num');
+	validate.positiveInt(width);
+	validate.positiveInt(height);
 	var self = this,
 		tmp, l;
 	opts = opts || {};
@@ -26,10 +26,12 @@ function L(width , height, opts) {
 	this.height = height;
 
     this.tag = create('svg');
-    this.tag.setAttribute('width', width);
-    this.tag.setAttribute('height', height);
-    this.tag.setAttribute('xmlns', namespaces.svg);
-    this.tag.setAttribute('viewbox', '0 0 ' + width + ' ' + height);
+    this.sas({
+		width: width,
+		height: height,
+		xmlns: namespaces.svg,
+		viewbox: '0 0 ' + width + ' ' + height
+	});
     this.childs = [];
     
     for (tmp in opts)
@@ -43,7 +45,12 @@ function L(width , height, opts) {
     	l in namespaces 
     	&& self.tag.setAttribute('xmlns:' + l, namespaces[l]);
     }
+	
     if ('ns' in opts){
+		// only ns within namespaces var can be added there
+		// so the only thing to validate is the fact that
+		// opts.ns is actually an array
+		// validate.array(opts.ns);
     	opts.ns === '*' && (opts.ns = Object.keys(namespaces));
     	for (tmp = 0, l = opts.ns.length; tmp < l; tmp++)
     		addNs(opts.ns[tmp]);
@@ -62,7 +69,7 @@ L.prototype.autoScale = function () {
  * @param      {<type>}  attrs   The attributes
  * @return     {Object}  { description_of_the_return_value }
  */
-L.prototype.setAttributes = function (attrs) {
+L.prototype.setAttributes = L.prototype.sas = function (attrs) {
 	for (var k in attrs) this.tag.setAttribute(k, attrs[k]);
 	return this;
 };
@@ -127,7 +134,9 @@ L.prototype.append = function () {
  */
 L.prototype.render = function (o) {
     var trg = o && 'target' in o  ? o.target : this.target;
-    if (!trg) throw new Error('Target not set');
+	// console.log({trg})
+    if (!trg) throw ERRORS.no_target;
+	// validate.isNode(trg);
 	trg.innerHTML = '';
     if (o && o.fade) {
         this.tag.style.opacity = 0;
