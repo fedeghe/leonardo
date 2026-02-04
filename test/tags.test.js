@@ -83,7 +83,7 @@ describe('Tags', () => {
             L = Leo(width, height, {ns : '*'});
             expect(() => {
                 L.polygon(0,50, 50,0, 100);
-            }).toThrow(Leo.ERRORS.odd_number_of_points);
+            }).toThrow(Leo.ERRORS.even_numbers_expected);
         });
     })
 

@@ -26,7 +26,7 @@ L.prototype.desc = function (txt) {
  */
 L.prototype.circle = function (cx, cy, r) {
 	var circle = new Element('circle');
-	circle.setAttributes({cx : cx, cy : cy, r : r});
+	circle.sas({cx : cx, cy : cy, r : r});
 	return circle;
 };
 
@@ -41,7 +41,7 @@ L.prototype.circle = function (cx, cy, r) {
  */
 L.prototype.ellipse = function (cx, cy, rx, ry) {
 	var ellipse = new Element('ellipse');
-	ellipse.setAttributes({cx : cx, cy : cy, rx : rx, ry : ry});
+	ellipse.sas({cx : cx, cy : cy, rx : rx, ry : ry});
 	return ellipse;
 };
 
@@ -68,7 +68,7 @@ L.prototype.group = function (a) {
  */
 L.prototype.image = function (x, y, w, h, src) {
 	var image = new Element('image');
-	image.setAttributes({x : x, y : y, width : w, height : h});
+	image.sas({x : x, y : y, width : w, height : h});
 	image.tag.setAttributeNS(namespaces.xlink, 'xlink:href', src);
 	return image;
 };
@@ -84,7 +84,7 @@ L.prototype.image = function (x, y, w, h, src) {
  */
 L.prototype.line = function (x1, y1, x2, y2) {
 	var line = new Element('line');
-	line.setAttributes({x1 : x1, y1 : y1, x2 : x2, y2 : y2});
+	line.sas({x1 : x1, y1 : y1, x2 : x2, y2 : y2});
 	return line;
 };
 
@@ -99,7 +99,7 @@ L.prototype.path = function (d, attrs) {
 	var path = new Element('path');
     attrs = attrs || {}
     attrs.d = d
-	path.setAttributes(attrs);
+	path.sas(attrs);
 	return path;
 };
 
@@ -113,11 +113,11 @@ L.prototype.polygon = function () {
 		points = [].slice.call(arguments, 0),
 		pp = [],
 		i = 0, l = points.length;
-	if (l % 2 !== 0) throw ERRORS.odd_number_of_points
+	validate.evenNumbers(points);
 	for (null; i < l; i+=2) {
 		pp.push(points[i] + ',' + points[i+1])
 	}
-	polygon.setAttributes({points : pp.join(' ')});
+	polygon.tag.setAttribute('points', pp.join(' '));
 	return polygon;
 };
 
@@ -134,7 +134,7 @@ L.prototype.polyline = function () {
 	for (null; i < l; i+=2) {
 		pp.push(points[i] + ',' + points[i+1])
 	}
-	polyline.setAttributes({points : pp.join(' ')});
+	polyline.tag.setAttribute('points', pp.join(' '));
 	return polyline;
 };
 
@@ -150,7 +150,7 @@ L.prototype.polyline = function () {
 L.prototype.rect = function (x, y, w, h) {
 	h = h || w;
 	var rect = new Element('rect');
-	rect.setAttributes({x : x, y : y, width : w, height : h});
+	rect.sas({x : x, y : y, width : w, height : h});
 	return rect;
 };
 
@@ -165,7 +165,7 @@ L.prototype.rect = function (x, y, w, h) {
 L.prototype.text = function (x, y, cnt) {
 	var text = new Element('text'),
 		bBox;
-	text.setAttributes({x : x, y : y});
+	text.sas({x : x, y : y});
 	text.tag.textContent = cnt;
 	return text;
 };
@@ -190,7 +190,7 @@ L.prototype.title = function (txt) {
  */
 L.prototype.script = function (cnt) {
 	var script = new Element('script');
-	script.setAttributes({type : 'application/ecmascript'});
+	script.tag.setAttribute('type', 'application/ecmascript');
 	if (cnt) {
 		script.tag.innerHTML = "//<![CDATA[\n" + cnt + "\n]]>";
 	}

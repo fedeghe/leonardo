@@ -50,7 +50,7 @@ L.prototype.animate = (function () {
 		'to' in params && (attrs.to = params.to);
 		'values' in params && (attrs.values = params.values);
 		'type' in params && (attrs.type = params.type);
-		animate.setAttributes(attrs);
+		animate.sas(attrs);
 		return animate;
 	};
 

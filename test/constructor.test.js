@@ -128,7 +128,7 @@ describe('Constructor', () => {
                 l = Leo(10, 10);
                 l.render();
             } catch(e) {
-                expect(e.message).toBe('Target not set');
+                expect(e.message).toBe(Leo.ERRORS.no_target.message);
                 expect(e.constructor.name).toBe('Error');
             }
             
@@ -136,23 +136,43 @@ describe('Constructor', () => {
     });
 
     describe('constructor throws as expected', () => {
-        it('when does not get positive sizes', () => {
-            [[0,0], [0,1], [1,0], [1,-1], [-1,1]].forEach(p => {
-                try{
-                    Leo(p[0], p[1], {ns : '*'});
-                } catch(e) {
-                    expect(e.message).toBe(Leo.ERRORS.factory_invalid_params.message);
-                    expect(e.constructor.name).toBe('Error')
-                }
-            });
-        });
+
+
+        test.each([
+            [0,0],
+            [0,1],
+            [1,0],
+            [1,-1],
+            [-1,1],
+        ])('when %i and %i are not both positive', async (a, b) => {
+            expect(
+                function() { Leo(a,b, {ns:'*'}); }
+            ).toThrow(
+                Leo.ERRORS.validation_failed('posInt').message
+            );
+        })
     });
+
+    describe('constructor does not throw as expected', () => {
+        test.each([
+            [10,10],
+            [10,1],
+            [1,110],
+            [1,111],
+            [111,122],
+        ])('when %i and %i are both positive', async (a, b) => {
+            expect(
+                function() { Leo(a,b, {ns:'*'}); }
+            ).not.toThrow();
+        })
+    });
+
     describe('should throw errors', () => {
         it('when invalid width is given', () => {
             try{
                 Leo('ciao', 10, {ns : '*'});
             } catch(e) {
-                expect(e.message).toBe(Leo.ERRORS.validation_failed('num').message);
+                expect(e.message).toBe(Leo.ERRORS.validation_failed('posInt').message);
                 expect(e.constructor.name).toBe('Error')
             }
         });
@@ -160,7 +180,7 @@ describe('Constructor', () => {
             try{
                 Leo(10, 'ciao', {ns : '*'});
             } catch(e) {
-                expect(e.message).toBe(Leo.ERRORS.validation_failed('num').message);
+                expect(e.message).toBe(Leo.ERRORS.validation_failed('posInt').message);
                 expect(e.constructor.name).toBe('Error')
             }
         });

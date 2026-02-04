@@ -212,12 +212,18 @@ window.onload = function () {
             U = GimmeU(LeoU , gap, bxWidth, bxHeight, wGapMul, hGapMul).setAttributes({
                 ...theme.fillStyle,
                 // "stroke-linejoin": "miter",
-            }),
-            I =  LeoU.image(300, 70,300, 300, '/media/qr.png');
+            });
 
-        LeoU.append(U.scale(5).move(25,25),txt,I).render();
-        target.appendChild(LeoU.downloadAnchor('download print', 'uoullet print'));
-        // 
+
+        // tp get the b64 encoded qr this is asynch (would be great to find a sync solution)
+        // this makes it downloadable (or must be a url, not visible offline!!!)
+        Leo.img2base64png('/media/qr.png', function (b64){
+            var I =  LeoU.image(300, 70,300, 300, b64);
+            LeoU.append(U.scale(5).move(25,25),I, txt).render();
+            target.appendChild(LeoU.downloadAnchor('download print', 'uoullet print'));
+        })
+        
+        
     }
     renderU();
 

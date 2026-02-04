@@ -11,7 +11,7 @@ L.prototype.textBox = function (txt, w, h, textAttrs, boxFill) {
     var cnt = new Element('svg'),
         rect = new Element('rect'),
         text = new Element('text');
-    rect.setAttributes({
+    rect.sas({
         x : 0, y : 0,
         width: w, height: h,
         "stroke-width" : 0,
@@ -19,14 +19,14 @@ L.prototype.textBox = function (txt, w, h, textAttrs, boxFill) {
         fill: boxFill || 'transparent'
     });
     
-    cnt.setAttributes({width : w, height : h});
-    text.setAttributes({
+    cnt.sas({width : w, height : h});
+    text.sas({
         x: '50%',
         y: '50%',
         'dominant-baseline': 'middle',
         'text-anchor': 'middle'
     });
-    textAttrs && text.setAttributes(textAttrs);
+    textAttrs && text.sas(textAttrs);
     text.tag.innerHTML = txt;
     cnt.append(rect, text);
     return cnt;
@@ -47,7 +47,7 @@ L.prototype.textPath = function (id, d, cnt) {
         defs = new Element('defs'),
         path = self.path(d),
         textpath = new Element('textPath');
-    path.setAttributes({ id: id });
+    path.tag.setAttribute('id', id );
     textpath.tag.innerHTML = cnt;
     textpath.tag.setAttributeNS(namespaces.xlink, 'xlink:href', '#' + id);
     text.append(defs);
@@ -70,7 +70,7 @@ L.prototype.centeredText = function (w, h, text, attrs) {
         path = new Element('path'),
         texte = new Element('text'),
         textPath = new Element('textPath');
-    path.setAttributes({
+    path.sas({
         id: id,
         pathLength: w,
         d: 'M0 ' + h / 2 + 'h' + w,
@@ -83,7 +83,7 @@ L.prototype.centeredText = function (w, h, text, attrs) {
     attrs['dominant-baseline'] = "middle"
     attrs.startOffset = w / 4;
 
-    textPath.setAttributes(attrs)
+    textPath.sas(attrs)
     textPath.tag.innerHTML = text;
     texte.append(textPath);
     ret.append(path, texte);
@@ -102,7 +102,7 @@ L.prototype.centeredText = function (w, h, text, attrs) {
  */
 L.prototype.arcCentered = function (cx, cy, r, from, to) {
     var p = new Element('path');
-    p.setAttributes({ d: describeArc(cx, cy, r, from, to) });
+    p.tag.setAttribute('d', describeArc(cx, cy, r, from, to));
     return p;
 }
 

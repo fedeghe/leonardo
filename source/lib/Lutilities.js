@@ -147,25 +147,30 @@ L.prototype.positionInspector = function (tpl) {
 		scroll.left = document.documentElement.scrollLeft;
 		scroll.top = document.documentElement.scrollTop;
 
-		dot.setAttributes({stroke: 'black', fill: 'white', 'stroke-width': 1, 'stroke-dasharray': rp + ',1'});
+		dot.sas({
+			stroke: 'black',
+			fill: 'white',
+			'stroke-width': 1,
+			'stroke-dasharray': rp + ',1'
+		});
 		dot.on('mouseover', function () {
 			item.style.fontWeight = 'bold';
-			dot.setAttributes({fill: 'red', r : rdub});
+			dot.sas({fill: 'red', r : rdub});
 		});
 		dot.on('mouseleave', function () {
 			item.style.fontWeight = 'normal';
-			dot.setAttributes({fill: 'white', r : r});
+			dot.sas({fill: 'white', r : r});
 		});
 		prev = {x: ~~curr.x, y: ~~curr.y};
 
 		item.innerHTML = currentInfo;
 		item.addEventListener('mouseover', function () {
 			item.style.fontWeight = 'bold';
-			dot.setAttributes({fill: 'red', r : rdub});
+			dot.sas({fill: 'red', r : rdub});
 		});
 		item.addEventListener('mouseout', function () {
 			item.style.fontWeight = 'normal';
-			dot.setAttributes({fill: 'white', r : r});
+			dot.sas({fill: 'white', r : r});
 		});
 
 		infoList.appendChild(item);
@@ -200,7 +205,7 @@ L.prototype.positionCruncher = function (width, height, styles, ends) {
 			self.pathBuild[startFn](w(dots[0][0]), h(dots[0][1]))
 		);
 		if (ends) build.Z();
-		return self.path(build).setAttributes(styles);
+		return self.path(build).sas(styles);
 	};
 }
  
@@ -254,7 +259,7 @@ L.prototype.bezierThroughPoints = function(points, styles) {
     controlPoints.forEach(function(seg){
         d += '  C'+seg[1][0]+','+seg[1][1]+' '+seg[2][0]+','+seg[2][1]+' '+seg[3][0]+','+seg[3][1];
     });
-	return self.path(d).setAttributes(styles);
+	return self.path(d).sas(styles);
 };
 
 /**
@@ -266,11 +271,13 @@ L.prototype.dataEncoded = function () {
 		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag);
 	/* istanbul ignore else */
 	if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-		source = source.replace(/^<svg/, '<svg xmlns="' + this.namespaces.svg + '"');
+		source = source.replace(/^<svg/, '<svg xmlns="' + namespaces.svg + '"');
 	}
 	/* istanbul ignore else */
 	if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
-		source = source.replace(/^<svg/, '<svg xmlns:xlink="' + this.namespaces.xlink + '"');
+		source = source.replace(/^<svg/, '<svg xmlns:xlink="' + namespaces.xlink + '"');
 	}
 	return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
 };
+
+

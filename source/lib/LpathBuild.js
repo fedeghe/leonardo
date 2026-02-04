@@ -30,9 +30,7 @@ function Pathbuild() {
 	up = f.toUpperCase();
 	Pathbuild.prototype[f]= createFun(f);
 	Pathbuild.prototype[up]= createFun(up);
-
 })
-
 
 /**
  * { function_description }

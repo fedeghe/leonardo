@@ -7,7 +7,7 @@ var getgradStepper = function (g) {
                 'stop-color': st.color
             };
         if ('style' in st) att.style = st.style;
-        tmp.setAttributes(att);
+        tmp.sas(att);
         g.append(tmp)
     }
 }
@@ -34,7 +34,7 @@ L.prototype.linearGradient = function(sts /* steps */, x1, y1, x2, y2) {
         },
         stepper = getgradStepper(linearGrad);
 
-    linearGrad.setAttributes(attrs);
+    linearGrad.sas(attrs);
     sts.forEach(stepper);
     defs.append(linearGrad);
     return 'url(#' + id + ')';
@@ -50,7 +50,7 @@ L.prototype.radialGradient = function radial(sts) {
         id = lid(),
         radialGrad = new Element('radialGradient'),
         stepper = getgradStepper(radialGrad);
-    radialGrad.setAttributes({ id: id });
+    radialGrad.tag.setAttribute('id', id );
 
     sts.forEach(stepper);
     defs.append(radialGrad);

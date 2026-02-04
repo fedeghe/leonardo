@@ -24,6 +24,7 @@ function Element(tag, ns) {
 /**
  * { item_description }
  */
+Element.prototype.sas = L.prototype.sas;
 Element.prototype.setAttributes = L.prototype.setAttributes;
 Element.prototype.getAttributes = L.prototype.getAttributes;
 
@@ -142,7 +143,7 @@ Element.prototype.use = function () {
 };
 
 function trans(instance) {
-    instance.setAttributes({transform : instance.transforms.rotate + ' ' + instance.transforms.move + ' ' + instance.transforms.scale});
+    instance.tag.setAttribute('transform', instance.transforms.rotate + ' ' + instance.transforms.move + ' ' + instance.transforms.scale);
 	return instance;
 }
 

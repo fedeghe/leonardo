@@ -4,24 +4,25 @@
 |  |  |   __|     |   | |  _  | __  |    \|     |
 |  |__|   __|  |  | | | |     |    -|  |  |  |  |
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
-                                                  V. 1.0.43
+                                                  V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~40.12KB
+~43.35KB
 */
 const Leonardo = (function(w) {
 
 	/*
 	[Malta] lib/L.js
 	*/
-	var namespaces = {
-	    cc: 'http://creativecommons.org/ns#',
-	    dc: 'http://purl.org/dc/elements/1.1/',
-	    ev: 'http://www.w3.org/2001/xml-events',
-	    rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-	    svg: 'http://www.w3.org/2000/svg',
-	    xlink: 'http://www.w3.org/1999/xlink'
-	};
+	var ht = 'http://',
+		namespaces = {
+			cc: ht + 'creativecommons.org/ns#',
+			dc: ht + 'purl.org/dc/elements/1.1/',
+			ev: ht + 'www.w3.org/2001/xml-events',
+			rdf: ht + 'www.w3.org/1999/02/22-rdf-syntax-ns#',
+			svg: ht + 'www.w3.org/2000/svg',
+			xlink: ht + 'www.w3.org/1999/xlink'
+		};
 	
 	/**
 	 * { function_description }
@@ -32,9 +33,8 @@ const Leonardo = (function(w) {
 	 * @param      {<type>}  opts    The options
 	 */
 	function L(width , height, opts) {
-		this.namespaces = namespaces;
-		validate(width, 'num');
-		validate(height, 'num');
+		validate.positiveInt(width);
+		validate.positiveInt(height);
 		var self = this,
 			tmp, l;
 		opts = opts || {};
@@ -42,10 +42,12 @@ const Leonardo = (function(w) {
 		this.height = height;
 	
 	    this.tag = create('svg');
-	    this.tag.setAttribute('width', width);
-	    this.tag.setAttribute('height', height);
-	    this.tag.setAttribute('xmlns', namespaces.svg);
-	    this.tag.setAttribute('viewbox', '0 0 ' + width + ' ' + height);
+	    this.sas({
+			width: width,
+			height: height,
+			xmlns: namespaces.svg,
+			viewbox: '0 0 ' + width + ' ' + height
+		});
 	    this.childs = [];
 	    
 	    for (tmp in opts)
@@ -59,7 +61,12 @@ const Leonardo = (function(w) {
 	    	l in namespaces 
 	    	&& self.tag.setAttribute('xmlns:' + l, namespaces[l]);
 	    }
+		
 	    if ('ns' in opts){
+			// only ns within namespaces var can be added there
+			// so the only thing to validate is the fact that
+			// opts.ns is actually an array
+			// validate.array(opts.ns);
 	    	opts.ns === '*' && (opts.ns = Object.keys(namespaces));
 	    	for (tmp = 0, l = opts.ns.length; tmp < l; tmp++)
 	    		addNs(opts.ns[tmp]);
@@ -78,7 +85,7 @@ const Leonardo = (function(w) {
 	 * @param      {<type>}  attrs   The attributes
 	 * @return     {Object}  { description_of_the_return_value }
 	 */
-	L.prototype.setAttributes = function (attrs) {
+	L.prototype.setAttributes = L.prototype.sas = function (attrs) {
 		for (var k in attrs) this.tag.setAttribute(k, attrs[k]);
 		return this;
 	};
@@ -143,7 +150,9 @@ const Leonardo = (function(w) {
 	 */
 	L.prototype.render = function (o) {
 	    var trg = o && 'target' in o  ? o.target : this.target;
-	    if (!trg) throw new Error('Target not set');
+		// console.log({trg})
+	    if (!trg) throw ERRORS.no_target;
+		// validate.isNode(trg);
 		trg.innerHTML = '';
 	    if (o && o.fade) {
 	        this.tag.style.opacity = 0;
@@ -179,41 +188,106 @@ const Leonardo = (function(w) {
 	[Malta] lib/errs.js
 	*/
 	var ERRORS = {
-	    odd_number_of_points : new Error('Odd number of points for polygon'),
-	    not_found_validator_type : function(type) {return new Error('Validator ' + type + ' not found');},
+	    no_target: new Error('Target not set'),
 	    validation_failed : function(type) {return new Error('Validation failed for ' + type);},
-	    factory_invalid_params : new Error('Invalid parameters for factory function')
+	    factory_invalid_params : new Error('Invalid parameters for factory function'),
+	    dom_node_expected: new Error('Dom node expected'),
+	    undefined : new Error('undefined not expected'),
+	    'null' : new Error('null not expected'),
+	    array_expected: new Error('array expected'),
+	    even_numbers_expected: new Error('even number of integers expected')
 	}
 	/*
 	[Malta] lib/validators.js
 	*/
 	L.validators = {
-	    num : function (v) {
-	        return !isNaN(parseFloat(v)) && isFinite(v);
+	    int : function (v) {
+	        if(isNaN(v)) return false;
+	        var n = parseFloat(v);
+	        return !isNaN(parseFloat(v)) && isFinite(v) && n === v;
+	    },
+	
+	    // v can contain something that is not in the shape
+	    // anyway all the fields in shape must be present in v
+	    // and the types must match
+	    objShape: function (v, shape) {
+	        if (typeof v !== 'object' || typeof shape !== 'object') return false;
+	        for (var key in shape) {
+	            // if key ends with ? then it is optional to have that on v
+	            var isOptional = false,
+	                k = key;
+	            if (key.slice(-1) === '?') {
+	                isOptional = true;
+	                k = k.slice(0, -1);
+	            }
+	            if (!isOptional || (isOptional && v.hasOwnProperty(k))) {
+	                if (typeof v[k] !== shape[k]) return false;
+	            }
+	        }
+	        return true;        
+	    },
+	    array: function (v){ return Array.isArray(v); }
+	};
+	var validate = {
+	    // defined : function (e) {
+	    //     if(typeof e === 'undefined') throw ERRORS.undefined;
+	    //     return true;
+	    // },
+	    // notNull : function (e) {
+	    //     if(e === null) throw ERRORS.null;
+	    //     return true;
+	    // },
+	    // isNode : function (node) {
+	    //     if (!(node instanceof Element)) throw ERRORS.dom_node_expected;
+	    //     return true;
+	    // },
+	    int : function (n) {
+	        var isValid = L.validators.int(n);
+	        if (!isValid) throw ERRORS.validation_failed('int');
+	        return true;
+	    },
+	    intp : function (n) {
+	        var np = parseInt(n.replace(/(\%)$/, ''), 10),
+	            isValid = L.validators.int(np);
+	        if (!isValid) throw ERRORS.validation_failed('intp');
+	        return true;
+	    },
+	    positive : function (n) {
+	        if (n <= 0) throw ERRORS.validation_failed('pos');
+	        return true;
+	    },
+	    positiveInt: function (n){
+	        var isInt = L.validators.int(n),
+	            isPositive = n > 0;
+	        if(!isInt || !isPositive) throw ERRORS.validation_failed('posInt')
+	        return true;
 	    },
 	    objShape : function (v, shape) {
-	        if (typeof v !== 'object') return false;
-	        for(var k in v){
-	            if(!(k in shape)) return false;
-	            if(typeof v[k] !== shape[k]) return false;
-	        }
+	        var isValid = L.validators.objShape(v, shape);
+	        if (!isValid) throw ERRORS.validation_failed('objShape');
+	        return true;
+	    },
+	    array: function(v) {
+	        if(!L.validators.array(v)) throw ERRORS.array_expected
+	        return true;
+	    },
+	    evenNumbers: function (a){
+	        var l = a.length,
+	            lengthOk = l % 2 === 0,
+	            allNumbers = a.every(function (n){return validate.int(n)})
+	        if(!lengthOk || !allNumbers) throw ERRORS.even_numbers_expected;
 	        return true;
 	    }
-	};
-	function validate (f, validator, opts) {
-	    if (!(validator in L.validators)) throw ERRORS.not_found_validator_type(validator);
-	    var isValid = L.validators[validator](f, opts);
-	    if (!isValid) throw ERRORS.validation_failed(validator);
-	    return true;
 	}
+	
 	/*
 	[Malta] lib/factory.js
 	*/
 	var Leo = function (w, h, attrs) {
-	    if (!w || !h || w < 0 || h < 0) 
-	        throw ERRORS.factory_invalid_params;
-	    validate(w, 'num');
-	    validate(h, 'num');
+	    // if (!w || !h || w < 0 || h < 0) 
+	    //     throw ERRORS.factory_invalid_params;
+	    validate.positiveInt(w);
+	    validate.positiveInt(h);
 	    return new L(w, h, attrs);
 	};
 	/*
@@ -303,6 +377,38 @@ const Leonardo = (function(w) {
 		return function (p) {
 			return parseFloat((p * zoom * top / scale).toFixed(precision), 10);
 		}
+	};
+	
+	
+	Leo.img2base64png = L.img2base64png = L.prototype.img2base64png = function (src, cb) {
+		const getBase64StringFromDataURL = (dataURL) =>
+	    	dataURL.replace('data:', '').replace(/^.+,/, '');
+		
+		fetch(src)
+	        .then((res) => res.blob())
+	        .then((blob) => {
+	            const reader = new FileReader();
+	            reader.onloadend = () => {
+	                const base64 = getBase64StringFromDataURL(reader.result);
+	                cb('data:image/png;base64,'+base64)
+	            };
+	            reader.readAsDataURL(blob);
+	        });
+	};
+	
+	/**
+	 * Synchronous version of img2base64
+	 * @param {string} src - Image source URL
+	 * @returns {string} Base64 encoded data URL
+	 * @note Uses synchronous XMLHttpRequest (deprecated but necessary for sync operation)
+	 */
+	Leo.img2base64Sync = L.img2base64Sync = L.prototype.img2base64Sync = function (src) {
+		const xhr = new XMLHttpRequest();
+		xhr.open('GET', src, false); // false = synchronous
+		xhr.send();
+		
+		const base64 = btoa(unescape(encodeURIComponent(xhr.response)));
+		return 'data:image/png;base64,' + base64;
 	};
 	/*
 	[Malta] lib/Lutilities.js
@@ -456,25 +562,30 @@ const Leonardo = (function(w) {
 			scroll.left = document.documentElement.scrollLeft;
 			scroll.top = document.documentElement.scrollTop;
 	
-			dot.setAttributes({stroke: 'black', fill: 'white', 'stroke-width': 1, 'stroke-dasharray': rp + ',1'});
+			dot.sas({
+				stroke: 'black',
+				fill: 'white',
+				'stroke-width': 1,
+				'stroke-dasharray': rp + ',1'
+			});
 			dot.on('mouseover', function () {
 				item.style.fontWeight = 'bold';
-				dot.setAttributes({fill: 'red', r : rdub});
+				dot.sas({fill: 'red', r : rdub});
 			});
 			dot.on('mouseleave', function () {
 				item.style.fontWeight = 'normal';
-				dot.setAttributes({fill: 'white', r : r});
+				dot.sas({fill: 'white', r : r});
 			});
 			prev = {x: ~~curr.x, y: ~~curr.y};
 	
 			item.innerHTML = currentInfo;
 			item.addEventListener('mouseover', function () {
 				item.style.fontWeight = 'bold';
-				dot.setAttributes({fill: 'red', r : rdub});
+				dot.sas({fill: 'red', r : rdub});
 			});
 			item.addEventListener('mouseout', function () {
 				item.style.fontWeight = 'normal';
-				dot.setAttributes({fill: 'white', r : r});
+				dot.sas({fill: 'white', r : r});
 			});
 	
 			infoList.appendChild(item);
@@ -509,7 +620,7 @@ const Leonardo = (function(w) {
 				self.pathBuild[startFn](w(dots[0][0]), h(dots[0][1]))
 			);
 			if (ends) build.Z();
-			return self.path(build).setAttributes(styles);
+			return self.path(build).sas(styles);
 		};
 	}
 	 
@@ -563,7 +674,7 @@ const Leonardo = (function(w) {
 	    controlPoints.forEach(function(seg){
 	        d += '  C'+seg[1][0]+','+seg[1][1]+' '+seg[2][0]+','+seg[2][1]+' '+seg[3][0]+','+seg[3][1];
 	    });
-		return self.path(d).setAttributes(styles);
+		return self.path(d).sas(styles);
 	};
 	
 	/**
@@ -575,14 +686,17 @@ const Leonardo = (function(w) {
 			source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag);
 		/* istanbul ignore else */
 		if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-			source = source.replace(/^<svg/, '<svg xmlns="' + this.namespaces.svg + '"');
+			source = source.replace(/^<svg/, '<svg xmlns="' + namespaces.svg + '"');
 		}
 		/* istanbul ignore else */
 		if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
-			source = source.replace(/^<svg/, '<svg xmlns:xlink="' + this.namespaces.xlink + '"');
+			source = source.replace(/^<svg/, '<svg xmlns:xlink="' + namespaces.xlink + '"');
 		}
 		return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
 	};
+	
+	
+	
 	/*
 	[Malta] lib/Ltags.js
 	*/
@@ -614,7 +728,7 @@ const Leonardo = (function(w) {
 	 */
 	L.prototype.circle = function (cx, cy, r) {
 		var circle = new Element('circle');
-		circle.setAttributes({cx : cx, cy : cy, r : r});
+		circle.sas({cx : cx, cy : cy, r : r});
 		return circle;
 	};
 	
@@ -629,7 +743,7 @@ const Leonardo = (function(w) {
 	 */
 	L.prototype.ellipse = function (cx, cy, rx, ry) {
 		var ellipse = new Element('ellipse');
-		ellipse.setAttributes({cx : cx, cy : cy, rx : rx, ry : ry});
+		ellipse.sas({cx : cx, cy : cy, rx : rx, ry : ry});
 		return ellipse;
 	};
 	
@@ -656,7 +770,7 @@ const Leonardo = (function(w) {
 	 */
 	L.prototype.image = function (x, y, w, h, src) {
 		var image = new Element('image');
-		image.setAttributes({x : x, y : y, width : w, height : h});
+		image.sas({x : x, y : y, width : w, height : h});
 		image.tag.setAttributeNS(namespaces.xlink, 'xlink:href', src);
 		return image;
 	};
@@ -672,7 +786,7 @@ const Leonardo = (function(w) {
 	 */
 	L.prototype.line = function (x1, y1, x2, y2) {
 		var line = new Element('line');
-		line.setAttributes({x1 : x1, y1 : y1, x2 : x2, y2 : y2});
+		line.sas({x1 : x1, y1 : y1, x2 : x2, y2 : y2});
 		return line;
 	};
 	
@@ -687,7 +801,7 @@ const Leonardo = (function(w) {
 		var path = new Element('path');
 	    attrs = attrs || {}
 	    attrs.d = d
-		path.setAttributes(attrs);
+		path.sas(attrs);
 		return path;
 	};
 	
@@ -701,11 +815,11 @@ const Leonardo = (function(w) {
 			points = [].slice.call(arguments, 0),
 			pp = [],
 			i = 0, l = points.length;
-		if (l % 2 !== 0) throw ERRORS.odd_number_of_points
+		validate.evenNumbers(points);
 		for (null; i < l; i+=2) {
 			pp.push(points[i] + ',' + points[i+1])
 		}
-		polygon.setAttributes({points : pp.join(' ')});
+		polygon.tag.setAttribute('points', pp.join(' '));
 		return polygon;
 	};
 	
@@ -722,7 +836,7 @@ const Leonardo = (function(w) {
 		for (null; i < l; i+=2) {
 			pp.push(points[i] + ',' + points[i+1])
 		}
-		polyline.setAttributes({points : pp.join(' ')});
+		polyline.tag.setAttribute('points', pp.join(' '));
 		return polyline;
 	};
 	
@@ -738,7 +852,7 @@ const Leonardo = (function(w) {
 	L.prototype.rect = function (x, y, w, h) {
 		h = h || w;
 		var rect = new Element('rect');
-		rect.setAttributes({x : x, y : y, width : w, height : h});
+		rect.sas({x : x, y : y, width : w, height : h});
 		return rect;
 	};
 	
@@ -753,7 +867,7 @@ const Leonardo = (function(w) {
 	L.prototype.text = function (x, y, cnt) {
 		var text = new Element('text'),
 			bBox;
-		text.setAttributes({x : x, y : y});
+		text.sas({x : x, y : y});
 		text.tag.textContent = cnt;
 		return text;
 	};
@@ -778,7 +892,7 @@ const Leonardo = (function(w) {
 	 */
 	L.prototype.script = function (cnt) {
 		var script = new Element('script');
-		script.setAttributes({type : 'application/ecmascript'});
+		script.tag.setAttribute('type', 'application/ecmascript');
 		if (cnt) {
 			script.tag.innerHTML = "//<![CDATA[\n" + cnt + "\n]]>";
 		}
@@ -832,9 +946,7 @@ const Leonardo = (function(w) {
 		up = f.toUpperCase();
 		Pathbuild.prototype[f]= createFun(f);
 		Pathbuild.prototype[up]= createFun(up);
-	
 	})
-	
 	
 	/**
 	 * { function_description }
@@ -919,7 +1031,7 @@ const Leonardo = (function(w) {
 	                'stop-color': st.color
 	            };
 	        if ('style' in st) att.style = st.style;
-	        tmp.setAttributes(att);
+	        tmp.sas(att);
 	        g.append(tmp)
 	    }
 	}
@@ -946,7 +1058,7 @@ const Leonardo = (function(w) {
 	        },
 	        stepper = getgradStepper(linearGrad);
 	
-	    linearGrad.setAttributes(attrs);
+	    linearGrad.sas(attrs);
 	    sts.forEach(stepper);
 	    defs.append(linearGrad);
 	    return 'url(#' + id + ')';
@@ -962,7 +1074,7 @@ const Leonardo = (function(w) {
 	        id = lid(),
 	        radialGrad = new Element('radialGradient'),
 	        stepper = getgradStepper(radialGrad);
-	    radialGrad.setAttributes({ id: id });
+	    radialGrad.tag.setAttribute('id', id );
 	
 	    sts.forEach(stepper);
 	    defs.append(radialGrad);
@@ -989,7 +1101,7 @@ const Leonardo = (function(w) {
 	            'feImage', 'feTile', 'feOffset',
 	            'feComposite','feMerge'
 	        ];
-	    filter.setAttributes({id: id});
+	    filter.tag.setAttribute('id', id);
 	
 	    for(
 	        var i = 0, l = filters.length, f, inner = false;
@@ -999,7 +1111,7 @@ const Leonardo = (function(w) {
 	        f = filters[i];
 	        if (availables.includes(f.type)){
 	            inner = new Element(f.type);
-	            inner.setAttributes(f.attrs);
+	            inner.sas(f.attrs);
 	        }
 	
 	        inner && filter.append(inner);
@@ -1064,7 +1176,7 @@ const Leonardo = (function(w) {
     		'to' in params && (attrs.to = params.to);
     		'values' in params && (attrs.values = params.values);
     		'type' in params && (attrs.type = params.type);
-    		animate.setAttributes(attrs);
+    		animate.sas(attrs);
     		return animate;
     	};
     
@@ -1091,7 +1203,7 @@ const Leonardo = (function(w) {
         var cnt = new Element('svg'),
             rect = new Element('rect'),
             text = new Element('text');
-        rect.setAttributes({
+        rect.sas({
             x : 0, y : 0,
             width: w, height: h,
             "stroke-width" : 0,
@@ -1099,14 +1211,14 @@ const Leonardo = (function(w) {
             fill: boxFill || 'transparent'
         });
         
-        cnt.setAttributes({width : w, height : h});
-        text.setAttributes({
+        cnt.sas({width : w, height : h});
+        text.sas({
             x: '50%',
             y: '50%',
             'dominant-baseline': 'middle',
             'text-anchor': 'middle'
         });
-        textAttrs && text.setAttributes(textAttrs);
+        textAttrs && text.sas(textAttrs);
         text.tag.innerHTML = txt;
         cnt.append(rect, text);
         return cnt;
@@ -1127,7 +1239,7 @@ const Leonardo = (function(w) {
             defs = new Element('defs'),
             path = self.path(d),
             textpath = new Element('textPath');
-        path.setAttributes({ id: id });
+        path.tag.setAttribute('id', id );
         textpath.tag.innerHTML = cnt;
         textpath.tag.setAttributeNS(namespaces.xlink, 'xlink:href', '#' + id);
         text.append(defs);
@@ -1150,7 +1262,7 @@ const Leonardo = (function(w) {
             path = new Element('path'),
             texte = new Element('text'),
             textPath = new Element('textPath');
-        path.setAttributes({
+        path.sas({
             id: id,
             pathLength: w,
             d: 'M0 ' + h / 2 + 'h' + w,
@@ -1163,7 +1275,7 @@ const Leonardo = (function(w) {
         attrs['dominant-baseline'] = "middle"
         attrs.startOffset = w / 4;
     
-        textPath.setAttributes(attrs)
+        textPath.sas(attrs)
         textPath.tag.innerHTML = text;
         texte.append(textPath);
         ret.append(path, texte);
@@ -1182,7 +1294,7 @@ const Leonardo = (function(w) {
      */
     L.prototype.arcCentered = function (cx, cy, r, from, to) {
         var p = new Element('path');
-        p.setAttributes({ d: describeArc(cx, cy, r, from, to) });
+        p.tag.setAttribute('d', describeArc(cx, cy, r, from, to));
         return p;
     }
     
@@ -1326,6 +1438,7 @@ const Leonardo = (function(w) {
 	/**
 	 * { item_description }
 	 */
+	Element.prototype.sas = L.prototype.sas;
 	Element.prototype.setAttributes = L.prototype.setAttributes;
 	Element.prototype.getAttributes = L.prototype.getAttributes;
 	
@@ -1444,7 +1557,7 @@ const Leonardo = (function(w) {
 	};
 	
 	function trans(instance) {
-	    instance.setAttributes({transform : instance.transforms.rotate + ' ' + instance.transforms.move + ' ' + instance.transforms.scale});
+	    instance.tag.setAttribute('transform', instance.transforms.rotate + ' ' + instance.transforms.move + ' ' + instance.transforms.scale);
 		return instance;
 	}
 	
@@ -1582,9 +1695,8 @@ const Leonardo = (function(w) {
 		});
 	};
 	
-	
-	
 
+	Leo.validate = validate;
 	Leo.ERRORS = ERRORS;
     return Leo;
 })();

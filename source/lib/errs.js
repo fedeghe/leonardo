@@ -1,6 +1,10 @@
 var ERRORS = {
-    odd_number_of_points : new Error('Odd number of points for polygon'),
-    not_found_validator_type : function(type) {return new Error('Validator ' + type + ' not found');},
+    no_target: new Error('Target not set'),
     validation_failed : function(type) {return new Error('Validation failed for ' + type);},
-    factory_invalid_params : new Error('Invalid parameters for factory function')
+    factory_invalid_params : new Error('Invalid parameters for factory function'),
+    dom_node_expected: new Error('Dom node expected'),
+    undefined : new Error('undefined not expected'),
+    'null' : new Error('null not expected'),
+    array_expected: new Error('array expected'),
+    even_numbers_expected: new Error('even number of integers expected')
 }
