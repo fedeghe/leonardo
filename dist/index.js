@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~43.35KB
+~42.83KB
 */
 const Leonardo = (function(w) {
 
@@ -396,20 +396,6 @@ const Leonardo = (function(w) {
 	        });
 	};
 	
-	/**
-	 * Synchronous version of img2base64
-	 * @param {string} src - Image source URL
-	 * @returns {string} Base64 encoded data URL
-	 * @note Uses synchronous XMLHttpRequest (deprecated but necessary for sync operation)
-	 */
-	Leo.img2base64Sync = L.img2base64Sync = L.prototype.img2base64Sync = function (src) {
-		const xhr = new XMLHttpRequest();
-		xhr.open('GET', src, false); // false = synchronous
-		xhr.send();
-		
-		const base64 = btoa(unescape(encodeURIComponent(xhr.response)));
-		return 'data:image/png;base64,' + base64;
-	};
 	/*
 	[Malta] lib/Lutilities.js
 	*/
