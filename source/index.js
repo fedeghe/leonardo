@@ -14,9 +14,8 @@ const Leonardo = (function(w) {
     // ---
 	$$lib/functions.js$$
 	$$lib/Element.js$$
-	
-	
 
+	Leo.validate = validate;
 	Leo.ERRORS = ERRORS;
     return Leo;
 })();
