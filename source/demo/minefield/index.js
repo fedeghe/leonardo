@@ -203,7 +203,8 @@ window.onload = function () {
 		} while (n--)
 		return out;
 	}
-	function start(){
+	function start(c){
+		if(c) levelCut =c
 		startTime = false;
 		outG.clear();
 		// prerandomize bombs
@@ -213,7 +214,7 @@ window.onload = function () {
 				Array.from({length: nr*nc}, (_, i) => i < nrBombs),
 				3
 			);
-		console.log({nrBombs, tls});
+		
 		for (var i = 0, j; i < nr; i++) {
 			tiles[i] = [];
 			for (j = 0; j < nc; j++) {
@@ -233,6 +234,7 @@ window.onload = function () {
 		if(e.key === 'n') start()
 	});
 
+	window.start = start;
 	
 	L.append(base, outG);
 	L.render();
