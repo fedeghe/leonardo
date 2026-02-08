@@ -14,6 +14,10 @@ function Element(tag, ns) {
 	this.parent = null;
 	this.childs = [];
 	this.events = {};
+	this.scaleX = 1;
+	this.scaleXsign = 1;
+	this.scaleY = 1;
+	this.scaleYsign = 1;
 	this.transforms = {
 		rotate : '',
 		move : '',
@@ -170,9 +174,11 @@ Element.prototype.rotate = function (r, rx, ry) {
  * @return     {<type>}  { description_of_the_return_value }
  */
 Element.prototype.scale = function (sx, sy) {
-	sx = sx || 0;
-	sy = sy || sx || 0;
-	this.transforms.scale = ' scale(' + sx + ', ' + sy + ')';
+	this.scaleX = sx || 0;
+	this.scaleY = sy || sx || 0;
+	this.transforms.scale = ' scale('
+		+ (this.scaleX * this.scaleXsign) + ', '
+		+ (this.scaleY * this.scaleYsign) + ')';
 	return trans(this);
 };
 
@@ -182,7 +188,10 @@ Element.prototype.scale = function (sx, sy) {
  * @return     {<type>}  { description_of_the_return_value }
  */
 Element.prototype.mirrorH = function () {
-	this.transforms.scale = ' scale(1, -1)';
+	this.scaleYsign = -this.scaleYsign;
+	this.transforms.scale = ' scale('
+		+(this.scaleX * this.scaleXsign)+', '
+		+(this.scaleY * this.scaleYsign)+')';
 	return trans(this);
 };
 
@@ -192,7 +201,10 @@ Element.prototype.mirrorH = function () {
  * @return     {<type>}  { description_of_the_return_value }
  */
 Element.prototype.mirrorV = function () {
-	this.transforms.scale = ' scale(-1, 1)';
+	this.scaleXsign = -this.scaleXsign;
+	this.transforms.scale = ' scale('
+		+(this.scaleX * this.scaleXsign)+', '
+		+(this.scaleY * this.scaleYsign)+')';
 	return trans(this);
 };
 

@@ -70,6 +70,7 @@ L.prototype.image = function (x, y, w, h, src) {
 	var image = new Element('image');
 	image.sas({x : x, y : y, width : w, height : h});
 	image.tag.setAttributeNS(namespaces.xlink, 'xlink:href', src);
+	image.tag.setAttribute('transform-origin', "center");
 	return image;
 };
 
