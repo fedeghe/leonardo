@@ -181,18 +181,15 @@ window.onload = function () {
                 e,t
             ).setAttributes(fillStyle);
 
-        Leo.append(g)
-        // .autoScale()
-        .render();
+        Leo.append(g).render();
 
-        
         target.appendChild(Leo.downloadAnchor('download '+ themeLabel, 'uoullet'+themeLabel));
         return Leo.tag;
     }
-    render(this.document.getElementById('trg1'  ), 'black');
-    var r = render(this.document.getElementById('trg2'  ), 'white');
+    
+    render(this.document.getElementById('trg1'), 'black');
 
-    console.log(r)
+    render(this.document.getElementById('trg2'), 'white');
 
 
     function renderU(){
@@ -226,6 +223,20 @@ window.onload = function () {
         
     }
     renderU();
+
+    //wallet
+    (function(){
+        var trg = document.getElementById('trg4'),
+            fac = 0.2,
+            Leo = Leonardo(657, 568, { ns: '*', target: trg });
+        Leo.append(
+            Leo.image(
+                0, 0, 657, 568, 'frontSmall.png'
+            ).scale(0.5).mirrorV()
+        );
+        Leo.render();
+        Leo.positionInspector('[{x}, {y}],');
+    })()
 
     // whould need target and label
     // window.addEventListener('resize', render);

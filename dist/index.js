@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~42.83KB
+~43.26KB
 */
 const Leonardo = (function(w) {
 
@@ -758,6 +758,7 @@ const Leonardo = (function(w) {
 		var image = new Element('image');
 		image.sas({x : x, y : y, width : w, height : h});
 		image.tag.setAttributeNS(namespaces.xlink, 'xlink:href', src);
+		image.tag.setAttribute('transform-origin', "center");
 		return image;
 	};
 	
@@ -1414,6 +1415,10 @@ const Leonardo = (function(w) {
 		this.parent = null;
 		this.childs = [];
 		this.events = {};
+		this.scaleX = 1;
+		this.scaleXsign = 1;
+		this.scaleY = 1;
+		this.scaleYsign = 1;
 		this.transforms = {
 			rotate : '',
 			move : '',
@@ -1570,9 +1575,11 @@ const Leonardo = (function(w) {
 	 * @return     {<type>}  { description_of_the_return_value }
 	 */
 	Element.prototype.scale = function (sx, sy) {
-		sx = sx || 0;
-		sy = sy || sx || 0;
-		this.transforms.scale = ' scale(' + sx + ', ' + sy + ')';
+		this.scaleX = sx || 0;
+		this.scaleY = sy || sx || 0;
+		this.transforms.scale = ' scale('
+			+ (this.scaleX * this.scaleXsign) + ', '
+			+ (this.scaleY * this.scaleYsign) + ')';
 		return trans(this);
 	};
 	
@@ -1582,7 +1589,10 @@ const Leonardo = (function(w) {
 	 * @return     {<type>}  { description_of_the_return_value }
 	 */
 	Element.prototype.mirrorH = function () {
-		this.transforms.scale = ' scale(1, -1)';
+		this.scaleYsign = -this.scaleYsign;
+		this.transforms.scale = ' scale('
+			+(this.scaleX * this.scaleXsign)+', '
+			+(this.scaleY * this.scaleYsign)+')';
 		return trans(this);
 	};
 	
@@ -1592,7 +1602,10 @@ const Leonardo = (function(w) {
 	 * @return     {<type>}  { description_of_the_return_value }
 	 */
 	Element.prototype.mirrorV = function () {
-		this.transforms.scale = ' scale(-1, 1)';
+		this.scaleXsign = -this.scaleXsign;
+		this.transforms.scale = ' scale('
+			+(this.scaleX * this.scaleXsign)+', '
+			+(this.scaleY * this.scaleYsign)+')';
 		return trans(this);
 	};
 	
