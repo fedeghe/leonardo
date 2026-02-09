@@ -83,11 +83,12 @@ L.prototype.toImageTag = function (title, alt) {
  * @returns 
  */
 /* istanbul ignore next */
-L.prototype.positionInspector = function (tpl) {
+L.prototype.positionInspector = function (tpl, cb) {
 	tpl = tpl || '%({%x} {%y}) '+
 			' rel-%({r%x} {r%y}) ' +
 			' px({x} {y})' +
 			' rel-px({rx} {ry})';
+	cb = cb || function (){};
 	var self = this,
 		tag = this.tag,
 		infoTag = document.createElement('div'),
@@ -103,6 +104,9 @@ L.prototype.positionInspector = function (tpl) {
 		scroll = { left: 0, top: 0},
 		init = {x: document.documentElement.scrollLeft, y: document.documentElement.scrollTop},
 		curr = { x: 0, y: 0},
+		currTplized = {},
+		curves = [[]],
+		currentCurveIndex = 0,
 		onScroll = function () {
 			scroll.left = document.documentElement.scrollLeft;
 			scroll.top = document.documentElement.scrollTop;
@@ -130,12 +134,25 @@ L.prototype.positionInspector = function (tpl) {
 				rx: ~~curr.x - prev.x, ry: ~~curr.y - prev.y
 			};
 
-		for (var k in tplValues) currentInfo = currentInfo.replace('{' + k + '}', tplValues[k]);
+		for (var k in tplValues) {
+			currentInfo = currentInfo.replace('{' + k + '}', tplValues[k]);
+		}
+		currTplized = Object.assign({}, tplValues);
 		infoTag.innerHTML = currentInfo;
 	});
 
 	tag.parentNode.appendChild(infoTag);
 	tag.parentNode.appendChild(infoList);
+	window.addEventListener('keydown', function (e) {
+		if (e.key === "N" && e.shiftKey) {
+			currentCurveIndex++;
+			curves.push([]);
+		}
+		if (e.key === "Z" && e.shiftKey) {
+			curves[currentCurveIndex] = curves[currentCurveIndex].slice(0, -1);
+			cb(curves);
+		}
+	});
 	tag.addEventListener('click', function () {
 		var item = document.createElement('li'),
 			r = 2,
@@ -174,6 +191,9 @@ L.prototype.positionInspector = function (tpl) {
 		});
 
 		infoList.appendChild(item);
+		curves[currentCurveIndex].push(currTplized);
+		cb(curves);
+		
 		self.append(dot);
 	});
 	return this;
