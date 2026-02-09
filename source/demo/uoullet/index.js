@@ -226,17 +226,28 @@ window.onload = function () {
 
     //wallet
     (function(){
-        var trg = document.getElementById('trg4'),
-            fac = 0.2,
-            Leo = Leonardo(657, 568, { ns: '*', target: trg });
-        Leo.append(
-            Leo.image(
-                0, 0, 657, 568, 'frontSmall.png'
-            ).scale(0.5).mirrorV()
-        );
+        var w = 650,
+            h = 650,
+            trg = document.getElementById('trg4'),
+            Leo = Leonardo(w, h, { ns: '*', target: trg }),
+            g = Leo.group(),
+            fac = 1,
+            img = Leo.image(
+                0, 0, w, h,'uoullet.svg'
+            ).scale(fac);
+        g.append(img);
+        
+
+        Leo.append(g);
         Leo.render();
-        Leo.positionInspector('[{x}, {y}],');
+        // Leo.positionInspector('[{r%x}, {r%y}],');
     })()
+
+    /*
+    
+    */
+
+
 
     // whould need target and label
     // window.addEventListener('resize', render);

@@ -44,7 +44,11 @@ function getShapeWithCenteredText(type, text, shapeAttrs, textAttrs) {
 window.onload = function () {
     var target = document.getElementById('trg'),
         Leo = Leonardo(900, 900, { ns: '*', target: target }),
-        main = Leo.group();
+        main = Leo.group(),
+        grad1 = Leo.linearGradient([
+            {perc: "0", color: "rgb(67, 57, 31)"},
+            {perc: "50", color: "#f60"},
+        ],'0%', '0%', '100%','100%');
         
     
     main.append(
@@ -74,14 +78,16 @@ window.onload = function () {
                 },
             ])
         }).move(300, 0),
-        getShapeWithText('circle', 'Hello', {fill: 'green'}).setAttributes({
+
+        
+        getShapeWithText('circle', 'Hello', {fill: grad1}).setAttributes({
             filter: Leo.filter([
                 {
                     type:'feTurbulence',
                     attrs:{
                         type:"turbulence",
-                        baseFrequency:"0.2",
-                        numOctaves:"20",
+                        baseFrequency:".02",
+                        numOctaves:"2",
                         result:"turbulence"
                     }
                 },
@@ -90,13 +96,21 @@ window.onload = function () {
                     attrs:{
                         in2:"turbulence",
                         in:"SourceGraphic",
-                        scale:"30",
+                        scale:"20",
                         xChannelSelector:"R",
                         yChannelSelector:"G"
                     }
                 },
+
+                {
+                    type:'feConvolveMatrix',
+                    attrs:{
+                        kernelMatrix:"0 1 0  1 0 1 0 -5 0"
+                    }
+                },
             ])
         }).move(600, 0),
+
         getShapeWithCenteredText('square', 'Hello world', {}, {fill: 'yellow', 'font-size': '28', 'font-family': 'verdana'}).setAttributes({
             filter: Leo.filter([
                 {

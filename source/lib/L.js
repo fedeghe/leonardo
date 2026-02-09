@@ -5,7 +5,8 @@ var ht = 'http://',
 		ev: ht + 'www.w3.org/2001/xml-events',
 		rdf: ht + 'www.w3.org/1999/02/22-rdf-syntax-ns#',
 		svg: ht + 'www.w3.org/2000/svg',
-		xlink: ht + 'www.w3.org/1999/xlink'
+		xlink: ht + 'www.w3.org/1999/xlink',
+		rdf: ht + '//www.w3.org/1999/02/22-rdf-syntax-ns#'
 	};
 
 /**
