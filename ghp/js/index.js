@@ -39,7 +39,7 @@ window.onload = function () {
                     stroke: 'black',
                     'stroke-width': 5,
                     fill: 'none'
-                })
+                }, console.log)
             );
         })
     });

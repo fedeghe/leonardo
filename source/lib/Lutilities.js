@@ -235,8 +235,9 @@ L.prototype.positionCruncher = function (width, height, styles, ends) {
  * @param {*} styles 
  * @returns 
  */
-L.prototype.bezierThroughPoints = function(points, styles) {
+L.prototype.bezierThroughPoints = function(points, styles, cb) {
 	var self = this, i;
+	cb = cb || function(){}
     if (!points || points.length < 2) return [];
 
     // Helper to compute control points for smooth cubic Bézier through points
@@ -273,12 +274,15 @@ L.prototype.bezierThroughPoints = function(points, styles) {
         }
         return cps;
     }
+	var prec = 2,
+		rou = function(v){return parseFloat(v.toFixed(prec), 10);},
+		controlPoints =  getControlPoints(points),
+		d = 'M' + rou(controlPoints[0][0][0]) + ',' + rou(controlPoints[0][0][1]);
 
-    var controlPoints =  getControlPoints(points),
-		d = 'M' + controlPoints[0][0][0] + ',' + controlPoints[0][0][1];
     controlPoints.forEach(function(seg){
-        d += '  C'+seg[1][0]+','+seg[1][1]+' '+seg[2][0]+','+seg[2][1]+' '+seg[3][0]+','+seg[3][1];
+        d += ' C'+rou(seg[1][0])+','+rou(seg[1][1])+' '+rou(seg[2][0])+','+rou(seg[2][1])+' '+rou(seg[3][0])+','+rou(seg[3][1]);
     });
+	cb(self.path(d).tag)
 	return self.path(d).sas(styles);
 };
 
