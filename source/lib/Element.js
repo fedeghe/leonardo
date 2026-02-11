@@ -9,6 +9,7 @@ var iii = 0;
 function Element(tag, ns) {
 	this.t = tag;
 	this._id = 'i_'+(++iii);
+	this.ns = ns;
 	this.tag = create(tag, ns);
 	this.tag.Element = this;
 	this.parent = null;

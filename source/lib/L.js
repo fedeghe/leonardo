@@ -1,12 +1,16 @@
 var ht = 'http://',
+
+	// https://www.w3.org/TR/
 	namespaces = {
 		cc: ht + 'creativecommons.org/ns#',
 		dc: ht + 'purl.org/dc/elements/1.1/',
-		ev: ht + 'www.w3.org/2001/xml-events',
+		ev: ht + 'www.w3.org/2001/xml-events',				// https://www.w3.org/TR/xml-events/
 		rdf: ht + 'www.w3.org/1999/02/22-rdf-syntax-ns#',
-		svg: ht + 'www.w3.org/2000/svg',
-		xlink: ht + 'www.w3.org/1999/xlink',
-		rdf: ht + '//www.w3.org/1999/02/22-rdf-syntax-ns#'
+		svg: ht + 'www.w3.org/2000/svg',					// https://www.w3.org/TR/svg/
+		xlink: ht + 'www.w3.org/1999/xlink', 				// https://www.w3.org/TR/xlink/
+		math: ht + 'www.w3.org/1998/Math/MathML',
+		xhtml: ht + 'www.w3.org/1999/xhtml', //<foreignObject>
+		xml: ht + 'www.w3.org/XML/1998/namespace' 
 	};
 
 /**

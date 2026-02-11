@@ -7,7 +7,9 @@ leonardo javascript svg library v. 1.1.0
 A simple library to draw sgv programmatically
 
 
-... no, neither this libray neither the svg above have nothing to deal with [Leonardo da Vinci](https://en.wikipedia.org/wiki/Leonardo_da_Vinci), it is inspired by "La creazione di Adamo" painted by [Michelangelo Buonarroti](https://en.wikipedia.org/wiki/Michelangelo) (Cappella Sistina, Rome, 1508–1512 A.C.)
+... no, neither this libray neither the svg above have nothing to deal with the unparalleled towering [Leonardo da Vinci](https://en.wikipedia.org/wiki/Leonardo_da_Vinci) ... neither with actors or turtles obviously.  
+Tha one is inspired by "La creazione di Adamo" painted by [Michelangelo Buonarroti](https://en.wikipedia.org/wiki/Michelangelo) (Cappella Sistina, Rome, 1508–1512 A.C.).  
+I choosed that name cause of the immense admiration and silent astonishing deep mixed sense of hope and ignorance I'm wasted on when I think about the most incredible mind ever lived so close to us. Unarguably [Leonardo da Vinci](https://en.wikipedia.org/wiki/Leonardo_da_Vinci)
 
 ## Install Leonardo
 
@@ -33,10 +35,12 @@ Now create another `<script>` tag to use _Leonardo.js_, and here create an insta
 - `width`: mandatory **Integer**  
 - `height`: mandatory **Integer**  
 - `options`: an optional **object literal** which allows to  set some attributes that will be added to the root svg tag:  
-    - `ns`: set the namespaces that are needed, one or more from `['cc', 'dc', 'ev', 'rdf', 'svg', 'xlink']` if all are needed is enough to pass `*`.  
+    - `ns`: set the namespaces that are needed, one or more from `['cc', 'dc', 'ev', 'rdf', 'svg', 'xlink', 'rdf']` if all are needed is enough to pass `*`.  
     - `target`: define the target node for rendering  
 
-anyway it will be possible to set (or override if given already in the instance constructor) the _target_ even when invoking the `render` method on the instance.
+anyway it will be possible to set (or override if given already in the instance constructor) the _target_ even when invoking the `render` method on the instance.  
+
+Here the list of the references: [rdf](https://www.w3.org/TR/rdf-schema/)
 
 
 
@@ -47,12 +51,14 @@ anyway it will be possible to set (or override if given already in the instance 
 # Tags  
 
 To draw something we need to add svg tags. Leonardo lets you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `title`, `script`.  
-In case this is not enough a special function will allow you to get any valid tag.  
-Some additional functions allow to create more easily some common composed elements: `centeredText`, `textPath`. More will come.
 
-Every tag is a `Element` instance, and thus benefits the following instance methods: `attrs`, `styles`, `add`, `on` ,`off`, `clone`, `trans`, `rotate`, `scale`, `mirrorO`, `mirrorV` and `move`. I will describe all them [soon below here](#elements).
+Whenever you will need a tag not listed above a special helper factlry functionis available.  
 
-there is the list of the methods available to create tags:
+Then some additional functions allow to create more easily some "composed" elements: `centeredText`, `textPath`. More will come.
+
+Every tag is primarily a `Element` instance, and thus benefits the following instance methods: `attrs`, `styles`, `add`, `on` ,`off`, `clone`, `trans`, `rotate`, `scale`, `mirrorO`, `mirrorV` and `move`. I will describe all them [soon below here](#elements). Then every elementmight extend the `Element` and add methods or properties. 
+
+There is the list of the methods available to create tags:
 
 ### \<desc\> 
 ``` js

@@ -234,7 +234,7 @@ window.onload = function () {
             fac = 1,
             img = Leo.image(
                 0, 0, w, h,'uoullet.svg'
-            ).scale(fac);
+            ).scale(fac);//.mirrorH();
         g.append(img);
         
 

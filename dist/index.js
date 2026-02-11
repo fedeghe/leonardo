@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~44.88KB
+~45.02KB
 */
 const Leonardo = (function(w) {
 
@@ -15,14 +15,18 @@ const Leonardo = (function(w) {
 	[Malta] lib/L.js
 	*/
 	var ht = 'http://',
+	
+		// https://www.w3.org/TR/
 		namespaces = {
 			cc: ht + 'creativecommons.org/ns#',
 			dc: ht + 'purl.org/dc/elements/1.1/',
-			ev: ht + 'www.w3.org/2001/xml-events',
+			ev: ht + 'www.w3.org/2001/xml-events',				// https://www.w3.org/TR/xml-events/
 			rdf: ht + 'www.w3.org/1999/02/22-rdf-syntax-ns#',
-			svg: ht + 'www.w3.org/2000/svg',
-			xlink: ht + 'www.w3.org/1999/xlink',
-			rdf: ht + '//www.w3.org/1999/02/22-rdf-syntax-ns#'
+			svg: ht + 'www.w3.org/2000/svg',					// https://www.w3.org/TR/svg/
+			xlink: ht + 'www.w3.org/1999/xlink', 				// https://www.w3.org/TR/xlink/
+			math: ht + 'www.w3.org/1998/Math/MathML',
+			xhtml: ht + 'www.w3.org/1999/xhtml', //<foreignObject>
+			xml: ht + 'www.w3.org/XML/1998/namespace' 
 		};
 	
 	/**
@@ -1470,6 +1474,7 @@ const Leonardo = (function(w) {
 	function Element(tag, ns) {
 		this.t = tag;
 		this._id = 'i_'+(++iii);
+		this.ns = ns;
 		this.tag = create(tag, ns);
 		this.tag.Element = this;
 		this.parent = null;
@@ -1627,6 +1632,12 @@ const Leonardo = (function(w) {
 		return trans(this);
 	};
 	
+	function getScale(i){
+		return ' scale('
+			+(i.scaleX * i.scaleXsign)+', '
+			+(i.scaleY * i.scaleYsign)+')';
+	};
+	
 	/**
 	 * { function_description }
 	 *
@@ -1637,9 +1648,7 @@ const Leonardo = (function(w) {
 	Element.prototype.scale = function (sx, sy) {
 		this.scaleX = sx || 0;
 		this.scaleY = sy || sx || 0;
-		this.transforms.scale = ' scale('
-			+ (this.scaleX * this.scaleXsign) + ', '
-			+ (this.scaleY * this.scaleYsign) + ')';
+		this.transforms.scale = getScale(this);
 		return trans(this);
 	};
 	
@@ -1650,9 +1659,7 @@ const Leonardo = (function(w) {
 	 */
 	Element.prototype.mirrorH = function () {
 		this.scaleYsign = -this.scaleYsign;
-		this.transforms.scale = ' scale('
-			+(this.scaleX * this.scaleXsign)+', '
-			+(this.scaleY * this.scaleYsign)+')';
+		this.transforms.scale = getScale(this);
 		return trans(this);
 	};
 	
@@ -1663,9 +1670,7 @@ const Leonardo = (function(w) {
 	 */
 	Element.prototype.mirrorV = function () {
 		this.scaleXsign = -this.scaleXsign;
-		this.transforms.scale = ' scale('
-			+(this.scaleX * this.scaleXsign)+', '
-			+(this.scaleY * this.scaleYsign)+')';
+		this.transforms.scale = getScale(this);
 		return trans(this);
 	};
 	

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        (function(){
+            // Creare SVG
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '400');
+            svg.setAttribute('height', '300');
+
+            // Creare un elemento foreignObject per contenere HTML
+            const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
+            foreignObject.setAttribute('x', '50');
+            foreignObject.setAttribute('y', '50');
+            foreignObject.setAttribute('width', '300');
+            foreignObject.setAttribute('height', '200');
+
+            // Creare elemento HTML con namespace
+            const div = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
+            div.style.padding = '10px';
+            div.style.backgroundColor = '#f0f0f0';
+
+            // Aggiungere contenuto HTML
+            const title = document.createElementNS('http://www.w3.org/1999/xhtml', 'h2');
+            title.textContent = 'Titolo HTML in SVG';
+
+            const paragraph = document.createElementNS('http://www.w3.org/1999/xhtml', 'p');
+            paragraph.innerHTML = 'Questo è un paragrafo con <b>testo grassetto</b> e <i>corsivo</i>';
+
+            div.appendChild(title);
+            div.appendChild(paragraph);
+            foreignObject.appendChild(div);
+            svg.appendChild(foreignObject);
+            document.body.appendChild(svg);
+        })()
+        +function(){
+            // Creare SVG
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '400');
+            svg.setAttribute('height', '200');
+
+            // Impostare attributi con namespace XML
+            // xml:lang - definisce la lingua
+            svg.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'lang', 'it');
+
+            // xml:space - controlla come gli spazi bianchi vengono preservati
+            svg.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'space', 'preserve');
+
+            // Creare un elemento testo
+            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            text.setAttribute('x', '50');
+            text.setAttribute('y', '50');
+            text.textContent = 'Testo in italiano';
+
+            // Impostare xml:lang per l'elemento specifico
+            text.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'lang', 'it');
+
+            svg.appendChild(text);
+
+            // Creare un gruppo con xml:id
+            const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            group.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'id', 'myGroup');
+            group.setAttribute('fill', 'blue');
+
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', '100');
+            circle.setAttribute('cy', '150');
+            circle.setAttribute('r', '30');
+
+            group.appendChild(circle);
+            svg.appendChild(group);
+
+            document.body.appendChild(svg);
+        }()
+        </script>
+</body>
+</html>
