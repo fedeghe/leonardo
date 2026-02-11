@@ -166,6 +166,12 @@ Element.prototype.rotate = function (r, rx, ry) {
 	return trans(this);
 };
 
+function getScale(i){
+	return ' scale('
+		+(i.scaleX * i.scaleXsign)+', '
+		+(i.scaleY * i.scaleYsign)+')';
+};
+
 /**
  * { function_description }
  *
@@ -176,9 +182,7 @@ Element.prototype.rotate = function (r, rx, ry) {
 Element.prototype.scale = function (sx, sy) {
 	this.scaleX = sx || 0;
 	this.scaleY = sy || sx || 0;
-	this.transforms.scale = ' scale('
-		+ (this.scaleX * this.scaleXsign) + ', '
-		+ (this.scaleY * this.scaleYsign) + ')';
+	this.transforms.scale = getScale(this);
 	return trans(this);
 };
 
@@ -189,9 +193,7 @@ Element.prototype.scale = function (sx, sy) {
  */
 Element.prototype.mirrorH = function () {
 	this.scaleYsign = -this.scaleYsign;
-	this.transforms.scale = ' scale('
-		+(this.scaleX * this.scaleXsign)+', '
-		+(this.scaleY * this.scaleYsign)+')';
+	this.transforms.scale = getScale(this);
 	return trans(this);
 };
 
@@ -202,9 +204,7 @@ Element.prototype.mirrorH = function () {
  */
 Element.prototype.mirrorV = function () {
 	this.scaleXsign = -this.scaleXsign;
-	this.transforms.scale = ' scale('
-		+(this.scaleX * this.scaleXsign)+', '
-		+(this.scaleY * this.scaleYsign)+')';
+	this.transforms.scale = getScale(this);
 	return trans(this);
 };
 
