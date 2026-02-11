@@ -93,6 +93,9 @@ L.prototype.positionInspector = function (tpl, cb) {
 		tag = this.tag,
 		infoTag = document.createElement('div'),
 		infoList = document.createElement('ul'),
+		copy = document.createElement('span'),
+		hiddenList = [],
+		hiddenListIndex = 0,
 		boundingBox = tag.getBoundingClientRect(),
 		left = boundingBox.left,
 		top = boundingBox.top,
@@ -107,14 +110,29 @@ L.prototype.positionInspector = function (tpl, cb) {
 		currTplized = {},
 		curves = [[]],
 		currentCurveIndex = 0,
+		dots = [],
+		dotsIndex = 0,
 		onScroll = function () {
 			scroll.left = document.documentElement.scrollLeft;
 			scroll.top = document.documentElement.scrollTop;
-		};
-	
+		},
+		dotsGroup = self.group();
+	copy.innerText = '📑';
+	copy.addEventListener('click', function(e){
+		if(navigator.clipboard.writeText(hiddenList.join(' '))){
+			alert('copied to the clipboard');
+		}
+	})
+	this.append(dotsGroup);
 	infoTag.style.fontFamily = infoList.style.fontFamily = 'verdana';
+	
 	infoList.style.listStyleType = 'decimal';
 	infoList.style.fontSize = '0.8em';
+	infoList.style.height = '80px';
+	infoList.style.maxWidth = '400px';
+	infoList.style.border = '1px solid black';
+	infoList.style.overflow = 'scroll';
+
 	
 	window.addEventListener('scroll', onScroll);
 	tag.addEventListener('mousemove', function (e) {
@@ -141,16 +159,31 @@ L.prototype.positionInspector = function (tpl, cb) {
 		infoTag.innerHTML = currentInfo;
 	});
 
+	function doDots() {
+		dotsGroup.clear();
+		dotsGroup.append(dots);
+	}
+
 	tag.parentNode.appendChild(infoTag);
 	tag.parentNode.appendChild(infoList);
+	tag.parentNode.appendChild(copy);
 	window.addEventListener('keydown', function (e) {
 		if (e.key === "N" && e.shiftKey) {
 			currentCurveIndex++;
 			curves.push([]);
+
+			hiddenList[hiddenListIndex++] = 'null /* === curve separator == */'
 		}
 		if (e.key === "Z" && e.shiftKey) {
 			curves[currentCurveIndex] = curves[currentCurveIndex].slice(0, -1);
+			
+			hiddenList = hiddenList.slice(0, -1);
+			hiddenListIndex--;
+
+			dots = dots.slice(0, -1);
+			dotsIndex--;
 			cb(curves);
+			doDots();
 		}
 	});
 	tag.addEventListener('click', function () {
@@ -160,7 +193,6 @@ L.prototype.positionInspector = function (tpl, cb) {
 			rdub = r * 2,
 			dot = self.circle(~~curr.x + r2 , ~~curr.y + r2, r),
 			rp = r + 1;
-
 		scroll.left = document.documentElement.scrollLeft;
 		scroll.top = document.documentElement.scrollTop;
 
@@ -181,6 +213,7 @@ L.prototype.positionInspector = function (tpl, cb) {
 		prev = {x: ~~curr.x, y: ~~curr.y};
 
 		item.innerHTML = currentInfo;
+		hiddenList[hiddenListIndex++] = currentInfo;
 		item.addEventListener('mouseover', function () {
 			item.style.fontWeight = 'bold';
 			dot.sas({fill: 'red', r : rdub});
@@ -193,8 +226,10 @@ L.prototype.positionInspector = function (tpl, cb) {
 		infoList.appendChild(item);
 		curves[currentCurveIndex].push(currTplized);
 		cb(curves);
-		
-		self.append(dot);
+		dots[dotsIndex++] = dot;
+
+		doDots();
+		infoList.scrollTop = Number.MAX_SAFE_INTEGER;
 	});
 	return this;
 };

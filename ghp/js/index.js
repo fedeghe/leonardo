@@ -1,7 +1,8 @@
 window.onload = function () {
     var target = document.getElementById('trg'),
-        width = 987,
-        height = 652,
+        fact = 1,
+        width = 987 * fact,
+        height = 652 * fact,
         w = function (p) {return width * p/100;},
         h = function (p) {return height * p/100;},
         Leo = Leonardo(width, height, { ns: '*', target: target }).setStyles({backgroundColor: '#222'}),
