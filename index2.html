@@ -77,6 +77,83 @@
 
             document.body.appendChild(svg);
         }()
+        +function (){
+            // Creare SVG
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '500');
+            svg.setAttribute('height', '400');
+
+            // Creare foreignObject per contenere MathML
+            const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
+            foreignObject.setAttribute('x', '20');
+            foreignObject.setAttribute('y', '20');
+            foreignObject.setAttribute('width', '460');
+            foreignObject.setAttribute('height', '150');
+
+            // Creare elemento math con namespace MathML
+            const math = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'math');
+            math.setAttribute('display', 'block');
+
+            // Creare formula: s = v₀t + ½at²
+            const mrow = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mrow');
+
+            // s =
+            const mi1 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mi');
+            mi1.textContent = 's';
+            const mo1 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mo');
+            mo1.textContent = '=';
+
+            // v₀t
+            const msub = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'msub');
+            const mi2 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mi');
+            mi2.textContent = 'v';
+            const mn1 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mn');
+            mn1.textContent = '0';
+            msub.appendChild(mi2);
+            msub.appendChild(mn1);
+
+            const mi3 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mi');
+            mi3.textContent = 't';
+
+            // + ½at²
+            const mo2 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mo');
+            mo2.textContent = '+';
+
+            const mfrac = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mfrac');
+            const mn2 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mn');
+            mn2.textContent = '1';
+            const mn3 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mn');
+            mn3.textContent = '2';
+            mfrac.appendChild(mn2);
+            mfrac.appendChild(mn3);
+
+            const mi4 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mi');
+            mi4.textContent = 'a';
+
+            const msup = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'msup');
+            const mi5 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mi');
+            mi5.textContent = 't';
+            const mn4 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mn');
+            mn4.textContent = '2';
+            msup.appendChild(mi5);
+            msup.appendChild(mn4);
+
+            // Assemblare la formula
+            mrow.appendChild(mi1);
+            mrow.appendChild(mo1);
+            mrow.appendChild(msub);
+            mrow.appendChild(mi3);
+            mrow.appendChild(mo2);
+            mrow.appendChild(mfrac);
+            mrow.appendChild(mi4);
+            mrow.appendChild(msup);
+
+            math.appendChild(mrow);
+            foreignObject.appendChild(math);
+            svg.appendChild(foreignObject);
+
+            document.body.appendChild(svg);
+        }()
         </script>
 </body>
 </html>

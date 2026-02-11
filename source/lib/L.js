@@ -2,14 +2,59 @@ var ht = 'http://',
 
 	// https://www.w3.org/TR/
 	namespaces = {
+		/**
+		 * Creative Commons (Metadata)
+		 * https://creativecommons.org/ns/
+		 */
 		cc: ht + 'creativecommons.org/ns#',
+
+		/**
+		 * Dublin Core (Metadata - Standard)
+		 * https://purl.org/dc/elements/1.1/
+		 */
 		dc: ht + 'purl.org/dc/elements/1.1/',
+
+		/**
+		 * XML Events
+		 * https://www.w3.org/TR/xml-events/
+		 */
 		ev: ht + 'www.w3.org/2001/xml-events',				// https://www.w3.org/TR/xml-events/
+
+		/**
+		 * RDF (Resource Description Framework - Semantic Web)
+		 * https://www.w3.org/1999/02/22-rdf-syntax-ns/
+		 */
 		rdf: ht + 'www.w3.org/1999/02/22-rdf-syntax-ns#',
-		svg: ht + 'www.w3.org/2000/svg',					// https://www.w3.org/TR/svg/
-		xlink: ht + 'www.w3.org/1999/xlink', 				// https://www.w3.org/TR/xlink/
+
+		/**
+		 * SVG (Scalable Vector Graphics)
+		 * https://www.w3.org/TR/SVG2/
+		 * https://www.w3.org/TR/SVG/
+		 */
+		svg: ht + 'www.w3.org/2000/svg',
+
+		/**
+		 * XLink (Linking in XML)
+		 * https://www.w3.org/TR/xlink/
+		 */
+		xlink: ht + 'www.w3.org/1999/xlink',
+
+		/**
+		 * MathML
+		 * https://www.w3.org/Math/
+		 */
 		math: ht + 'www.w3.org/1998/Math/MathML',
-		xhtml: ht + 'www.w3.org/1999/xhtml', //<foreignObject>
+
+		/**
+		 * XHTML (HTML in XML)
+		 * https://www.w3.org/TR/xhtml1/
+		 */
+		xhtml: ht + 'www.w3.org/1999/xhtml', //<foreignObject> https://www.w3.org/TR/SVG2/embedded.html#ForeignObjectElement
+
+		/**
+		 * XML Namespace (Standard XML)
+		 * https://www.w3.org/XML/1998/namespace
+		 */
 		xml: ht + 'www.w3.org/XML/1998/namespace' 
 	};
 
