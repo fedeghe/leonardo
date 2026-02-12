@@ -168,7 +168,7 @@ L.prototype.text = function (x, y, cnt) {
 	text.sas({x : x, y : y});
 	text.tag.textContent = cnt;
 	//
-	text.setText = function(t) {
+	text.updateText = function(t) {
 		text.tag.textContent = t;
 	};
 	//
