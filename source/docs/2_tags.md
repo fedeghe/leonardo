@@ -1,9 +1,10 @@
 
 # Tags  
 
-To draw something we need to add svg tags. Leonardo lets you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `title`, `script`.  
+To draw something we need to append to the svg tag the right svg tags. Leonardo lets you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `title`, `script`.  
 
-Whenever you will need a tag not listed above a special helper factlry functionis available.  
+
+Whenever you will need a tag not listed above a special helper factory function is available.  
 
 Then some additional functions allow to create more easily some "composed" elements: `centeredText`, `textPath`. More will come.
 

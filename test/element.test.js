@@ -326,4 +326,16 @@ describe('Element', () => {
         expect(g.childs.length).toBe(2);
         expect(g.childs[0].tag.tagName).toBe('rect');
     });
+    it('setText', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height),
+            t = L.text(0,0,'hello');
+
+        L.append(t);
+        
+        expect(t.tag.textContent).toBe('hello');
+        t.setText('world');
+        expect(t.tag.textContent).toBe('world');
+    })
 });

@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+const fetch  = require('jest-fetch-mock');
 const Leo = require('../dist');
 const circle = '<circle cx="10" cy="10" r="5" fill="rgb(174, 222, 113)" fill-opacity="100%"/>'
 
@@ -100,4 +101,22 @@ describe('Static', () => {
             expect(scaler(110.34534)).toBe(44.138);
         });
     });
+describe('img2base64png', () => {
+    it('should convert image to base64', (done) => {
+        // Mock fetch con un blob vero
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: true,
+                blob: () => Promise.resolve(new Blob(['fake image data'], { type: 'image/png' }))
+            })
+        );
+
+        const L = Leo(200, 100);
+        L.img2base64png('../source/media/qr.png', function (b64){
+            expect(b64).toBeTruthy();
+            expect(b64).toBe('data:image/png;base64,ZmFrZSBpbWFnZSBkYXRh');
+            done();
+        })
+    });
+});
 });

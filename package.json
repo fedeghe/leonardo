@@ -23,6 +23,7 @@
         "coveralls": "^3.1.1",
         "jest": "^29.5.0",
         "jest-environment-jsdom": "^29.5.0",
+        "jest-fetch-mock": "^3.0.3",
         "malta": "^4.1.37",
         "malta-browser-refresh": "^1.2.16",
         "malta-del": "^1.0.7",

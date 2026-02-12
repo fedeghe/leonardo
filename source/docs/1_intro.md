@@ -32,6 +32,16 @@ Now create another `<script>`; here the _Leonardo_ factory for each svg you need
 
 anyway it will be possible to set (or override if given already in the instance constructor) the _target_ even when invoking the `render` method on the instance.  
 
-Here the list of the references: [rdf](https://www.w3.org/TR/rdf-schema/)
+Here the list of the references for the namespaces (from official w3c [standard and drafts](https://www.w3.org/TR/)): 
+- [Creative commons](https://creativecommons.org/ns/)
+- [Dublin Core (Metadata - Standard)](https://purl.org/dc/elements/1.1/)
+- [MathML](https://www.w3.org/Math/)
+- [rdf](https://www.w3.org/TR/rdf-schema/)
+- [SVG](https://www.w3.org/TR/SVG/)
+- [SVG2](https://www.w3.org/TR/SVG2/)
+- [XHTML](https://www.w3.org/TR/xhtml1/)
+- [xlink](https://www.w3.org/TR/xlink/)
+- [XML](https://www.w3.org/XML/1998/namespace)
+- [XML events](https://www.w3.org/TR/xml-events/)
 
 

@@ -164,8 +164,7 @@ L.prototype.rect = function (x, y, w, h) {
  * @return     {Element}  { description_of_the_return_value }
  */
 L.prototype.text = function (x, y, cnt) {
-	var text = new Element('text'),
-		bBox;
+	var text = new Element('text');
 	text.sas({x : x, y : y});
 	text.tag.textContent = cnt;
 	return text;
