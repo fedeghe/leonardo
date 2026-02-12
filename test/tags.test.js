@@ -194,3 +194,36 @@ describe('Tags', () => {
     });
 
 });
+
+describe('foreignObject', () => {
+    it('creates foreignObject element', () => {
+        const L = Leo(400, 300);
+        const fo = L.foreignObject(50, 50, 300, 200);
+        
+        expect(fo.tag.tagName).toBe('foreignObject');
+        expect(fo.tag.getAttribute('x')).toBe('50');
+        expect(fo.tag.getAttribute('y')).toBe('50');
+        expect(fo.tag.getAttribute('width')).toBe('300');
+        expect(fo.tag.getAttribute('height')).toBe('200');
+    });
+
+    it('foreignObject can append child elements', () => {
+        const L = Leo(400, 300);
+        const fo = L.foreignObject(50, 50, 300, 200);
+        const circle = L.circle(10, 10, 5);
+        
+        fo.append(circle);
+        
+        expect(fo.tag.children.length).toBe(1);
+        expect(fo.tag.children[0].tagName).toBe('circle');
+    });
+
+    it('foreignObject can be appended to SVG', () => {
+        const L = Leo(400, 300);
+        const fo = L.foreignObject(50, 50, 300, 200);
+        
+        L.append(fo);
+        
+        expect(L.tag.children[0].tagName).toBe('foreignObject');
+    });
+});

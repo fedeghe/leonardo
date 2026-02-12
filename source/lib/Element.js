@@ -293,8 +293,3 @@ Element.prototype.replace = function (currentOne, newOne) {
 		return c._id == currentOne._id ? newOne : c;
 	});
 };
-
-Element.prototype.setText = function (txt){
-	this.tag.textContent = txt;
-	return this;
-}

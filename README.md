@@ -60,16 +60,19 @@ Here the list of the references for the namespaces (from official w3c [standard 
 
 # Tags  
 
-To draw something we need to append to the svg tag the right svg tags. Leonardo lets you create the following tags: `desc`, `circle`, `ellipse`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `title`, `script`.  
+To draw something we need to append to the svg tag the right svg tags. Leonardo lets you create the following tags: `desc`, `circle`, `ellipse`, `foreignObject`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `title`, `script`.  
 
 
 Whenever you will need a tag not listed above a special helper factory function is available.  
 
 Then some additional functions allow to create more easily some "composed" elements: `centeredText`, `textPath`. More will come.
 
-Every tag is primarily a `Element` instance, and thus benefits the following instance methods: `attrs`, `styles`, `add`, `on` ,`off`, `clone`, `trans`, `rotate`, `scale`, `mirrorO`, `mirrorV` and `move`. I will describe all them [soon below here](#elements). Then every elementmight extend the `Element` and add methods or properties. 
+[sss](#util)
 
-There is the list of the methods available to create tags:
+Every tag is primarily a `Element` instance, and thus benefits the following instance methods: `attrs`, `styles`, `add`, `on` ,`off`, `clone`, `trans`, `rotate`, `scale`, `mirrorH`, `mirrorV` and `move`. I will describe all them [soon below here](#elements). Then every element might extend the `Element` and add methods or properties. 
+
+There is the list of the methods available to create tags (all visible ones will show a 👁️ close to their title tag):
+
 
 ### \<desc\> 
 ``` js
@@ -77,17 +80,23 @@ var myDesc = L.desc('This is the description of my svg')
 ```
 Returns a `<desc>` tag containing the text passed to it
 
-### \<circle\>
+### \<circle\> 👁️  
 ``` js
 var myCircle = L.circle(cx, cy, r)
 ```
 Returns a `<circle>` tag centered at `{cx, cy}` with radius `r`.
 
-### \<ellipse\>
+### \<ellipse\> 👁️  
 ``` js
 var myEllipse = L.ellipse(cx, cy, rx, ry)
 ```
 Returns a `<ellipse>` tag centered at `{cx, cy}` with radiuses `rx` and `ry`.
+
+### \<foreignObject\>  
+``` js
+var fObj = L.foreignObject(x, y, width, height)
+```
+Returns a `<foreignObject>` sized and positioned according to the passed parameters.
 
 ### \<g\>
 ``` js
@@ -99,50 +108,50 @@ Optionally you can pass one or more elements to it
 for appending instead of invoke after `myGroup.append(a, b, c)`  
 
 
-### \<image\>
+### \<image\> 👁️  
 ``` js
 var myImage = L.image(x, y, w, h, src)
 ```
 Returns a `<image>` tag positioned at `{x,y}` about `w` and `h` are meant to be the clearly the sizes but  real image size will win on it, in the end the ratio cannot be modified.
 
-### \<line\>  
+### \<line\> 👁️  
 ``` js
 var myLine = L.line(x1, y1, x2, y2)
 ```
 Returns a `<line>` tag representing a segment starting from `{x1,y1}` and ending in `{x2, y2}`.
 
-### \<path\>  
+### \<path\> 👁️  
 ``` js
 var myPath = L.path(d)
 ```
 Returns a `<path>` tag with data corresponding to the `d` parameter passed; for example for a simple triangle could be something like `M150 0 L75 200 L225 200 Z` as [here](https://www.w3schools.com/graphics/svg_path.asp). Leonardo makes it easy to create that for you.
 
 
-### \<polygon\>  
+### \<polygon\> 👁️  
 ``` js
 var myPolygon = L.polygon(x1, y1, ...xn, yn)
 ```
 Returns a `<polygon>` tag with _points_ attribute corresponding to those passed; for example for a simple triangle could be something like `200,10 250,190 160,210` as [here](https://www.w3schools.com/graphics/svg_polygon.asp). Leonardo makes it easy to create that for you.
 
-### \<polyline\>
+### \<polyline\> 👁️  
 ``` js
 var myPolyline = L.polyline(x1, y1, ...xn, yn)
 ```
 creates a polyline which can even be opened (it does not close automatically). 
 
-### \<rect\>  
+### \<rect\> 👁️  
 ``` js
 var myRect = L.rect(x, y, w, h)
 ```
 Returns a `<rect>` tag with the upper left corner positioned at `{x, y}` then `w` is for the width and `h for the height.
 
-### \<text\>  
+### \<text\> 👁️  
 ``` js
 var myText = L.text(x, y, content)
 ```
 Returns a `<text>` tag with positioned at the upper left corner positioned at `{x, y}` containing the text passed as `content`.
 
-### \<title\>  
+### \<title\> 👁️  
 ``` js
 var myTitle = L.title(txt)
 ```
@@ -157,13 +166,13 @@ Returns a `<script>` tag containing the text passed as `content`.
 
 ## extras
 
-### \<centeredText\>  
+### \<centeredText\> 👁️  
 ``` js
 var myTextBox = L.centeredText(w, h, text, textAttrs)
 ```
 to be documented
 
-### \<textPath\>  
+### \<textPath\> 👁️  
 ``` js
 var myTextPath = L.textPath(id, d, content)
 ```
@@ -171,18 +180,18 @@ If we want a text to follow a path then a single tag is not [enough](https://dev
 This function returns an element which contains all is needed given an `id`, a `d` data for the path and a `content` string.
 
 
-### \<arcSection\>  
+### \<arcSection\> 👁️  
 ``` js
 var myArcSection = L.arcSection(centerX, centerX, innerRadius, outerRadius, fromAngle, toAngle, outerVersus=1, innerVersus=0)
 ```
 If we want a section of a circle slice.
 
 ## need more
-Svg tags are really [so many](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) and I just tried to cover the very most common. In case you need to use a tag not contempled here you can still use `.Element`: 
+Svg tags are really [so many](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) and I just tried to cover the very most common. Whenever you need to use a tag not contempled here you can still use `.Element` to create it: 
 ``` js
 var whatever = L.Element('hatch')
-```
-
+```  
+this will grant the ability to use all the [utility](#util) methods
 
 ---
 

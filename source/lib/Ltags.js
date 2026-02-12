@@ -167,6 +167,11 @@ L.prototype.text = function (x, y, cnt) {
 	var text = new Element('text');
 	text.sas({x : x, y : y});
 	text.tag.textContent = cnt;
+	//
+	text.setText = function(t) {
+		text.tag.textContent = t;
+	};
+	//
 	return text;
 };
 
@@ -196,6 +201,12 @@ L.prototype.script = function (cnt) {
 	}
 	return script;
 };
+
+L.prototype.foreignObject = function(x,y,w,h) {
+	var fo = new Element('foreignObject');
+	fo.sas({x: x, y: y, width: w, height: h});
+	return fo;
+}
 
 /**
  * { function_description }

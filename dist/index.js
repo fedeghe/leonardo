@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~45.89KB
+~46.02KB
 */
 const Leonardo = (function(w) {
 
@@ -964,6 +964,11 @@ const Leonardo = (function(w) {
 		var text = new Element('text');
 		text.sas({x : x, y : y});
 		text.tag.textContent = cnt;
+		//
+		text.setText = function(t) {
+			text.tag.textContent = t;
+		};
+		//
 		return text;
 	};
 	
@@ -993,6 +998,12 @@ const Leonardo = (function(w) {
 		}
 		return script;
 	};
+	
+	L.prototype.foreignObject = function(x,y,w,h) {
+		var fo = new Element('foreignObject');
+		fo.sas({x: x, y: y, width: w, height: h});
+		return fo;
+	}
 	
 	/**
 	 * { function_description }
@@ -1802,11 +1813,6 @@ const Leonardo = (function(w) {
 			return c._id == currentOne._id ? newOne : c;
 		});
 	};
-	
-	Element.prototype.setText = function (txt){
-		this.tag.textContent = txt;
-		return this;
-	}
 	
 
 	Leo.validate = validate;
