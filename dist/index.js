@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~46.02KB
+~46.16KB
 */
 const Leonardo = (function(w) {
 
@@ -428,8 +428,9 @@ const Leonardo = (function(w) {
 			return parseFloat((p * zoom * top / scale).toFixed(precision), 10);
 		}
 	};
-	
-	
+	/**
+	 * 
+	 */
 	Leo.img2base64png = L.img2base64png = L.prototype.img2base64png = function (src, cb) {
 		const getBase64StringFromDataURL = (dataURL) =>
 	    	dataURL.replace('data:', '').replace(/^.+,/, '');
@@ -445,6 +446,15 @@ const Leonardo = (function(w) {
 	            reader.readAsDataURL(blob);
 	        });
 	};
+	
+	Leo.uniqueID = L.uniqueID = L.prototype.uniqueID = (function () {
+		var count = 0,
+			prefix = 'LEO_';
+		return function() {
+			count += 1;
+	    	return prefix + count;
+		}
+	})();
 	
 	/*
 	[Malta] lib/Lutilities.js
@@ -1330,27 +1340,25 @@ const Leonardo = (function(w) {
         return cnt;
     }
     
-    
     /**
      * { function_description }
      *
-     * @param      {string}   id      The identifier
      * @param      {<type>}   d       { parameter_description }
      * @param      {<type>}   cnt     The count
      * @return     {Element}  { description_of_the_return_value }
      */
-    L.prototype.textPath = function (id, d, cnt) {
+    L.prototype.textPath = function (d, cnt) {
         var self = this,
             text = new Element('text'),
             defs = new Element('defs'),
             path = self.path(d),
-            textpath = new Element('textPath');
+            textpath = new Element('textPath'),
+            id = lid();
         path.tag.setAttribute('id', id );
         textpath.tag.innerHTML = cnt;
         textpath.tag.setAttributeNS(namespaces.xlink, 'xlink:href', '#' + id);
-        text.append(defs);
-        text.append(textpath);
         defs.append(path);
+        text.append(defs, textpath);
         return text;
     };
     
@@ -1362,13 +1370,13 @@ const Leonardo = (function(w) {
      * @param {*} attrs 
      * @returns 
      */
-    L.prototype.centeredText = function (w, h, text, attrs) {
+    L.prototype.centeredText = function (w, h, cnt, attrs) {
         var ret = this.group(),
             id = lid(),
-            path = new Element('path'),
-            texte = new Element('text'),
+            p = new Element('path'),
+            text = new Element('text'),
             textPath = new Element('textPath');
-        path.sas({
+        p.sas({
             id: id,
             pathLength: w,
             d: 'M0 ' + h / 2 + 'h' + w,
@@ -1382,10 +1390,12 @@ const Leonardo = (function(w) {
         attrs.startOffset = w / 4;
     
         textPath.sas(attrs)
-        textPath.tag.innerHTML = text;
-        texte.append(textPath);
-        ret.append(path, texte);
-        ret.updateText = function (t) { textPath.tag.innerHTML = t; }
+        textPath.tag.innerHTML = cnt;
+        text.append(textPath);
+        ret.append(p, text);
+        ret.updateText = function (t) {
+            textPath.tag.innerHTML = t;
+        };
         return ret;
     }
     

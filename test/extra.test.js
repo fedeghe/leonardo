@@ -11,7 +11,7 @@ describe('extra', () => {
             cy = height / 2,
             size = 200,
             L = Leo(width, height, {ns : '*'}),
-            textPath = L.textPath("smade",
+            textPath = L.textPath(
                 L.pathBuild
                     .M(cx * 0.925, size * 0.89 * 0.995)
                     .Q(cx, size * 0.89, cx * 1.075, size * 0.89 * 0.995),

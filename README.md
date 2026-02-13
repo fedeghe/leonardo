@@ -164,17 +164,19 @@ var myScript = L.script(content)
 Returns a `<script>` tag containing the text passed as `content`.
 
 
-## extras
+## Extras
+
+Leonardo knows  
 
 ### \<centeredText\> 👁️  
 ``` js
-var myTextBox = L.centeredText(w, h, text, textAttrs)
+var myTextBox = L.centeredText(w, h, text, textAttrs);
 ```
 to be documented
 
 ### \<textPath\> 👁️  
 ``` js
-var myTextPath = L.textPath(id, d, content)
+var myTextPath = L.textPath(d, content);
 ```
 If we want a text to follow a path then a single tag is not [enough](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/textPath)
 This function returns an element which contains all is needed given an `id`, a `d` data for the path and a `content` string.

@@ -83,8 +83,9 @@ Leo.getScaler = L.getScaler = L.prototype.getScaler = function (top, scale, zoom
 		return parseFloat((p * zoom * top / scale).toFixed(precision), 10);
 	}
 };
-
-
+/**
+ * 
+ */
 Leo.img2base64png = L.img2base64png = L.prototype.img2base64png = function (src, cb) {
 	const getBase64StringFromDataURL = (dataURL) =>
     	dataURL.replace('data:', '').replace(/^.+,/, '');
@@ -100,3 +101,12 @@ Leo.img2base64png = L.img2base64png = L.prototype.img2base64png = function (src,
             reader.readAsDataURL(blob);
         });
 };
+
+Leo.uniqueID = L.uniqueID = L.prototype.uniqueID = (function () {
+	var count = 0,
+		prefix = 'LEO_';
+	return function() {
+		count += 1;
+    	return prefix + count;
+	}
+})();

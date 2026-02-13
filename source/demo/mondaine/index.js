@@ -55,7 +55,7 @@
                 cx + width * 0.028, cy + height * 0.09
             ).setAttributes({ id: 'hours' }),
             text = L.text(cx * 0.78, cy * 0.7, "MONDAINE"),
-            textSM = L.textPath("smade",
+            textSM = L.textPath(
                 L.pathBuild
                     .M(cx * 0.925, size * 0.89 * 0.995)
                     .Q(cx, size * 0.89, cx * 1.075, size * 0.89 * 0.995),
