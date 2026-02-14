@@ -5,7 +5,7 @@ window.onload = function () {
 		L = Leonardo(width, height, {ns : '*', target : target}),
 		g = L.group();
 
-	var tbox = L.textBox('Some text here is going over the rest', 500, 80, {
+	var tbox = L.textBox('Some text here', 500, 80, {
 		fill: 'red',
 		stroke:'white',
 		'font-size': '2em',
@@ -26,19 +26,26 @@ window.onload = function () {
 	g.append(tPath);
 
 
-	var cText = L.centeredText(
-		500, 100,
-		'Some text here is going over the rest',
-		{
-			fill: 'red',
-			stroke: 'white',
-			'font-size': '2em',
-			'font-family': 'verdana',
-			'font-weight': 'bold'	
-		}
-	).move(0, 100);
-	g.append(cText);
-
+	var arc = L.arcCentered(100, 100, 50, 0, 270).sas({
+		fill:'transparent',
+		stroke: 'red',
+		'stroke-width': 3
+	});
+	g.append(arc);
+	
+	var arcSec = L.arcSection(300, 300, 100, 70, 0, 135).sas({
+		stroke:'green',
+		'stroke-width': 5,
+		fill: 'white'
+	});
+	var arcSec2 = L.arcSection(200, 200, 0, 70, 0, 90).sas({
+		stroke:'green',
+		'stroke-width': 5,
+		fill: 'white'
+	});
+	
+	g.append(arcSec);
+	g.append(arcSec2);
 
 	L.append(g);
 	L.render();

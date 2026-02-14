@@ -109,12 +109,6 @@ Returns a `<script>` tag containing the text passed as `content`.
 
 Leonardo knows  
 
-### \<centeredText\> 👁️  
-``` js
-var myTextBox = L.centeredText(w, h, text, textAttrs);
-```
-to be documented
-
 ### \<textPath\> 👁️  
 ``` js
 var myTextPath = L.textPath(d, content);

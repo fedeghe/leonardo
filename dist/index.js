@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~46.16KB
+~45.32KB
 */
 const Leonardo = (function(w) {
 
@@ -1337,6 +1337,9 @@ const Leonardo = (function(w) {
         textAttrs && text.sas(textAttrs);
         text.tag.innerHTML = txt;
         cnt.append(rect, text);
+        cnt.updateText = function (t) {
+            text.tag.innerHTML = t;
+        };
         return cnt;
     }
     
@@ -1362,42 +1365,6 @@ const Leonardo = (function(w) {
         return text;
     };
     
-    /**
-     * 
-     * @param {*} w 
-     * @param {*} h 
-     * @param {*} text 
-     * @param {*} attrs 
-     * @returns 
-     */
-    L.prototype.centeredText = function (w, h, cnt, attrs) {
-        var ret = this.group(),
-            id = lid(),
-            p = new Element('path'),
-            text = new Element('text'),
-            textPath = new Element('textPath');
-        p.sas({
-            id: id,
-            pathLength: w,
-            d: 'M0 ' + h / 2 + 'h' + w,
-            height: 0,
-            "stroke-opacity": 0,
-        })
-        attrs = attrs || {}
-        attrs.href = '#' + id;
-        attrs['text-anchor'] = "middle";
-        attrs['dominant-baseline'] = "middle"
-        attrs.startOffset = w / 4;
-    
-        textPath.sas(attrs)
-        textPath.tag.innerHTML = cnt;
-        text.append(textPath);
-        ret.append(p, text);
-        ret.updateText = function (t) {
-            textPath.tag.innerHTML = t;
-        };
-        return ret;
-    }
     
     /**
      * 
@@ -1415,6 +1382,7 @@ const Leonardo = (function(w) {
     }
     
     /**
+     * good only up to 180deg
      * 
      * @param {*} cx 
      * @param {*} cy 

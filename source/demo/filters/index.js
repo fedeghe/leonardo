@@ -17,7 +17,7 @@ function getShapeWithText(type, text, shapeAttrs, textAttrs) {
     g.append(shape, textt);
     return g;
 }
-function getShapeWithCenteredText(type, text, shapeAttrs, textAttrs) {
+function getShapeWithTextBox(type, text, shapeAttrs, textAttrs) {
     shapeAttrs = shapeAttrs || {}
     textAttrs = textAttrs || {}
     var size = 300,
@@ -34,7 +34,7 @@ function getShapeWithCenteredText(type, text, shapeAttrs, textAttrs) {
                 return Leo.rect(size*0.1,size*0.1,size*0.8, size*0.8).setAttributes(shapeAttrs)
             },
         }[type](),
-        ctext =  Leo.centeredText(size, size, text, textAttrs);
+        ctext =  Leo.textBox(text, size, size, textAttrs);
     
     g.append(shape, ctext);
     return g;
@@ -65,7 +65,7 @@ window.onload = function () {
                 },
             ])
         }),
-        getShapeWithCenteredText('rect', 'Hello', {fill: '#e5e5e5'}, {fill: 'blue', 'font-size': '38'}).setAttributes({
+        getShapeWithTextBox('rect', 'Hello', {fill: '#e5e5e5'}, {fill: 'blue', 'font-size': '38'}).setAttributes({
             filter: Leo.filter([
                 {type:'feDropShadow',
                     attrs:{
@@ -111,7 +111,7 @@ window.onload = function () {
             ])
         }).move(600, 0),
 
-        getShapeWithCenteredText('square', 'Hello world', {}, {fill: 'yellow', 'font-size': '28', 'font-family': 'verdana'}).setAttributes({
+        getShapeWithTextBox('square', 'Hello world', {}, {fill: 'yellow', 'font-size': '28', 'font-family': 'verdana'}).setAttributes({
             filter: Leo.filter([
                 {
                     type:'feDropShadow',

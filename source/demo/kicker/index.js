@@ -79,7 +79,7 @@ window.onload = function () {
         fsize = 200,
         image = L.image(0, 0, width, height, 'http://localhost:3001/kicker/css/field.jpg'),
    
-        person = L.centeredText(pwidth, pheight, '&#xf183;', {
+        person = L.textBox('&#xf183;', pwidth, pheight, {
             // fill: 'blue',
             "stroke-width" : 10,
             stroke : 'black',

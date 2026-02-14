@@ -29,6 +29,9 @@ L.prototype.textBox = function (txt, w, h, textAttrs, boxFill) {
     textAttrs && text.sas(textAttrs);
     text.tag.innerHTML = txt;
     cnt.append(rect, text);
+    cnt.updateText = function (t) {
+        text.tag.innerHTML = t;
+    };
     return cnt;
 }
 
@@ -54,42 +57,6 @@ L.prototype.textPath = function (d, cnt) {
     return text;
 };
 
-/**
- * 
- * @param {*} w 
- * @param {*} h 
- * @param {*} text 
- * @param {*} attrs 
- * @returns 
- */
-L.prototype.centeredText = function (w, h, cnt, attrs) {
-    var ret = this.group(),
-        id = lid(),
-        p = new Element('path'),
-        text = new Element('text'),
-        textPath = new Element('textPath');
-    p.sas({
-        id: id,
-        pathLength: w,
-        d: 'M0 ' + h / 2 + 'h' + w,
-        height: 0,
-        "stroke-opacity": 0,
-    })
-    attrs = attrs || {}
-    attrs.href = '#' + id;
-    attrs['text-anchor'] = "middle";
-    attrs['dominant-baseline'] = "middle"
-    attrs.startOffset = w / 4;
-
-    textPath.sas(attrs)
-    textPath.tag.innerHTML = cnt;
-    text.append(textPath);
-    ret.append(p, text);
-    ret.updateText = function (t) {
-        textPath.tag.innerHTML = t;
-    };
-    return ret;
-}
 
 /**
  * 
@@ -107,6 +74,7 @@ L.prototype.arcCentered = function (cx, cy, r, from, to) {
 }
 
 /**
+ * good only up to 180deg
  * 
  * @param {*} cx 
  * @param {*} cy 
