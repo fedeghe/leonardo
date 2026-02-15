@@ -21,7 +21,7 @@ Leo.import = L.import = L.prototype.import =function (d) {
 // external use with Leo
 // internal use with L
 // proto
-Leo.getqs = L.getqs= L.prototype.getqs = function () {
+Leo.getqs = L.getqs = L.prototype.getqs = function () {
 	var q = window.location.search.substring(1),
 		els = q.split('&'),
 		qs = {}, tmp, el;
@@ -110,3 +110,6 @@ Leo.uniqueID = L.uniqueID = L.prototype.uniqueID = (function () {
     	return prefix + count;
 	}
 })();
+
+Leo.deg2rad = L.deg2rad = L.prototype.deg2rad = deg2rad;
+Leo.rad2deg = L.rad2deg = L.prototype.rad2deg = rad2deg;

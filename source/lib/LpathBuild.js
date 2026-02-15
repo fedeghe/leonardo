@@ -30,23 +30,46 @@ function Pathbuild() {
 	up = f.toUpperCase();
 	Pathbuild.prototype[f]= createFun(f);
 	Pathbuild.prototype[up]= createFun(up);
-})
+});
+Pathbuild.prototype.reset = function() {
+	this.path = '';
+	this.prev = null;
+};
+Pathbuild.prototype.maybe = function(condition, f, params) {
+	/* istanbul ignore else */
+	if(condition) {
+		var lp = this.prev === f ? ' ' : f;
+		this.path += [lp].concat([params.join(',')]).join('');
+		this.prev = f;
+	}
+	return this;
+}
 
 /**
  * { function_description }
  *
  * @return     {(Object|pathbuild|string)}  { description_of_the_return_value }
  */
-L.prototype.pathBuild = (function () {
+Leo.pathBuild = L.pathBuild = L.prototype.pathBuild = (function () {
 	var pb = new Pathbuild();
 	pb.toString = function (){
 		var p = this.path + '';
-		this.path = '';
+		this.reset();
 		return p;
 	};
 	return pb;
 })();
 
+
+
+
+
+
+
+
+ /**
+  * VERY LIKELY THOSE TWO CAN BE REMOVED
+  */
 /**
  * 
  * @param {*} cx 

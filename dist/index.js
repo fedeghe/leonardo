@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~45.32KB
+~45.98KB
 */
 const Leonardo = (function(w) {
 
@@ -366,7 +366,7 @@ const Leonardo = (function(w) {
 	// external use with Leo
 	// internal use with L
 	// proto
-	Leo.getqs = L.getqs= L.prototype.getqs = function () {
+	Leo.getqs = L.getqs = L.prototype.getqs = function () {
 		var q = window.location.search.substring(1),
 			els = q.split('&'),
 			qs = {}, tmp, el;
@@ -455,6 +455,9 @@ const Leonardo = (function(w) {
 	    	return prefix + count;
 		}
 	})();
+	
+	Leo.deg2rad = L.deg2rad = L.prototype.deg2rad = deg2rad;
+	Leo.rad2deg = L.rad2deg = L.prototype.rad2deg = rad2deg;
 	
 	/*
 	[Malta] lib/Lutilities.js
@@ -1062,23 +1065,46 @@ const Leonardo = (function(w) {
 		up = f.toUpperCase();
 		Pathbuild.prototype[f]= createFun(f);
 		Pathbuild.prototype[up]= createFun(up);
-	})
+	});
+	Pathbuild.prototype.reset = function() {
+		this.path = '';
+		this.prev = null;
+	};
+	Pathbuild.prototype.maybe = function(condition, f, params) {
+		/* istanbul ignore else */
+		if(condition) {
+			var lp = this.prev === f ? ' ' : f;
+			this.path += [lp].concat([params.join(',')]).join('');
+			this.prev = f;
+		}
+		return this;
+	}
 	
 	/**
 	 * { function_description }
 	 *
 	 * @return     {(Object|pathbuild|string)}  { description_of_the_return_value }
 	 */
-	L.prototype.pathBuild = (function () {
+	Leo.pathBuild = L.pathBuild = L.prototype.pathBuild = (function () {
 		var pb = new Pathbuild();
 		pb.toString = function (){
 			var p = this.path + '';
-			this.path = '';
+			this.reset();
 			return p;
 		};
 		return pb;
 	})();
 	
+	
+	
+	
+	
+	
+	
+	
+	 /**
+	  * VERY LIKELY THOSE TWO CAN BE REMOVED
+	  */
 	/**
 	 * 
 	 * @param {*} cx 
@@ -1315,25 +1341,26 @@ const Leonardo = (function(w) {
      * @param {*} boxFill 
      * @returns 
      */
-    L.prototype.textBox = function (txt, w, h, textAttrs, boxFill) {
+    L.prototype.textBox = function (txt, w, h, textAttrs, boxAttrs, rot) {
         var cnt = new Element('svg'),
             rect = new Element('rect'),
-            text = new Element('text');
-        rect.sas({
-            x : 0, y : 0,
-            width: w, height: h,
-            "stroke-width" : 0,
-            stroke : 'transparent',
-            fill: boxFill || 'transparent'
-        });
-        
-        cnt.sas({width : w, height : h});
+            text = new Element('text'),
+            boxA = {
+                x : 0, y : 0,
+                width: w, height: h,
+                "stroke-width" : 0,
+                stroke : 'transparent',
+                fill:'transparent'
+            };
+        rect.sas(Object.assign({}, boxA, boxAttrs));
+        cnt.sas({width : w, height : h, viewBox: [0, 0, w, h].join(' ')});
         text.sas({
             x: '50%',
             y: '50%',
             'dominant-baseline': 'middle',
             'text-anchor': 'middle'
         });
+        if(rot) text.rotate(rot, w/2, h/2);
         textAttrs && text.sas(textAttrs);
         text.tag.innerHTML = txt;
         cnt.append(rect, text);
@@ -1358,13 +1385,12 @@ const Leonardo = (function(w) {
             textpath = new Element('textPath'),
             id = lid();
         path.tag.setAttribute('id', id );
-        textpath.tag.innerHTML = cnt;
+        textpath.tag.textContent = cnt;
         textpath.tag.setAttributeNS(namespaces.xlink, 'xlink:href', '#' + id);
         defs.append(path);
         text.append(defs, textpath);
         return text;
     };
-    
     
     /**
      * 
@@ -1375,15 +1401,9 @@ const Leonardo = (function(w) {
      * @param {*} to 
      * @returns 
      */
-    L.prototype.arcCentered = function (cx, cy, r, from, to) {
-        var p = new Element('path');
-        p.tag.setAttribute('d', describeArc(cx, cy, r, from, to));
-        return p;
-    }
+    
     
     /**
-     * good only up to 180deg
-     * 
      * @param {*} cx 
      * @param {*} cy 
      * @param {*} r1 
@@ -1400,24 +1420,24 @@ const Leonardo = (function(w) {
         var startOut = polarToCartesian(cx, cy, r2, from),
             endOut = polarToCartesian(cx, cy, r2, to),
             startIn = polarToCartesian(cx, cy, r1, to),
-            endIn = polarToCartesian(cx, cy, r1, from);
-        return this.path(
-            this.pathBuild
+            endIn = polarToCartesian(cx, cy, r1, from),
+            ref = Math.abs(to-from) > 180 ? 1: 0,
+            path = this.pathBuild
                 .M(endIn.x, endIn.y)
                 .L(startOut.x, startOut.y)
                 .A(
                     r2, r2,
-                    0, 0, vrs1,
+                    0, ref, vrs1,
                     endOut.x, endOut.y
                 )
                 .L(startIn.x, startIn.y)
-                .A(
+                .maybe(r1>0 , 'A', [
                     r1, r1,
-                    0, 0, vrs2,
+                    0, ref, vrs2,
                     endIn.x, endIn.y
-                )
-                .Z()
-        );
+                ])
+                .Z();
+        return this.path(path);
     };
     	
     // ---
@@ -1474,25 +1494,28 @@ const Leonardo = (function(w) {
 	
 	function polarToCartesian(cx, cy, r, deg) {
 	  var rad = (deg-90) * Math.PI / 180.0;
-	
 	  return {
-	    x: cx + (r * Math.cos(rad)),
-	    y: cy + (r * Math.sin(rad))
+	    x: (cx + (r * Math.cos(rad))).toFixed(2),
+	    y: (cy + (r * Math.sin(rad))).toFixed(2)
 	  };
 	}
 	
-	function describeArc(x, y, radius, startAngle, endAngle){
-	    var start = polarToCartesian(x, y, radius, endAngle),
-	        end = polarToCartesian(x, y, radius, startAngle),
-	        /* istanbul ignore next */
-	        largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-	    return [
-	        "M", x, y,
-	        "L", start.x, start.y, 
-	        "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y,
-	        "Z" 
-	    ].join(" ");     
-	}
+	/**
+	 * no more used,
+	 * it was before the implementation of arcSection
+	 */
+	// function describeArc(x, y, radius, startAngle, endAngle){
+	//     var start = polarToCartesian(x, y, radius, endAngle),
+	//         end = polarToCartesian(x, y, radius, startAngle),
+	//         /* istanbul ignore next */
+	//         largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+	//     return [
+	//         "M", x, y,
+	//         "L", start.x, start.y, 
+	//         "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y,
+	//         "Z" 
+	//     ].join(" ");     
+	// }
 	/*
 	[Malta] lib/Element.js
 	*/

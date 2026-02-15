@@ -22,7 +22,7 @@ window.onload = function () {
             "font-family" : 'Verdana, sans-serif',
             "stroke" : '#000000',
             "text-anchor" : 'middle'
-        },'#fede76');
+        },{fill: '#fede76'});
     main.append(img, tbox);
 
     Leo.append(main);

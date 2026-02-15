@@ -38,7 +38,7 @@ window.onload = function () {
             linex = Leo.line(400,0,400,800).setAttributes(attrs),
             liney = Leo.line(0,400,800,400).setAttributes(attrs),
             slice3 = Leo.arcSection(cx, cy, r1, r2, A3, A4).setAttributes(attrs).setAttributes({fill:'#f70'}),
-            arc = Leo.arcCentered(w(500), h(500), h(500), 0, 95)
+            arc = Leo.arcSection(w(500), h(500), 0, h(500), 0, 95)
                 .setAttributes(attrs)
                 .setAttributes({fill:'#0a0'}),
             g = Leo.group(arc, linex, liney, slice3);

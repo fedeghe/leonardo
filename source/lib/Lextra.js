@@ -7,25 +7,26 @@
  * @param {*} boxFill 
  * @returns 
  */
-L.prototype.textBox = function (txt, w, h, textAttrs, boxFill) {
+L.prototype.textBox = function (txt, w, h, textAttrs, boxAttrs, rot) {
     var cnt = new Element('svg'),
         rect = new Element('rect'),
-        text = new Element('text');
-    rect.sas({
-        x : 0, y : 0,
-        width: w, height: h,
-        "stroke-width" : 0,
-        stroke : 'transparent',
-        fill: boxFill || 'transparent'
-    });
-    
-    cnt.sas({width : w, height : h});
+        text = new Element('text'),
+        boxA = {
+            x : 0, y : 0,
+            width: w, height: h,
+            "stroke-width" : 0,
+            stroke : 'transparent',
+            fill:'transparent'
+        };
+    rect.sas(Object.assign({}, boxA, boxAttrs));
+    cnt.sas({width : w, height : h, viewBox: [0, 0, w, h].join(' ')});
     text.sas({
         x: '50%',
         y: '50%',
         'dominant-baseline': 'middle',
         'text-anchor': 'middle'
     });
+    if(rot) text.rotate(rot, w/2, h/2);
     textAttrs && text.sas(textAttrs);
     text.tag.innerHTML = txt;
     cnt.append(rect, text);
@@ -50,13 +51,12 @@ L.prototype.textPath = function (d, cnt) {
         textpath = new Element('textPath'),
         id = lid();
     path.tag.setAttribute('id', id );
-    textpath.tag.innerHTML = cnt;
+    textpath.tag.textContent = cnt;
     textpath.tag.setAttributeNS(namespaces.xlink, 'xlink:href', '#' + id);
     defs.append(path);
     text.append(defs, textpath);
     return text;
 };
-
 
 /**
  * 
@@ -67,15 +67,9 @@ L.prototype.textPath = function (d, cnt) {
  * @param {*} to 
  * @returns 
  */
-L.prototype.arcCentered = function (cx, cy, r, from, to) {
-    var p = new Element('path');
-    p.tag.setAttribute('d', describeArc(cx, cy, r, from, to));
-    return p;
-}
+
 
 /**
- * good only up to 180deg
- * 
  * @param {*} cx 
  * @param {*} cy 
  * @param {*} r1 
@@ -92,22 +86,22 @@ L.prototype.arcSection = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
     var startOut = polarToCartesian(cx, cy, r2, from),
         endOut = polarToCartesian(cx, cy, r2, to),
         startIn = polarToCartesian(cx, cy, r1, to),
-        endIn = polarToCartesian(cx, cy, r1, from);
-    return this.path(
-        this.pathBuild
+        endIn = polarToCartesian(cx, cy, r1, from),
+        ref = Math.abs(to-from) > 180 ? 1: 0,
+        path = this.pathBuild
             .M(endIn.x, endIn.y)
             .L(startOut.x, startOut.y)
             .A(
                 r2, r2,
-                0, 0, vrs1,
+                0, ref, vrs1,
                 endOut.x, endOut.y
             )
             .L(startIn.x, startIn.y)
-            .A(
+            .maybe(r1>0 , 'A', [
                 r1, r1,
-                0, 0, vrs2,
+                0, ref, vrs2,
                 endIn.x, endIn.y
-            )
-            .Z()
-    );
+            ])
+            .Z();
+    return this.path(path);
 };

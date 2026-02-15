@@ -101,22 +101,68 @@ describe('Static', () => {
             expect(scaler(110.34534)).toBe(44.138);
         });
     });
-describe('img2base64png', () => {
-    it('should convert image to base64', (done) => {
-        // Mock fetch con un blob vero
-        global.fetch = jest.fn(() =>
-            Promise.resolve({
-                ok: true,
-                blob: () => Promise.resolve(new Blob(['fake image data'], { type: 'image/png' }))
-            })
-        );
+    describe('img2base64png', () => {
+        it('should convert image to base64', (done) => {
+            // Mock fetch con un blob vero
+            global.fetch = jest.fn(() =>
+                Promise.resolve({
+                    ok: true,
+                    blob: () => Promise.resolve(new Blob(['fake image data'], { type: 'image/png' }))
+                })
+            );
 
-        const L = Leo(200, 100);
-        L.img2base64png('../source/media/qr.png', function (b64){
-            expect(b64).toBeTruthy();
-            expect(b64).toBe('data:image/png;base64,ZmFrZSBpbWFnZSBkYXRh');
-            done();
-        })
+            const L = Leo(200, 100);
+            L.img2base64png('../source/media/qr.png', function (b64){
+                expect(b64).toBeTruthy();
+                expect(b64).toBe('data:image/png;base64,ZmFrZSBpbWFnZSBkYXRh');
+                done();
+            })
+        });
     });
-});
+
+    describe('uniqueID', () => {
+        it('generates unique IDs with prefix', () => {
+            const id1 = Leo.uniqueID();
+            expect(id1).toBe('LEO_1');
+        });
+
+        it('increments ID counter', () => {
+            const id1 = Leo.uniqueID();
+            const id2 = Leo.uniqueID();
+            expect(id1).toBe('LEO_2');
+            expect(id2).toBe('LEO_3');
+            expect(id1).not.toBe(id2);
+        });
+
+        it('can be called on instance and static', () => {
+            const L = Leo(200, 100);
+            const staticID = Leo.uniqueID();
+            const instanceID = L.uniqueID();
+            expect(staticID).not.toBe(instanceID);
+        });
+    });
+
+    describe('deg2rad', () => {
+        it.each([
+            [0, 0],
+            [180, Math.PI],
+            [360, 2 * Math.PI],
+            [90, Math.PI / 2],
+            [-180, -Math.PI]
+        ])('converts %d degrees to %p radians', (degrees, expectedRadians) => {
+            expect(Leo.deg2rad(degrees)).toBeCloseTo(expectedRadians);
+        });
+    });
+
+    describe('rad2deg', () => {
+        it.each([
+            [0, 0],
+            [Math.PI, 180],
+            [2 * Math.PI, 360],
+            [Math.PI / 2, 90],
+            [-Math.PI, -180]
+        ])('converts %p radians to %d degrees', (radians, expectedDegrees) => {
+            expect(Leo.rad2deg(radians)).toBeCloseTo(expectedDegrees);
+        });
+    });
 });
