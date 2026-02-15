@@ -1,7 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-const fetch  = require('jest-fetch-mock');
 const Leo = require('../dist');
 const circle = '<circle cx="10" cy="10" r="5" fill="rgb(174, 222, 113)" fill-opacity="100%"/>'
 
@@ -123,14 +122,14 @@ describe('Static', () => {
     describe('uniqueID', () => {
         it('generates unique IDs with prefix', () => {
             const id1 = Leo.uniqueID();
-            expect(id1).toBe('LEO_1');
+            expect(id1).toBe('leo_id_1');
         });
 
         it('increments ID counter', () => {
             const id1 = Leo.uniqueID();
             const id2 = Leo.uniqueID();
-            expect(id1).toBe('LEO_2');
-            expect(id2).toBe('LEO_3');
+            expect(id1).toBe('leo_id_2');
+            expect(id2).toBe('leo_id_3');
             expect(id1).not.toBe(id2);
         });
 

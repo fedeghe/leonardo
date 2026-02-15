@@ -102,14 +102,6 @@ Leo.img2base64png = L.img2base64png = L.prototype.img2base64png = function (src,
         });
 };
 
-Leo.uniqueID = L.uniqueID = L.prototype.uniqueID = (function () {
-	var count = 0,
-		prefix = 'LEO_';
-	return function() {
-		count += 1;
-    	return prefix + count;
-	}
-})();
-
+Leo.uniqueID = L.uniqueID = L.prototype.uniqueID = lid;
 Leo.deg2rad = L.deg2rad = L.prototype.deg2rad = deg2rad;
 Leo.rad2deg = L.rad2deg = L.prototype.rad2deg = rad2deg;

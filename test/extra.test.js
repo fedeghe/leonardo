@@ -31,19 +31,15 @@ describe('extra', () => {
         const width = 200,
             height = 100,
             L = Leo(width, height, {ns : '*'}),
-            arcSection1 = L.arcSection(50, 50, 10, 20, 0, 200);
-            arcSection2 = L.arcSection(50, 50, 10, 20, 60, 120, 0);
-            arcSection3 = L.arcSection(50, 50, 10, 20, 60, 120, 0, 1);
-            arcSection4 = L.arcSection(50, 50, 10, 20, 60, 120, 1, 1);
+            arcSectionPath1 = L.arcSectionPath(50, 50, 10, 20, 0, 200);
+            arcSectionPath2 = L.arcSectionPath(50, 50, 10, 20, 60, 120, 0);
+            arcSectionPath3 = L.arcSectionPath(50, 50, 10, 20, 60, 120, 0, 1);
+            arcSectionPath4 = L.arcSectionPath(50, 50, 10, 20, 60, 120, 1, 1);
         
-        expect(arcSection1.tag.tagName).toBe('path');
-        expect(arcSection2.tag.tagName).toBe('path');
-        expect(arcSection3.tag.tagName).toBe('path');
-        expect(arcSection4.tag.tagName).toBe('path');
-        expect(arcSection1.tag.getAttribute('d')).toBe("M50.00,40.00L50.00,30.00A20,20,0,1,1,43.16,68.79L46.58,59.40A10,10,0,1,0,50.00,40.00Z");
-        expect(arcSection2.tag.getAttribute('d')).toBe('M58.66,45.00L67.32,40.00A20,20,0,0,0,67.32,60.00L58.66,55.00A10,10,0,0,0,58.66,45.00Z');
-        expect(arcSection3.tag.getAttribute('d')).toBe('M58.66,45.00L67.32,40.00A20,20,0,0,0,67.32,60.00L58.66,55.00A10,10,0,0,1,58.66,45.00Z');
-        expect(arcSection4.tag.getAttribute('d')).toBe('M58.66,45.00L67.32,40.00A20,20,0,0,1,67.32,60.00L58.66,55.00A10,10,0,0,1,58.66,45.00Z');
+        expect(arcSectionPath1).toBe("M50.00,40.00L50.00,30.00A20,20,0,1,1,43.16,68.79L46.58,59.40A10,10,0,1,0,50.00,40.00Z");
+        expect(arcSectionPath2).toBe('M58.66,45.00L67.32,40.00A20,20,0,0,0,67.32,60.00L58.66,55.00A10,10,0,0,0,58.66,45.00Z');
+        expect(arcSectionPath3).toBe('M58.66,45.00L67.32,40.00A20,20,0,0,0,67.32,60.00L58.66,55.00A10,10,0,0,1,58.66,45.00Z');
+        expect(arcSectionPath4).toBe('M58.66,45.00L67.32,40.00A20,20,0,0,1,67.32,60.00L58.66,55.00A10,10,0,0,1,58.66,45.00Z');
     });
 
     describe('textBox ', () => {

@@ -26,48 +26,47 @@ window.onload = function () {
 			fill:'yellow'
 		}),
 		
-		L.arcSection(400, 200, 0, 70, 0, 90).sas({
+		L.path(L.arcSectionPath(400, 200, 0, 70, 0, 90), {
 			stroke:'green',
 			'stroke-width': 5,
 			fill: 'white'
 		}),
 
-		L.arcSection(400, 200, 30, 60, 30, 105).sas({
+		L.path(L.arcSectionPath(400, 200, 30, 60, 30, 105), {
 			stroke:'red',
 			'stroke-width': 5,
 			fill: 'gray'
 		}),
 		
-		L.arcSection(400, 200, 50,120, 95, 280).sas({
+		L.path(L.arcSectionPath(400, 200, 50,120, 95, 280), {
 			stroke:'blue',
 			'stroke-width': 3,
 			fill: '#ff770055'
 		}),
-		L.arcSection(400, 200, 0, 90, 160, 270).sas({
+		L.path(L.arcSectionPath(400, 200, 0, 90, 160, 270), {
 			stroke:'red',
 			'stroke-width': 1,
 			"stroke-linejoin": 'round',
 			fill: '#ffffff66'
 		}),
-		L.arcSection(400, 200, 50, 80, 270, 320).sas({
+		L.path(L.arcSectionPath(400, 200, 50, 80, 270, 320), {
 			stroke:'red',
 			'stroke-width': 1,
 			"stroke-linejoin": 'round',
 			fill: '#ff000055'
 		}),
-		L.arcSection(400, 200, 20, 50, 270, 320).sas({
+		L.path(L.arcSectionPath(400, 200, 20, 50, 290, 340), {
 			stroke:'orange',
 			'stroke-width': 1,
 			"stroke-linejoin": 'round',
 			fill: 'transparent'
 		}),
-		L.arcSection(400, 600, 20, 50, 0, 320,0,1).sas({
+		L.path(L.arcSectionPath(400, 600, 20, 50, 0, 320,0,1), {
 			stroke:'orange',
 			'stroke-width': 1,
 			"stroke-linejoin": 'round',
 			fill: 'green'
 		})
-
 	);
 
 	L.append(g);

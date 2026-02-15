@@ -117,9 +117,17 @@ If we want a text to follow a path then a single tag is not [enough](https://dev
 This function returns an element which contains all is needed given an `id`, a `d` data for the path and a `content` string.
 
 
-### \<arcSection\> 👁️  
+### arcSectionPath 👁️  
 ``` js
-var myArcSection = L.arcSection(centerX, centerX, innerRadius, outerRadius, fromAngle, toAngle, outerVersus=1, innerVersus=0)
+var myArcSection = instance.path(
+    instance.arcSection(
+        centerX, centerX,
+        innerRadius, outerRadius,
+        fromAngle, toAngle,
+        outerVersus=1,
+        innerVersus=0
+    )
+)
 ```
 If we want a section of a circle slice.
 

@@ -183,7 +183,7 @@ L.prototype.text = function (x, y, cnt) {
  */
 L.prototype.title = function (txt) {
 	var text = new Element('title');
-	text.tag.innerHTML = txt;
+	text.tag.textContent = txt;
 	return text;
 };
 

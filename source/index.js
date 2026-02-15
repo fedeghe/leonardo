@@ -1,6 +1,7 @@
 const Leonardo = (function(w) {
-
+	$$lib/functions.js$$
 	$$lib/L.js$$
+	$$lib/Element.js$$
 	$$lib/errs.js$$
 	$$lib/validators.js$$
 	$$lib/factory.js$$
@@ -12,9 +13,6 @@ const Leonardo = (function(w) {
     $$lib/Lanimate.js$$	
     $$lib/Lextra.js$$	
     // ---
-	$$lib/functions.js$$
-	$$lib/Element.js$$
-
 	Leo.validate = validate;
 	Leo.ERRORS = ERRORS;
     return Leo;

@@ -59,17 +59,6 @@ L.prototype.textPath = function (d, cnt) {
 };
 
 /**
- * 
- * @param {*} cx 
- * @param {*} cy 
- * @param {*} r 
- * @param {*} from 
- * @param {*} to 
- * @returns 
- */
-
-
-/**
  * @param {*} cx 
  * @param {*} cy 
  * @param {*} r1 
@@ -80,28 +69,27 @@ L.prototype.textPath = function (d, cnt) {
  * @param {*} vrs2 
  * @returns 
  */
-L.prototype.arcSection = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
+L.arcSectionPath = L.prototype.arcSectionPath = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
     vrs1 = typeof vrs1 === 'undefined' ? 1 : vrs1;
     vrs2 = typeof vrs2 === 'undefined' ? 0 : vrs2;
     var startOut = polarToCartesian(cx, cy, r2, from),
         endOut = polarToCartesian(cx, cy, r2, to),
         startIn = polarToCartesian(cx, cy, r1, to),
         endIn = polarToCartesian(cx, cy, r1, from),
-        ref = Math.abs(to-from) > 180 ? 1: 0,
-        path = this.pathBuild
-            .M(endIn.x, endIn.y)
-            .L(startOut.x, startOut.y)
-            .A(
-                r2, r2,
-                0, ref, vrs1,
-                endOut.x, endOut.y
-            )
-            .L(startIn.x, startIn.y)
-            .maybe(r1>0 , 'A', [
-                r1, r1,
-                0, ref, vrs2,
-                endIn.x, endIn.y
-            ])
-            .Z();
-    return this.path(path);
+        ref = Math.abs(to-from) > 180 ? 1: 0;
+    return L.pathBuild
+        .M(endIn.x, endIn.y)
+        .L(startOut.x, startOut.y)
+        .A(
+            r2, r2,
+            0, ref, vrs1,
+            endOut.x, endOut.y
+        )
+        .L(startIn.x, startIn.y)
+        .maybe(r1>0 , 'A', [
+            r1, r1,
+            0, ref, vrs2,
+            endIn.x, endIn.y
+        ])
+        .Z().toString();
 };

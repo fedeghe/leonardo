@@ -93,7 +93,7 @@ window.onload = function () {
         defenseUp = L.group().append(
             round,
             defenseLineExt,
-            defenseLineInt
+            defenseLineInt,
         ).setAttributes({
             fill: bgcolor
         }),

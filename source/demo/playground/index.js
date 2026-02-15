@@ -60,7 +60,10 @@ window.onload = function () {
 		console.log(e.target);
 		console.log(e);
 	});
-    var Arc = L.arcSection(100, 100, 0, 50, 0, 270).setAttributes({fill:'#ddd', stroke: 'red'});
+    var Arc = L.path(
+		L.arcSectionPath(100, 100, 0, 50, 0, 270),
+		{fill:'#ddd', stroke: 'red'}
+	);
 
 	tria.rotate(20, 300, 50).move(10, 100);
 
