@@ -592,7 +592,7 @@ the returned element is the `svg` _Element_ enhanced with:
 
 --- 
 
-#### `> instance.arcSection(cx, cy, r1, r2, from, to, vrs1, vrs2)`
+#### `> instance.arcSectionPath(cx, cy, r1, r2, from, to, vrs1, vrs2)`
 
 Similary to what happens for a text along a curve, drawing a circular slice section requires some work composing the `d` parameter to be used in the `<path/>` tag.
 
@@ -603,7 +603,7 @@ Similary to what happens for a text along a curve, drawing a circular slice sect
  Leonardo offers a handy method: 
 
  ``` js
- var arcSection = myInstance.arcSection(
+ var arcSection = .arcSection(
     centerX, centerY,
     radiusInner, radiusOuter,
     fromAngle, toAnglew,
