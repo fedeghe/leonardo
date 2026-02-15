@@ -10,9 +10,9 @@
  * @param      {<type>}   txt     The text
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.desc = function (txt) {
+Leo.desc = L.desc = L.prototype.desc = function (txt) {
 	var desc = new Element('desc');
-	desc.tag.innerHTML = txt;
+	desc.tag.textContent = txt;
 	return desc;
 };
 
@@ -24,7 +24,7 @@ L.prototype.desc = function (txt) {
  * @param      {<type>}   r       { parameter_description }
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.circle = function (cx, cy, r) {
+Leo.circle = L.circle = L.prototype.circle = function (cx, cy, r) {
 	var circle = new Element('circle');
 	circle.sas({cx : cx, cy : cy, r : r});
 	return circle;
@@ -39,7 +39,7 @@ L.prototype.circle = function (cx, cy, r) {
  * @param      {<type>}   ry      { parameter_description }
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.ellipse = function (cx, cy, rx, ry) {
+Leo.ellipse = L.ellipse = L.prototype.ellipse = function (cx, cy, rx, ry) {
 	var ellipse = new Element('ellipse');
 	ellipse.sas({cx : cx, cy : cy, rx : rx, ry : ry});
 	return ellipse;
@@ -50,7 +50,7 @@ L.prototype.ellipse = function (cx, cy, rx, ry) {
  *
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.group = function (a) {
+Leo.group = L.group =L.prototype.group = function (a) {
 	var g = new Element('g');
 	if (a) g.append([].slice.call(arguments, 0))
 	return g;
@@ -66,7 +66,7 @@ L.prototype.group = function (a) {
  * @param      {<type>}   src     The source
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.image = function (x, y, w, h, src) {
+Leo.image = L.image = L.prototype.image = function (x, y, w, h, src) {
 	var image = new Element('image');
 	image.sas({x : x, y : y, width : w, height : h});
 	image.tag.setAttributeNS(namespaces.xlink, 'xlink:href', src);
@@ -83,7 +83,7 @@ L.prototype.image = function (x, y, w, h, src) {
  * @param      {<type>}   y2      The y 2
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.line = function (x1, y1, x2, y2) {
+Leo.line = L.line = L.prototype.line = function (x1, y1, x2, y2) {
 	var line = new Element('line');
 	line.sas({x1 : x1, y1 : y1, x2 : x2, y2 : y2});
 	return line;
@@ -96,7 +96,7 @@ L.prototype.line = function (x1, y1, x2, y2) {
  * @param      {<type>}   attrs   { parameter_description }
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.path = function (d, attrs) {
+Leo.path = L.path = L.prototype.path = function (d, attrs) {
 	var path = new Element('path');
     attrs = attrs || {}
     attrs.d = d
@@ -109,7 +109,7 @@ L.prototype.path = function (d, attrs) {
  *
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.polygon = function () {
+Leo.polygon = L.polygon = L.prototype.polygon = function () {
 	var polygon = new Element('polygon'),
 		points = [].slice.call(arguments, 0),
 		pp = [],
@@ -127,7 +127,7 @@ L.prototype.polygon = function () {
  *
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.polyline = function () {
+Leo.polyline = L.polyline = L.prototype.polyline = function () {
 	var polyline = new Element('polyline'),
 		points = [].slice.call(arguments, 0),
 		pp = [],
@@ -148,7 +148,7 @@ L.prototype.polyline = function () {
  * @param      {<type>}   h       { parameter_description }
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.rect = function (x, y, w, h) {
+Leo.rect = L.rect = L.prototype.rect = function (x, y, w, h) {
 	h = h || w;
 	var rect = new Element('rect');
 	rect.sas({x : x, y : y, width : w, height : h});
@@ -163,7 +163,7 @@ L.prototype.rect = function (x, y, w, h) {
  * @param      {<type>}   cnt     The count
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.text = function (x, y, cnt) {
+Leo.text = L.text = L.prototype.text = function (x, y, cnt) {
 	var text = new Element('text');
 	text.sas({x : x, y : y});
 	text.tag.textContent = cnt;
@@ -181,7 +181,7 @@ L.prototype.text = function (x, y, cnt) {
  * @param      {<type>}   txt     The text
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.title = function (txt) {
+Leo.title = L.title = L.prototype.title = function (txt) {
 	var text = new Element('title');
 	text.tag.textContent = txt;
 	return text;
@@ -193,7 +193,7 @@ L.prototype.title = function (txt) {
  * @param      {string}   cnt     The count
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.script = function (cnt) {
+Leo.script = L.script = L.prototype.script = function (cnt) {
 	var script = new Element('script');
 	script.tag.setAttribute('type', 'application/ecmascript');
 	if (cnt) {
@@ -202,7 +202,7 @@ L.prototype.script = function (cnt) {
 	return script;
 };
 
-L.prototype.foreignObject = function(x,y,w,h) {
+Leo.foreignObject = L.foreignObject = L.prototype.foreignObject = function(x,y,w,h) {
 	var fo = new Element('foreignObject');
 	fo.sas({x: x, y: y, width: w, height: h});
 	return fo;
@@ -211,13 +211,12 @@ L.prototype.foreignObject = function(x,y,w,h) {
 /**
  * { function_description }
  *
- * @param      {string}   tagNAme     The count
+ * @param      {string}   tagName     The count
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.Element = function (tagName) {
-	return new Element(tagName);
+Leo.Element = L.Element = L.prototype.Element = function (tagName, ns) {
+	return new Element(tagName, ns);
 };
 
 
 
-$$lib/LpathBuild.js$$

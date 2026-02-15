@@ -184,7 +184,6 @@ L.prototype.append = function () {
  */
 L.prototype.render = function (o) {
     var trg = o && 'target' in o  ? o.target : this.target;
-	// console.log({trg})
     if (!trg) throw ERRORS.no_target;
 	// validate.isNode(trg);
 	trg.innerHTML = '';

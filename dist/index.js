@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~45.58KB
+~45.94KB
 */
 const Leonardo = (function(w) {
 	/*
@@ -272,7 +272,6 @@ const Leonardo = (function(w) {
 	 */
 	L.prototype.render = function (o) {
 	    var trg = o && 'target' in o  ? o.target : this.target;
-		// console.log({trg})
 	    if (!trg) throw ERRORS.no_target;
 		// validate.isNode(trg);
 		trg.innerHTML = '';
@@ -711,6 +710,7 @@ const Leonardo = (function(w) {
 	    validate.positiveInt(h);
 	    return new L(w, h, attrs);
 	};
+	// Leo is defined
 	/*
 	[Malta] lib/Lstatic.js
 	*/
@@ -721,7 +721,7 @@ const Leonardo = (function(w) {
 	// external use with Leo
 	// internal use with L
 	// proto
-	Leo.import = L.import = L.prototype.import = function (d) {
+	Leo.import = L.import = L.prototype.import =function (d) {
 		// document of string ?
 		if (typeof d === 'string') {
 			d = L.toDocument(d);
@@ -1183,9 +1183,9 @@ const Leonardo = (function(w) {
 	 * @param      {<type>}   txt     The text
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.desc = function (txt) {
+	Leo.desc = L.desc = L.prototype.desc = function (txt) {
 		var desc = new Element('desc');
-		desc.tag.innerHTML = txt;
+		desc.tag.textContent = txt;
 		return desc;
 	};
 	
@@ -1197,7 +1197,7 @@ const Leonardo = (function(w) {
 	 * @param      {<type>}   r       { parameter_description }
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.circle = function (cx, cy, r) {
+	Leo.circle = L.circle = L.prototype.circle = function (cx, cy, r) {
 		var circle = new Element('circle');
 		circle.sas({cx : cx, cy : cy, r : r});
 		return circle;
@@ -1212,7 +1212,7 @@ const Leonardo = (function(w) {
 	 * @param      {<type>}   ry      { parameter_description }
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.ellipse = function (cx, cy, rx, ry) {
+	Leo.ellipse = L.ellipse = L.prototype.ellipse = function (cx, cy, rx, ry) {
 		var ellipse = new Element('ellipse');
 		ellipse.sas({cx : cx, cy : cy, rx : rx, ry : ry});
 		return ellipse;
@@ -1223,7 +1223,7 @@ const Leonardo = (function(w) {
 	 *
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.group = function (a) {
+	Leo.group = L.group =L.prototype.group = function (a) {
 		var g = new Element('g');
 		if (a) g.append([].slice.call(arguments, 0))
 		return g;
@@ -1239,7 +1239,7 @@ const Leonardo = (function(w) {
 	 * @param      {<type>}   src     The source
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.image = function (x, y, w, h, src) {
+	Leo.image = L.image = L.prototype.image = function (x, y, w, h, src) {
 		var image = new Element('image');
 		image.sas({x : x, y : y, width : w, height : h});
 		image.tag.setAttributeNS(namespaces.xlink, 'xlink:href', src);
@@ -1256,7 +1256,7 @@ const Leonardo = (function(w) {
 	 * @param      {<type>}   y2      The y 2
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.line = function (x1, y1, x2, y2) {
+	Leo.line = L.line = L.prototype.line = function (x1, y1, x2, y2) {
 		var line = new Element('line');
 		line.sas({x1 : x1, y1 : y1, x2 : x2, y2 : y2});
 		return line;
@@ -1269,7 +1269,7 @@ const Leonardo = (function(w) {
 	 * @param      {<type>}   attrs   { parameter_description }
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.path = function (d, attrs) {
+	Leo.path = L.path = L.prototype.path = function (d, attrs) {
 		var path = new Element('path');
 	    attrs = attrs || {}
 	    attrs.d = d
@@ -1282,7 +1282,7 @@ const Leonardo = (function(w) {
 	 *
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.polygon = function () {
+	Leo.polygon = L.polygon = L.prototype.polygon = function () {
 		var polygon = new Element('polygon'),
 			points = [].slice.call(arguments, 0),
 			pp = [],
@@ -1300,7 +1300,7 @@ const Leonardo = (function(w) {
 	 *
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.polyline = function () {
+	Leo.polyline = L.polyline = L.prototype.polyline = function () {
 		var polyline = new Element('polyline'),
 			points = [].slice.call(arguments, 0),
 			pp = [],
@@ -1321,7 +1321,7 @@ const Leonardo = (function(w) {
 	 * @param      {<type>}   h       { parameter_description }
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.rect = function (x, y, w, h) {
+	Leo.rect = L.rect = L.prototype.rect = function (x, y, w, h) {
 		h = h || w;
 		var rect = new Element('rect');
 		rect.sas({x : x, y : y, width : w, height : h});
@@ -1336,7 +1336,7 @@ const Leonardo = (function(w) {
 	 * @param      {<type>}   cnt     The count
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.text = function (x, y, cnt) {
+	Leo.text = L.text = L.prototype.text = function (x, y, cnt) {
 		var text = new Element('text');
 		text.sas({x : x, y : y});
 		text.tag.textContent = cnt;
@@ -1354,7 +1354,7 @@ const Leonardo = (function(w) {
 	 * @param      {<type>}   txt     The text
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.title = function (txt) {
+	Leo.title = L.title = L.prototype.title = function (txt) {
 		var text = new Element('title');
 		text.tag.textContent = txt;
 		return text;
@@ -1366,7 +1366,7 @@ const Leonardo = (function(w) {
 	 * @param      {string}   cnt     The count
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.script = function (cnt) {
+	Leo.script = L.script = L.prototype.script = function (cnt) {
 		var script = new Element('script');
 		script.tag.setAttribute('type', 'application/ecmascript');
 		if (cnt) {
@@ -1375,7 +1375,7 @@ const Leonardo = (function(w) {
 		return script;
 	};
 	
-	L.prototype.foreignObject = function(x,y,w,h) {
+	Leo.foreignObject = L.foreignObject = L.prototype.foreignObject = function(x,y,w,h) {
 		var fo = new Element('foreignObject');
 		fo.sas({x: x, y: y, width: w, height: h});
 		return fo;
@@ -1384,15 +1384,16 @@ const Leonardo = (function(w) {
 	/**
 	 * { function_description }
 	 *
-	 * @param      {string}   tagNAme     The count
+	 * @param      {string}   tagName     The count
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
-	L.prototype.Element = function (tagName) {
-		return new Element(tagName);
+	Leo.Element = L.Element = L.prototype.Element = function (tagName, ns) {
+		return new Element(tagName, ns);
 	};
 	
 	
 	
+		
 	/*
 	[Malta] lib/LpathBuild.js
 	*/
@@ -1523,7 +1524,7 @@ const Leonardo = (function(w) {
 			)
 			.L(cx, cy);
 	};
-		
+	
 	/*
 	[Malta] lib/Lgradients.js
 	*/

@@ -5,9 +5,11 @@ const Leonardo = (function(w) {
 	$$lib/errs.js$$
 	$$lib/validators.js$$
 	$$lib/factory.js$$
+	// Leo is defined
 	$$lib/Lstatic.js$$
 	$$lib/Lutilities.js$$
 	$$lib/Ltags.js$$	
+	$$lib/LpathBuild.js$$
 	$$lib/Lgradients.js$$	
 	$$lib/Lfilters.js$$	
     $$lib/Lanimate.js$$	
