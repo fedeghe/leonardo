@@ -240,7 +240,7 @@ window.onload = function () {
 
         Leo.append(g);
         Leo.render();
-        // Leo.positionInspector('[{r%x}, {r%y}],');
+        // Leo.positionInspector({tpl: '[{r%x}, {r%y}],'});
     })()
 
     /*

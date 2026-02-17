@@ -83,14 +83,21 @@ L.prototype.toImageTag = function (title, alt) {
  * @returns 
  */
 /* istanbul ignore next */
-L.prototype.positionInspector = function (tpl, cb) {
-	tpl = tpl || '%({%x} {%y}) '+
-			' rel-%({r%x} {r%y}) ' +
-			' px({x} {y})' +
-			' rel-px({rx} {ry})';
-	cb = cb || function (){};
+L.prototype.positionInspector = function (opts) {
+	opts = opts || {};
+	if (!this.tag.parentNode) {
+		throw new Error('"positionInspector" is meant to be invoked only after render')
+	}
 	var self = this,
 		tag = this.tag,
+		svgCb = opts.svgCb || function() {},
+		tpl = opts.tpl || '%({%x} {%y}) '+
+			' rel-%({r%x} {r%y}) ' +
+			' px({x} {y})' +
+			' rel-px({rx} {ry})',
+		cb = opts.cb || function() {},
+		tracerGroup = opts.tracerGroup,
+		overrideStylePath = opts.overrideStylePath || {},
 		infoTag = document.createElement('div'),
 		infoList = document.createElement('ul'),
 		copy = document.createElement('span'),
@@ -116,13 +123,43 @@ L.prototype.positionInspector = function (tpl, cb) {
 			scroll.left = document.documentElement.scrollLeft;
 			scroll.top = document.documentElement.scrollTop;
 		},
-		dotsGroup = self.group();
+		dotsGroup = self.group(),
+		innerCb = function() {
+			cb(curves);
+			if(tracerGroup) {
+				if (tracerGroup.tag.tagName !== 'g' || !('_id' in tracerGroup)) {
+					throw new Error('positionInspector requires a Leo group as third parameter when passed');
+				}
+				tracerGroup.clear();
+				curves.forEach(function(points) {
+					tracerGroup.append(
+						self.bezierThroughPoints(
+							points.map(
+								function(point){
+									return [point['x'], point['y']]
+								}
+							), 
+							Object.assign(
+								{
+									stroke: 'black',
+									'stroke-width': 5,
+									fill: 'none'
+								},
+								overrideStylePath
+							),
+							svgCb
+						)
+					);
+				});
+			}
+		};
 	copy.innerText = '📑';
+	copy.style.cursor = 'pointer';
 	copy.addEventListener('click', function(e){
 		if(navigator.clipboard.writeText(hiddenList.join(' '))){
 			alert('copied to the clipboard');
 		}
-	})
+	});
 	this.append(dotsGroup);
 	infoTag.style.fontFamily = infoList.style.fontFamily = 'verdana';
 	infoList.style.listStyleType = 'decimal';
@@ -150,10 +187,8 @@ L.prototype.positionInspector = function (tpl, cb) {
 				x: ~~curr.x, y: ~~curr.y,
 				rx: ~~curr.x - prev.x, ry: ~~curr.y - prev.y
 			};
-
-		for (var k in tplValues) {
+		for (var k in tplValues) 
 			currentInfo = currentInfo.replace('{' + k + '}', tplValues[k]);
-		}
 		currTplized = Object.assign({}, tplValues);
 		infoTag.innerHTML = currentInfo;
 	});
@@ -181,7 +216,7 @@ L.prototype.positionInspector = function (tpl, cb) {
 
 			dots = dots.slice(0, -1);
 			dotsIndex--;
-			cb(curves);
+			innerCb();
 			doDots();
 		}
 	});
@@ -224,7 +259,7 @@ L.prototype.positionInspector = function (tpl, cb) {
 
 		infoList.appendChild(item);
 		curves[currentCurveIndex].push(currTplized);
-		cb(curves);
+		innerCb();
 		dots[dotsIndex++] = dot;
 
 		doDots();
@@ -270,45 +305,45 @@ L.prototype.positionCruncher = function (width, height, styles, ends) {
  * @returns 
  */
 L.prototype.bezierThroughPoints = function(points, styles, cb) {
-	var self = this, i;
+
 	cb = cb || function(){}
     if (!points || points.length < 2) return [];
+	var self = this, i,
+		// Helper to compute control points for smooth cubic Bézier through points
+		getControlPoints = function (pts) {
+			var n = pts.length - 1,
+				cps = [];
+			// Special case for 2 points: straight line
+			if (n === 1) {
+				cps.push([
+					pts[0],
+					[ (2*pts[0][0] + pts[1][0])/3, (2*pts[0][1] + pts[1][1])/3 ],
+					[ (pts[0][0] + 2*pts[1][0])/3, (pts[0][1] + 2*pts[1][1])/3 ],
+					pts[1]
+				]);
+				return cps;
+			}
+			// Calculate control points for each segment
+			for (i = 0; i < n; i++) {
+				var p0 = pts[i === 0 ? i : i-1],
+					p1 = pts[i],
+					p2 = pts[i+1],
+					p3 = pts[i+2 < pts.length ? i+2 : i+1],
 
-    // Helper to compute control points for smooth cubic Bézier through points
-    function getControlPoints(pts) {
-        var n = pts.length - 1,
-			cps = [];
-        // Special case for 2 points: straight line
-        if (n === 1) {
-            cps.push([
-                pts[0],
-                [ (2*pts[0][0] + pts[1][0])/3, (2*pts[0][1] + pts[1][1])/3 ],
-                [ (pts[0][0] + 2*pts[1][0])/3, (pts[0][1] + 2*pts[1][1])/3 ],
-                pts[1]
-            ]);
-            return cps;
-        }
-        // Calculate control points for each segment
-        for (i = 0; i < n; i++) {
-            var p0 = pts[i === 0 ? i : i-1],
-				p1 = pts[i],
-				p2 = pts[i+1],
-				p3 = pts[i+2 < pts.length ? i+2 : i+1],
-
-            // Catmull-Rom to Bezier conversion
-				c1 = [
-					p1[0] + (p2[0] - p0[0]) / 6,
-					p1[1] + (p2[1] - p0[1]) / 6
-				],
-				c2 = [
-					p2[0] - (p3[0] - p1[0]) / 6,
-					p2[1] - (p3[1] - p1[1]) / 6
-				];
-            cps.push([p1, c1, c2, p2]);
-        }
-        return cps;
-    }
-	var prec = 2,
+				// Catmull-Rom to Bezier conversion
+					c1 = [
+						p1[0] + (p2[0] - p0[0]) / 6,
+						p1[1] + (p2[1] - p0[1]) / 6
+					],
+					c2 = [
+						p2[0] - (p3[0] - p1[0]) / 6,
+						p2[1] - (p3[1] - p1[1]) / 6
+					];
+				cps.push([p1, c1, c2, p2]);
+			}
+			return cps;
+		},
+		prec = 2,
 		rou = function(v){return parseFloat(v.toFixed(prec), 10);},
 		controlPoints =  getControlPoints(points),
 		d = 'M' + rou(controlPoints[0][0][0]) + ',' + rou(controlPoints[0][0][1]);

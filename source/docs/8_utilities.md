@@ -1,7 +1,7 @@
 ## utilities  
 
 ``` js 
-instance.positionInspector(config)
+instance.positionInspector(options)
 ```
 
 To me happened many times to draw by hand something or target a specific image and then having the need to move that into an `<svg>` path.  

@@ -91,5 +91,5 @@ window.onload = function () {
     ]).setAttributes(attrs);
     Leo.append(p1, p2, p3, s1, p4);
     Leo.render();
-    Leo.positionInspector('[{x}, {y}],');
+    Leo.positionInspector({tpl: '[{x}, {y}],'});
 };

@@ -125,25 +125,79 @@ describe('Utilities', () => {
 
     
 
-    it('positionInspector', done => {
-        const width = 200,
-            height = 200,
-            L = Leo(width, height, { target: document.body}),
-            p1 = L.circle(10, 10, 2),
-            p2 = L.circle(50, 10, 2),
-            p3 = L.circle(50, 50, 2),
-            p4 = L.circle(10, 50, 2);
+    describe('positionInspector', () => {
+        it('positionInspector with tpl, cb and group', () => {
+            const width = 200,
+                height = 200,
+                L = Leo(width, height, { target: document.body}),
+                tpl = 'x:{x}|y:{y}|rx:{rx}|ry:{ry}|px:{%x}|py:{%y}',
+                tracerGroup = L.group(),
+                overrideStylePath = {
+                    stroke: '#123456',
+                    'stroke-width': 3
+                };
+            let cbCalls = 0,
+                cbCurves;
 
-
-        L.render({
-            cb: function () {                
-                p1.trigger('click');
-                p2.trigger('click');
-                p3.trigger('click');
-                p4.trigger('click');
-                done();
+            function clickAt(x, y) {
+                L.tag.dispatchEvent(new MouseEvent('mousemove', {
+                    bubbles: true,
+                    clientX: x,
+                    clientY: y
+                }));
+                L.tag.dispatchEvent(new MouseEvent('click', {
+                    bubbles: true,
+                    clientX: x,
+                    clientY: y
+                }));
             }
-        }).positionInspector()
+
+            L.render();
+            L.positionInspector({
+                tpl,
+                cb: function (curves) {
+                    cbCalls++;
+                    cbCurves = curves;
+                },
+                tracerGroup,
+                overrideStylePath
+            });
+
+            clickAt(10, 10);
+            clickAt(50, 10);
+            clickAt(50, 50);
+            clickAt(10, 50);
+
+            expect(cbCalls).toBe(4);
+            expect(cbCurves.length).toBe(1);
+            expect(cbCurves[0].length).toBe(4);
+            expect(cbCurves[0][0].x).toBe(10);
+            expect(cbCurves[0][0].y).toBe(10);
+            expect(cbCurves[0][0].rx).toBe(10);
+            expect(cbCurves[0][0].ry).toBe(10);
+            expect(cbCurves[0][0]['%x']).toBe(5);
+            expect(cbCurves[0][0]['%y']).toBe(5);
+            expect(cbCurves[0][1].x).toBe(50);
+            expect(cbCurves[0][1].y).toBe(10);
+            expect(cbCurves[0][1].rx).toBe(40);
+            expect(cbCurves[0][1].ry).toBe(0);
+            expect(cbCurves[0][1]['%x']).toBe(25);
+            expect(cbCurves[0][1]['%y']).toBe(5);
+            expect(tracerGroup.tag.tagName).toBe('g');
+            expect(tracerGroup.childs.length).toBe(1);
+            expect(tracerGroup.childs[0].tag.tagName).toBe('path');
+            expect(tracerGroup.childs[0].getAttributes('stroke').stroke).toBe('#123456');
+            expect(tracerGroup.childs[0].getAttributes('stroke-width')['stroke-width']).toBe('3');
+        });
+        it('positionInspector called before render', () => {
+            const width = 200,
+                height = 200,
+                L = Leo(width, height, { target: document.body});
+            expect(() => {
+                L.positionInspector();
+                L.render();
+            }).toThrow('"positionInspector" is meant to be invoked only after render');
+        });
     });
 
     describe('positionCruncher', () => {
