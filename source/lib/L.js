@@ -66,7 +66,7 @@ var ht = 'http://',
  * @param      {string}  height  The height
  * @param      {<type>}  opts    The options
  */
-function L(width , height, opts) {
+function L(width, height, opts) {
 	validate.positiveInt(width);
 	validate.positiveInt(height);
 	var self = this,

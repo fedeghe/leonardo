@@ -16,7 +16,7 @@ window.onload = function () {
                 func: 'cartesian',
                 target: target1,
                 color: '#f45',
-                initial: [w2,h2],
+                initial: [w2, h2],
                 funcs: [
                     function (x, t){ return w2 * Math.sin(speed * t); },
                     function (y, t){ return h2 * Math.sin(speed * t / 4); }
@@ -34,7 +34,7 @@ window.onload = function () {
                 func: 'cartesian',
                 target: target3,
                 color: '#f45',
-                initial: [w2,h2],
+                initial: [w2, h2],
                 funcs: [
                     function (x, t){ return w2*.8 * Math.cos(speed * t); },
                     function (y, t){ return h2*.8 * Math.cos((1.5*t)%(2*Math.PI)+speed); }
@@ -49,9 +49,4 @@ window.onload = function () {
             Lx.append(circle, extra).render();
         });
     })();
-
-
-
-
-    // document.body.appendChild(L.downloadAnchor());
 };

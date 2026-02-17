@@ -87,15 +87,16 @@ Leo.getScaler = L.getScaler = L.prototype.getScaler = function (top, scale, zoom
  * 
  */
 Leo.img2base64png = L.img2base64png = L.prototype.img2base64png = function (src, cb) {
-	const getBase64StringFromDataURL = (dataURL) =>
-    	dataURL.replace('data:', '').replace(/^.+,/, '');
+	var getBase64StringFromDataURL = function(dataURL) {
+		return dataURL.replace('data:', '').replace(/^.+,/, '');
+	}
 	
 	fetch(src)
-        .then((res) => res.blob())
-        .then((blob) => {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const base64 = getBase64StringFromDataURL(reader.result);
+        .then(function(res) {return res.blob()})
+        .then(function(blob){
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                var base64 = getBase64StringFromDataURL(reader.result);
                 cb('data:image/png;base64,'+base64)
             };
             reader.readAsDataURL(blob);

@@ -9,14 +9,21 @@ L.prototype.animate = (function () {
 		var t = 0,
 			x = 0,
 			y = 0,
-			ti = setInterval(function () {
-				x = fx(x, t);
-				y = fy(y, t);
-				t += 0.1;
-				el.move(x, y);
-            }, interval);
+			lastTime = 0,
+			rafId = null,
+			step = function (time) {
+				if (!lastTime || time - lastTime >= interval) {
+					x = fx(x, t);
+					y = fy(y, t);
+					t += 0.1;
+					el.move(x, y);
+					lastTime = time;
+				}
+				rafId = requestAnimationFrame(step);
+			};
+		rafId = requestAnimationFrame(step);
         return function () {
-            clearInterval(ti)
+            cancelAnimationFrame(rafId);
         }
 	}
 	function parametricPolar(el, fr, fO, interval) {
@@ -24,17 +31,24 @@ L.prototype.animate = (function () {
 		var t = 0,
 			r = 0,
 			O = 0,
-			ti = setInterval(function () {
-				r = fr(r, t);
-				O = fO(O, t);
-				t += 0.1;
-				el.move(
-					r * Math.cos(O),
-					r * Math.sin(O)
-				);
-            }, interval);
+			lastTime = 0,
+			rafId = null,
+			step = function (time) {
+				if (!lastTime || time - lastTime >= interval) {
+					r = fr(r, t);
+					O = fO(O, t);
+					t += 0.1;
+					el.move(
+						r * Math.cos(O),
+						r * Math.sin(O)
+					);
+					lastTime = time;
+				}
+				rafId = requestAnimationFrame(step);
+			};
+		rafId = requestAnimationFrame(step);
         return function () {
-            clearInterval(ti)
+            cancelAnimationFrame(rafId);
         }
 	}
 

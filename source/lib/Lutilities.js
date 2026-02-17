@@ -125,7 +125,6 @@ L.prototype.positionInspector = function (tpl, cb) {
 	})
 	this.append(dotsGroup);
 	infoTag.style.fontFamily = infoList.style.fontFamily = 'verdana';
-	
 	infoList.style.listStyleType = 'decimal';
 	infoList.style.fontSize = '0.8em';
 	infoList.style.height = '80px';

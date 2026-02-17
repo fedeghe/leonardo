@@ -1,6 +1,6 @@
 
 
-function create(tag ,ns){
+function create(tag, ns){
 	ns = ns || namespaces.svg;
 	return document.createElementNS(ns, tag);
 }

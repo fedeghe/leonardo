@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~45.94KB
+~46.38KB
 */
 const Leonardo = (function(w) {
 	/*
@@ -15,7 +15,7 @@ const Leonardo = (function(w) {
 	*/
 	
 	
-	function create(tag ,ns){
+	function create(tag, ns){
 		ns = ns || namespaces.svg;
 		return document.createElementNS(ns, tag);
 	}
@@ -154,7 +154,7 @@ const Leonardo = (function(w) {
 	 * @param      {string}  height  The height
 	 * @param      {<type>}  opts    The options
 	 */
-	function L(width , height, opts) {
+	function L(width, height, opts) {
 		validate.positiveInt(width);
 		validate.positiveInt(height);
 		var self = this,
@@ -803,15 +803,16 @@ const Leonardo = (function(w) {
 	 * 
 	 */
 	Leo.img2base64png = L.img2base64png = L.prototype.img2base64png = function (src, cb) {
-		const getBase64StringFromDataURL = (dataURL) =>
-	    	dataURL.replace('data:', '').replace(/^.+,/, '');
+		var getBase64StringFromDataURL = function(dataURL) {
+			return dataURL.replace('data:', '').replace(/^.+,/, '');
+		}
 		
 		fetch(src)
-	        .then((res) => res.blob())
-	        .then((blob) => {
-	            const reader = new FileReader();
-	            reader.onloadend = () => {
-	                const base64 = getBase64StringFromDataURL(reader.result);
+	        .then(function(res) {return res.blob()})
+	        .then(function(blob){
+	            var reader = new FileReader();
+	            reader.onloadend = function() {
+	                var base64 = getBase64StringFromDataURL(reader.result);
 	                cb('data:image/png;base64,'+base64)
 	            };
 	            reader.readAsDataURL(blob);
@@ -952,7 +953,6 @@ const Leonardo = (function(w) {
 		})
 		this.append(dotsGroup);
 		infoTag.style.fontFamily = infoList.style.fontFamily = 'verdana';
-		
 		infoList.style.listStyleType = 'decimal';
 		infoList.style.fontSize = '0.8em';
 		infoList.style.height = '80px';
@@ -1641,14 +1641,21 @@ const Leonardo = (function(w) {
     		var t = 0,
     			x = 0,
     			y = 0,
-    			ti = setInterval(function () {
-    				x = fx(x, t);
-    				y = fy(y, t);
-    				t += 0.1;
-    				el.move(x, y);
-                }, interval);
+    			lastTime = 0,
+    			rafId = null,
+    			step = function (time) {
+    				if (!lastTime || time - lastTime >= interval) {
+    					x = fx(x, t);
+    					y = fy(y, t);
+    					t += 0.1;
+    					el.move(x, y);
+    					lastTime = time;
+    				}
+    				rafId = requestAnimationFrame(step);
+    			};
+    		rafId = requestAnimationFrame(step);
             return function () {
-                clearInterval(ti)
+                cancelAnimationFrame(rafId);
             }
     	}
     	function parametricPolar(el, fr, fO, interval) {
@@ -1656,17 +1663,24 @@ const Leonardo = (function(w) {
     		var t = 0,
     			r = 0,
     			O = 0,
-    			ti = setInterval(function () {
-    				r = fr(r, t);
-    				O = fO(O, t);
-    				t += 0.1;
-    				el.move(
-    					r * Math.cos(O),
-    					r * Math.sin(O)
-    				);
-                }, interval);
+    			lastTime = 0,
+    			rafId = null,
+    			step = function (time) {
+    				if (!lastTime || time - lastTime >= interval) {
+    					r = fr(r, t);
+    					O = fO(O, t);
+    					t += 0.1;
+    					el.move(
+    						r * Math.cos(O),
+    						r * Math.sin(O)
+    					);
+    					lastTime = time;
+    				}
+    				rafId = requestAnimationFrame(step);
+    			};
+    		rafId = requestAnimationFrame(step);
             return function () {
-                clearInterval(ti)
+                cancelAnimationFrame(rafId);
             }
     	}
     

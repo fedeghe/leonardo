@@ -2,7 +2,7 @@ window.onload = function () {
 	var target = document.getElementById('trg'),
 		width = 800,
 		height = 800,
-		L = Leonardo(width, height, {ns : '*', target : target}),
+		L = Leonardo(width, height, {target : target}),
 		g = L.group();
 
 
