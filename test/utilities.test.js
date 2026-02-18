@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+const jext = require('@jest/globals');
 const Leo = require('../dist');
 
 describe('Utilities', () => {
@@ -135,9 +136,11 @@ describe('Utilities', () => {
                 overrideStylePath = {
                     stroke: '#123456',
                     'stroke-width': 3
-                };
+                }
+                svgCb = jest.fn();
             let cbCalls = 0,
                 cbCurves;
+            
 
             function clickAt(x, y) {
                 L.tag.dispatchEvent(new MouseEvent('mousemove', {
@@ -159,14 +162,18 @@ describe('Utilities', () => {
                     cbCalls++;
                     cbCurves = curves;
                 },
+                svgCb,
                 tracerGroup,
                 overrideStylePath
             });
 
             clickAt(10, 10);
+            expect(svgCb).not.toHaveBeenCalled();
             clickAt(50, 10);
+            expect(svgCb).toHaveBeenCalledTimes(1);
             clickAt(50, 50);
             clickAt(10, 50);
+            expect(svgCb).toHaveBeenCalledTimes(3);
 
             expect(cbCalls).toBe(4);
             expect(cbCurves.length).toBe(1);
@@ -189,14 +196,14 @@ describe('Utilities', () => {
             expect(tracerGroup.childs[0].getAttributes('stroke').stroke).toBe('#123456');
             expect(tracerGroup.childs[0].getAttributes('stroke-width')['stroke-width']).toBe('3');
         });
-        it('positionInspector called before render', () => {
+        it('positionInspector can only be invoked after render', () => {
             const width = 200,
                 height = 200,
                 L = Leo(width, height, { target: document.body});
             expect(() => {
                 L.positionInspector();
                 L.render();
-            }).toThrow('"positionInspector" is meant to be invoked only after render');
+            }).toThrow('"positionInspector" is meant to be invoked ONLY after render');
         });
     });
 

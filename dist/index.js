@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~47.24KB
+~47.3KB
 */
 const Leonardo = (function(w) {
 	/*
@@ -909,14 +909,18 @@ const Leonardo = (function(w) {
 	};
 	
 	/**
-	 * 
+	 * tpl
+	 * cb
+	 * tracerGroup
+	 * sgvCb
+	 * overrideStylePath
 	 * @returns 
 	 */
 	/* istanbul ignore next */
 	L.prototype.positionInspector = function (opts) {
 		opts = opts || {};
 		if (!this.tag.parentNode) {
-			throw new Error('"positionInspector" is meant to be invoked only after render')
+			throw new Error('"positionInspector" is meant to be invoked ONLY after render')
 		}
 		var self = this,
 			tag = this.tag,
@@ -999,8 +1003,6 @@ const Leonardo = (function(w) {
 		infoList.style.border = '1px solid black';
 		infoList.style.overflow = 'scroll';
 	
-		
-		window.addEventListener('scroll', onScroll);
 		tag.addEventListener('mousemove', function (e) {
 			var x = e.clientX + scroll.left - init.x,
 				y = e.clientY + scroll.top - init.y,
@@ -1031,25 +1033,7 @@ const Leonardo = (function(w) {
 		tag.parentNode.appendChild(infoTag);
 		tag.parentNode.appendChild(infoList);
 		tag.parentNode.appendChild(copy);
-		window.addEventListener('keydown', function (e) {
-			if (e.key === "N" && e.shiftKey) {
-				currentCurveIndex++;
-				curves.push([]);
-	
-				hiddenList[hiddenListIndex++] = 'null /* === curve separator == */'
-			}
-			if (e.key === "Z" && e.shiftKey) {
-				curves[currentCurveIndex] = curves[currentCurveIndex].slice(0, -1);
-				
-				hiddenList = hiddenList.slice(0, -1);
-				hiddenListIndex--;
-	
-				dots = dots.slice(0, -1);
-				dotsIndex--;
-				innerCb();
-				doDots();
-			}
-		});
+		
 		tag.addEventListener('click', function () {
 			var item = document.createElement('li'),
 				r = 2,
@@ -1095,6 +1079,26 @@ const Leonardo = (function(w) {
 			doDots();
 			infoList.scrollTop = Number.MAX_SAFE_INTEGER;
 		});
+		window.addEventListener('keydown', function (e) {
+			if (e.key === "N" && e.shiftKey) {
+				currentCurveIndex++;
+				curves.push([]);
+	
+				hiddenList[hiddenListIndex++] = 'null /* === curve separator == */'
+			}
+			if (e.key === "Z" && e.shiftKey) {
+				curves[currentCurveIndex] = curves[currentCurveIndex].slice(0, -1);
+				
+				hiddenList = hiddenList.slice(0, -1);
+				hiddenListIndex--;
+	
+				dots = dots.slice(0, -1);
+				dotsIndex--;
+				innerCb();
+				doDots();
+			}
+		});
+		window.addEventListener('scroll', onScroll);
 		return this;
 	};
 	
