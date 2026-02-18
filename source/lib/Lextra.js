@@ -7,7 +7,7 @@
  * @param {*} boxFill 
  * @returns 
  */
-L.prototype.textBox = function (txt, w, h, textAttrs, boxAttrs, rot) {
+Leo.textBox = L.textBox = L.prototype.textBox = function (txt, w, h, textAttrs, boxAttrs, rot) {
     var cnt = new Element('svg'),
         rect = new Element('rect'),
         text = new Element('text'),
@@ -43,11 +43,10 @@ L.prototype.textBox = function (txt, w, h, textAttrs, boxAttrs, rot) {
  * @param      {<type>}   cnt     The count
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.textPath = function (d, cnt) {
-    var self = this,
-        text = new Element('text'),
+Leo.textPath = L.textBox = L.prototype.textPath = function (d, cnt) {
+    var text = new Element('text'),
         defs = new Element('defs'),
-        path = self.path(d),
+        path = L.path(d),
         textpath = new Element('textPath'),
         id = lid();
     path.tag.setAttribute('id', id );
@@ -69,7 +68,7 @@ L.prototype.textPath = function (d, cnt) {
  * @param {*} vrs2 
  * @returns 
  */
-L.arcSectionPath = L.prototype.arcSectionPath = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
+Leo.arcSectionPath = L.arcSectionPath = L.prototype.arcSectionPath = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
     vrs1 = typeof vrs1 === 'undefined' ? 1 : vrs1;
     vrs2 = typeof vrs2 === 'undefined' ? 0 : vrs2;
     var startOut = polarToCartesian(cx, cy, r2, from),

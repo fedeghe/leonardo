@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~47.7KB
+~48.02KB
 */
 const Leonardo = (function(w) {
 	/*
@@ -415,8 +415,21 @@ const Leonardo = (function(w) {
 	Element.prototype.trigger = function (event) { 
 		var self = this.tag;
 		self.dispatchEvent(new Event(event, {target: self}));
-	}
+	};
 	
+	Element.prototype.click = function (x,y) { 
+		var self = this.tag;
+		self.dispatchEvent(new MouseEvent('mousemove', {
+			bubbles: true,
+			clientX: x,
+			clientY: y
+		}));
+		self.dispatchEvent(new MouseEvent('click', {
+			bubbles: true,
+			clientX: x,
+			clientY: y
+		}));
+	};
 	
 	/**
 	 * Creates a new instance of the object with same properties than original.
@@ -965,14 +978,11 @@ const Leonardo = (function(w) {
 			innerCb = function() {
 				cb(curves);
 				if(trace) {
-					// self.append(tracerGroup);
-					console.log('append')
 					if (tracerGroup.tag.tagName !== 'g' || !('_id' in tracerGroup)) {
 						throw new Error('positionInspector requires a Leo group as third parameter when passed');
 					}
 					tracerGroup.clear();
 					curves.forEach(function(points, i) {
-						console.log({i})
 						tracerGroup.append(
 							self.bezierThroughPoints(
 								points.map(
@@ -995,7 +1005,7 @@ const Leonardo = (function(w) {
 					});
 				}
 			};
-		if(trace) self.append(tracerGroup);
+		if (trace) self.append(tracerGroup);
 		copy.innerText = '📑';
 		copy.style.cursor = 'pointer';
 		copy.addEventListener('click', function(e){
@@ -1090,7 +1100,8 @@ const Leonardo = (function(w) {
 		});
 		window.addEventListener('keydown', function (e) {
 			if (e.key.match(/N|E/) && e.shiftKey) {
-				if(e.key === "E") {
+				var endIt = e.key === "E"
+				if(endIt) {
 					curveEnds[currentCurveIndex] = true;
 				}
 				currentCurveIndex++;
@@ -1098,9 +1109,9 @@ const Leonardo = (function(w) {
 				curves.push([]);
 	
 				hiddenList[hiddenListIndex++] = 'null /* === curve separator == */'
-				if(e.key === "E") {
+				if(endIt) {
 					innerCb();
-					doDots();
+					// doDots();
 				}
 			}
 			if (e.key === "Z" && e.shiftKey) {
@@ -1121,11 +1132,31 @@ const Leonardo = (function(w) {
 	
 	/**
 	 * 
+	 * @returns 
+	 */
+	L.prototype.dataEncoded = function () {
+		var serializer = new XMLSerializer(),
+			source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag);
+		/* istanbul ignore else */
+		if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+			source = source.replace(/^<svg/, '<svg xmlns="' + namespaces.svg + '"');
+		}
+		/* istanbul ignore else */
+		if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+			source = source.replace(/^<svg/, '<svg xmlns:xlink="' + namespaces.xlink + '"');
+		}
+		return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
+	};
+	
+	/**
+	 * 
 	 * @param {*} width 
 	 * @param {*} height 
 	 * @param {*} styles 
 	 * @param {*} ends 
 	 * @returns 
+	 * 
+	 * note it could be static
 	 */
 	L.prototype.positionCruncher = function (width, height, styles, ends) {
 		var self = this,
@@ -1154,6 +1185,8 @@ const Leonardo = (function(w) {
 	 * @param {*} points 
 	 * @param {*} styles 
 	 * @returns 
+	 * 
+	 * note it could be static
 	 */
 	L.prototype.bezierThroughPoints = function(points, styles, cb, ends) {
 	
@@ -1207,23 +1240,7 @@ const Leonardo = (function(w) {
 		return self.path(d).sas(styles);
 	};
 	
-	/**
-	 * 
-	 * @returns 
-	 */
-	L.prototype.dataEncoded = function () {
-		var serializer = new XMLSerializer(),
-			source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag);
-		/* istanbul ignore else */
-		if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-			source = source.replace(/^<svg/, '<svg xmlns="' + namespaces.svg + '"');
-		}
-		/* istanbul ignore else */
-		if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
-			source = source.replace(/^<svg/, '<svg xmlns:xlink="' + namespaces.xlink + '"');
-		}
-		return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
-	};
+	
 	
 	
 	
@@ -1778,7 +1795,7 @@ const Leonardo = (function(w) {
      * @param {*} boxFill 
      * @returns 
      */
-    L.prototype.textBox = function (txt, w, h, textAttrs, boxAttrs, rot) {
+    Leo.textBox = L.textBox = L.prototype.textBox = function (txt, w, h, textAttrs, boxAttrs, rot) {
         var cnt = new Element('svg'),
             rect = new Element('rect'),
             text = new Element('text'),
@@ -1814,11 +1831,10 @@ const Leonardo = (function(w) {
      * @param      {<type>}   cnt     The count
      * @return     {Element}  { description_of_the_return_value }
      */
-    L.prototype.textPath = function (d, cnt) {
-        var self = this,
-            text = new Element('text'),
+    Leo.textPath = L.textBox = L.prototype.textPath = function (d, cnt) {
+        var text = new Element('text'),
             defs = new Element('defs'),
-            path = self.path(d),
+            path = L.path(d),
             textpath = new Element('textPath'),
             id = lid();
         path.tag.setAttribute('id', id );
@@ -1840,7 +1856,7 @@ const Leonardo = (function(w) {
      * @param {*} vrs2 
      * @returns 
      */
-    L.arcSectionPath = L.prototype.arcSectionPath = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
+    Leo.arcSectionPath = L.arcSectionPath = L.prototype.arcSectionPath = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
         vrs1 = typeof vrs1 === 'undefined' ? 1 : vrs1;
         vrs2 = typeof vrs2 === 'undefined' ? 0 : vrs2;
         var startOut = polarToCartesian(cx, cy, r2, from),

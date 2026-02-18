@@ -105,8 +105,21 @@ Element.prototype.once = function (eventName, cb) {
 Element.prototype.trigger = function (event) { 
 	var self = this.tag;
 	self.dispatchEvent(new Event(event, {target: self}));
-}
+};
 
+Element.prototype.click = function (x,y) { 
+	var self = this.tag;
+	self.dispatchEvent(new MouseEvent('mousemove', {
+		bubbles: true,
+		clientX: x,
+		clientY: y
+	}));
+	self.dispatchEvent(new MouseEvent('click', {
+		bubbles: true,
+		clientX: x,
+		clientY: y
+	}));
+};
 
 /**
  * Creates a new instance of the object with same properties than original.

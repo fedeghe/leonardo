@@ -135,14 +135,11 @@ L.prototype.positionInspector = function (opts) {
 		innerCb = function() {
 			cb(curves);
 			if(trace) {
-				// self.append(tracerGroup);
-				console.log('append')
 				if (tracerGroup.tag.tagName !== 'g' || !('_id' in tracerGroup)) {
 					throw new Error('positionInspector requires a Leo group as third parameter when passed');
 				}
 				tracerGroup.clear();
 				curves.forEach(function(points, i) {
-					console.log({i})
 					tracerGroup.append(
 						self.bezierThroughPoints(
 							points.map(
@@ -165,7 +162,7 @@ L.prototype.positionInspector = function (opts) {
 				});
 			}
 		};
-	if(trace) self.append(tracerGroup);
+	if (trace) self.append(tracerGroup);
 	copy.innerText = '📑';
 	copy.style.cursor = 'pointer';
 	copy.addEventListener('click', function(e){
@@ -260,7 +257,8 @@ L.prototype.positionInspector = function (opts) {
 	});
 	window.addEventListener('keydown', function (e) {
 		if (e.key.match(/N|E/) && e.shiftKey) {
-			if(e.key === "E") {
+			var endIt = e.key === "E"
+			if(endIt) {
 				curveEnds[currentCurveIndex] = true;
 			}
 			currentCurveIndex++;
@@ -268,9 +266,9 @@ L.prototype.positionInspector = function (opts) {
 			curves.push([]);
 
 			hiddenList[hiddenListIndex++] = 'null /* === curve separator == */'
-			if(e.key === "E") {
+			if(endIt) {
 				innerCb();
-				doDots();
+				// doDots();
 			}
 		}
 		if (e.key === "Z" && e.shiftKey) {
@@ -291,11 +289,31 @@ L.prototype.positionInspector = function (opts) {
 
 /**
  * 
+ * @returns 
+ */
+L.prototype.dataEncoded = function () {
+	var serializer = new XMLSerializer(),
+		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag);
+	/* istanbul ignore else */
+	if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+		source = source.replace(/^<svg/, '<svg xmlns="' + namespaces.svg + '"');
+	}
+	/* istanbul ignore else */
+	if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+		source = source.replace(/^<svg/, '<svg xmlns:xlink="' + namespaces.xlink + '"');
+	}
+	return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
+};
+
+/**
+ * 
  * @param {*} width 
  * @param {*} height 
  * @param {*} styles 
  * @param {*} ends 
  * @returns 
+ * 
+ * note it could be static
  */
 L.prototype.positionCruncher = function (width, height, styles, ends) {
 	var self = this,
@@ -324,6 +342,8 @@ L.prototype.positionCruncher = function (width, height, styles, ends) {
  * @param {*} points 
  * @param {*} styles 
  * @returns 
+ * 
+ * note it could be static
  */
 L.prototype.bezierThroughPoints = function(points, styles, cb, ends) {
 
@@ -377,22 +397,6 @@ L.prototype.bezierThroughPoints = function(points, styles, cb, ends) {
 	return self.path(d).sas(styles);
 };
 
-/**
- * 
- * @returns 
- */
-L.prototype.dataEncoded = function () {
-	var serializer = new XMLSerializer(),
-		source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag);
-	/* istanbul ignore else */
-	if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-		source = source.replace(/^<svg/, '<svg xmlns="' + namespaces.svg + '"');
-	}
-	/* istanbul ignore else */
-	if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
-		source = source.replace(/^<svg/, '<svg xmlns:xlink="' + namespaces.xlink + '"');
-	}
-	return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
-};
+
 
 

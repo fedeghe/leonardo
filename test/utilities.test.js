@@ -1,7 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-const jext = require('@jest/globals');
 const Leo = require('../dist');
 
 describe('Utilities', () => {
@@ -261,6 +260,18 @@ describe('Utilities', () => {
             expect(bezierPath.getAttributes('d').d).toBe("M10,10 C11.67,11.67 15,15 20,20 C25,25 35,35 40,40 C45,45 48.33,48.33 50,50");
             expect(bezierPath2).toEqual([]);
         });
+
+        it('close case', () => {
+           const width = 200,
+                height = 200,
+                L = Leo(width, height, { target: document.body}),
+                bezierPath = L.bezierThroughPoints([
+                    [10,10], [20,20], [40,40], [50,50]
+                ], {}, () => {}, true); 
+            expect(bezierPath.tag.tagName).toBe('path');
+            expect(bezierPath.getAttributes('d').d).toBe("M10,10 C11.67,11.67 15,15 20,20 C25,25 35,35 40,40 C45,45 48.33,48.33 50,50 Z");
+        });
+
         it('also with just two points', () => {
             const width = 200,
                 height = 200,

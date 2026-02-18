@@ -12,7 +12,8 @@ describe('events', () => {
             fn = jest.fn();
         L.append(c).render();
         c.on('click', fn);
-        c.trigger('click');
+        // c.trigger('click'); or
+        c.click(10, 10);
         expect(fn).toHaveBeenCalled();
     });
 

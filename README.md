@@ -60,16 +60,13 @@ Here the list of the references for the namespaces (from official w3c [standard 
 
 # Tags  
 
-To draw something we need to append to the svg tag the right svg tags. Leonardo lets you create the following tags: `desc`, `circle`, `ellipse`, `foreignObject`, `group`, `image`, `line`, `path`, `polygon`, `polyline`, `rect`, `text`, `title`, `script`.  
+To draw something we need to append to the svg tag the right tags. Leonardo lets you create all tags giving some additional method on some of them.  
 
+Then some additional functions allow to create more easily some "composed" elements: `textBox`, `textPath` and `arcSectionPath`. More will come.
 
-Whenever you will need a tag not listed above a special helper factory function is available.  
+[](#util)
 
-Then some additional functions allow to create more easily some "composed" elements: `centeredText`, `textPath`. More will come.
-
-[sss](#util)
-
-Every tag is primarily a `Element` instance, and thus benefits the following instance methods: `attrs`, `styles`, `add`, `on` ,`off`, `clone`, `trans`, `rotate`, `scale`, `mirrorH`, `mirrorV` and `move`. I will describe all them [soon below here](#elements). Then every element might extend the `Element` and add methods or properties. 
+Every tag is primarily a `Element` instance, and thus benefits the following methods: `getAttributes`, `setAttributes`, `getStyles`, `setStyles`, `append`, `remove`, `on`, `off`, `once`, `trigger`, `clone`, `use`, `rotate`, `scale`, `mirrorH`, `mirrorV`, `move`, `bringToTop`, `bringToBottom`, `timeout`, `bringTo`, `clear` and `replace`. I will describe all them [soon below here](#elements). Then every element might extend the `Element` and add methods or properties. 
 
 There is the list of the methods available to create tags (all visible ones will show a 👁️ close to their title tag):
 
