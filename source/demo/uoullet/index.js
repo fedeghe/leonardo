@@ -81,8 +81,8 @@ window.onload = function () {
             
 
             u1 = GimmeU(Leo, gap, bxWidth, bxHeight, wGapMul, hGapMul),
-            o = Leo.path(
-                Leo.pathBuild
+            o = Leonardo.path(
+                Leonardo.pathBuild
                     .M(gap, gap*hGapMul)
                     .L(gap, bxHeight - gap*hGapMul)
                     .A(gap*wGapMul, gap*hGapMul, 0, 0, 0, gap*wGapMul, bxHeight - gap)
@@ -192,9 +192,8 @@ window.onload = function () {
     render(this.document.getElementById('trg2'), 'white');
 
 
-    function renderU(){
-        var target = document.getElementById('trgU'),
-            theme = getTheme('blue'),
+    function renderU(target){
+        var theme = getTheme('blue'),
             LeoU = Leonardo(900, 500, { ns: '*', target }).setStyles({
                 backgroundColor: '#00000055'
             }),
@@ -222,7 +221,7 @@ window.onload = function () {
         
         
     }
-    renderU();
+    renderU(document.getElementById('trgU'));
 
     //wallet
     (function(){
@@ -234,13 +233,13 @@ window.onload = function () {
             fac = 1,
             img = Leo.image(
                 0, 0, w, h,'uoullet.svg'
-            ).scale(fac);//.mirrorH();
+            ).scale(fac);
         g.append(img);
         
 
         Leo.append(g);
         Leo.render();
-        // Leo.positionInspector({tpl: '[{r%x}, {r%y}],'});
+        
     })()
 
     /*

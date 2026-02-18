@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~47.64KB
+~47.7KB
 */
 const Leonardo = (function(w) {
 	/*
@@ -1098,6 +1098,10 @@ const Leonardo = (function(w) {
 				curves.push([]);
 	
 				hiddenList[hiddenListIndex++] = 'null /* === curve separator == */'
+				if(e.key === "E") {
+					innerCb();
+					doDots();
+				}
 			}
 			if (e.key === "Z" && e.shiftKey) {
 				curves[currentCurveIndex] = curves[currentCurveIndex].slice(0, -1);

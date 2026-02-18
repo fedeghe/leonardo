@@ -268,6 +268,10 @@ L.prototype.positionInspector = function (opts) {
 			curves.push([]);
 
 			hiddenList[hiddenListIndex++] = 'null /* === curve separator == */'
+			if(e.key === "E") {
+				innerCb();
+				doDots();
+			}
 		}
 		if (e.key === "Z" && e.shiftKey) {
 			curves[currentCurveIndex] = curves[currentCurveIndex].slice(0, -1);
