@@ -100,7 +100,8 @@ L.prototype.positionInspector = function (opts) {
 			' px({x} {y})' +
 			' rel-px({rx} {ry})',
 		cb = opts.cb || function() {},
-		tracerGroup = opts.tracerGroup,
+		trace = opts.trace || false,
+		tracerGroup = self.group(),
 		overrideStylePath = opts.overrideStylePath || {},
 		infoTag = document.createElement('div'),
 		infoList = document.createElement('ul'),
@@ -130,7 +131,8 @@ L.prototype.positionInspector = function (opts) {
 		dotsGroup = self.group(),
 		innerCb = function() {
 			cb(curves);
-			if(tracerGroup) {
+			if(trace) {
+				self.append(tracerGroup);
 				if (tracerGroup.tag.tagName !== 'g' || !('_id' in tracerGroup)) {
 					throw new Error('positionInspector requires a Leo group as third parameter when passed');
 				}

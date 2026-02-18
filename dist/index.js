@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~47.3KB
+~47.35KB
 */
 const Leonardo = (function(w) {
 	/*
@@ -930,7 +930,8 @@ const Leonardo = (function(w) {
 				' px({x} {y})' +
 				' rel-px({rx} {ry})',
 			cb = opts.cb || function() {},
-			tracerGroup = opts.tracerGroup,
+			trace = opts.trace || false,
+			tracerGroup = self.group(),
 			overrideStylePath = opts.overrideStylePath || {},
 			infoTag = document.createElement('div'),
 			infoList = document.createElement('ul'),
@@ -960,7 +961,8 @@ const Leonardo = (function(w) {
 			dotsGroup = self.group(),
 			innerCb = function() {
 				cb(curves);
-				if(tracerGroup) {
+				if(trace) {
+					self.append(tracerGroup);
 					if (tracerGroup.tag.tagName !== 'g' || !('_id' in tracerGroup)) {
 						throw new Error('positionInspector requires a Leo group as third parameter when passed');
 					}

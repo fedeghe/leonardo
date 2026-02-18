@@ -127,12 +127,11 @@ describe('Utilities', () => {
     
 
     describe('positionInspector', () => {
-        it('positionInspector with tpl, cb and group', () => {
+        it('positionInspector with tpl, cb and trace', () => {
             const width = 200,
                 height = 200,
                 L = Leo(width, height, { target: document.body}),
                 tpl = 'x:{x}|y:{y}|rx:{rx}|ry:{ry}|px:{%x}|py:{%y}',
-                tracerGroup = L.group(),
                 overrideStylePath = {
                     stroke: '#123456',
                     'stroke-width': 3
@@ -163,7 +162,7 @@ describe('Utilities', () => {
                     cbCurves = curves;
                 },
                 svgCb,
-                tracerGroup,
+                trace : true,
                 overrideStylePath
             });
 
@@ -190,11 +189,9 @@ describe('Utilities', () => {
             expect(cbCurves[0][1].ry).toBe(0);
             expect(cbCurves[0][1]['%x']).toBe(25);
             expect(cbCurves[0][1]['%y']).toBe(5);
-            expect(tracerGroup.tag.tagName).toBe('g');
-            expect(tracerGroup.childs.length).toBe(1);
-            expect(tracerGroup.childs[0].tag.tagName).toBe('path');
-            expect(tracerGroup.childs[0].getAttributes('stroke').stroke).toBe('#123456');
-            expect(tracerGroup.childs[0].getAttributes('stroke-width')['stroke-width']).toBe('3');
+            const lastSvgPath = svgCb.mock.calls[2][0];
+            expect(lastSvgPath.tagName).toBe('path');
+            expect(lastSvgPath.getAttribute('d')).toBe('M10,10 C16.67,10 43.33,3.33 50,10 C56.67,16.67 56.67,43.33 50,50 C43.33,56.67 16.67,50 10,50');
         });
         it('positionInspector can only be invoked after render', () => {
             const width = 200,
@@ -225,8 +222,6 @@ describe('Utilities', () => {
                     [10,10], [20,20], [40,40], [50,50]
                 ]),
                 crunched0 = cruncher();
-
-
             expect(crunched0).toBeUndefined();
             expect(crunchedPath.tag.tagName).toBe('path');
             expect(crunchedPath.getAttributes('d').d).toBe("M20,20l40,40 80,80 100,100");
@@ -246,8 +241,6 @@ describe('Utilities', () => {
                 crunchedPath = cruncher([
                     [10,10], [20,20], [40,40], [50,50]
                 ]);
-
-
             expect(crunchedPath.tag.tagName).toBe('path');
             expect(crunchedPath.getAttributes('d').d).toBe("M20,20l40,40 80,80 100,100Z");
         });
