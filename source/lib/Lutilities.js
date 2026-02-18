@@ -121,9 +121,12 @@ L.prototype.positionInspector = function (opts) {
 		curr = { x: 0, y: 0},
 		currTplized = {},
 		curves = [[]],
+		curveEnds = [false],
 		currentCurveIndex = 0,
+
 		dots = [],
 		dotsIndex = 0,
+		
 		onScroll = function () {
 			scroll.left = document.documentElement.scrollLeft;
 			scroll.top = document.documentElement.scrollTop;
@@ -132,12 +135,14 @@ L.prototype.positionInspector = function (opts) {
 		innerCb = function() {
 			cb(curves);
 			if(trace) {
-				self.append(tracerGroup);
+				// self.append(tracerGroup);
+				console.log('append')
 				if (tracerGroup.tag.tagName !== 'g' || !('_id' in tracerGroup)) {
 					throw new Error('positionInspector requires a Leo group as third parameter when passed');
 				}
 				tracerGroup.clear();
-				curves.forEach(function(points) {
+				curves.forEach(function(points, i) {
+					console.log({i})
 					tracerGroup.append(
 						self.bezierThroughPoints(
 							points.map(
@@ -153,12 +158,14 @@ L.prototype.positionInspector = function (opts) {
 								},
 								overrideStylePath
 							),
-							svgCb
+							svgCb,
+							curveEnds[i]
 						)
 					);
 				});
 			}
 		};
+	if(trace) self.append(tracerGroup);
 	copy.innerText = '📑';
 	copy.style.cursor = 'pointer';
 	copy.addEventListener('click', function(e){
@@ -252,8 +259,12 @@ L.prototype.positionInspector = function (opts) {
 		infoList.scrollTop = Number.MAX_SAFE_INTEGER;
 	});
 	window.addEventListener('keydown', function (e) {
-		if (e.key === "N" && e.shiftKey) {
+		if (e.key.match(/N|E/) && e.shiftKey) {
+			if(e.key === "E") {
+				curveEnds[currentCurveIndex] = true;
+			}
 			currentCurveIndex++;
+			curveEnds[currentCurveIndex] = false;
 			curves.push([]);
 
 			hiddenList[hiddenListIndex++] = 'null /* === curve separator == */'
@@ -310,7 +321,7 @@ L.prototype.positionCruncher = function (width, height, styles, ends) {
  * @param {*} styles 
  * @returns 
  */
-L.prototype.bezierThroughPoints = function(points, styles, cb) {
+L.prototype.bezierThroughPoints = function(points, styles, cb, ends) {
 
 	cb = cb || function(){}
     if (!points || points.length < 2) return [];
@@ -357,6 +368,7 @@ L.prototype.bezierThroughPoints = function(points, styles, cb) {
     controlPoints.forEach(function(seg){
         d += ' C'+rou(seg[1][0])+','+rou(seg[1][1])+' '+rou(seg[2][0])+','+rou(seg[2][1])+' '+rou(seg[3][0])+','+rou(seg[3][1]);
     });
+	if (ends) d += ' Z';
 	cb(self.path(d).tag)
 	return self.path(d).sas(styles);
 };
