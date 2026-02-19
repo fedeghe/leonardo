@@ -41,7 +41,6 @@ describe('Tags', () => {
         expect(title.tag.textContent).toBe(text);
     });
 
-
     it('<text> ', () => {
         const width = 200,
             height = 100,
@@ -53,12 +52,29 @@ describe('Tags', () => {
         expect(spot.tagName).toBe('text');
         expect(spot.textContent).toBe(txt);
     });
+
     it('<text> - static', () => {
         const cnt = 'a text',
-            text = Leo.text(10, 20, cnt);
+            text = Leo.text(10, 20, cnt),
+            text1 = Leo.text();
         expect(text.tag.tagName).toBe('text');
         expect(text.tag.textContent).toBe(cnt);
+        expect(text1.tag.tagName).toBe('text');
+        expect(text1.tag.textContent).toBe('');
     });
+
+    it('<text> updateText', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height),
+            t = L.text(0,0,'hello');
+
+        L.append(t);
+        
+        expect(t.tag.textContent).toBe('hello');
+        t.updateText('world');
+        expect(t.tag.textContent).toBe('world');
+    })
 
 
     it('<g> ', () => {
@@ -274,6 +290,30 @@ describe('Tags', () => {
                 expect(t.tag.getAttribute('height')).toBe('20');
         })
     
+    });
+
+    it('use and symbol', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height, {ns : '*'}),
+            rect = L.rect(10, 10, 20),
+            symbol = L.symbol({
+                width: 50,
+                height: 50,
+                viewBox: '0 0 50 50'
+            }, rect),
+            use = L.use({
+                href: `#${symbol.tag.getAttribute('id')}`,
+                x: 50,
+                y: 50
+            });;
+        symbol.append(rect);
+        L.append(symbol, use);
+            
+        expect(symbol.tag.tagName).toBe('symbol');
+        expect(symbol.childs[0].tag.tagName).toBe('rect');
+        expect(use.tag.tagName).toBe('use');
+        expect(use.tag.getAttribute('href')).toBe(`#${symbol.tag.getAttribute('id')}`);
     });
 
 });

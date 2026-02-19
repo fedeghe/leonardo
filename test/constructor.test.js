@@ -119,6 +119,18 @@ describe('Constructor', () => {
             expect(L.tag.getAttribute('preserveAspectRatio')).toBe('xMidYMid meet');
             expect(l).toBe(L);
         });
+        it('<instance>.addDefs', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height); 
+            L.addDefs(
+                L.circle(10, 10, 10).setAttributes({id: 'c1'}),
+                L.rect(10, 10, 10, 10).setAttributes({id: 'r1'}),
+            );
+            expect(L.defs.childs[0].tag.tagName).toBe('circle');
+            expect(L.defs.childs[1].tag.tagName).toBe('rect');
+        });
+
     });
 
     describe('throws as expected', () => {

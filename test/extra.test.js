@@ -23,7 +23,9 @@ describe('extra', () => {
         
         expect(textPath.childs[1].tag.tagName).toBe('textPath');
         expect(textPath.childs[1].tag.textContent).toBe('swiss made');
-        expect(textPath.childs[0].childs[0].tag.tagName).toBe('path');        
+        expect(textPath.childs[0].childs[0].tag.tagName).toBe('path');
+        textPath.updateText('made in Italy'); 
+        expect(textPath.childs[1].tag.textContent).toBe('made in Italy');
     });
 
     

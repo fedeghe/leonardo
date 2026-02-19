@@ -308,7 +308,7 @@ describe('Element', () => {
         expect(g.tag.children.length).toBe(0);
     });
 
-    it('base', () => {
+    it('replace', () => {
         const width = 200,
             height = 100,
             L = Leo(width, height),
@@ -326,16 +326,23 @@ describe('Element', () => {
         expect(g.childs.length).toBe(2);
         expect(g.childs[0].tag.tagName).toBe('rect');
     });
-    it('updateText', () => {
-        const width = 200,
-            height = 100,
-            L = Leo(width, height),
-            t = L.text(0,0,'hello');
+    it('infoUrl', () => {
+        // intercept window.open
+        window.open = jest.fn();
 
-        L.append(t);
-        
-        expect(t.tag.textContent).toBe('hello');
-        t.updateText('world');
-        expect(t.tag.textContent).toBe('world');
-    })
+
+        const width = 200,
+            height = 100,   
+            L = Leo(width, height),
+            c1 = L.circle(10, 10, 5).setAttributes({id: 'c1', fill: '#ff0000'});
+        L.append(c1);
+        expect(c1.infoUrl()).toBe('https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/circle');
+        c1.infoUrl(true);
+        expect(window.open).toHaveBeenCalledWith(
+            'https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/circle',
+            '_blank',
+        );
+    });
+
+
 });
