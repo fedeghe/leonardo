@@ -7,7 +7,7 @@
  * @param {*} boxFill 
  * @returns 
  */
-Leo.textBox = L.textBox = L.prototype.textBox = function (txt, w, h, textAttrs, boxAttrs, rot) {
+Leo.textBox = L.prototype.textBox = function (txt, w, h, textAttrs, boxAttrs, rot) {
     var cnt = new Element('svg'),
         rect = new Element('rect'),
         text = new Element('text'),
@@ -40,10 +40,10 @@ Leo.textBox = L.textBox = L.prototype.textBox = function (txt, w, h, textAttrs, 
  * { function_description }
  *
  * @param      {<type>}   d       { parameter_description }
- * @param      {<type>}   cnt     The count
+ * @param      {<type>}   cnt     The content
  * @return     {Element}  { description_of_the_return_value }
  */
-Leo.textPath = L.textBox = L.prototype.textPath = function (d, cnt) {
+Leo.textPath = L.prototype.textPath = function (d, cnt) {
     var text = new Element('text'),
         defs = new Element('defs'),
         path = L.path(d),
@@ -54,6 +54,9 @@ Leo.textPath = L.textBox = L.prototype.textPath = function (d, cnt) {
     textpath.tag.setAttributeNS(namespaces.xlink, 'xlink:href', '#' + id);
     defs.append(path);
     text.append(defs, textpath);
+    text.updateText = function(t) {
+		textpath.tag.textContent = t;
+	};
     return text;
 };
 
@@ -68,7 +71,7 @@ Leo.textPath = L.textBox = L.prototype.textPath = function (d, cnt) {
  * @param {*} vrs2 
  * @returns 
  */
-Leo.arcSectionPath = L.arcSectionPath = L.prototype.arcSectionPath = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
+Leo.arcSectionPath = L.prototype.arcSectionPath = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
     vrs1 = typeof vrs1 === 'undefined' ? 1 : vrs1;
     vrs2 = typeof vrs2 === 'undefined' ? 0 : vrs2;
     var startOut = polarToCartesian(cx, cy, r2, from),
