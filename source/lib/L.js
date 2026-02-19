@@ -216,3 +216,11 @@ L.prototype.remove = function () {
 	})
 	return this;
 };
+
+L.prototype.addDefs = function() {
+	var els = [].slice.call(arguments, 0),
+		defs = getDefs(this);
+	defs.append(els);
+	return this;
+}
+
