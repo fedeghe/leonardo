@@ -66,16 +66,23 @@ Then some additional functions allow to create more easily some "composed" eleme
 
 [](#util)
 
-Every tag is primarily a `Element` instance, and thus benefits the following methods: `getAttributes`, `setAttributes`, `getStyles`, `setStyles`, `append`, `remove`, `on`, `off`, `once`, `trigger`, `clone`, `use`, `rotate`, `scale`, `mirrorH`, `mirrorV`, `move`, `bringToTop`, `bringToBottom`, `timeout`, `bringTo`, `clear` and `replace`. I will describe all them [soon below here](#elements). Then every element might extend the `Element` and add methods or properties. 
+Every tag we get from _Leonardo_ is primarily an `Element` instance, and thus benefits the following methods: `getAttributes`, `setAttributes`, `getStyles`, `setStyles`, `append`, `remove`, `on`, `off`, `once`, `trigger`, `clone`, `use`, `rotate`, `scale`, `mirrorH`, `mirrorV`, `move`, `bringToTop`, `bringToBottom`, `timeout`, `bringTo`, `clear` and `replace`. I will describe all them [soon below here](#elements). Then every element might extend the `Element` and add methods or properties.
 
-There is the list of the methods available to create tags (all visible ones will show a 👁️ close to their title tag):
+Anyway `svg` tags set is quite [huge](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) and I just tried to cover the very most common. Whenever you need to use a tag not contempled here you can still use `.Element` to create it: 
+``` js
+var aHatch = L.Element('hatch')
+```  
+this will grant the ability to use all the utility methods listed above (and detailed soon).
+
+There is the list of the methods available to create tags (all visible ones will show a 👁️ close to their title tag). In case 
 
 
 ### \<desc\> 
 ``` js
 var myDesc = L.desc('This is the description of my svg')
 ```
-Returns a `<desc>` tag containing the text passed to it
+Returns a `<desc>` tag containing the text passed to it.  
+No additional methods attached
 
 ### \<circle\> 👁️  
 ``` js
@@ -187,12 +194,7 @@ var myArcSection = instance.path(
 ```
 If we want a section of a circle slice.
 
-## need more
-Svg tags are really [so many](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) and I just tried to cover the very most common. Whenever you need to use a tag not contempled here you can still use `.Element` to create it: 
-``` js
-var whatever = L.Element('hatch')
-```  
-this will grant the ability to use all the [utility](#util) methods
+
 
 ---
 

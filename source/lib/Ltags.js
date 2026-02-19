@@ -6,6 +6,8 @@
 
 /**
  * { function_description }
+ * 
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/desc
  *
  * @param      {<type>}   txt     The text
  * @return     {Element}  { description_of_the_return_value }
@@ -18,6 +20,8 @@ Leo.desc = L.desc = L.prototype.desc = function (txt) {
 
 /**
  * { function_description }
+ * 
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/circle
  *
  * @param      {<type>}   cx      { parameter_description }
  * @param      {<type>}   cy      { parameter_description }
@@ -32,6 +36,8 @@ Leo.circle = L.circle = L.prototype.circle = function (cx, cy, r) {
 
 /**
  * { function_description }
+ * 
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/ellipse
  *
  * @param      {<type>}   cx      { parameter_description }
  * @param      {<type>}   cy      { parameter_description }
@@ -48,6 +54,8 @@ Leo.ellipse = L.ellipse = L.prototype.ellipse = function (cx, cy, rx, ry) {
 /**
  * { function_description }
  *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/g
+ * 
  * @return     {Element}  { description_of_the_return_value }
  */
 Leo.group = L.group =L.prototype.group = function (a) {
@@ -59,6 +67,8 @@ Leo.group = L.group =L.prototype.group = function (a) {
 /**
  * { function_description }
  *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/image
+ * 
  * @param      {<type>}   x       { parameter_description }
  * @param      {<type>}   y       { parameter_description }
  * @param      {<type>}   w       { parameter_description }
@@ -77,6 +87,8 @@ Leo.image = L.image = L.prototype.image = function (x, y, w, h, src) {
 /**
  * { function_description }
  *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/line
+ * 
  * @param      {<type>}   x1      The x 1
  * @param      {<type>}   y1      The y 1
  * @param      {<type>}   x2      The x 2
@@ -92,6 +104,7 @@ Leo.line = L.line = L.prototype.line = function (x1, y1, x2, y2) {
 /**
  * { function_description }
  *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/polygon
  * @param      {<type>}   d       { parameter_description }
  * @param      {<type>}   attrs   { parameter_description }
  * @return     {Element}  { description_of_the_return_value }
@@ -125,6 +138,7 @@ Leo.polygon = L.polygon = L.prototype.polygon = function () {
 /**
  * { function_description }
  *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/polyline
  * @return     {Element}  { description_of_the_return_value }
  */
 Leo.polyline = L.polyline = L.prototype.polyline = function () {
@@ -142,6 +156,7 @@ Leo.polyline = L.polyline = L.prototype.polyline = function () {
 /**
  * { function_description }
  *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/rect
  * @param      {<type>}   x       { parameter_description }
  * @param      {<type>}   y       { parameter_description }
  * @param      {<type>}   w       { parameter_description }
@@ -157,7 +172,9 @@ Leo.rect = L.rect = L.prototype.rect = function (x, y, w, h) {
 
 /**
  * { function_description }
- *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/text
+ * 
+ * 
  * @param      {<type>}   x       { parameter_description }
  * @param      {<type>}   y       { parameter_description }
  * @param      {<type>}   cnt     The count
@@ -165,8 +182,11 @@ Leo.rect = L.rect = L.prototype.rect = function (x, y, w, h) {
  */
 Leo.text = L.text = L.prototype.text = function (x, y, cnt) {
 	var text = new Element('text');
+	x = x || 0;
+	y = y || 0;
+	cnt = cnt || '';
 	text.sas({x : x, y : y});
-	text.tag.textContent = cnt;
+	cnt && (text.tag.textContent = cnt);
 	//
 	text.updateText = function(t) {
 		text.tag.textContent = t;
@@ -177,7 +197,8 @@ Leo.text = L.text = L.prototype.text = function (x, y, cnt) {
 
 /**
  * { function_description }
- *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/title
+ * 
  * @param      {<type>}   txt     The text
  * @return     {Element}  { description_of_the_return_value }
  */
@@ -189,7 +210,8 @@ Leo.title = L.title = L.prototype.title = function (txt) {
 
 /**
  * { function_description }
- *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/script
+ * 
  * @param      {string}   cnt     The count
  * @return     {Element}  { description_of_the_return_value }
  */
@@ -202,10 +224,27 @@ Leo.script = L.script = L.prototype.script = function (cnt) {
 	return script;
 };
 
+// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/foreignObject
 Leo.foreignObject = L.foreignObject = L.prototype.foreignObject = function(x,y,w,h) {
 	var fo = new Element('foreignObject');
 	fo.sas({x: x, y: y, width: w, height: h});
 	return fo;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/symbol
+Leo.symbol = L.symbol = L.prototype.symbol = function(attrs) {
+	/* width, height, x, y, preserveAspectRatio, refX, refY,  viewBox*/
+	var s = new Element('symbol');
+	s.sas(Object.assign(attrs, {id: lid()}));
+	return s;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/use
+Leo.use = L.use = L.prototype.use = function(attrs) {
+	/* width, height, x, y, href*/
+	var s = new Element('use');
+	s.sas(attrs);
+	return s;
 }
 
 /**

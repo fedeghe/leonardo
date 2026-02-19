@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~48.02KB
+~50.02KB
 */
 const Leonardo = (function(w) {
 	/*
@@ -304,6 +304,14 @@ const Leonardo = (function(w) {
 		})
 		return this;
 	};
+	
+	L.prototype.addDefs = function() {
+		var els = [].slice.call(arguments, 0),
+			defs = getDefs(this);
+		defs.append(els);
+		return this;
+	}
+	
 	
 	/*
 	[Malta] lib/Element.js
@@ -616,6 +624,13 @@ const Leonardo = (function(w) {
 			return c._id == currentOne._id ? newOne : c;
 		});
 	};
+	
+	Element.prototype.infoUrl = function (open) {
+		var tagName = this.tag.tagName,
+			url = 'https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/' + tagName;
+		if (open) window.open(url, '_blank');
+		return url;
+	}
 	
 	/*
 	[Malta] lib/errs.js
@@ -1255,6 +1270,8 @@ const Leonardo = (function(w) {
 	
 	/**
 	 * { function_description }
+	 * 
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/desc
 	 *
 	 * @param      {<type>}   txt     The text
 	 * @return     {Element}  { description_of_the_return_value }
@@ -1267,6 +1284,8 @@ const Leonardo = (function(w) {
 	
 	/**
 	 * { function_description }
+	 * 
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/circle
 	 *
 	 * @param      {<type>}   cx      { parameter_description }
 	 * @param      {<type>}   cy      { parameter_description }
@@ -1281,6 +1300,8 @@ const Leonardo = (function(w) {
 	
 	/**
 	 * { function_description }
+	 * 
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/ellipse
 	 *
 	 * @param      {<type>}   cx      { parameter_description }
 	 * @param      {<type>}   cy      { parameter_description }
@@ -1297,6 +1318,8 @@ const Leonardo = (function(w) {
 	/**
 	 * { function_description }
 	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/g
+	 * 
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
 	Leo.group = L.group =L.prototype.group = function (a) {
@@ -1308,6 +1331,8 @@ const Leonardo = (function(w) {
 	/**
 	 * { function_description }
 	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/image
+	 * 
 	 * @param      {<type>}   x       { parameter_description }
 	 * @param      {<type>}   y       { parameter_description }
 	 * @param      {<type>}   w       { parameter_description }
@@ -1326,6 +1351,8 @@ const Leonardo = (function(w) {
 	/**
 	 * { function_description }
 	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/line
+	 * 
 	 * @param      {<type>}   x1      The x 1
 	 * @param      {<type>}   y1      The y 1
 	 * @param      {<type>}   x2      The x 2
@@ -1341,6 +1368,7 @@ const Leonardo = (function(w) {
 	/**
 	 * { function_description }
 	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/polygon
 	 * @param      {<type>}   d       { parameter_description }
 	 * @param      {<type>}   attrs   { parameter_description }
 	 * @return     {Element}  { description_of_the_return_value }
@@ -1374,6 +1402,7 @@ const Leonardo = (function(w) {
 	/**
 	 * { function_description }
 	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/polyline
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
 	Leo.polyline = L.polyline = L.prototype.polyline = function () {
@@ -1391,6 +1420,7 @@ const Leonardo = (function(w) {
 	/**
 	 * { function_description }
 	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/rect
 	 * @param      {<type>}   x       { parameter_description }
 	 * @param      {<type>}   y       { parameter_description }
 	 * @param      {<type>}   w       { parameter_description }
@@ -1406,7 +1436,9 @@ const Leonardo = (function(w) {
 	
 	/**
 	 * { function_description }
-	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/text
+	 * 
+	 * 
 	 * @param      {<type>}   x       { parameter_description }
 	 * @param      {<type>}   y       { parameter_description }
 	 * @param      {<type>}   cnt     The count
@@ -1414,8 +1446,11 @@ const Leonardo = (function(w) {
 	 */
 	Leo.text = L.text = L.prototype.text = function (x, y, cnt) {
 		var text = new Element('text');
+		x = x || 0;
+		y = y || 0;
+		cnt = cnt || '';
 		text.sas({x : x, y : y});
-		text.tag.textContent = cnt;
+		cnt && (text.tag.textContent = cnt);
 		//
 		text.updateText = function(t) {
 			text.tag.textContent = t;
@@ -1426,7 +1461,8 @@ const Leonardo = (function(w) {
 	
 	/**
 	 * { function_description }
-	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/title
+	 * 
 	 * @param      {<type>}   txt     The text
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
@@ -1438,7 +1474,8 @@ const Leonardo = (function(w) {
 	
 	/**
 	 * { function_description }
-	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/script
+	 * 
 	 * @param      {string}   cnt     The count
 	 * @return     {Element}  { description_of_the_return_value }
 	 */
@@ -1451,10 +1488,27 @@ const Leonardo = (function(w) {
 		return script;
 	};
 	
+	// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/foreignObject
 	Leo.foreignObject = L.foreignObject = L.prototype.foreignObject = function(x,y,w,h) {
 		var fo = new Element('foreignObject');
 		fo.sas({x: x, y: y, width: w, height: h});
 		return fo;
+	}
+	
+	// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/symbol
+	Leo.symbol = L.symbol = L.prototype.symbol = function(attrs) {
+		/* width, height, x, y, preserveAspectRatio, refX, refY,  viewBox*/
+		var s = new Element('symbol');
+		s.sas(Object.assign(attrs, {id: lid()}));
+		return s;
+	}
+	
+	// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/use
+	Leo.use = L.use = L.prototype.use = function(attrs) {
+		/* width, height, x, y, href*/
+		var s = new Element('use');
+		s.sas(attrs);
+		return s;
 	}
 	
 	/**
@@ -1795,7 +1849,7 @@ const Leonardo = (function(w) {
      * @param {*} boxFill 
      * @returns 
      */
-    Leo.textBox = L.textBox = L.prototype.textBox = function (txt, w, h, textAttrs, boxAttrs, rot) {
+    Leo.textBox = L.prototype.textBox = function (txt, w, h, textAttrs, boxAttrs, rot) {
         var cnt = new Element('svg'),
             rect = new Element('rect'),
             text = new Element('text'),
@@ -1828,10 +1882,10 @@ const Leonardo = (function(w) {
      * { function_description }
      *
      * @param      {<type>}   d       { parameter_description }
-     * @param      {<type>}   cnt     The count
+     * @param      {<type>}   cnt     The content
      * @return     {Element}  { description_of_the_return_value }
      */
-    Leo.textPath = L.textBox = L.prototype.textPath = function (d, cnt) {
+    Leo.textPath = L.prototype.textPath = function (d, cnt) {
         var text = new Element('text'),
             defs = new Element('defs'),
             path = L.path(d),
@@ -1842,6 +1896,9 @@ const Leonardo = (function(w) {
         textpath.tag.setAttributeNS(namespaces.xlink, 'xlink:href', '#' + id);
         defs.append(path);
         text.append(defs, textpath);
+        text.updateText = function(t) {
+    		textpath.tag.textContent = t;
+    	};
         return text;
     };
     
@@ -1856,7 +1913,7 @@ const Leonardo = (function(w) {
      * @param {*} vrs2 
      * @returns 
      */
-    Leo.arcSectionPath = L.arcSectionPath = L.prototype.arcSectionPath = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
+    Leo.arcSectionPath = L.prototype.arcSectionPath = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
         vrs1 = typeof vrs1 === 'undefined' ? 1 : vrs1;
         vrs2 = typeof vrs2 === 'undefined' ? 0 : vrs2;
         var startOut = polarToCartesian(cx, cy, r2, from),
