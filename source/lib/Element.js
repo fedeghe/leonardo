@@ -306,3 +306,10 @@ Element.prototype.replace = function (currentOne, newOne) {
 		return c._id == currentOne._id ? newOne : c;
 	});
 };
+
+Element.prototype.infoUrl = function (open) {
+	var tagName = this.tag.tagName,
+		url = 'https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/' + tagName;
+	if (open) window.open(url, '_blank');
+	return url;
+}
