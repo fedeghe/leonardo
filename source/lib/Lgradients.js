@@ -14,6 +14,8 @@ var getgradStepper = function (g) {
 
 /**
  * 
+ * Appends to defs a linear gradient with the given steps and coordinates, and return the url to use as fill or stroke.
+ * 
  * @param {*} sts 
  * @param {*} x1 
  * @param {*} y1 
@@ -41,6 +43,7 @@ L.prototype.linearGradient = function(sts /* steps */, x1, y1, x2, y2) {
 }
 
 /**
+ * Appends to defs a radial gradient with the given steps and coordinates, and return the url to use as fill or stroke.
  * 
  * @param {*} sts 
  * @returns 

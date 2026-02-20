@@ -10,11 +10,11 @@
         "test": "test"
     },
     "scripts": {
-        "test": "jest",
-        "watch": "jest --watch",
-        "cover": "jest --coverage",
-        "coverw": "jest --coverage --watch",
-        "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
+        "test": "jest --roots ./test",
+        "watch": "jest --watch --roots ./test",
+        "cover": "jest --coverage --roots ./test",
+        "coverw": "jest --coverage --watch --roots ./test",
+        "coveralls": "jest --coverage --roots ./test && cat ./coverage/lcov.info | coveralls",
         "start": "malta source/start.json",
         "dist": "malta source/build.json",
         "clean": "malta source/clean.json"

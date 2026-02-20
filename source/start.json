@@ -1,7 +1,7 @@
 {
     "EXE": [
-        "rm -rf lib demo dist media",
-        "mkdir -p dist demo/dist",
+        "rm -rf lib demo dist media test",
+        "mkdir -p dist demo/dist test",
         "cp -R source/media ."
     ],
     "source/docs/README.md": ". -vars=source/vars.json",
@@ -9,5 +9,6 @@
         "dist -plugins=malta-header-comment[name:\"source/lib/head.txt\"] -vars=source/vars.json",
         "demo/dist -plugins=malta-header-comment[name:\"source/lib/head.txt\"] -vars=source/vars.json"
     ],
+    "source/test/*.js": "test",
     "source/demo/require.json": true
 }

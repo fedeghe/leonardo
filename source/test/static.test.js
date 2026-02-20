@@ -1,0 +1,167 @@
+/**
+ * @jest-environment jsdom
+ */
+const Leo = require('../dist');
+const circle = '<circle cx="10" cy="10" r="5" fill="rgb(174, 222, 113)" fill-opacity="100%"/>'
+
+describe('Static', () => {
+
+    describe ('import', () => {
+        it('as string', () => {
+            const L = Leo.import(circle);
+            expect(L.tag.outerHTML).toBe(circle);
+            expect(L.tag.tagName).toBe('circle');
+        });
+        it('as element', () => {
+            const circleEl = document.createElement('circle');
+            circleEl.setAttribute('cx', 4)
+            circleEl.setAttribute('cy', 5)
+            circleEl.setAttribute('r', 6)
+            const L = Leo.import(circleEl);
+            // expect(L.tag.outerHTML).toBe(circle);
+            expect(L.tag.tagName).toBe('CIRCLE');
+            expect(L.tag.getAttribute('cx')).toBe('4');
+            expect(L.tag.getAttribute('cy')).toBe('5');
+            expect(L.tag.getAttribute('r')).toBe('6');
+        });
+
+    });
+
+    describe('getqs', () => {
+        it('straight', () => {
+            delete window.location;
+            window.location = { search: '?a=1&b=aa%20a' };
+            const qs = Leo.getqs();
+            expect(qs.a).toBe('1');
+            expect(qs.b).toBe('aa a');
+        });
+        it('missing & empty el', () => {
+            delete window.location;
+            window.location = { search: '?a&b=aa%20a&c=' };
+            const qs = Leo.getqs();
+            expect(qs.a).toBe(null);
+            expect(qs.b).toBe('aa a');
+            expect(qs.c).toBe('');
+        });
+    });
+
+    it('toString', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height),
+            c = L.circle(1,1,1);
+        
+        L.append(c);
+        const str = Leo.toString(L.tag);
+        expect(str).toBe('<svg width="200" height="100" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 200 100"><circle cx="1" cy="1" r="1"></circle></svg>');
+    });
+
+    it('toDocument', () => {
+        const str = Leo.toDocument('<svg height="300" id="hero" viewbox="0 0 900 300" width="900" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" fill="rgb(174, 222, 113)" fill-opacity="100%" r="5"/></svg>');
+        expect(str.outerHTML).toBe('<svg height="300" id="hero" viewbox="0 0 900 300" width="900" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" fill="rgb(174, 222, 113)" fill-opacity="100%" r="5"/></svg>');
+    });
+
+    describe('randomColor', () => {
+        it('full', () => {
+            for(var i = 0; i < 1000; i++)
+                expect(Leo.randomColor(true)).toMatch(/^[0-9A-Fa-f]{6}$/);
+        });
+        it('half', () => {
+            expect(Leo.randomColor()).toMatch(/^[0-9A-Fa-f]{3}$/);
+        });
+    });
+
+    describe('getScaler', () => {
+        it('basic', () => {
+            var scaler = Leo.getScaler(200);
+            expect(scaler(10)).toBe(20);
+            expect(scaler(95)).toBe(190);
+            expect(scaler(110)).toBe(220);
+        });
+        
+        it('with scale', () => {
+            var scaler = Leo.getScaler(200, 1000);
+            expect(scaler(10)).toBe(2);
+            expect(scaler(95)).toBe(19);
+            expect(scaler(110)).toBe(22);
+        });
+        
+        it('with scale and zoom', () => {
+            var scaler = Leo.getScaler(200, 1000, 2);
+            expect(scaler(10)).toBe(4);
+            expect(scaler(95)).toBe(38);
+            expect(scaler(110)).toBe(44);
+        });
+
+        it('with scale, zoom and precision', () => {
+            var scaler = Leo.getScaler(20, 100, 2, 3);
+            expect(scaler(10.544)).toBe(4.218);
+            expect(scaler(95.3453)).toBe(38.138);
+            expect(scaler(110.34534)).toBe(44.138);
+        });
+    });
+    describe('img2base64png', () => {
+        it('should convert image to base64', (done) => {
+            // Mock fetch con un blob vero
+            global.fetch = jest.fn(() =>
+                Promise.resolve({
+                    ok: true,
+                    blob: () => Promise.resolve(new Blob(['fake image data'], { type: 'image/png' }))
+                })
+            );
+
+            const L = Leo(200, 100);
+            L.img2base64png('../source/media/qr.png', function (b64){
+                expect(b64).toBeTruthy();
+                expect(b64).toBe('data:image/png;base64,ZmFrZSBpbWFnZSBkYXRh');
+                done();
+            })
+        });
+    });
+
+    describe('uniqueID', () => {
+        it('generates unique IDs with prefix', () => {
+            const id1 = Leo.uniqueID();
+            expect(id1).toBe('leo_id_1');
+        });
+
+        it('increments ID counter', () => {
+            const id1 = Leo.uniqueID();
+            const id2 = Leo.uniqueID();
+            expect(id1).toBe('leo_id_2');
+            expect(id2).toBe('leo_id_3');
+            expect(id1).not.toBe(id2);
+        });
+
+        it('can be called on instance and static', () => {
+            const L = Leo(200, 100);
+            const staticID = Leo.uniqueID();
+            const instanceID = L.uniqueID();
+            expect(staticID).not.toBe(instanceID);
+        });
+    });
+
+    describe('deg2rad', () => {
+        it.each([
+            [0, 0],
+            [180, Math.PI],
+            [360, 2 * Math.PI],
+            [90, Math.PI / 2],
+            [-180, -Math.PI]
+        ])('converts %d degrees to %p radians', (degrees, expectedRadians) => {
+            expect(Leo.deg2rad(degrees)).toBeCloseTo(expectedRadians);
+        });
+    });
+
+    describe('rad2deg', () => {
+        it.each([
+            [0, 0],
+            [Math.PI, 180],
+            [2 * Math.PI, 360],
+            [Math.PI / 2, 90],
+            [-Math.PI, -180]
+        ])('converts %p radians to %d degrees', (radians, expectedDegrees) => {
+            expect(Leo.rad2deg(radians)).toBeCloseTo(expectedDegrees);
+        });
+    });
+});

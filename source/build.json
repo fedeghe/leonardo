@@ -1,6 +1,6 @@
 {
     "EXE": [
-        "rm -rf dist demo media",
+        "rm -rf dist media",
         "mkdir dist",
         "cp -R source/media ."
     ],
