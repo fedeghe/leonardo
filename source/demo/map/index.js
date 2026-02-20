@@ -26,15 +26,69 @@ window.onload = function () {
 	}
 	Cell.prototype.setState = function (s) {this.alive = s;};
 
-	function Matrix (target,) {
+
+
+	function Matrix (target) {
 		var self = this;
-		this.target = target;
+		
 		this.data = Array.from({ length: gridNum}, (_, i) => 
-			Array.from({ length: gridNum}, (_, j) => new Cell(i, j,  Math.random() > 0.5))
+			Array.from({ length: gridNum}, (_, j) => {
+				var c = new Cell(i, j,  Math.random() > 0.5)
+				c.tag.on('click', function(e) {
+					if (e.shiftKey) {
+						getNeighbours(self.data, c.x, c.y).forEach(n => n && n.setState(true));
+					} else {
+						c.setState(true);
+					}
+				});
+				c.tag.on('mouseover', function(e) {
+					if(e.metaKey) {
+						getNeighbours(self.data, c.x, c.y).forEach(n => n && n.setState(true));
+					}
+				})
+				return c
+			})
 		);
-		this.data.forEach(row => row.forEach(cell => self.target.append(cell.tag)));
+		this.data.forEach(row => row.forEach(cell => target.append(cell.tag)));
 	}
 
+	Matrix.prototype.getAliveNeighboursCount = function (r, c) {
+		var self = this,
+			neighbours = getNeighbours(this.data, r, c);
+		return neighbours.reduce((acc, el) => {
+			return acc + (el ? (self.data[el.x][el.y].alive ? 1 : 0) : 0);
+		}, 0)
+	};
+
+	Matrix.prototype.calculateNextState = function () {
+		var self = this,
+			newState = this.data.map(
+				(row, i) => row.map(
+					(_, j) => {
+						var n = self.getAliveNeighboursCount(i, j),
+							newState = false; //default death
+						if (n === 2) {
+							newState = self.data[i][j].alive;
+						} else if (n === 3) {
+							newState = true;
+						}
+						return newState;
+					}
+				)
+			);
+		
+		newState.forEach((row, i) => 
+			row.forEach((v, j) => {
+				self.data[i][j].alive = v;
+				self.data[i][j].tag.setAttributes({
+					fill: v ? '#f70' : 'transparent'
+				})
+
+			})
+		);
+		
+		requestAnimationFrame(() => self.calculateNextState())
+	};
 
 	function getNeighbours(mat, r, c) {
 		var els = border ? {
@@ -62,53 +116,10 @@ window.onload = function () {
 			mat?.[els.rPlus]?.[els.cPlus],
 		]
 	}
-	Matrix.prototype.getAliveNeighboursCount = function (r, c) {
-		var self = this,
-			neighbours = getNeighbours(this.data, r, c);
-		return neighbours.reduce((acc, el) => {
-			return acc + (el ? (self.data[el.x][el.y].alive ? 1 : 0) : 0);
-		}, 0)
-	};
-
-	Matrix.prototype.calculateNextState = function () {
-		var self = this,
-			newState = this.data.map(
-				(row, i) => row.map(
-					(_, j) => {
-						var n = self.getAliveNeighboursCount(i, j),
-							newState = false; //default death
-						
-						if (n === 2) {
-							newState = self.data[i][j].alive;
-						} else if (n === 3) {
-							newState = true;
-						}
-						return newState;
-					}
-				)
-			);
-		
-		newState.forEach((row, i) => 
-			row.forEach((v, j) => {
-				self.data[i][j].alive = v;
-				self.data[i][j].tag.setAttributes({
-					fill: v ? '#f70' : 'transparent'
-				})
-
-			})
-		);
-		
-		requestAnimationFrame(() => self.calculateNextState())
-	};
 
 
 
-	var m = new Matrix(L
-	// 	, [
-	// 	[1,1], [1,2], [1,3]
-	// 		   [2,2], [2,3]
-	// ]
-	);
+	var m = new Matrix(L);
 	
 	m.calculateNextState();
 
