@@ -360,7 +360,7 @@ _Leonardo_ comes with two basic gradient, _linear_ and _radial_:
 
 ``` js
 instance.linearGradient(
-    gradient ,
+    gradient,
     {fromX, fromY, toX, toY}
 ) //  returns filling gradient
 ```
@@ -403,10 +403,20 @@ Small working example:
 ```
 
 ---
+#### Radial version
 
 ``` js 
-var gradient = instance.radialGradient(gradient) // returns filling gradient 
+var gradient = instance.radialGradient(
+    gradient,
+    { fx, fy, fr, cx, cy, r }   
+) // returns filling gradient 
 ```
+[Here](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/radialGradient) you can see the details about the parameters.  
+Shortly:   
+`{fx, fy}` the starting circle (default: `(50%, 50%)`)  
+`fr` the radius of the start circle (default: `0%`)  
+`{cx, cy}` the ending circle (default: `(50%, 50%)`)  
+`r` the radius of the end circle (default: `50%`)  
 
 The radial gradient is supposed to receive the same array as first parameter.
 
