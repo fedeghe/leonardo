@@ -3,20 +3,22 @@
 
 Now that we know how to create a root `<svg>` and sub-elements we need some methods to append them so to create the right hierarchy, to style them, give attributes, ... and more.
 
----  
-    <Leonardo_Instance>.render({target: DOMNode, cb: function (instance) {}}) -> Leonardo_Instance
+All you get is a factory function:
+``` js
+const Leonardo = require('@fedeghe/leonardo');
 
-renders the instance into the target.
+// meant to be used as all factory methods
 
-In case when invoking the `Leonardo` factory method the `target` parameter has been passed then here it is optional, otherwise must be passed, otherwise an exception will be thrown.  
+const mySVG = Leonardo(800, 600);
+/* build it and then render */
+mySVG.render({ target: aDOMnode }); // must pass a target
+
+```
+
+In case when invoking the `Leonardo` factory method the `target` parameter has been passed then it becomes optional when rendering.  
 ``` js
 var root = Leonardo(300, 200, {target: myDomNode})
-root.render(); // now is optional
-// 
-var rootOrphan = Leonardo(300, 200)
-rootOrphan.render(); // now is not, need to pass `{target: aDomNode}`
-               // otherwise will throw an exception
-
+root.render(); // now is optional, if used overrides
 ```  
 
 ---
@@ -39,24 +41,25 @@ myRect.setStyles({cursor: 'pointer'})
 This adds all tags passed to it into the instance tag. For example let's say we have a `<g>` of objects and we would like to rotate (see tranformation section) all the elements contained into it; optionally also an array of elements can be passed:
 ``` js
 myGroup.append(line, circle)
-// now we can rotate all elements just rotating the group
+// now we can act on all elements just working on the group
+// e.g.: rotation, filtering, events.... 
 ```
 ---
 ### tagInstance.on(eventName, callback) -> tagInstance  
 
 This method allows to register an event listener for a tag:
 ``` js
-var han = function (e) {
+var handler = function (e) {
     console.log(e)
 };
-myRect.on('click', han);
+myRect.on('click', handler);
 ```
 ---
 ### tagInstance.off(eventName, callback) -> tagInstance  
 
 This method allows to unregister an event listener for a tag:
 ``` js
-myRect.off('click', han);
+myRect.off('click', handler);
 ```
 As expected if You plan to register and unregister an handler function You must use the same referenced handler function in both calls.
 

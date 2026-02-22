@@ -205,20 +205,22 @@ If we want a section of a circle slice.
 
 Now that we know how to create a root `<svg>` and sub-elements we need some methods to append them so to create the right hierarchy, to style them, give attributes, ... and more.
 
----  
-    <Leonardo_Instance>.render({target: DOMNode, cb: function (instance) {}}) -> Leonardo_Instance
+All you get is a factory function:
+``` js
+const Leonardo = require('@fedeghe/leonardo');
 
-renders the instance into the target.
+// meant to be used as all factory methods
 
-In case when invoking the `Leonardo` factory method the `target` parameter has been passed then here it is optional, otherwise must be passed, otherwise an exception will be thrown.  
+const mySVG = Leonardo(800, 600);
+/* build it and then render */
+mySVG.render({ target: aDOMnode }); // must pass a target
+
+```
+
+In case when invoking the `Leonardo` factory method the `target` parameter has been passed then it becomes optional when rendering.  
 ``` js
 var root = Leonardo(300, 200, {target: myDomNode})
-root.render(); // now is optional
-// 
-var rootOrphan = Leonardo(300, 200)
-rootOrphan.render(); // now is not, need to pass `{target: aDomNode}`
-               // otherwise will throw an exception
-
+root.render(); // now is optional, if used overrides
 ```  
 
 ---
@@ -241,24 +243,25 @@ myRect.setStyles({cursor: 'pointer'})
 This adds all tags passed to it into the instance tag. For example let's say we have a `<g>` of objects and we would like to rotate (see tranformation section) all the elements contained into it; optionally also an array of elements can be passed:
 ``` js
 myGroup.append(line, circle)
-// now we can rotate all elements just rotating the group
+// now we can act on all elements just working on the group
+// e.g.: rotation, filtering, events.... 
 ```
 ---
 ### tagInstance.on(eventName, callback) -> tagInstance  
 
 This method allows to register an event listener for a tag:
 ``` js
-var han = function (e) {
+var handler = function (e) {
     console.log(e)
 };
-myRect.on('click', han);
+myRect.on('click', handler);
 ```
 ---
 ### tagInstance.off(eventName, callback) -> tagInstance  
 
 This method allows to unregister an event listener for a tag:
 ``` js
-myRect.off('click', han);
+myRect.off('click', handler);
 ```
 As expected if You plan to register and unregister an handler function You must use the same referenced handler function in both calls.
 
@@ -339,15 +342,53 @@ instance.move(x, h) // -> instance
 Moves a tag of `x` pixels along _x_ axis and `y` pixels along _y_ axis. 
 
 ---
+``` js
+instance.skewX(n) // -> instance
+```
+
+Skews along the `x` axis. 
+
+---
+``` js
+instance.skewY(n) // -> instance
+```
+
+Skews along the `y` axis. 
+
+---
 
 ---
 
 ## Filters  
 
 ``` js
-instance.filter(filters []) // -> filter id  
+instance.filter([filter, ...]) // -> filter id  
 ```
-to be documented, still you can find some example usage in the demo
+With _Leonardo_ you can use [all svg possible filters](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/filter) easily. 
+
+Let's suppose, for example, you want to use `feTurbolence` and a `feConvolveMatrix`, then it is enough to set the right attributes:
+
+``` js
+tagToFilter.setAttributes({
+    filter: instance.filter([
+        {
+            type: 'feTurbulence',
+            attrs: {
+                type: "turbulence",
+                baseFrequency: ".02",
+                numOctaves: "2",
+                result: "turbulence"
+            }
+        },
+        {
+            type:'feConvolveMatrix',
+            attrs:{
+                kernelMatrix:"0 1 0  1 0 1  0 -5 0"
+            }
+        }
+    ])
+})
+```
 
 ---
 
@@ -356,20 +397,20 @@ to be documented, still you can find some example usage in the demo
 
 ## Gradients
 
-_Leonardo_ comes with two basic gradient, _linear_ and _radial_:  
+_Leonardo_ let you used both the [svg gradients](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorials/SVG_from_scratch/Gradients): _linear_ and _radial_.
 
 ``` js
-instance.linearGradient(
-    gradient,
-    {fromX, fromY, toX, toY}
+var myGradient = instance.linearGradient(
+    gradientData,
+    {fromX = '0%', fromY = '0%', toX = '100%', toY = '0%', spreadMethod = 'pad'}
 ) //  returns filling gradient
 ```
 
-the `gradient` is meant to be specified as an array of objects containing a `perc` and a `color` fields as `{perc:10, color: '#f00'}`; percentages from 0 to 100 and the color values are expected to be hex colors.  
+the `gradientData` can be specified as an array of objects containing a `perc` and a `color` fields as `{perc:10, color: '#f00'}`.  
 If the distribution of the colors is uniform then it is enough to just pass an array of colors.  
-The optional object containing `fromX, fromY, toX, toY` are the percentage starting and ending coords which allows to rotate the linear gradient (default is 0% 0% 100% 0%, thus from left to right).
+The optional object containing `fromX, fromY, toX, toY` are the percentage starting and ending coords which allows to decide a starting and ending point (default is start at 0% 0% end at 100% 0%, thus from left to right).
 
-then it should be used on a tag simply setting it as the `fill` attribute:
+Then it's enough to use it on a tag simply as value for the `fill` attribute:
 ```js
 myTag.setAttributes({fill: myGradient})  
 ```
@@ -406,9 +447,13 @@ Small working example:
 #### Radial version
 
 ``` js 
-var gradient = instance.radialGradient(
-    gradient,
-    { fx, fy, fr, cx, cy, r }   
+var myGradient = instance.radialGradient(
+    gradientData,
+    {
+        fx = '50%', fy = '50%', fr = '0%',
+        cx = '50%', cy = '50%', r = '50%',
+        spreadMethod = 'pad'
+    }   
 ) // returns filling gradient 
 ```
 [Here](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/radialGradient) you can see the details about the parameters.  
@@ -418,7 +463,7 @@ Shortly:
 `{cx, cy}` the ending circle (default: `(50%, 50%)`)  
 `r` the radius of the end circle (default: `50%`)  
 
-The radial gradient is supposed to receive the same array as first parameter.
+For the _radial_ case the `radialData` is expected to be exactly the same as in the _linear_ case.
 
 ---
 

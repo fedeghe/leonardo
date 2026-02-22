@@ -34,3 +34,17 @@ instance.move(x, h) // -> instance
 Moves a tag of `x` pixels along _x_ axis and `y` pixels along _y_ axis. 
 
 ---
+``` js
+instance.skewX(n) // -> instance
+```
+
+Skews along the `x` axis. 
+
+---
+``` js
+instance.skewY(n) // -> instance
+```
+
+Skews along the `y` axis. 
+
+---
