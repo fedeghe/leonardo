@@ -39,7 +39,7 @@ describe('Animate', () => {
             expect(L.childs.length).toBe(1)
             setTimeout(() => {
                 stop();
-                expect(c1.getAttributes('transform').transform).toBe('  translate(0 0) ')
+                expect(c1.getAttributes('transform').transform).toBe('translate(0 0)')
                 done();
             }, 100);
         });
@@ -58,7 +58,7 @@ describe('Animate', () => {
             expect(L.childs.length).toBe(1)
             setTimeout(() => {
                 stop();
-                expect(c1.getAttributes('transform').transform).toBe('  translate(0 0) ')
+                expect(c1.getAttributes('transform').transform).toBe('translate(0 0)')
                 done();
             }, 100);
         });
@@ -80,7 +80,7 @@ describe('Animate', () => {
             expect(L.childs.length).toBe(1)
             setTimeout(() => {
                 stop();
-                expect(c1.getAttributes('transform').transform).toBe('  translate(0 0) ')
+                expect(c1.getAttributes('transform').transform).toBe('translate(0 0)')
                 done();
             }, 100);
         });
@@ -99,7 +99,7 @@ describe('Animate', () => {
             expect(L.childs.length).toBe(1)
             setTimeout(() => {
                 stop();
-                expect(c1.getAttributes('transform').transform).toBe('  translate(0 0) ')
+                expect(c1.getAttributes('transform').transform).toBe('translate(0 0)')
                 done();
             }, 100);
         });

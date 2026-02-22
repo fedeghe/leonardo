@@ -135,27 +135,50 @@ describe('Element', () => {
         });
     });
 
-    
-    it('mirrorH', () => {
-        const width = 200,
-            height = 100,
-            L = Leo(width, height),
-            c1 = L.rect(10, 10, 5, 15)
-                .setAttributes({fill: '#ff0000', id:1})
-                .mirrorH()
-        L.append(c1);
-        expect(L.childs[0].getAttributes('transform').transform).toMatch(/scale\(1,\s-1\)/);
+    describe('skewX', () => {
+        it('user num', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15)
+                    .setAttributes({fill: '#ff0000', id:1})
+                    .skewX(30)
+            L.append(c1);
+            expect(L.childs[0].getAttributes('transform').transform).toMatch(/skewX\(30\)/);
+        });
+        it('default 0', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15)
+                    .setAttributes({fill: '#ff0000', id:1})
+                    .skewX()
+            L.append(c1);
+            expect(L.childs[0].getAttributes('transform').transform).toMatch(/skewX\(0\)/);
+        });
     });
 
-    it('mirrorV', () => {
-        const width = 200,
-            height = 100,
-            L = Leo(width, height),
-            c1 = L.rect(10, 10, 5, 15)
-                .setAttributes({fill: '#ff0000', id:1})
-                .mirrorV()
-        L.append(c1);
-        expect(L.childs[0].getAttributes('transform').transform).toMatch(/scale\(-1,\s1\)/);
+    describe('skewY', () => {
+        it('user num', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15)
+                    .setAttributes({fill: '#ff0000', id:1})
+                    .skewY(30)
+            L.append(c1);
+            expect(L.childs[0].getAttributes('transform').transform).toMatch(/skewY\(30\)/);        
+        });
+        it('default 0', () => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height),
+                c1 = L.rect(10, 10, 5, 15)
+                    .setAttributes({fill: '#ff0000', id:1})
+                    .skewY()
+            L.append(c1);
+            expect(L.childs[0].getAttributes('transform').transform).toMatch(/skewY\(0\)/);        
+        });
     });
 
     describe('move', () => {
@@ -179,6 +202,63 @@ describe('Element', () => {
             expect(L.childs[0].getAttributes('transform').transform).toMatch(/translate\(0\s0\)/);
         });
     });
+
+    it('rotate, scale, move, skewX, skewY', () => {
+        const width = 200,
+
+            height = 100,
+            L = Leo(width, height),
+            c1 = L.rect(10, 10, 5, 15)
+                .setAttributes({fill: '#ff0000', id:1})
+                .rotate(30)
+                .scale(1.2)
+                .move(20, 20)
+                .skewX(30)
+                .skewY(30);
+        L.append(c1);
+        expect(L.childs[0].getAttributes('transform').transform).toMatch("rotate(30 0 0) translate(20 20) scale(1.2, 1.2) skewX(30) skewY(30)");
+    });
+
+    
+    it('mirrorH', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height),
+            c1 = L.rect(10, 10, 5, 15)
+                .setAttributes({fill: '#ff0000', id:1})
+                .mirrorH()
+        L.append(c1);
+        expect(L.childs[0].getAttributes('transform').transform).toMatch(/scale\(1,\s-1\)/);
+    });
+
+    it('mirrorV', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height),
+            c1 = L.rect(10, 10, 5, 15)
+                .setAttributes({fill: '#ff0000', id:1})
+                .mirrorV()
+        L.append(c1);
+        expect(L.childs[0].getAttributes('transform').transform).toMatch(/scale\(-1,\s1\)/);
+    });
+
+    it('untransform', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height),
+            c1 = L.rect(10, 10, 5, 15)
+                .setAttributes({fill: '#ff0000', id:1})
+                .rotate(30)
+                .scale(1.2)
+                .move(20, 20)
+                .skewX(30)
+                .skewY(30)
+                .untrans();
+        L.append(c1);
+        expect(L.childs[0].getAttributes('transform').transform).toBe('');
+    });
+
+    
 
     describe('remove', () => {
         it('self', () => {

@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~50.26KB
+~52.18KB
 */
 const Leonardo = (function(w) {
 	/*
@@ -340,8 +340,11 @@ const Leonardo = (function(w) {
 		this.transforms = {
 			rotate : '',
 			move : '',
-			scale : ''
+			scale : '',
+			skewX : '',
+			skewY : ''
 		};
+		this.transformsString = '';
 	}
 	
 	/**
@@ -454,6 +457,8 @@ const Leonardo = (function(w) {
 		ret.transforms.rotate = this.transforms.rotate;
 		ret.transforms.move = this.transforms.move;
 		ret.transforms.scale = this.transforms.scale;
+		ret.transforms.skewX = this.transforms.skewX;
+		ret.transforms.skewY = this.transforms.skewY;
 	
 		for (i = 0, l = attrNames.length; i < l; i++) {
 			ret.tag.setAttribute(attrNames[i].name, attrNames[i].value);
@@ -478,8 +483,20 @@ const Leonardo = (function(w) {
 	    return ret;
 	};
 	
+	Element.prototype.syncTransformString = function () {
+		this.transformsString = [
+			this.transforms.rotate,
+			this.transforms.move,
+			this.transforms.scale,
+			this.transforms.skewX,
+			this.transforms.skewY
+		].filter(function(t) { return t !== ''; }).join(' ');
+		return this.transformsString;
+	}
+	
 	function trans(instance) {
-	    instance.tag.setAttribute('transform', instance.transforms.rotate + ' ' + instance.transforms.move + ' ' + instance.transforms.scale);
+		instance.syncTransformString();	
+	    instance.tag.setAttribute('transform', instance.transformsString);
 		return instance;
 	}
 	
@@ -494,12 +511,12 @@ const Leonardo = (function(w) {
 	Element.prototype.rotate = function (r, rx, ry) {
 		rx = rx || 0;
 		ry = ry || 0;
-		this.transforms.rotate = ' rotate(' + r + ' ' + rx + ' ' + ry + ')';
+		this.transforms.rotate = 'rotate(' + r + ' ' + rx + ' ' + ry + ')';
 		return trans(this);
 	};
 	
 	function getScale(i){
-		return ' scale('
+		return 'scale('
 			+(i.scaleX * i.scaleXsign)+', '
 			+(i.scaleY * i.scaleYsign)+')';
 	};
@@ -515,6 +532,18 @@ const Leonardo = (function(w) {
 		this.scaleX = sx || 0;
 		this.scaleY = sy || sx || 0;
 		this.transforms.scale = getScale(this);
+		return trans(this);
+	};
+	
+	Element.prototype.skewX = function (sx) {
+		this.skewX = sx || 0;
+		this.transforms.skewX = 'skewX(' + this.skewX + ')';
+		return trans(this);
+	};
+	
+	Element.prototype.skewY = function (sy) {
+		this.skewY = sy || 0;
+		this.transforms.skewY = 'skewY(' + this.skewY + ')';
 		return trans(this);
 	};
 	
@@ -550,7 +579,18 @@ const Leonardo = (function(w) {
 	Element.prototype.move = function (rx, ry) {
 		rx = rx || 0;
 		ry = ry || 0;
-		this.transforms.move = ' translate(' + rx + ' ' + ry + ')';
+		this.transforms.move = 'translate(' + rx + ' ' + ry + ')';
+		return trans(this);
+	};
+	
+	Element.prototype.untrans = function (){
+	    this.transforms = {
+	        rotate : '',
+	        move : '',
+	        scale : '',
+	        skewX : '',
+	        skewY : ''
+	    };
 		return trans(this);
 	};
 	
@@ -728,6 +768,10 @@ const Leonardo = (function(w) {
 	        if(!lengthOk || !allNumbers) throw ERRORS.even_numbers_expected;
 	        return true;
 	    }
+	}
+	
+	function isString(s) {
+	    return typeof s === 'string' || s instanceof String;
 	}
 	
 	/*
@@ -1659,18 +1703,24 @@ const Leonardo = (function(w) {
 	[Malta] lib/Lgradients.js
 	*/
 	
-	var getgradStepper = function (g) {
-	    return function(st) {
-	        var tmp = new Element('stop'),
-	            att = {
-	                offset: st.perc + '%',
-	                'stop-color': st.color
-	            };
-	        if ('style' in st) att.style = st.style;
-	        tmp.sas(att);
-	        g.append(tmp)
-	    }
-	}
+	var getGradStepper = function (g) {
+	        return function(st) {
+	            var tmp = new Element('stop'),
+	                att = {
+	                    offset: st.perc + '%',
+	                    'stop-color': st.color
+	                };
+	            if ('style' in st) att.style = st.style;
+	            tmp.sas(att);
+	            g.append(tmp)
+	        }
+	    },
+	    distributeColors = function(colors) {
+	        var step = 100 / (colors.length-1);
+	        return colors.map(function (c, i) {
+	            return { perc: i * step, color: c };
+	        });
+	    };
 	
 	/**
 	 * 
@@ -1683,21 +1733,24 @@ const Leonardo = (function(w) {
 	 * @param {*} y2 
 	 * @returns 
 	 */
-	L.prototype.linearGradient = function(sts /* steps */, x1, y1, x2, y2) {
-	    var defs = getDefs(this),
+	L.prototype.linearGradient = function(sts, opts) {
+	    opts = opts || {};
+	    var steps = isString(sts[0]) ? distributeColors(sts) : sts,
+	        defs = getDefs(this),
 	        id = lid(),
 	        linearGrad = new Element('linearGradient'),
 	        attrs = {
 	            id: id,
-	            x1: x1||'0%',
-	            y1: y1||'0%',
-	            x2: x2||'100%',
-	            y2: y2||'0%'
+	            x1: opts.x1 || '0%',
+	            y1: opts.y1 || '0%',
+	            x2: opts.x2 || '100%',
+	            y2: opts.y2 || '0%',
+	            spreadMethod: opts.spreadMethod || 'pad' // pad | reflect | repeat
 	        },
-	        stepper = getgradStepper(linearGrad);
+	        stepper = getGradStepper(linearGrad);
 	
 	    linearGrad.sas(attrs);
-	    sts.forEach(stepper);
+	    steps.forEach(stepper);
 	    defs.append(linearGrad);
 	    return 'url(#' + id + ')';
 	}
@@ -1707,18 +1760,36 @@ const Leonardo = (function(w) {
 	 * 
 	 * @param {*} sts 
 	 * @returns 
+	 * cx cy end point
+	 * fr radius of start circle
+	 * fx fy start point
+	 * r radius of end circle
+	 * spreadMethod: pad | reflect | repeat
 	 */
-	L.prototype.radialGradient = function radial(sts) {
-	    var defs = getDefs(this),
+	L.prototype.radialGradient = function radial(sts, opts) {
+	    opts = opts || {};
+	    var steps = isString(sts[0]) ? distributeColors(sts) : sts,
+	        defs = getDefs(this),
 	        id = lid(),
 	        radialGrad = new Element('radialGradient'),
-	        stepper = getgradStepper(radialGrad);
-	    radialGrad.tag.setAttribute('id', id );
+	        stepper = getGradStepper(radialGrad);
+	    radialGrad.sas({
+	        'id': id,
+	        'fx': opts.fx || '50%',
+	        'fy': opts.fy || '50%',
+	        'fr': opts.fr || '0%',
+	        'cx': opts.cx || '50%',
+	        'cy': opts.cy || '50%',
+	        'r': opts.r || '50%',
+	        spreadMethod: opts.spreadMethod || 'pad' // pad | reflect | repeat
+	    });
 	
-	    sts.forEach(stepper);
+	    steps.forEach(stepper);
 	    defs.append(radialGrad);
 	    return 'url(#' + id + ')';
-	}	
+	}
+	
+		
 	/*
 	[Malta] lib/Lfilters.js
 	*/

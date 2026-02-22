@@ -48,7 +48,12 @@ window.onload = function () {
         grad1 = Leo.linearGradient([
             {perc: "0", color: "rgb(67, 57, 31)"},
             {perc: "50", color: "#f60"},
-        ],'0%', '0%', '100%','100%');
+        ],{
+            x1: '0%',
+            y1: '0%',
+            x2: '100%',
+            y2: '100%'
+        });
         
     
     main.append(

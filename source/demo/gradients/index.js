@@ -1,46 +1,56 @@
 window.onload = function () {
-	var target = document.getElementById('trg'),
+	var target1 = document.getElementById('trg'),
+        target2 = document.getElementById('trg2'),
+
         // REF
         devSize = 2**10,
         width = devSize,
         height = devSize,
         zoom = 1,
-		L1 = Leonardo(width * zoom, height * zoom, {id : 'hero1', target}),
-        container = L1.group(),
+		L1 = Leonardo(width * zoom, height * zoom, {id : 'hero1', target: target1}),
+		L2 = Leonardo(width * zoom, height * zoom, {id : 'hero2', target: target2}),
+        container1 = L1.group(),
+        container2 = L2.group(),
 		
-
-        // w = function (i) {return width * i/1E3 * zoom;},
-		// h = function (i) {return height * i/1E3 * zoom;},
         w = L1.getScaler(width, 1e3, zoom),
         h = L1.getScaler(height, 1e3, zoom),
         grad1 = L1.linearGradient([
-            {perc: "0", color: "#f00"},
-            {perc: "10", color: "#f60"},
-            {perc: "20", color: "#fa0"},
-            {perc: "30", color: "#ff0"},
-            {perc: "40", color: "#5f8"},
-            {perc: "50", color: "#3a3"},
-            {perc: "60", color: "#58f"},
-            {perc: "70", color: "#15f"},
-            {perc: "80", color: "#13a"},
-            {perc: "90", color: "#73a"},
-            {perc: "100", color: "#f43"},
-        ],'0%', '0%', '100%','100%'),
+            "#f00", "#f60", "#fa0",
+            "#ff0", "#5f8", "#3a3",
+            "#58f", "#15f", "#13a",
+            "#73a", "#f43",
+        ], {
+            x1: '0%',
+            y1: '0%',
+            x2: '100%',
+            y2: '100%'
+        }),
+        grad2 = L1.radialGradient([
+            "#f00", "#f60", "#fa0",
+            "#ff0", "#5f8", "#3a3",
+            "#58f", "#15f", "#13a",
+            "#73a", "#f43",
+        ], {
+            r: '60%',
+            spreadMethod: 'reflect',
+        }),
         bg1 = L1.rect(0,0,w(1000),h(1000)).setAttributes({
-            fill:grad1,
-            // rx: h(140), 
-            // ry: h(140)
+            fill:grad1
+        }),
+        bg2 = L1.rect(0,0,w(1000),h(1000)).setAttributes({
+            fill:grad2
         });
-        
     
-    container.setAttributes({
+    container1.setAttributes({
         viewBox : "0 0 " + width + " " + height
     }).append(bg1);
-
-    // container.append(image);
-    
-    L1.append(container);
-
+    L1.append(container1);
 	L1.render();
+
+    container2.setAttributes({
+        viewBox : "0 0 " + width + " " + height
+    }).append(bg2);
+    L2.append(container2);
+	L2.render();
     
 };

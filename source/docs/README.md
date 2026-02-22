@@ -3,6 +3,8 @@ leonardo javascript svg library v. $PACKAGE.version$
 
 [![Coverage Status](https://coveralls.io/repos/github/fedeghe/leonardo/badge.svg?branch=master)](https://coveralls.io/github/fedeghe/leonardo?branch=master)
 
+[SVG reference](https://www.w3.org/TR/SVG/)
+
 
 $PACKAGE.description$
 

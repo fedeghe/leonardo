@@ -40,7 +40,8 @@ window.onload = function () {
                 blue: {
                     // background: '#ffffff',
                     stroke: '#000000',
-                    fill: 'red',
+                    // fill: 'red',
+                    fill: 'transparent',
                     // fill: 'gold',
                     
                 }
@@ -193,6 +194,9 @@ window.onload = function () {
 
 
     function renderU(target){
+
+
+
         var theme = getTheme('blue'),
             LeoU = Leonardo(900, 500, { ns: '*', target }).setStyles({
                 backgroundColor: '#00000055'
@@ -205,9 +209,41 @@ window.onload = function () {
                 })
                 .scale(0.8, 1.6)
                 .rotate(-90,600,-220),
+            grad1 = LeoU.linearGradient([
+                // "#f00",
+                // "#f60",
+                // "#fa0",
+                // "#ff0",
+                // "#5f8",
+                // "#3a3",
+                // "#58f",
+
+                {color: "#15f", perc: 0},
+                // {color: "#000", perc: 25},
+                // {color: "#13a", perc: 49},
+                // {color: "#000", perc: 50},
+                {color: "#73a", perc: 56},
+                {color: "#f43", perc: 100}
+
+                
+            ]
+            , {
+                x1: '10%',
+                y1: '10%',
+                x2: '90%',
+                y2: '90%'
+            }
+        ),
             U = GimmeU(LeoU , gap, bxWidth, bxHeight, wGapMul, hGapMul).setAttributes({
                 ...theme.fillStyle,
+                // "stroke-linejoin": "bevel",
                 // "stroke-linejoin": "miter",
+                // "stroke-linejoin": "round",
+                // "stroke-linejoin": "arcs",
+                // "stroke-linejoin": "crop",
+                // "stroke-linejoin": "fallback",
+            }).sas({
+                fill: grad1
             });
 
 

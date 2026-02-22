@@ -7,7 +7,7 @@ Then some additional functions allow to create more easily some "composed" eleme
 
 [](#util)
 
-Every tag we get from _Leonardo_ is primarily an `Element` instance, and thus benefits the following methods: `getAttributes`, `setAttributes`, `getStyles`, `setStyles`, `append`, `remove`, `on`, `off`, `once`, `trigger`, `clone`, `use`, `rotate`, `scale`, `mirrorH`, `mirrorV`, `move`, `bringToTop`, `bringToBottom`, `timeout`, `bringTo`, `clear` and `replace`. I will describe all them [soon below here](#elements). Then every element might extend the `Element` and add methods or properties.
+Every tag we get from _Leonardo_ is primarily an `Element` instance, and thus benefits the following methods: `getAttributes`, `setAttributes`, `getStyles`, `setStyles`, `append`, `remove`, `on`, `off`, `once`, `trigger`, `clone`, `use`, `rotate`, `scale`, `skewX`, `skewY`, `mirrorH`, `mirrorV`, `move`, `bringToTop`, `bringToBottom`, `timeout`, `bringTo`, `clear` and `replace`. I will describe all them [soon below here](#elements). Then every element might extend the `Element` and add methods or properties.
 
 Anyway `svg` tags set is quite [huge](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) and I just tried to cover the very most common. Whenever you need to use a tag not contempled here you can still use `.Element` to create it: 
 ``` js

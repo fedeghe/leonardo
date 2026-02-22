@@ -12,7 +12,12 @@ describe('Gradients', () => {
                 grad = L.linearGradient([
                     {perc: 0, color: "#000"},
                     {perc: 100, color: "#222", style: {fontSize:3}},
-                ], '0%', '0%', '100%', '100%');
+                ], {
+                    x1: '0%',
+                    y1: '0%',
+                    x2: '100%',
+                    y2: '100%'
+                });
                 expect(grad).toMatch(/url\(#leo_id_\d+\)/);
             expect(L.defs.childs[0].tag.tagName).toBe('linearGradient');
             expect(L.defs.childs[0].getAttributes('x1').x1).toBe('0%');
@@ -26,6 +31,21 @@ describe('Gradients', () => {
                     {perc: 0, color: "#000"},
                     {perc: 100, color: "#222"},
                 ]);
+            expect(grad).toMatch(/url\(#leo_id_\d+\)/);
+            expect(L.defs.childs[0].tag.tagName).toBe('linearGradient');
+            expect(L.defs.childs[0].getAttributes('x1').x1).toBe('0%');
+            expect(L.defs.childs[0].getAttributes('y1').y1).toBe('0%');
+            expect(L.defs.childs[0].getAttributes('x2').x2).toBe('100%');
+            expect(L.defs.childs[0].getAttributes('y2').y2).toBe('0%');
+        });
+
+        it('with distributed colors', () => {
+            const L = Leo.import(circle),
+                grad = L.linearGradient([
+                    "#000",
+                    "#222"
+                ]);
+
             expect(grad).toMatch(/url\(#leo_id_\d+\)/);
             expect(L.defs.childs[0].tag.tagName).toBe('linearGradient');
             expect(L.defs.childs[0].getAttributes('x1').x1).toBe('0%');
@@ -78,6 +98,18 @@ describe('Gradients', () => {
                 }]);
             expect(grad).toMatch(/url\(#leo_id_\d+\)/);
             expect(L.defs.childs[0].tag.tagName).toBe('radialGradient');
+        });
+        it('with distributed colors', () => {
+            const L = Leo.import(circle),
+                grad = L.radialGradient([
+                    "#fff",
+                    "#888",
+                    "#aaa",
+                    "#aaa",
+                    "#fff"
+                ], null, true);
+            expect(grad).toMatch(/url\(#leo_id_\d+\)/);
+            expect(L.defs.childs[0].tag.tagName).toBe('radialGradient');    
         });
     });
 

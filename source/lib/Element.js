@@ -22,8 +22,11 @@ function Element(tag, ns) {
 	this.transforms = {
 		rotate : '',
 		move : '',
-		scale : ''
+		scale : '',
+		skewX : '',
+		skewY : ''
 	};
+	this.transformsString = '';
 }
 
 /**
@@ -136,6 +139,8 @@ Element.prototype.clone = function () {
 	ret.transforms.rotate = this.transforms.rotate;
 	ret.transforms.move = this.transforms.move;
 	ret.transforms.scale = this.transforms.scale;
+	ret.transforms.skewX = this.transforms.skewX;
+	ret.transforms.skewY = this.transforms.skewY;
 
 	for (i = 0, l = attrNames.length; i < l; i++) {
 		ret.tag.setAttribute(attrNames[i].name, attrNames[i].value);
@@ -160,8 +165,20 @@ Element.prototype.use = function () {
     return ret;
 };
 
+Element.prototype.syncTransformString = function () {
+	this.transformsString = [
+		this.transforms.rotate,
+		this.transforms.move,
+		this.transforms.scale,
+		this.transforms.skewX,
+		this.transforms.skewY
+	].filter(function(t) { return t !== ''; }).join(' ');
+	return this.transformsString;
+}
+
 function trans(instance) {
-    instance.tag.setAttribute('transform', instance.transforms.rotate + ' ' + instance.transforms.move + ' ' + instance.transforms.scale);
+	instance.syncTransformString();	
+    instance.tag.setAttribute('transform', instance.transformsString);
 	return instance;
 }
 
@@ -176,12 +193,12 @@ function trans(instance) {
 Element.prototype.rotate = function (r, rx, ry) {
 	rx = rx || 0;
 	ry = ry || 0;
-	this.transforms.rotate = ' rotate(' + r + ' ' + rx + ' ' + ry + ')';
+	this.transforms.rotate = 'rotate(' + r + ' ' + rx + ' ' + ry + ')';
 	return trans(this);
 };
 
 function getScale(i){
-	return ' scale('
+	return 'scale('
 		+(i.scaleX * i.scaleXsign)+', '
 		+(i.scaleY * i.scaleYsign)+')';
 };
@@ -197,6 +214,18 @@ Element.prototype.scale = function (sx, sy) {
 	this.scaleX = sx || 0;
 	this.scaleY = sy || sx || 0;
 	this.transforms.scale = getScale(this);
+	return trans(this);
+};
+
+Element.prototype.skewX = function (sx) {
+	this.skewX = sx || 0;
+	this.transforms.skewX = 'skewX(' + this.skewX + ')';
+	return trans(this);
+};
+
+Element.prototype.skewY = function (sy) {
+	this.skewY = sy || 0;
+	this.transforms.skewY = 'skewY(' + this.skewY + ')';
 	return trans(this);
 };
 
@@ -232,7 +261,18 @@ Element.prototype.mirrorV = function () {
 Element.prototype.move = function (rx, ry) {
 	rx = rx || 0;
 	ry = ry || 0;
-	this.transforms.move = ' translate(' + rx + ' ' + ry + ')';
+	this.transforms.move = 'translate(' + rx + ' ' + ry + ')';
+	return trans(this);
+};
+
+Element.prototype.untrans = function (){
+    this.transforms = {
+        rotate : '',
+        move : '',
+        scale : '',
+        skewX : '',
+        skewY : ''
+    };
 	return trans(this);
 };
 

@@ -12,7 +12,12 @@ describe('Gradients', () => {
                 grad = L.linearGradient([
                     {perc: 0, color: "#000"},
                     {perc: 100, color: "#222", style: {fontSize:3}},
-                ], '0%', '0%', '100%', '100%');
+                ], {
+                    x1: '0%',
+                    y1: '0%',
+                    x2: '100%',
+                    y2: '100%'
+                });
                 expect(grad).toMatch(/url\(#leo_id_\d+\)/);
             expect(L.defs.childs[0].tag.tagName).toBe('linearGradient');
             expect(L.defs.childs[0].getAttributes('x1').x1).toBe('0%');

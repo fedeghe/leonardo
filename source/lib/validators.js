@@ -77,3 +77,7 @@ var validate = {
         return true;
     }
 }
+
+function isString(s) {
+    return typeof s === 'string' || s instanceof String;
+}

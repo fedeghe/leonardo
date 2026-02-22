@@ -38,8 +38,11 @@
             harder = document.getElementById('harder'),
             v = 0.2,
             step = 0.01;
-        inp.setAttribute("value", v);
+
+        // if step is set after the value ..the value does nto have any effect on the bullet position on the gauge
         inp.step = step;
+        inp.value = v;
+
         inpt.innerHTML = v;
         inp.addEventListener('input', function (e) {
             var val = e.target.value;

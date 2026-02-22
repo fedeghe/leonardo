@@ -66,10 +66,10 @@ window.onload = function () {
         return grp;
     }
     
-    setInterval(function () {
-        console.clear();
-        console.log(new Date)
-    }, 1000)
+    // setInterval(function () {
+    //     console.clear();
+    //     console.log(new Date)
+    // }, 1000)
 
     container.append(cir0);
     container.append(circles);
