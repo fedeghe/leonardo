@@ -68,6 +68,9 @@ L.prototype.animate = (function () {
 		return animate;
 	};
 
+
+	function motionPath(el, path, interval) {}
+
 	return {
 		cartesian : parametricCartesian,
 		polar : parametricPolar,

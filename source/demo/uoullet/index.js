@@ -24,7 +24,6 @@ window.onload = function () {
         )
     }
 
-
     function getTheme(label) {
         var themes = {
                 black: {
@@ -39,7 +38,7 @@ window.onload = function () {
                 },
                 blue: {
                     // background: '#ffffff',
-                    stroke: '#000000',
+                    stroke: '#ffffff',
                     // fill: 'red',
                     fill: 'transparent',
                     // fill: 'gold',
@@ -194,9 +193,6 @@ window.onload = function () {
 
 
     function renderU(target){
-
-
-
         var theme = getTheme('blue'),
             LeoU = Leonardo(900, 500, { ns: '*', target }).setStyles({
                 backgroundColor: '#00000055'
@@ -210,30 +206,25 @@ window.onload = function () {
                 .scale(0.8, 1.6)
                 .rotate(-90,600,-220),
             grad1 = LeoU.linearGradient([
-                // "#f00",
-                // "#f60",
-                // "#fa0",
-                // "#ff0",
-                // "#5f8",
-                // "#3a3",
-                // "#58f",
-
-                {color: "#15f", perc: 0},
-                // {color: "#000", perc: 25},
-                // {color: "#13a", perc: 49},
-                // {color: "#000", perc: 50},
-                {color: "#73a", perc: 56},
-                {color: "#f43", perc: 100}
-
-                
-            ]
-            , {
-                x1: '10%',
-                y1: '10%',
-                x2: '90%',
-                y2: '90%'
-            }
-        ),
+                    // "#f00", "#f60", "#fa0", "#ff0", "#5f8", "#3a3", "#58f",
+                    {color: "#15f", perc: 0},
+                    {color: "#73a", perc: 56},
+                    {color: "#f43", perc: 100}
+                ], {
+                    x1: '10%', y1: '10%',
+                    x2: '90%', y2: '90%'
+                }
+            ),
+            grad2 = LeoU.linearGradient([
+                    // "#f00", "#f60", "#fa0", "#ff0", "#5f8", "#3a3", "#58f",
+                    {color: "#73a", perc: 0},
+                    
+                    {color: "#2a3", perc: 100}
+                ], {
+                    x1: '20%', y1: '20%',
+                    x2: '80%', y2: '80%'
+                }
+            ),
             U = GimmeU(LeoU , gap, bxWidth, bxHeight, wGapMul, hGapMul).setAttributes({
                 ...theme.fillStyle,
                 // "stroke-linejoin": "bevel",
@@ -243,17 +234,22 @@ window.onload = function () {
                 // "stroke-linejoin": "crop",
                 // "stroke-linejoin": "fallback",
             }).sas({
-                fill: grad1
+                // stroke: grad1,
+                // fill: grad1,
+                // stroke: grad2
+                // fill: grad2
             });
 
 
         // tp get the b64 encoded qr this is asynch (would be great to find a sync solution)
         // this makes it downloadable (or must be a url, not visible offline!!!)
-        Leo.img2base64png('/media/qr.png', function (b64){
-            var I =  LeoU.image(300, 70,300, 300, b64);
-            LeoU.append(U.scale(5).move(25,25),I, txt).render();
-            target.appendChild(LeoU.downloadAnchor('download print', 'uoullet print'));
-        })
+        // Leo.img2base64png('/media/qr.png', function (b64){
+        //     var I =  LeoU.image(300, 70,300, 300, b64);
+        //     LeoU.append(U.scale(5).move(25,25),I, txt).render();
+        //     target.appendChild(LeoU.downloadAnchor('download print', 'uoullet print'));
+        // })
+
+        LeoU.append(U.scale(5).move(25,25), txt).render();
         
         
     }

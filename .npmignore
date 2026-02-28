@@ -3,7 +3,7 @@
 .printVersion
 .buildNum.json
 .coveralls.yml
-/test
+/tests
 /demo
 /coverage
 /ghp

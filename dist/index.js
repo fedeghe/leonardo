@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~52.18KB
+~52.24KB
 */
 const Leonardo = (function(w) {
 	/*
@@ -1903,6 +1903,9 @@ const Leonardo = (function(w) {
     		animate.sas(attrs);
     		return animate;
     	};
+    
+    
+    	function motionPath(el, path, interval) {}
     
     	return {
     		cartesian : parametricCartesian,

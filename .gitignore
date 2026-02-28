@@ -3,4 +3,3 @@
 /coverage/
 .printVersion
 .buildNum.json
-.coveralls.yml
