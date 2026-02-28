@@ -38,6 +38,18 @@ describe('Gradients', () => {
             expect(L.defs.childs[0].getAttributes('x2').x2).toBe('100%');
             expect(L.defs.childs[0].getAttributes('y2').y2).toBe('0%');
         });
+
+        it('deafult distributed', () => {
+            const L = Leo.import(circle),
+                grad = L.linearGradient(["#000", "#222"]);
+            expect(grad).toMatch(/url\(#leo_id_\d+\)/);
+            expect(L.defs.childs[0].tag.tagName).toBe('linearGradient');
+            expect(L.defs.childs[0].getAttributes('x1').x1).toBe('0%');
+            expect(L.defs.childs[0].getAttributes('y1').y1).toBe('0%');
+            expect(L.defs.childs[0].getAttributes('x2').x2).toBe('100%');
+            expect(L.defs.childs[0].getAttributes('y2').y2).toBe('0%');
+        });
+
     });
 
     describe('radialGradient', () => {
@@ -81,6 +93,12 @@ describe('Gradients', () => {
                     perc: 100,
                     color: "#fff"
                 }]);
+            expect(grad).toMatch(/url\(#leo_id_\d+\)/);
+            expect(L.defs.childs[0].tag.tagName).toBe('radialGradient');
+        });
+        it('distributed', () => {
+            const L = Leo.import(circle),
+                grad = L.radialGradient(["#fff", "#888",, "#aaa", "#fff"]);
             expect(grad).toMatch(/url\(#leo_id_\d+\)/);
             expect(L.defs.childs[0].tag.tagName).toBe('radialGradient');
         });

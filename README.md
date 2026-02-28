@@ -1,7 +1,7 @@
 ![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.svg "... do not dare scum human!")
 leonardo javascript svg library v. 1.1.0
 
-[![Coverage Status](https://coveralls.io/repos/github/fedeghe/leonardo/badge.svg?branch=master)](https://coveralls.io/github/fedeghe/leonardo?branch=master)
+[![codecov](https://codecov.io/gh/fedeghe/leonardo/graph/badge.svg?token=OGmjNS9psx)](https://codecov.io/gh/fedeghe/leonardo)
 
 [SVG reference](https://www.w3.org/TR/SVG/)
 
