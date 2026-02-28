@@ -29,7 +29,7 @@ window.onload = function () {
                 black: {
                     // background: '#000000',
                     stroke: 'white',
-                    fill: '#000000'
+                    fill: 'transparent'
                 },
                 white: {
                     // background: '#ffffff',
