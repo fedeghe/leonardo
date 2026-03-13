@@ -5,12 +5,17 @@ _Leonardo_ let you used both the [svg gradients](https://developer.mozilla.org/e
 ``` js
 var myGradient = instance.linearGradient(
     gradientData,
-    {fromX = '0%', fromY = '0%', toX = '100%', toY = '0%', spreadMethod = 'pad'}
+    {
+        fromX = '0%', fromY = '0%',
+        toX = '100%', toY = '0%',
+        spreadMethod = 'pad'
+    }
 ) //  returns filling gradient
 ```
 
 the `gradientData` can be specified as an array of objects containing a `perc` and a `color` fields as `{perc:10, color: '#f00'}`.  
-If the distribution of the colors is uniform then it is enough to just pass an array of colors.  
+When the distribution of the colors is uniform then it is enough to just pass an array of colors.  
+
 The optional object containing `fromX, fromY, toX, toY` are the percentage starting and ending coords which allows to decide a starting and ending point (default is start at 0% 0% end at 100% 0%, thus from left to right).
 
 Then it's enough to use it on a tag simply as value for the `fill` attribute:
@@ -60,6 +65,7 @@ var myGradient = instance.radialGradient(
 ) // returns filling gradient 
 ```
 [Here](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/radialGradient) you can see the details about the parameters.  
+
 Shortly:   
 `{fx, fy}` the starting circle (default: `(50%, 50%)`)  
 `fr` the radius of the start circle (default: `0%`)  

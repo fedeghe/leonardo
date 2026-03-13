@@ -4,6 +4,25 @@
  * https://www.w3.org/TR/SVG/paths.html
  */
 
+
+// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/a
+
+
+/**
+ * { function_description }
+ * 
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/desc
+ *
+ * @param      {<type>}   txt     The text
+ * @return     {Element}  { description_of_the_return_value }
+ */
+Leo.a = L.a = L.prototype.a = function (attrs) {
+	var a = new Element('a');
+	a.sas(attrs);
+	return a;
+};
+
+
 /**
  * { function_description }
  * 

@@ -362,7 +362,7 @@ Skews along the `y` axis.
 ## Filters  
 
 ``` js
-instance.filter([filter, ...]) // -> filter id  
+instance.filter(filter, ...) // -> filter id  
 ```
 With _Leonardo_ you can use [all svg possible filters](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/filter) easily. 
 
@@ -370,7 +370,7 @@ Let's suppose, for example, you want to use `feTurbolence` and a `feConvolveMatr
 
 ``` js
 tagToFilter.setAttributes({
-    filter: instance.filter([
+    filter: instance.filter(
         {
             type: 'feTurbulence',
             attrs: {
@@ -386,7 +386,7 @@ tagToFilter.setAttributes({
                 kernelMatrix:"0 1 0  1 0 1  0 -5 0"
             }
         }
-    ])
+    )
 })
 ```
 
@@ -402,12 +402,17 @@ _Leonardo_ let you used both the [svg gradients](https://developer.mozilla.org/e
 ``` js
 var myGradient = instance.linearGradient(
     gradientData,
-    {fromX = '0%', fromY = '0%', toX = '100%', toY = '0%', spreadMethod = 'pad'}
+    {
+        fromX = '0%', fromY = '0%',
+        toX = '100%', toY = '0%',
+        spreadMethod = 'pad'
+    }
 ) //  returns filling gradient
 ```
 
 the `gradientData` can be specified as an array of objects containing a `perc` and a `color` fields as `{perc:10, color: '#f00'}`.  
-If the distribution of the colors is uniform then it is enough to just pass an array of colors.  
+When the distribution of the colors is uniform then it is enough to just pass an array of colors.  
+
 The optional object containing `fromX, fromY, toX, toY` are the percentage starting and ending coords which allows to decide a starting and ending point (default is start at 0% 0% end at 100% 0%, thus from left to right).
 
 Then it's enough to use it on a tag simply as value for the `fill` attribute:
@@ -457,6 +462,7 @@ var myGradient = instance.radialGradient(
 ) // returns filling gradient 
 ```
 [Here](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/radialGradient) you can see the details about the parameters.  
+
 Shortly:   
 `{fx, fy}` the starting circle (default: `(50%, 50%)`)  
 `fr` the radius of the start circle (default: `0%`)  
@@ -469,11 +475,13 @@ For the _radial_ case the `radialData` is expected to be exactly the same as in 
 
 ## Animate
 
+### an attribute
+
 ``` js 
 instance.animate.attrs(config) // animate tag  
 ```
 
-This method is useful when we need to animate an attribute of a tag. Svg allows to do that creating an `<animate>` tag containing the righ parameters and append it inside the tag that needs to be animated:  
+This method is useful when we need to animate an attribute of a tag. Svg allows to do that creating an `<animate>` tag containing the right parameters and append it inside the tag that needs to be animated, with _Leonardo_ could not be easier:  
 
 ``` js
 var circle = instance.circle(100, 100, 20),
@@ -500,8 +508,24 @@ instance.animate.polar(tag, funcR, funcPHI, t) // returns stopper function
 ...still need to be documented, there's anyway a clear sample
 
 
+### via cartesian function
 
+One might want to animate an object along two cartesian parametric
 
+$$x = f(t) = r * cos(t)$$
+$$y = f(t) = r * sin(t)$$
+
+clearly the case $y = f(x)$ can be achieved just fooling the $x$ to be defined as $x = f(t) = t$ 
+
+In general:
+``` js
+Instance.animate.parametricCartesian(
+    tag,
+    fx,
+    fy,
+    interval
+)
+```
 
 ---
 

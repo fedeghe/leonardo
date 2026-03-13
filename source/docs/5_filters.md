@@ -1,7 +1,7 @@
 ## Filters  
 
 ``` js
-instance.filter([filter, ...]) // -> filter id  
+instance.filter(filter, ...) // -> filter id  
 ```
 With _Leonardo_ you can use [all svg possible filters](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/filter) easily. 
 
@@ -9,7 +9,7 @@ Let's suppose, for example, you want to use `feTurbolence` and a `feConvolveMatr
 
 ``` js
 tagToFilter.setAttributes({
-    filter: instance.filter([
+    filter: instance.filter(
         {
             type: 'feTurbulence',
             attrs: {
@@ -25,7 +25,7 @@ tagToFilter.setAttributes({
                 kernelMatrix:"0 1 0  1 0 1  0 -5 0"
             }
         }
-    ])
+    )
 })
 ```
 
