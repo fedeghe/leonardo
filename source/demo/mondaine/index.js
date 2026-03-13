@@ -265,7 +265,6 @@
 
                 withDay.checked = !!day;
                 withDate.checked = !!date;
-                console.log('rendered');
             }
         });
     }
