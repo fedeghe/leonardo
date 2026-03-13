@@ -4,7 +4,8 @@
  * @param {*} filters 
  * @returns 
  */
-L.prototype.filter = function(filters) {
+L.prototype.filter = function() {
+    var filters = [].slice.call(arguments, 0);
     getDefs(this)
     var id = lid(),
         filter = new Element('filter'),

@@ -23,26 +23,53 @@ window.onload = function () {
             .Z()
         )
     }
+    
 
     function getTheme(label) {
         var themes = {
                 black: {
                     // background: '#000000',
                     stroke: 'white',
-                    fill: 'transparent'
+                    fill: 'transparent',
+                    grad: [
+                        [
+                            {color: "#73a", perc: 0},
+                            {color: "#2a3", perc: 100}
+                        ], {
+                            x1: '20%', y1: '20%',
+                            x2: '80%', y2: '80%'
+                        }
+                    ]
                 },
                 white: {
-                    // background: '#ffffff',
                     stroke: '#000000',
-                    fill: '#ffffff'
+                    fill: '#ffffff',
+                    grad : [
+                        [
+                            {color: "#15f", perc: 0},
+                            {color: "#73a", perc: 56},
+                            // {color: "rgb(255, 255, 255)", perc: 79},
+                            {color: "#f43", perc: 80},
+                            {color: "rgb(255, 120, 2)", perc: 90},
+                            {color: "rgb(242, 255, 2)", perc: 100},
+                        ], {
+                            x1: '10%', y1: '10%',
+                            x2: '90%', y2: '90%'
+                        }
+                    ]
                 },
                 blue: {
-                    // background: '#ffffff',
                     stroke: '#ffffff',
-                    // fill: 'red',
                     fill: 'transparent',
-                    // fill: 'gold',
-                    
+                    grad: [
+                        [
+                            {color: "#73a", perc: 0},
+                            {color: "#2a3", perc: 100}
+                        ], {
+                            x1: '20%', y1: '20%',
+                            x2: '80%', y2: '80%'
+                        }
+                    ]
                 }
             }
         return {
@@ -55,6 +82,7 @@ window.onload = function () {
                 fill: themes[label].fill,
                 // "stroke-linejoin": "miter",
             },
+            grad: themes[label].grad,
             background: 'background' in themes[label] ? themes[label].background : '#ffffff00'
         }
     }
@@ -193,7 +221,7 @@ window.onload = function () {
 
 
     function renderU(target){
-        var theme = getTheme('blue'),
+        var theme = getTheme('white'),
             LeoU = Leonardo(900, 500, { ns: '*', target }).setStyles({
                 backgroundColor: '#00000055'
             }),
@@ -205,26 +233,8 @@ window.onload = function () {
                 })
                 .scale(0.8, 1.6)
                 .rotate(-90,600,-220),
-            grad1 = LeoU.linearGradient([
-                    // "#f00", "#f60", "#fa0", "#ff0", "#5f8", "#3a3", "#58f",
-                    {color: "#15f", perc: 0},
-                    {color: "#73a", perc: 56},
-                    {color: "#f43", perc: 100}
-                ], {
-                    x1: '10%', y1: '10%',
-                    x2: '90%', y2: '90%'
-                }
-            ),
-            grad2 = LeoU.linearGradient([
-                    // "#f00", "#f60", "#fa0", "#ff0", "#5f8", "#3a3", "#58f",
-                    {color: "#73a", perc: 0},
-                    
-                    {color: "#2a3", perc: 100}
-                ], {
-                    x1: '20%', y1: '20%',
-                    x2: '80%', y2: '80%'
-                }
-            ),
+            grad = LeoU.linearGradient.apply(LeoU, theme.grad),
+            
             U = GimmeU(LeoU , gap, bxWidth, bxHeight, wGapMul, hGapMul).setAttributes({
                 ...theme.fillStyle,
                 // "stroke-linejoin": "bevel",
@@ -234,8 +244,7 @@ window.onload = function () {
                 // "stroke-linejoin": "crop",
                 // "stroke-linejoin": "fallback",
             }).sas({
-                // stroke: grad1,
-                // fill: grad1,
+                fill: grad,
                 // stroke: grad2
                 // fill: grad2
             });
@@ -250,6 +259,7 @@ window.onload = function () {
         // })
 
         LeoU.append(U.scale(5).move(25,25), txt).render();
+        target.appendChild(LeoU.downloadAnchor('download print', 'uoullet print'));
         
         
     }

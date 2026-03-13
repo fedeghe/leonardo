@@ -51,7 +51,7 @@ window.onload = function () {
         e.move(250),
         r.move(350)
     ).setAttributes({
-        filter: Leo.filter([
+        filter: Leo.filter(
             {type:'feDropShadow',
                 attrs:{
                     dx:5,
@@ -61,7 +61,7 @@ window.onload = function () {
                     "flood-opacity":"6.5"
                 }
             },
-        ])
+        )
     })
 
     Leo.append(main.move(40, 90));
