@@ -121,12 +121,12 @@ describe('Filter', () => {
                 height = 100,
                 L = Leo(width, height),
                 t = L.circle(50, 50, 10).setAttributes({
-                    filter: L.filter([
+                    filter: L.filter(
                         {
                             type: filter,
                             attrs
                         },
-                    ])
+                    )
                 });
             L.append(t);
             const defs = L.defs
@@ -144,7 +144,7 @@ describe('Filter', () => {
                 height = 100,
                 L = Leo(width, height),
                 t = L.circle(50, 50, 10).setAttributes({
-                    filter: L.filter([
+                    filter: L.filter(
                         {
                             type: 'feGaussianBlur',
                             attrs: {
@@ -170,7 +170,7 @@ describe('Filter', () => {
                                 "flood-opacity":"6.5"
                             }
                         }
-                    ])
+                    )
                 });
             L.append(t);
             const defs = L.defs
