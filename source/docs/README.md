@@ -1,4 +1,4 @@
-![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.svg "... do not dare scum human!")
+![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/source/media/god.svg "... do not dare scum human!")
 leonardo javascript svg library v. $PACKAGE.version$
 
 [![codecov](https://codecov.io/gh/fedeghe/leonardo/graph/badge.svg?token=OGmjNS9psx)](https://codecov.io/gh/fedeghe/leonardo)

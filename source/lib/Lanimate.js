@@ -5,7 +5,7 @@
  */
 L.prototype.animate = (function () {
 	// seconds per frame = 1/(frame per seconds)
-	var spf60 = 1E3/60;
+	var spf60 = (1E3/60)/1000;
 	function parametricCartesian(el, fx, fy, interval, opts) {
 		opts = opts || {};
 		var trace = opts.trace || false;
