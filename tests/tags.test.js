@@ -4,6 +4,23 @@
 const Leo = require('../dist');
 
 describe('Tags', () => {
+
+    it('<a> ', () => {
+        const width = 200,
+            height = 100,
+            L = Leo(width, height, {ns : '*'}),
+            href = 'https://example.com',
+            anchor = L.a({href});
+        
+        expect(anchor.tag.tagName).toBe('a');
+        expect(anchor.tag.getAttribute('href')).toBe(href);
+    });
+    it('<a> - static', () => {
+        const href = 'https://example.com',
+            anchor = Leo.a({href});
+        expect(anchor.tag.tagName).toBe('a');
+        expect(anchor.tag.getAttribute('href')).toBe(href);
+    });
     it('<desc> ', () => {
         const width = 200,
             height = 100,

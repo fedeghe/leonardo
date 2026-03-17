@@ -65,7 +65,6 @@ L.prototype.animate = (function () {
 					if(trace) {
 						var c = new Element('circle'),
 							attrs = el.getAttributes('cx', 'cy');
-						console.log(attrs)
 						c.sas(Object.assign({
 							cx: ~~attrs.cx + r * Math.cos(O),
 							cy: ~~attrs.cy + r * Math.sin(O),
