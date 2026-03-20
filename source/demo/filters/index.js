@@ -189,7 +189,7 @@ window.onload = function () {
 
     Leo.append(main);
     Leo.render();
-    document.body.appendChild(Leo.downloadAnchor())
+    document.body.appendChild(Leo.svgDownloadAnchor())
 }
 
 

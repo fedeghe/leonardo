@@ -125,5 +125,5 @@ window.onload = function () {
 
 	L.render({target: document.getElementById('trg')});
 
-	document.body.appendChild(L.downloadAnchor());
+	document.body.appendChild(L.svgDownloadAnchor());
 };

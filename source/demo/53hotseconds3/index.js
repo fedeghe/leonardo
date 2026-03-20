@@ -118,5 +118,5 @@ window.onload = function () {
         , gp);
 
 	L.render();
-    document.body.appendChild(L.downloadAnchor());
+    document.body.appendChild(L.svgDownloadAnchor());
 };

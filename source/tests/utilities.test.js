@@ -3,6 +3,65 @@
  */
 const Leo = require('../dist');
 
+beforeAll(() => {
+    HTMLCanvasElement.prototype.getContext = jest.fn(() => ({
+        drawImage: jest.fn(),
+        fillRect: jest.fn(),
+        clearRect: jest.fn(),
+        getImageData: jest.fn(),
+        putImageData: jest.fn(),
+        createImageData: jest.fn(),
+        setTransform: jest.fn(),
+        drawFocusIfNeeded: jest.fn(),
+        createLinearGradient: jest.fn(),
+        createRadialGradient: jest.fn(),
+        createPattern: jest.fn(),
+        measureText: jest.fn(() => ({ width: 0 })),
+        transform: jest.fn(),
+        rotate: jest.fn(),
+        scale: jest.fn(),
+        translate: jest.fn(),
+        transform: jest.fn(),
+        fillText: jest.fn(),
+        strokeText: jest.fn(),
+        bezierCurveTo: jest.fn(),
+        moveTo: jest.fn(),
+        lineTo: jest.fn(),
+        closePath: jest.fn(),
+        stroke: jest.fn(),
+        strokeRect: jest.fn(),
+        fill: jest.fn(),
+        beginPath: jest.fn(),
+        save: jest.fn(),
+        restore: jest.fn(),
+        arc: jest.fn(),
+    }));
+    
+    HTMLCanvasElement.prototype.toDataURL = jest.fn(() => 'data:image/png;base64,');
+
+
+    global.Image = jest.fn(function() {
+        this.src = '';
+        this.width = 200;
+        this.height = 100;
+        const self = this;
+        Object.defineProperty(this, 'src', {
+            set: function(value) {
+                // Simulate image load after setting src
+                this._src = value;
+                setTimeout(() => {
+                    if (self.onload) {
+                        self.onload();
+                    }
+                }, 0);
+            },
+            get: function() {
+                return this._src;
+            }
+        });
+    });
+});
+
 describe('Utilities', () => {
     it('fadeOut', done => {
         const width = 200,
@@ -40,7 +99,7 @@ describe('Utilities', () => {
         });
     });
 
-    describe('downloadAnchor', () => {
+    describe('svgDownloadAnchor', () => {
         it('basic', done => {
             const width = 200,
                 height = 100,
@@ -49,7 +108,7 @@ describe('Utilities', () => {
             L.append(c);
             L.render({
                 cb: function () {
-                    const a = L.downloadAnchor('download this', 'xxx');
+                    const a = L.svgDownloadAnchor({txt:'download this', name:'xxx'});
                     expect(a.tagName).toBe('A');
                     expect(a.textContent).toBe('download this');
                     expect(a.download).toBe('xxx.svg');
@@ -65,7 +124,7 @@ describe('Utilities', () => {
             L.append(c);
             L.render({
                 cb: function () {
-                    const a = L.downloadAnchor();
+                    const a = L.svgDownloadAnchor();
                     expect(a.tagName).toBe('A');
                     expect(a.textContent).toBe('download');
                     expect(a.download).toBe('download.svg');
@@ -74,6 +133,44 @@ describe('Utilities', () => {
             });
         });
     });
+
+
+     describe('pngDownloadAnchor', () => {
+        it('basic', done => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height, {ns : '*', target: document.body}),
+                c = L.circle(50, 50, 10);
+            L.append(c);
+            L.render({
+                cb: function () {
+                    const a = L.pngDownloadAnchor({txt:'download this', name:'xxx'});
+                    expect(a.tagName).toBe('A');
+                    expect(a.textContent).toBe('download this');
+                    expect(a.download).toBe('xxx.png');
+                    done();
+                }
+            });
+        });
+        it('default label and name', done => {
+            const width = 200,
+                height = 100,
+                L = Leo(width, height, {ns : '*', target: document.body}),
+                c = L.circle(50, 50, 10);
+            L.append(c);
+            L.render({
+                cb: function () {
+                    const a = L.pngDownloadAnchor();
+                    expect(a.tagName).toBe('A');
+                    expect(a.textContent).toBe('download');
+                    expect(a.download).toBe('download.png');
+                    done();
+                }
+            });
+        });
+    });
+
+
 
     it('dataEncoded', done => {
         const width = 200,
@@ -103,24 +200,30 @@ describe('Utilities', () => {
                 done();
             }
         });
-        const img1 = L.toImageTag('myTit1'),
-            img2 = L.toImageTag('myTit2', 'myAlt2'),
-            img3 = L.toImageTag(false, 'myAlt3');
+        const img1 = L.toImageTag({title: 'myTit1'}),
+            img2 = L.toImageTag({title: 'myTit2', alt: 'myAlt2'}),
+            img3 = L.toImageTag({alt: 'myAlt3'}),
+            img4 = L.toImageTag();
         img1.setAttribute('id', 'img1');
         img2.setAttribute('id', 'img2');
         img3.setAttribute('id', 'img3');
+        img4.setAttribute('id', 'img4');
         document.body.append(img1);
         document.body.append(img2);
         document.body.append(img3);
+        document.body.append(img4);
         expect(img1.src).toBe('data:image/svg+xml;charset=utf-8,%3C%3Fxml%20version%3D%221.0%22%20standalone%3D%22no%22%3F%3E%0D%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22100%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewbox%3D%220%200%20200%20100%22%20xmlns%3Acc%3D%22http%3A%2F%2Fcreativecommons.org%2Fns%23%22%20xmlns%3Adc%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%22%20xmlns%3Aev%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2Fxml-events%22%20xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20xmlns%3Amath%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%20xmlns%3Axhtml%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml%22%20xmlns%3Axml%3D%22http%3A%2F%2Fwww.w3.org%2FXML%2F1998%2Fnamespace%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2210%22%2F%3E%3C%2Fsvg%3E');
         expect(img2.src).toBe('data:image/svg+xml;charset=utf-8,%3C%3Fxml%20version%3D%221.0%22%20standalone%3D%22no%22%3F%3E%0D%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22100%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewbox%3D%220%200%20200%20100%22%20xmlns%3Acc%3D%22http%3A%2F%2Fcreativecommons.org%2Fns%23%22%20xmlns%3Adc%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%22%20xmlns%3Aev%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2Fxml-events%22%20xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20xmlns%3Amath%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%20xmlns%3Axhtml%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml%22%20xmlns%3Axml%3D%22http%3A%2F%2Fwww.w3.org%2FXML%2F1998%2Fnamespace%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2210%22%2F%3E%3C%2Fsvg%3E');
         expect(img3.src).toBe('data:image/svg+xml;charset=utf-8,%3C%3Fxml%20version%3D%221.0%22%20standalone%3D%22no%22%3F%3E%0D%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22100%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewbox%3D%220%200%20200%20100%22%20xmlns%3Acc%3D%22http%3A%2F%2Fcreativecommons.org%2Fns%23%22%20xmlns%3Adc%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%22%20xmlns%3Aev%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2Fxml-events%22%20xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20xmlns%3Amath%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%20xmlns%3Axhtml%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml%22%20xmlns%3Axml%3D%22http%3A%2F%2Fwww.w3.org%2FXML%2F1998%2Fnamespace%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2210%22%2F%3E%3C%2Fsvg%3E');
+        expect(img4.src).toBe('data:image/svg+xml;charset=utf-8,%3C%3Fxml%20version%3D%221.0%22%20standalone%3D%22no%22%3F%3E%0D%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22100%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewbox%3D%220%200%20200%20100%22%20xmlns%3Acc%3D%22http%3A%2F%2Fcreativecommons.org%2Fns%23%22%20xmlns%3Adc%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%22%20xmlns%3Aev%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2Fxml-events%22%20xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20xmlns%3Amath%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%20xmlns%3Axhtml%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml%22%20xmlns%3Axml%3D%22http%3A%2F%2Fwww.w3.org%2FXML%2F1998%2Fnamespace%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2210%22%2F%3E%3C%2Fsvg%3E');
         expect(img1.getAttribute('title')).toBe('myTit1');
         expect(img1.getAttribute('alt')).toBe('');
         expect(img2.getAttribute('title')).toBe('myTit2');
         expect(img2.getAttribute('alt')).toBe('myAlt2');
         expect(img3.getAttribute('title')).toBe('');
         expect(img3.getAttribute('alt')).toBe('myAlt3');
+        expect(img4.getAttribute('title')).toBe('');
+        expect(img4.getAttribute('alt')).toBe('');
     });
 
     

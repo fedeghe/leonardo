@@ -211,7 +211,10 @@ window.onload = function () {
 
         Leo.append(g).render();
 
-        target.appendChild(Leo.downloadAnchor('download '+ themeLabel, 'uoullet'+themeLabel));
+        target.appendChild(Leo.svgDownloadAnchor({
+            txt: 'download '+ themeLabel,
+            name: 'uoullet'+themeLabel
+        }));
         return Leo.tag;
     }
     
@@ -255,11 +258,11 @@ window.onload = function () {
         // Leo.img2base64png('/media/qr.png', function (b64){
         //     var I =  LeoU.image(300, 70,300, 300, b64);
         //     LeoU.append(U.scale(5).move(25,25),I, txt).render();
-        //     target.appendChild(LeoU.downloadAnchor('download print', 'uoullet print'));
+        //     target.appendChild(LeoU.svgDownloadAnchor({txt:'download print', name: 'uoullet print'}));
         // })
 
         LeoU.append(U.scale(5).move(25,25), txt).render();
-        target.appendChild(LeoU.downloadAnchor('download print', 'uoullet print'));
+        target.appendChild(LeoU.svgDownloadAnchor({txt:'download print', name:'uoullet print'}));
         
         
     }

@@ -46,19 +46,51 @@ L.prototype.fadeOut = function (t, target) {
 	return this;
 }
 
-
 /**
  * 
  * @param {*} txt 
  * @param {*} name 
  * @returns 
  */
-L.prototype.downloadAnchor = function (txt, name) {
-	var a = document.createElement('a');
-	a.download = (name || 'download') + '\.svg';
+L.prototype.svgDownloadAnchor = function (opts) {
+	opts = opts || {};
+	var str = 'download',
+		txt = opts.txt || str,
+		name = opts.name || str,
+		a = document.createElement('a');
+	a.download = name + '\.svg';
 	a.href = this.dataEncoded();
-	a.innerHTML = txt || 'download';
+	a.innerHTML = txt;
 	a.style.display = 'block';
+	return a;
+};
+
+/**
+ * 
+ * @param {*} opts 
+ * @returns 
+ */
+L.prototype.pngDownloadAnchor = function(opts) {
+	opts = opts || {};
+	var str = 'download',
+		name = opts.name || str,
+		txt = opts.txt || str,
+		image = new Image(),
+		a = document.createElement('a'),
+		canvas = document.createElement('canvas'),
+		context = canvas.getContext('2d');
+	a.href = 'javascript:;';
+	a.innerHTML = txt;
+	image.src = this.dataEncoded();
+	a.download = name+'.png';
+	a.style.display = 'block';
+	/* istanbul ignore next */
+	image.onload = function() {
+		canvas.width = image.width;
+		canvas.height = image.height;
+		context.drawImage(image, 0, 0);
+		a.href = canvas.toDataURL('image/png');
+	};
 	return a;
 };
 
@@ -68,10 +100,11 @@ L.prototype.downloadAnchor = function (txt, name) {
  * @param {*} alt 
  * @returns 
  */
-L.prototype.toImageTag = function (title, alt) {
-	var i = document.createElement('img');
-    title = title || '';
-    alt = alt || '';
+L.prototype.toImageTag = function (opts) {
+	opts = opts || {};
+	var i = document.createElement('img'),
+		title = opts.title || '',
+		alt = opts.alt || '';
 	i.setAttribute('title', title);
 	i.setAttribute('alt', alt);
 	i.src = this.dataEncoded();

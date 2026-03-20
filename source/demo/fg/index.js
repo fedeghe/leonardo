@@ -48,5 +48,5 @@ window.onload = function () {
     
     Leo.render();
     Leo.positionInspector();
-    document.body.appendChild(Leo.downloadAnchor())
+    document.body.appendChild(Leo.svgDownloadAnchor())
 }

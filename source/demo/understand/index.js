@@ -83,5 +83,5 @@ window.onload = function () {
         rnd = !!this.checked;
     });
 
-    document.body.appendChild(L.downloadAnchor());
+    document.body.appendChild(L.svgDownloadAnchor());
 };

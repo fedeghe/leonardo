@@ -106,5 +106,5 @@ window.onload = function () {
         , p1, p2);
 
 	L.render();
-    document.body.appendChild(L.downloadAnchor());
+    document.body.appendChild(L.svgDownloadAnchor());
 };
