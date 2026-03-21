@@ -4,38 +4,7 @@
 const Leo = require('../dist');
 
 beforeAll(() => {
-    HTMLCanvasElement.prototype.getContext = jest.fn(() => ({
-        drawImage: jest.fn(),
-        fillRect: jest.fn(),
-        clearRect: jest.fn(),
-        getImageData: jest.fn(),
-        putImageData: jest.fn(),
-        createImageData: jest.fn(),
-        setTransform: jest.fn(),
-        drawFocusIfNeeded: jest.fn(),
-        createLinearGradient: jest.fn(),
-        createRadialGradient: jest.fn(),
-        createPattern: jest.fn(),
-        measureText: jest.fn(() => ({ width: 0 })),
-        transform: jest.fn(),
-        rotate: jest.fn(),
-        scale: jest.fn(),
-        translate: jest.fn(),
-        transform: jest.fn(),
-        fillText: jest.fn(),
-        strokeText: jest.fn(),
-        bezierCurveTo: jest.fn(),
-        moveTo: jest.fn(),
-        lineTo: jest.fn(),
-        closePath: jest.fn(),
-        stroke: jest.fn(),
-        strokeRect: jest.fn(),
-        fill: jest.fn(),
-        beginPath: jest.fn(),
-        save: jest.fn(),
-        restore: jest.fn(),
-        arc: jest.fn(),
-    }));
+    HTMLCanvasElement.prototype.getContext = jest.fn(() => ({}));
     
     HTMLCanvasElement.prototype.toDataURL = jest.fn(() => 'data:image/png;base64,');
 
