@@ -148,18 +148,16 @@ L.prototype.positionInspector = function (opts) {
 		h = this.height,
 		p = function(n, prec){ return parseFloat(n.toFixed(prec || 2), 10)},
 		currentInfo = tpl,
-		prev = { x: 0, y: 0},
-		scroll = { left: 0, top: 0},
-		init = {x: document.documentElement.scrollLeft, y: document.documentElement.scrollTop},
-		curr = { x: 0, y: 0},
+		prev = { x: 0, y: 0 },
+		scroll = { left: 0, top: 0 },
+		init = { x: document.documentElement.scrollLeft, y: document.documentElement.scrollTop },
+		curr = { x: 0, y: 0 },
 		currTplized = {},
 		curves = [[]],
 		curveEnds = [false],
 		currentCurveIndex = 0,
-
 		dots = [],
 		dotsIndex = 0,
-		
 		onScroll = function () {
 			scroll.left = document.documentElement.scrollLeft;
 			scroll.top = document.documentElement.scrollTop;
@@ -212,6 +210,15 @@ L.prototype.positionInspector = function (opts) {
 	infoList.style.border = '1px solid black';
 	infoList.style.overflow = 'scroll';
 
+	function doDots() {
+		dotsGroup.clear();
+		dotsGroup.append(dots);
+	}
+
+	tag.parentNode.appendChild(infoTag);
+	tag.parentNode.appendChild(infoList);
+	tag.parentNode.appendChild(copy);
+	
 	tag.addEventListener('mousemove', function (e) {
 		var x = e.clientX + scroll.left - init.x,
 			y = e.clientY + scroll.top - init.y,
@@ -234,15 +241,6 @@ L.prototype.positionInspector = function (opts) {
 		infoTag.innerHTML = currentInfo;
 	});
 
-	function doDots() {
-		dotsGroup.clear();
-		dotsGroup.append(dots);
-	}
-
-	tag.parentNode.appendChild(infoTag);
-	tag.parentNode.appendChild(infoList);
-	tag.parentNode.appendChild(copy);
-	
 	tag.addEventListener('click', function () {
 		var item = document.createElement('li'),
 			r = 2,
