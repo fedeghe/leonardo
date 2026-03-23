@@ -331,7 +331,7 @@ window.onload = function () {
             blackBox = L.rect(0,0,w(700),h(1000)).setAttributes({
                 rx: h(140), 
                 ry: h(140),
-                fill: '#000000'
+                fill: '#222222'
             }),
             orangeBox = L.rect(w(600),0,w(400),h(1000)).setAttributes({
                 rx: h(140), 
@@ -345,7 +345,7 @@ window.onload = function () {
                     'font-weight': 'bold',
             }
             elements = {
-                good: L.text(w(50),75,'Good').setAttributes({
+                good: L.text(w(50),75,'dooG').setAttributes({
                     ...common,
                     fill:'#ffffff',
                     'letter-spacing': 21,
@@ -361,7 +361,7 @@ window.onload = function () {
                         },
                     )
                 }),
-                boy: L.text(w(650),75,'boy').setAttributes({
+                boy: L.text(w(650),75,'yoB').setAttributes({
                     ...common,
                     'letter-spacing': 10,
                     fill:'#000000',
@@ -383,20 +383,20 @@ window.onload = function () {
                 blackBox,
                 orangeBox,
                 elements.good, elements.boy
-            );
-            // .scale(0.9).move(w(50), h(50)).sas({
-            //     filter: L.filter(
-            //         {type:'feDropShadow',
-            //             attrs:{
-            //                 dx:0,
-            //                 dy:0,
-            //                 stdDeviation:"2",
-            //                 "flood-color":"red",
-            //                 "flood-opacity":"6.5",
-            //             }
-            //         },
-            //     )
-            // });
+            )
+            .scale(0.9).sas({
+                filter: L.filter(
+                    {type:'feDropShadow',
+                        attrs:{
+                            dx:5,
+                            dy:5,
+                            stdDeviation:"1",
+                            "flood-color":"#444444",
+                            "flood-opacity":"6.5",
+                        }
+                    },
+                )
+            });
 
         
 
