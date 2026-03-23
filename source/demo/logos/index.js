@@ -168,7 +168,7 @@ window.onload = function () {
 
                 .L(w(800), h(230))
 
-                .L(w(910), h(400))
+                .L(w(910), h(500))
 
                 .L(w(500), h(850))
 
@@ -309,6 +309,102 @@ window.onload = function () {
         
         target.appendChild(
             L.pngDownloadAnchor({txt: 'download as png', name: 'synchazard'})
+        );
+        // target.appendChild(L.svgDownloadAnchor({name: 'synchazard'}));
+    })();
+
+
+    (function () {
+        var target = document.getElementById('trg5'),
+            width = 500,
+            height = 100,
+            min = width > height ? height : width,
+            hperc = height / 100,
+            mperc = min / 100,
+            
+            L = Leonardo(width, height, { ns: '*', target: target }),
+            w = L.getScaler(width, 1e3),
+            h = L.getScaler(height, 1e3),
+
+
+
+            blackBox = L.rect(0,0,w(700),h(1000)).setAttributes({
+                rx: h(140), 
+                ry: h(140),
+                fill: '#000000'
+            }),
+            orangeBox = L.rect(w(600),0,w(400),h(1000)).setAttributes({
+                rx: h(140), 
+                ry: h(140),
+                fill: '#ff7700'
+            }),
+
+            common = {
+                'font-family': 'verdana',
+                    'font-size': '4rem',
+                    'font-weight': 'bold',
+            }
+            elements = {
+                good: L.text(w(50),75,'Good').setAttributes({
+                    ...common,
+                    fill:'#ffffff',
+                    'letter-spacing': 21,
+                    filter: L.filter(
+                        {type:'feDropShadow',
+                            attrs:{
+                                dx:0,
+                                dy:0,
+                                stdDeviation:"5",
+                                "flood-color":"#ff7700",
+                                "flood-opacity":"6.5",
+                            }
+                        },
+                    )
+                }),
+                boy: L.text(w(650),75,'boy').setAttributes({
+                    ...common,
+                    'letter-spacing': 10,
+                    fill:'#000000',
+                    filter: L.filter(
+                        {type:'feDropShadow',
+                            attrs:{
+                                dx:0,
+                                dy:0,
+                                stdDeviation:"10",
+                                "flood-color":"white",
+                                "flood-opacity":"6.5",
+                            }
+                        },
+                    )
+                }),
+                
+            },
+            g = L.group(
+                blackBox,
+                orangeBox,
+                elements.good, elements.boy
+            );
+            // .scale(0.9).move(w(50), h(50)).sas({
+            //     filter: L.filter(
+            //         {type:'feDropShadow',
+            //             attrs:{
+            //                 dx:0,
+            //                 dy:0,
+            //                 stdDeviation:"2",
+            //                 "flood-color":"red",
+            //                 "flood-opacity":"6.5",
+            //             }
+            //         },
+            //     )
+            // });
+
+        
+
+
+        L.append(g).render();
+        
+        target.appendChild(
+            L.pngDownloadAnchor({txt: 'download as png', name: 'good boy'})
         );
         // target.appendChild(L.svgDownloadAnchor({name: 'synchazard'}));
     })();

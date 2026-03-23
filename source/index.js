@@ -8,11 +8,20 @@ const Leonardo = (function(w) {
 	// Leo is defined
 	$$lib/Lstatic.js$$
 	$$lib/Lutilities.js$$
-	$$lib/Ltags.js$$	
+	$$lib/Ltags.js$$
+	$$lib/Ldelegate.js$$
 	$$lib/LpathBuild.js$$
+	$$lib/LpathUtils.js$$
 	$$lib/Lgradients.js$$	
-	$$lib/Lfilters.js$$	
-    $$lib/Lanimate.js$$	
+	$$lib/Lfilters.js$$
+    $$lib/Lmasks.js$$
+    $$lib/Lpatterns.js$$
+    $$lib/Ldraggable.js$$
+    $$lib/Lbatch.js$$
+    $$lib/Lviewbox.js$$
+    $$lib/Ldebug.js$$
+    $$lib/Lanimate.js$$
+    $$lib/Ltimeline.js$$	
     $$lib/Lextra.js$$	
     // ---
 	Leo.validate = validate;

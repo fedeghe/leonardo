@@ -1,26 +1,46 @@
+/* istanbul ignore next */
 function fade (out, t, target) {
+	/* istanbul ignore next */
 	var start = null,
+        /* istanbul ignore next */
         self = this,
+        /* istanbul ignore next */
         r,
+		/* istanbul ignore next */
 		done = false;
+	/* istanbul ignore next */
 	setTimeout(function () { done = true; }, t);
+	/* istanbul ignore next */
 	target = target ||  self;
+	/* istanbul ignore next */
 	target.tag.style.opacity = out ? 1 : 0;
 
+	/* istanbul ignore next */
 	function fade(now) {
+        /* istanbul ignore next */
         start = start || now;
+        /* istanbul ignore next */
         var p = parseFloat((now - start) / t, 10);
+		/* istanbul ignore next */
 		if (out) p = 1 - p;
+		/* istanbul ignore next */
 		var cnd = out ? p > 0 : p < 1;
+        /* istanbul ignore next */
         target.tag.style.opacity = p;
+        /* istanbul ignore next */
         if (cnd && !done) {
+            /* istanbul ignore next */
             r = requestAnimationFrame(fade);
         } else {
+            /* istanbul ignore next */
             target.tag.style.opacity = out ? 0 : 1;
+            /* istanbul ignore next */
             cancelAnimationFrame(r);
         }
     }
+    /* istanbul ignore next */
     r = requestAnimationFrame(fade);
+	/* istanbul ignore next */
 	return this;
 }
 

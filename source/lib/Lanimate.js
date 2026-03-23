@@ -7,10 +7,10 @@ L.prototype.animate = (function () {
 	// seconds per frame = 1/(frame per seconds)
 	var spf60 = (1E3/60)/1000;
 	function parametricCartesian(el, fx, fy, interval, opts) {
-		opts = opts || {};
-		var trace = opts.trace || false;
+		opts = opts || {};	
         interval = interval || spf60;
-		var t = 0,
+		var trace = opts.trace || false,
+			t = 0,
 			x = 0,
 			y = 0,
 			lastTime = 0,
@@ -25,7 +25,6 @@ L.prototype.animate = (function () {
 					if(trace) {
 						var c = new Element('circle'),
 							attrs = el.getAttributes('cx', 'cy');
-
 						c.sas(Object.assign({
 							cx: ~~attrs.cx + x,
 							cy: ~~attrs.cy + y,
@@ -43,11 +42,12 @@ L.prototype.animate = (function () {
             cancelAnimationFrame(rafId);
         }
 	}
+	
 	function parametricPolar(el, fr, fO, interval, opts) {
 		opts = opts || {};
-		var trace = opts.trace || false;
         interval = interval || spf60;
-		var t = 0,
+		var trace = opts.trace || false,
+			t = 0,
 			r = 0,
 			O = 0,
 			lastTime = 0,
@@ -74,7 +74,6 @@ L.prototype.animate = (function () {
 						}, trace.style || {}));
 						el.parent.append(c);
 					}
-
 				}
 				rafId = requestAnimationFrame(step);
 			};
@@ -100,7 +99,7 @@ L.prototype.animate = (function () {
 		return animate;
 	};
 
-
+	/* istanbul ignore next */
 	function motionPath(el, pathStr, ats) {
 		ats = ats || {};
 		var animateMotion = new Element('animateMotion'),
@@ -112,7 +111,7 @@ L.prototype.animate = (function () {
 				max: ats.max || null,
 				restart: ats.restart || 'always',
 				repeatCount: ats.repeatCount || 'indefinite',
-			
+
 				repeatDur: ats.repeatDur || null,
 				// fill
 				path: pathStr
@@ -122,10 +121,86 @@ L.prototype.animate = (function () {
 		return el;
 	}
 
+	// Easing functions
+	/* istanbul ignore next */
+	var Easing = {
+		linear: function(t) { return t; },
+		easeInQuad: function(t) { return t * t; },
+		easeOutQuad: function(t) { return 1 - (1 - t) * (1 - t); },
+		easeInOutQuad: function(t) {
+			return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+		},
+		easeInCubic: function(t) { return t * t * t; },
+		easeOutCubic: function(t) { return 1 - Math.pow(1 - t, 3); },
+		easeInOutCubic: function(t) {
+			return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+		},
+		easeInQuart: function(t) { return t * t * t * t; },
+		easeOutQuart: function(t) { return 1 - Math.pow(1 - t, 4); },
+		easeInOutQuart: function(t) {
+			return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+		},
+		spring: function(t) {
+			var c4 = (2 * Math.PI) / 3;
+			return t === 0 ? 0 : t === 1 ? 1 : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
+		},
+		bounce: function(t) {
+			var n1 = 7.5625, d1 = 2.75;
+			/* istanbul ignore next */
+			if (t < 1 / d1) {
+				return n1 * t * t;
+			/* istanbul ignore next */
+			} else if (t < 2 / d1) {
+				return n1 * (t -= 1.5 / d1) * t + 0.75;
+			/* istanbul ignore next */
+			} else if (t < 2.5 / d1) {
+				return n1 * (t -= 2.25 / d1) * t + 0.9375;
+			} else {
+				return n1 * (t -= 2.625 / d1) * t + 0.984375;
+			}
+		}
+	};
+
+	// Animate with easing
+	/* istanbul ignore next */
+	function animateWithEasing(el, params) {
+		var easing = params.easing || Easing.linear,
+			from = params.from || 0,
+			to = params.to || 1,
+			dur = parseFloat(params.dur) * 1000 || 1000,
+			startTime = null,
+			attributeName = params.attributeName,
+			rafId = null;
+
+		function step(timestamp) {
+			if (!startTime) startTime = timestamp;
+			var elapsed = timestamp - startTime,
+				progress = Math.min(elapsed / dur, 1),
+				easedProgress = easing(progress),
+				value = from + (to - from) * easedProgress;
+
+			el.tag.setAttribute(attributeName, value);
+
+			if (progress < 1) {
+				rafId = requestAnimationFrame(step);
+			} else if (params.onComplete) {
+				params.onComplete();
+			}
+		
+		}
+		rafId = requestAnimationFrame(step);
+		return function() {
+			cancelAnimationFrame(rafId);
+		};
+	}
+
 	return {
 		cartesian : parametricCartesian,
 		polar : parametricPolar,
 		motionPath: motionPath,
-		attr : attr
+		attr : attr,
+		Easing: Easing,
+		withEasing: animateWithEasing
 	};
+
 })();

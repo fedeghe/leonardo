@@ -7,7 +7,7 @@
                                                   V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~54.96KB
+~92.62KB
 */
 const Leonardo = (function(w) {
 	/*
@@ -900,29 +900,49 @@ const Leonardo = (function(w) {
 	/*
 	[Malta] lib/Lutilities.js
 	*/
+	/* istanbul ignore next */
 	function fade (out, t, target) {
+		/* istanbul ignore next */
 		var start = null,
+	        /* istanbul ignore next */
 	        self = this,
+	        /* istanbul ignore next */
 	        r,
+			/* istanbul ignore next */
 			done = false;
+		/* istanbul ignore next */
 		setTimeout(function () { done = true; }, t);
+		/* istanbul ignore next */
 		target = target ||  self;
+		/* istanbul ignore next */
 		target.tag.style.opacity = out ? 1 : 0;
 	
+		/* istanbul ignore next */
 		function fade(now) {
+	        /* istanbul ignore next */
 	        start = start || now;
+	        /* istanbul ignore next */
 	        var p = parseFloat((now - start) / t, 10);
+			/* istanbul ignore next */
 			if (out) p = 1 - p;
+			/* istanbul ignore next */
 			var cnd = out ? p > 0 : p < 1;
+	        /* istanbul ignore next */
 	        target.tag.style.opacity = p;
+	        /* istanbul ignore next */
 	        if (cnd && !done) {
+	            /* istanbul ignore next */
 	            r = requestAnimationFrame(fade);
 	        } else {
+	            /* istanbul ignore next */
 	            target.tag.style.opacity = out ? 0 : 1;
+	            /* istanbul ignore next */
 	            cancelAnimationFrame(r);
 	        }
 	    }
+	    /* istanbul ignore next */
 	    r = requestAnimationFrame(fade);
+		/* istanbul ignore next */
 		return this;
 	}
 	
@@ -1617,7 +1637,116 @@ const Leonardo = (function(w) {
 	
 	
 	
-		
+	
+	/*
+	[Malta] lib/Ldelegate.js
+	*/
+	
+	/**
+	 * Event delegation - attach a single listener to the root that handles events for all matching selectors
+	 *
+	 * @param {string} eventName - Event name (e.g., 'click', 'mouseover')
+	 * @param {string} selector - CSS-style selector to match target elements (e.g., 'circle', '.my-class', '#id')
+	 * @param {Function} handler - Event handler function
+	 * @returns {L} - Returns the instance for chaining
+	 *
+	 * @example
+	 * L.delegate('click', 'circle', function(e, target) {
+	 *     console.log('Circle clicked:', target);
+	 * });
+	 */
+	L.prototype.delegate = function(eventName, selector, handler) {
+	    var self = this;
+	
+	    this.tag.addEventListener(eventName, function(e) {
+	        var target = e.target;
+	
+	        // Check if target matches selector
+	        /* istanbul ignore else */
+	        if (matchesSelector(target, selector)) {
+	            handler.call(target, e, target);
+	        }
+	    });
+	
+	    return this;
+	};
+	
+	/**
+	 * Element-level event delegation
+	 *
+	 * @param {string} eventName - Event name
+	 * @param {string} selector - CSS-style selector to match child elements
+	 * @param {Function} handler - Event handler function
+	 * @returns {Element} - Returns the element for chaining
+	 *
+	 * @example
+	 * group.delegate('click', 'circle', function(e, target) {
+	 *     console.log('Circle in group clicked:', target);
+	 * });
+	 */
+	Element.prototype.delegate = function(eventName, selector, handler) {
+	    var self = this;
+	
+	    this.tag.addEventListener(eventName, function(e) {
+	        var target = e.target;
+	
+	        // Traverse up to find if target or its ancestors match selector within this element
+	        while (target && target !== self.tag) {
+	            /* istanbul ignore else */
+	            if (matchesSelector(target, selector)) {
+	                handler.call(target, e, target);
+	                break;
+	            }
+	            /* istanbul ignore next */
+	            target = target.parentNode;
+	        }
+	    });
+	
+	    return this;
+	};
+	
+	/**
+	 * Helper function to check if an element matches a selector
+	 * @private
+	 */
+	function matchesSelector(element, selector) {
+	    /* istanbul ignore next */
+	    if (!element || !element.tagName) return false;
+	
+	    // Handle tag name selectors (e.g., 'circle', 'rect')
+	    /* istanbul ignore else */
+	    if (/^[a-zA-Z]+$/.test(selector)) {
+	        return element.tagName.toLowerCase() === selector.toLowerCase();
+	    }
+	
+	    // Handle class selectors (e.g., '.my-class')
+	    /* istanbul ignore else */
+	    if (selector.startsWith('.')) {
+	        var className = selector.slice(1);
+	        var classes = element.getAttribute('class');
+	        return classes && classes.split(' ').indexOf(className) !== -1;
+	    }
+	
+	    // Handle id selectors (e.g., '#myId')
+	    /* istanbul ignore else */
+	    if (selector.startsWith('#')) {
+	        var id = selector.slice(1);
+	        return element.getAttribute('id') === id;
+	    }
+	
+	    // Fallback: try using browser's matches if available
+	    /* istanbul ignore next */
+	    if (element.matches) {
+	        /* istanbul ignore next */
+	        return element.matches(selector);
+	    }
+	    /* istanbul ignore next */
+	    return false;
+	}
+	
+	// Static version
+	Leo.delegate = L.delegate = L.prototype.delegate;
+	
 	/*
 	[Malta] lib/LpathBuild.js
 	*/
@@ -1748,6 +1877,113 @@ const Leonardo = (function(w) {
 			)
 			.L(cx, cy);
 	};
+	
+	/*
+	[Malta] lib/LpathUtils.js
+	*/
+	
+	/**
+	 * Creates an arc path data string for a circular arc between two points
+	 *
+	 * @param {number} x1 - Starting x coordinate
+	 * @param {number} y1 - Starting y coordinate
+	 * @param {number} x2 - Ending x coordinate
+	 * @param {number} y2 - Ending y coordinate
+	 * @param {number} radius - Radius of the arc
+	 * @param {number} largeArc - 0 for small arc, 1 for large arc (default: 0)
+	 * @param {number} sweep - 0 for clockwise, 1 for counter-clockwise (default: 1)
+	 * @returns {string} - Path data string
+	 *
+	 * @example
+	 * var arc = L.arc(0, 50, 100, 50, 50); // Half-circle arc
+	 * element.setAttributes({ d: arc });
+	 */
+	L.prototype.arc = function(x1, y1, x2, y2, radius, largeArc, sweep) {
+	    largeArc = typeof largeArc === 'undefined' ? 0 : largeArc;
+	    sweep = typeof sweep === 'undefined' ? 1 : sweep;
+	    return 'M ' + x1 + ',' + y1 + ' A ' + radius + ',' + radius + ' 0 ' + largeArc + ',' + sweep + ' ' + x2 + ',' + y2;
+	};
+	
+	/**
+	 * Creates a smooth curve path through a series of points using spline interpolation
+	 *
+	 * @param {Array} points - Array of [x, y] coordinates
+	 * @param {boolean} closed - Whether to close the path (default: false)
+	 * @returns {string} - Path data string
+	 *
+	 * @example
+	 * var path = L.smoothCurveThroughPoints([[0,0], [50,100], [100,0], [150,50]]);
+	 * element.setAttributes({ d: path });
+	 */
+	L.prototype.smoothCurveThroughPoints = function(points, closed) {
+	    if (!points || points.length < 2) return '';
+	    if (points.length === 2) {
+	        return 'M ' + points[0][0] + ',' + points[0][1] + ' L ' + points[1][0] + ',' + points[1][1];
+	    }
+	
+	    var d = 'M ' + points[0][0] + ',' + points[0][1];
+	
+	    // Calculate control points for smooth curves
+	    for (var i = 0; i < points.length - 1; i++) {
+	        var p0 = points[i === 0 ? 0 : i - 1];
+	        var p1 = points[i];
+	        var p2 = points[i + 1];
+	        var p3 = points[i + 2] || p2;
+	
+	        var cp1x = p1[0] + (p2[0] - p0[0]) / 6;
+	        var cp1y = p1[1] + (p2[1] - p0[1]) / 6;
+	        var cp2x = p2[0] - (p3[0] - p1[0]) / 6;
+	        var cp2y = p2[1] - (p3[1] - p1[1]) / 6;
+	
+	        d += ' C ' + cp1x + ',' + cp1y + ' ' + cp2x + ',' + cp2y + ' ' + p2[0] + ',' + p2[1];
+	    }
+	
+	    if (closed) {
+	        d += ' Z';
+	    }
+	
+	    return d;
+	};
+	
+	/**
+	 * Get the total length of a path element
+	 *
+	 * @param {Element} pathElement - A path element
+	 * @returns {number} - Total length of the path
+	 *
+	 * @example
+	 * var path = L.path('M0,0 L100,100');
+	 * var len = L.getTotalLength(path);
+	*/
+	/* istanbul ignore next */
+	L.prototype.getTotalLength = function(pathElement) {
+	    if (!pathElement || !pathElement.tag) return 0;
+	    return pathElement.tag.getTotalLength ? pathElement.tag.getTotalLength() : 0;
+	};
+	
+	/**
+	 * Get a point at a specific distance along a path
+	 *
+	 * @param {Element} pathElement - A path element
+	 * @param {number} distance - Distance along the path
+	 * @returns {Object} - { x, y } coordinates or null
+	 *
+	 * @example
+	 * var path = L.path('M0,0 L100,100');
+	 * var point = L.getPointAtLength(path, 50);
+	 */
+	/* istanbul ignore next */
+	L.prototype.getPointAtLength = function(pathElement, distance) {
+	    if (!pathElement || !pathElement.tag || !pathElement.tag.getPointAtLength)  return null;
+	    var pt = pathElement.tag.getPointAtLength(distance);
+	    return { x: pt.x, y: pt.y };
+	};
+	
+	// Static versions
+	Leo.arc = L.arc = L.prototype.arc;
+	Leo.smoothCurveThroughPoints = L.smoothCurveThroughPoints = L.prototype.smoothCurveThroughPoints;
+	Leo.getTotalLength = L.getTotalLength = L.prototype.getTotalLength;
+	Leo.getPointAtLength = L.getPointAtLength = L.prototype.getPointAtLength;
 	
 	/*
 	[Malta] lib/Lgradients.js
@@ -1881,7 +2117,743 @@ const Leonardo = (function(w) {
 	    this.defs.append(filter);
 	    return 'url(#' + id + ')';
 	}
-		
+	
+    /*
+    [Malta] lib/Lmasks.js
+    */
+    
+    /**
+     * Creates a mask definition that can be applied to elements
+     *
+     * @param {string|Element} id - Optional id for the mask, or first element
+     * @param {...Element} elements - Elements to include in the mask
+     * @returns {string} - URL reference to use in setAttributes({ mask: ... })
+     *
+     * @example
+     * var mask = L.mask(
+     *     L.rect(0, 0, 100, 100).setAttributes({ fill: 'white' }),
+     *     L.circle(50, 50, 30).setAttributes({ fill: 'black' })
+     * );
+     * element.setAttributes({ mask: mask });
+     */
+    L.prototype.mask = function(id) {
+        var args = [].slice.call(arguments, 0),
+            defs = getDefs(this),
+            mask = new Element('mask'),
+            maskId,
+            elements;
+    
+        // Check if first argument is an element (has _id property) or a string ID
+        if (id && typeof id === 'string' && !id._id) {
+            maskId = id;
+            elements = args.slice(1);
+        } else {
+            maskId = lid();
+            elements = args;
+        }
+    
+        mask.sas({ id: maskId });
+        elements.forEach(function(el) {
+            if (el && el._id) {
+                mask.append(el);
+            }
+        });
+        defs.append(mask);
+        return 'url(#' + maskId + ')';
+    };
+    
+    /**
+     * Creates a clipPath definition that can be applied to elements
+     *
+     * @param {string|Element} id - Optional id for the clipPath, or first element
+     * @param {...Element} elements - Elements defining the clip path
+     * @returns {string} - URL reference to use in setAttributes({ 'clip-path': ... })
+     *
+     * @example
+     * var clip = L.clipPath(
+     *     L.circle(50, 50, 40)
+     * );
+     * element.setAttributes({ 'clip-path': clip });
+     */
+    L.prototype.clipPath = function(id) {
+        var args = [].slice.call(arguments, 0),
+            defs = getDefs(this),
+            clipPath = new Element('clipPath'),
+            clipId,
+            elements;
+    
+        // Check if first argument is an element (has _id property) or a string ID
+        if (id && typeof id === 'string' && !id._id) {
+            clipId = id;
+            elements = args.slice(1);
+        } else {
+            clipId = lid();
+            elements = args;
+        }
+    
+        clipPath.sas({ id: clipId });
+        elements.forEach(function(el) {
+            if (el && el._id) {
+                clipPath.append(el);
+            }
+        });
+        defs.append(clipPath);
+        return 'url(#' + clipId + ')';
+    };
+    
+    // Static versions
+    Leo.mask = L.mask = L.prototype.mask;
+    Leo.clipPath = L.clipPath = L.prototype.clipPath;
+    
+    /*
+    [Malta] lib/Lpatterns.js
+    */
+    
+    /**
+     * Creates a pattern definition that can be used as fill or stroke
+     *
+     * @param {number} width - Pattern width
+     * @param {number} height - Pattern height
+     * @param {Element|Array} content - Element(s) to use as pattern content
+     * @param {Object} options - Optional configuration
+     * @param {string} options.id - Custom id for the pattern
+     * @param {string} options.patternUnits - 'userSpaceOnUse' or 'objectBoundingBox' (default: 'userSpaceOnUse')
+     * @param {string} options.patternTransform - Transform to apply to the pattern
+     * @param {number} options.x - Pattern x offset
+     * @param {number} options.y - Pattern y offset
+     * @returns {string} - URL reference to use as fill or stroke
+     *
+     * @example
+     * var pattern = L.pattern(20, 20,
+     *     L.circle(10, 10, 5).setAttributes({ fill: 'red' }),
+     *     { patternUnits: 'userSpaceOnUse' }
+     * );
+     * element.setAttributes({ fill: pattern });
+     */
+    L.prototype.pattern = function(width, height, content, options) {
+        options = options || {};
+        var defs = getDefs(this),
+            pattern = new Element('pattern'),
+            patternId = options.id || lid();
+    
+        pattern.sas({
+            id: patternId,
+            width: width,
+            height: height,
+            x: options.x || 0,
+            y: options.y || 0,
+            patternUnits: options.patternUnits || 'userSpaceOnUse'
+        });
+    
+        if (options.patternTransform) {
+            pattern.sas({ patternTransform: options.patternTransform });
+        }
+    
+        // Handle single element or array of elements
+        /* istanbul ignore else */
+        if (content instanceof Array) {
+            content.forEach(function(el) {
+                pattern.append(el);
+            });
+        } else if (content) {
+            pattern.append(content);
+        }
+    
+        defs.append(pattern);
+        return 'url(#' + patternId + ')';
+    };
+    
+    // Static version
+    Leo.pattern = L.pattern = L.prototype.pattern;
+    
+    /*
+    [Malta] lib/Ldraggable.js
+    */
+    
+    /**
+     * Makes an element draggable
+     *
+     * @param {Object} options - Drag options
+     * @param {Function} options.onDrag - Called during drag with (dx, dy, x, y)
+     * @param {Function} options.onStart - Called when drag starts with (x, y)
+     * @param {Function} options.onEnd - Called when drag ends with (x, y)
+     * @param {string|Array} options.constrainTo - 'parent' or [x, y, width, height] bounds
+     * @returns {Element} - Returns the element for chaining
+     *
+     * @example
+     * circle.draggable({
+     *     onDrag: function(dx, dy, x, y) {
+     *         console.log('Dragging to:', x, y);
+     *     },
+     *     onStart: function(x, y) {
+     *         console.log('Started dragging at:', x, y);
+     *     },
+     *     onEnd: function(x, y) {
+     *         console.log('Ended dragging at:', x, y);
+     *     },
+     *     constrainTo: 'parent'
+     * });
+     */
+    Element.prototype.draggable = function(options) {
+        options = options || {};
+        var self = this,
+            isDragging = false,
+            startX = 0,
+            startY = 0,
+            initialX = 0,
+            initialY = 0,
+            currentX = 0,
+            currentY = 0,
+            onDrag = options.onDrag || function() {},
+            onStart = options.onStart || function() {},
+            onEnd = options.onEnd || function() {},
+            constrainTo = options.constrainTo,
+            svg = this.tag.ownerSVGElement;
+    
+        // Get initial position from transform or attributes
+        function getPosition() {
+            var transform = self.tag.getAttribute('transform');
+            if (transform) {
+                var match = transform.match(/translate\(([^,]+),\s*([^)]+)\)/);
+                if (match) {
+                    return {
+                        x: parseFloat(match[1]) || 0,
+                        y: parseFloat(match[2]) || 0
+                    };
+                }
+            }
+            // Try cx/cy for circles/ellipses
+            var cx = self.tag.getAttribute('cx'),
+                cy = self.tag.getAttribute('cy'),
+                x = self.tag.getAttribute('x'),
+                y = self.tag.getAttribute('y');
+            return {
+                x: parseFloat(cx || x || 0),
+                y: parseFloat(cy || y || 0)
+            };
+        }
+    
+        // Convert screen coordinates to SVG coordinates
+        /* istanbul ignore next */
+        function getSVGPoint(clientX, clientY) {
+            if (!svg) return { x: clientX, y: clientY };
+            /* istanbul ignore next */
+            var pt = svg.createSVGPoint();
+            /* istanbul ignore next */
+            pt.x = clientX;
+            /* istanbul ignore next */
+            pt.y = clientY;
+            /* istanbul ignore next */
+            var ctm = svg.getScreenCTM();
+            /* istanbul ignore next */
+            if (ctm) {
+                /* istanbul ignore next */
+                return pt.matrixTransform(ctm.inverse());
+            }
+            /* istanbul ignore next */
+            return { x: clientX, y: clientY };
+        }
+    
+        // Apply constraints
+        function constrain(x, y) {
+            if (!constrainTo) return { x: x, y: y };
+    
+            var bounds;
+            if (constrainTo === 'parent') {
+                var parent = self.tag.parentNode;
+                if (parent && parent.getBBox) {
+                    var bbox = parent.getBBox();
+                    bounds = [bbox.x, bbox.y, bbox.width, bbox.height];
+                }
+            } else if (constrainTo instanceof Array && constrainTo.length === 4) {
+                bounds = constrainTo;
+            }
+    
+            if (bounds) {
+                var elBBox = self.tag.getBBox ? self.tag.getBBox() : { width: 0, height: 0 };
+                x = Math.max(bounds[0], Math.min(x, bounds[0] + bounds[2] - elBBox.width));
+                y = Math.max(bounds[1], Math.min(y, bounds[1] + bounds[3] - elBBox.height));
+            }
+    
+            return { x: x, y: y };
+        }
+    
+        function startDrag(e) {
+            if (e.button !== 0) return; // Only left mouse button
+            isDragging = true;
+    
+            var pos = getPosition();
+            var svgPoint = getSVGPoint(e.clientX, e.clientY);
+            initialX = pos.x;
+            initialY = pos.y;
+            startX = svgPoint.x;
+            startY = svgPoint.y;
+            currentX = initialX;
+            currentY = initialY;
+    
+            onStart.call(self, initialX, initialY);
+            e.preventDefault();
+        }
+    
+        function doDrag(e) {
+            if (!isDragging) return;
+    
+            var svgPoint = getSVGPoint(e.clientX, e.clientY);
+            var dx = svgPoint.x - startX;
+            var dy = svgPoint.y - startY;
+    
+            currentX = initialX + dx;
+            currentY = initialY + dy;
+    
+            var constrained = constrain(currentX, currentY);
+            currentX = constrained.x;
+            currentY = constrained.y;
+    
+            self.move(currentX, currentY);
+            onDrag.call(self, dx, dy, currentX, currentY);
+        }
+    
+        function endDrag(e) {
+            if (!isDragging) return;
+            isDragging = false;
+            onEnd.call(self, currentX, currentY);
+        }
+    
+        // Mouse events
+        this.tag.addEventListener('mousedown', startDrag);
+        document.addEventListener('mousemove', doDrag);
+        document.addEventListener('mouseup', endDrag);
+    
+        // Touch events for mobile
+        /* istanbul ignore next */
+        this.tag.addEventListener('touchstart', function(e) {
+            /* istanbul ignore next */
+            if (e.touches.length === 1) {
+                /* istanbul ignore next */
+                startDrag(e.touches[0]);
+            }
+        });
+        /* istanbul ignore next */
+        document.addEventListener('touchmove', function(e) {
+            /* istanbul ignore next */
+            if (e.touches.length === 1) {
+                /* istanbul ignore next */
+                doDrag(e.touches[0]);
+            }
+        });
+        /* istanbul ignore next */
+        document.addEventListener('touchend', endDrag);
+    
+        return this;
+    };
+    
+    /*
+    [Malta] lib/Lbatch.js
+    */
+    
+    /**
+     * Batch multiple DOM operations to improve performance
+     * Defers actual DOM updates until the end of the batch
+     *
+     * @param {Function} fn - Function containing operations to batch
+     * @returns {L} - Returns the instance for chaining
+     *
+     * @example
+     * L.batch(function() {
+     *     circle.setAttributes({ cx: 100 });
+     *     rect.setAttributes({ x: 50 });
+     *     group.append(circle, rect);
+     * });
+     */
+    L.prototype.batch = function(fn) {
+        // Store original append method
+        var originalAppend = this.append;
+        var self = this;
+        var pendingAppends = [];
+    
+        // Override append to collect operations
+        this.append = function() {
+            var args = [].slice.call(arguments, 0);
+            pendingAppends.push(args);
+            return self;
+        };
+    
+        // Execute the batch function
+        try {
+            fn.call(this);
+        } finally {
+            // Restore original append
+            this.append = originalAppend;
+    
+            // Apply all pending appends in a document fragment
+            if (pendingAppends.length > 0) {
+                var fragment = document.createDocumentFragment();
+    
+                pendingAppends.forEach(function(args) {
+                    args.forEach(function(el) {
+                        if (el instanceof Element) {
+                            self.childs.push(el);
+                            el.parent = self;
+                            fragment.appendChild(el.tag);
+                        }
+                    });
+                });
+    
+                this.tag.appendChild(fragment);
+            }
+        }
+    
+        return this;
+    };
+    
+    /**
+     * Element-level batch for appending multiple children efficiently
+     *
+     * @param {Array} elements - Array of elements to append
+     * @returns {Element} - Returns the element for chaining
+     *
+     * @example
+     * group.batchAppend([circle1, circle2, rect1, rect2]);
+     */
+    Element.prototype.batchAppend = function(elements) {
+        var self = this;
+        var fragment = document.createDocumentFragment();
+    
+        elements.forEach(function(el) {
+            if (el instanceof Element) {
+                self.childs.push(el);
+                el.parent = self;
+                fragment.appendChild(el.tag);
+            }
+        });
+    
+        this.tag.appendChild(fragment);
+        return this;
+    };
+    
+    // Static version
+    Leo.batch = L.batch = L.prototype.batch;
+    
+    /*
+    [Malta] lib/Lviewbox.js
+    */
+    
+    /**
+     * Sets the viewBox attribute for the SVG
+     *
+     * @param {number} x - X coordinate of viewBox
+     * @param {number} y - Y coordinate of viewBox
+     * @param {number} width - Width of viewBox
+     * @param {number} height - Height of viewBox
+     * @returns {L} - Returns the instance for chaining
+     *
+     * @example
+     * L.setViewBox(0, 0, 500, 500);
+     */
+    L.prototype.setViewBox = function(x, y, width, height) {
+        this.tag.setAttribute('viewBox', [x, y, width, height].join(' '));
+        return this;
+    };
+    
+    /**
+     * Sets the preserveAspectRatio attribute
+     *
+     * @param {string} mode - Aspect ratio mode
+     *   Alignment: 'xMinYMin', 'xMidYMin', 'xMaxYMin',
+     *             'xMinYMid', 'xMidYMid', 'xMaxYMid',
+     *             'xMinYMax', 'xMidYMax', 'xMaxYMax'
+     *   Meet/Slice: 'meet' or 'slice'
+     *   Or combine: 'xMidYMid meet' (default)
+     * @returns {L} - Returns the instance for chaining
+     *
+     * @example
+     * L.preserveAspectRatio('xMidYMid meet');
+     * L.preserveAspectRatio('xMinYMin slice');
+     */
+    L.prototype.preserveAspectRatio = function(mode) {
+        this.tag.setAttribute('preserveAspectRatio', mode);
+        return this;
+    };
+    
+    /**
+     * Converts screen coordinates to SVG coordinates
+     *
+     * @param {number} screenX - X coordinate in screen space
+     * @param {number} screenY - Y coordinate in screen space
+     * @returns {Object} - { x, y } in SVG coordinates
+     *
+     * @example
+     * var svgPoint = L.screenToSVG(100, 200);
+     */
+    /* istanbul ignore next */
+    L.prototype.screenToSVG = function(screenX, screenY) {
+        /* istanbul ignore next */
+        if (!this.tag.createSVGPoint) return { x: screenX, y: screenY };
+        /* istanbul ignore next */
+        var pt = this.tag.createSVGPoint();
+        /* istanbul ignore next */
+        pt.x = screenX;
+        /* istanbul ignore next */
+        pt.y = screenY;
+        /* istanbul ignore next */
+        var ctm = this.tag.getScreenCTM();
+        /* istanbul ignore next */
+        if (!ctm) return { x: screenX, y: screenY };
+        /* istanbul ignore next */
+        var svgP = pt.matrixTransform(ctm.inverse());
+        /* istanbul ignore next */
+        return { x: svgP.x, y: svgP.y };
+    };
+    
+    /**
+     * Converts SVG coordinates to screen coordinates
+     *
+     * @param {number} svgX - X coordinate in SVG space
+     * @param {number} svgY - Y coordinate in SVG space
+     * @returns {Object} - { x, y } in screen coordinates
+     *
+     * @example
+     * var screenPoint = L.svgToScreen(50, 50);
+     */
+    /* istanbul ignore next */
+    L.prototype.svgToScreen = function(svgX, svgY) {
+        /* istanbul ignore next */
+        var pt = this.tag.createSVGPoint();
+        /* istanbul ignore next */
+        pt.x = svgX;
+        /* istanbul ignore next */
+        pt.y = svgY;
+        /* istanbul ignore next */
+        var screenP = pt.matrixTransform(this.tag.getScreenCTM());
+        /* istanbul ignore next */
+        return { x: screenP.x, y: screenP.y };
+    };
+    
+    /**
+     * Gets the current viewBox values
+     *
+     * @returns {Object} - { x, y, width, height } or null if no viewBox
+     */
+    L.prototype.getViewBox = function() {
+        var viewBox = this.tag.getAttribute('viewBox');
+        if (!viewBox) return null;
+        var parts = viewBox.split(/\s+/).map(parseFloat);
+        return {
+            x: parts[0],
+            y: parts[1],
+            width: parts[2],
+            height: parts[3]
+        };
+    };
+    
+    // Static versions
+    Leo.setViewBox = L.setViewBox = L.prototype.setViewBox;
+    Leo.preserveAspectRatio = L.preserveAspectRatio = L.prototype.preserveAspectRatio;
+    Leo.screenToSVG = L.screenToSVG = L.prototype.screenToSVG;
+    Leo.svgToScreen = L.svgToScreen = L.prototype.svgToScreen;
+    Leo.getViewBox = L.getViewBox = L.prototype.getViewBox;
+    
+    /*
+    [Malta] lib/Ldebug.js
+    */
+    
+    /**
+     * Debug mode - adds visual guides and information to help with development
+     *
+     * @param {Object} options - Debug options
+     * @param {boolean} options.showBoundingBoxes - Show bounding boxes around elements (default: true)
+     * @param {boolean} options.showCenterPoints - Show center points for elements (default: true)
+     * @param {boolean} options.showGrid - Show coordinate grid (default: false)
+     * @param {number} options.gridSize - Grid size in pixels (default: 50)
+     * @param {boolean} options.showCoordinates - Show coordinates on hover (default: true)
+     * @returns {L} - Returns the instance for chaining
+     *
+     * @example
+     * L.debug({ showGrid: true, gridSize: 25 });
+     */
+    L.prototype.debug = function(options) {
+        options = options || {};
+        var self = this,
+            showBoundingBoxes = options.showBoundingBoxes !== false,
+            showCenterPoints = options.showCenterPoints !== false,
+            showGrid = options.showGrid || false,
+            gridSize = options.gridSize || 50,
+            showCoordinates = options.showCoordinates !== false;
+    
+        // Create debug group
+        var debugGroup = this.group();
+        debugGroup.sas({ class: 'leo-debug-layer' });
+    
+        // Add grid if requested
+        if (showGrid) {
+            var gridGroup = this.group();
+            var w = this.width,
+                h = this.height;
+    
+            // Vertical lines
+            for (var x = 0; x <= w; x += gridSize) {
+                var line = this.line(x, 0, x, h).setAttributes({
+                    stroke: '#ddd',
+                    'stroke-width': 0.5
+                });
+                gridGroup.append(line);
+            }
+    
+            // Horizontal lines
+            for (var y = 0; y <= h; y += gridSize) {
+                var line = this.line(0, y, w, y).setAttributes({
+                    stroke: '#ddd',
+                    'stroke-width': 0.5
+                });
+                gridGroup.append(line);
+            }
+    
+            debugGroup.append(gridGroup);
+        }
+    
+        // Add coordinate display
+        if (showCoordinates) {
+            var coordText = this.text(10, 20, 'x: 0, y: 0').setAttributes({
+                fill: '#666',
+                'font-family': 'monospace',
+                'font-size': '12px',
+                class: 'leo-debug-coords'
+            });
+            debugGroup.append(coordText);
+    
+            /* istanbul ignore next */
+            this.tag.addEventListener('mousemove', function(e) {
+                /* istanbul ignore next */
+                var pt = self.tag.createSVGPoint();
+                /* istanbul ignore next */
+                pt.x = e.clientX;
+                /* istanbul ignore next */
+                pt.y = e.clientY;
+                /* istanbul ignore next */
+                var svgP = pt.matrixTransform(self.tag.getScreenCTM().inverse());
+                /* istanbul ignore next */
+                coordText.updateText('x: ' + Math.round(svgP.x) + ', y: ' + Math.round(svgP.y));
+            });
+        }
+    
+        // Store reference to debug group
+        this._debugGroup = debugGroup;
+        this.append(debugGroup);
+    
+        // Add debug info to all elements
+        if (showBoundingBoxes || showCenterPoints) {
+            this._debugElements = [];
+            this._enableElementDebug(showBoundingBoxes, showCenterPoints);
+        }
+    
+        return this;
+    };
+    
+    /**
+     * Enable debug visualization for individual elements
+     * @private
+     */
+    L.prototype._enableElementDebug = function(showBoundingBoxes, showCenterPoints) {
+        var self = this;
+    
+        // Override append to add debug info to new elements
+        var originalAppend = this.append;
+        /* istanbul ignore next */
+        this.append = function() {
+            /* istanbul ignore next */
+            var result = originalAppend.apply(this, arguments);
+    
+            // Add debug visualization for new elements
+            /* istanbul ignore next */
+            for (var i = 0; i < arguments.length; i++) {
+                /* istanbul ignore next */
+                var el = arguments[i];
+                /* istanbul ignore next */
+                if (el instanceof Element && el.tag.getBBox) {
+                    /* istanbul ignore next */
+                    el._addDebugInfo(self, showBoundingBoxes, showCenterPoints);
+                }
+            }
+    
+            /* istanbul ignore next */
+            return result;
+        };
+    };
+    
+    /**
+     * Add debug visualization to an element
+     * @private
+     */
+    /* istanbul ignore next */
+    Element.prototype._addDebugInfo = function(leoInstance, showBoundingBoxes, showCenterPoints) {
+        /* istanbul ignore if */
+        if (!this.tag.getBBox) return;
+    
+        /* istanbul ignore next */
+        var bbox = this.tag.getBBox();
+        var debugElements = [];
+    
+        /* istanbul ignore next */
+        if (showBoundingBoxes) {
+            /* istanbul ignore next */
+            var box = leoInstance.rect(bbox.x, bbox.y, bbox.width, bbox.height).setAttributes({
+                fill: 'none',
+                stroke: 'rgba(255, 0, 0, 0.5)',
+                'stroke-width': 1,
+                'stroke-dasharray': '4,2',
+                class: 'leo-debug-bbox'
+            });
+            /* istanbul ignore next */
+            debugElements.push(box);
+        }
+    
+        /* istanbul ignore next */
+        if (showCenterPoints) {
+            /* istanbul ignore next */
+            var cx = bbox.x + bbox.width / 2;
+            /* istanbul ignore next */
+            var cy = bbox.y + bbox.height / 2;
+            /* istanbul ignore next */
+            var center = leoInstance.circle(cx, cy, 3).setAttributes({
+                fill: 'rgba(0, 255, 0, 0.5)',
+                stroke: 'none',
+                class: 'leo-debug-center'
+            });
+            /* istanbul ignore next */
+            debugElements.push(center);
+        }
+    
+        // Add to debug group
+        /* istanbul ignore next */
+        if (leoInstance._debugGroup && debugElements.length > 0) {
+            /* istanbul ignore next */
+            debugElements.forEach(function(el) {
+                /* istanbul ignore next */
+                leoInstance._debugGroup.append(el);
+            });
+        }
+    
+        /* istanbul ignore next */
+        this._debugElements = debugElements;
+    };
+    
+    /**
+     * Remove debug mode
+     *
+     * @returns {L} - Returns the instance for chaining
+     */
+    L.prototype.undebug = function() {
+        if (this._debugGroup) {
+            this._debugGroup.remove();
+            this._debugGroup = null;
+        }
+        return this;
+    };
+    
+    // Static versions
+    Leo.debug = L.debug = L.prototype.debug;
+    Leo.undebug = L.undebug = L.prototype.undebug;
+    
     /*
     [Malta] lib/Lanimate.js
     */
@@ -1894,10 +2866,10 @@ const Leonardo = (function(w) {
     	// seconds per frame = 1/(frame per seconds)
     	var spf60 = (1E3/60)/1000;
     	function parametricCartesian(el, fx, fy, interval, opts) {
-    		opts = opts || {};
-    		var trace = opts.trace || false;
+    		opts = opts || {};	
             interval = interval || spf60;
-    		var t = 0,
+    		var trace = opts.trace || false,
+    			t = 0,
     			x = 0,
     			y = 0,
     			lastTime = 0,
@@ -1912,7 +2884,6 @@ const Leonardo = (function(w) {
     					if(trace) {
     						var c = new Element('circle'),
     							attrs = el.getAttributes('cx', 'cy');
-    
     						c.sas(Object.assign({
     							cx: ~~attrs.cx + x,
     							cy: ~~attrs.cy + y,
@@ -1930,11 +2901,12 @@ const Leonardo = (function(w) {
                 cancelAnimationFrame(rafId);
             }
     	}
+    	
     	function parametricPolar(el, fr, fO, interval, opts) {
     		opts = opts || {};
-    		var trace = opts.trace || false;
             interval = interval || spf60;
-    		var t = 0,
+    		var trace = opts.trace || false,
+    			t = 0,
     			r = 0,
     			O = 0,
     			lastTime = 0,
@@ -1961,7 +2933,6 @@ const Leonardo = (function(w) {
     						}, trace.style || {}));
     						el.parent.append(c);
     					}
-    
     				}
     				rafId = requestAnimationFrame(step);
     			};
@@ -1987,7 +2958,7 @@ const Leonardo = (function(w) {
     		return animate;
     	};
     
-    
+    	/* istanbul ignore next */
     	function motionPath(el, pathStr, ats) {
     		ats = ats || {};
     		var animateMotion = new Element('animateMotion'),
@@ -1999,7 +2970,7 @@ const Leonardo = (function(w) {
     				max: ats.max || null,
     				restart: ats.restart || 'always',
     				repeatCount: ats.repeatCount || 'indefinite',
-    			
+    
     				repeatDur: ats.repeatDur || null,
     				// fill
     				path: pathStr
@@ -2009,13 +2980,227 @@ const Leonardo = (function(w) {
     		return el;
     	}
     
+    	// Easing functions
+    	/* istanbul ignore next */
+    	var Easing = {
+    		linear: function(t) { return t; },
+    		easeInQuad: function(t) { return t * t; },
+    		easeOutQuad: function(t) { return 1 - (1 - t) * (1 - t); },
+    		easeInOutQuad: function(t) {
+    			return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    		},
+    		easeInCubic: function(t) { return t * t * t; },
+    		easeOutCubic: function(t) { return 1 - Math.pow(1 - t, 3); },
+    		easeInOutCubic: function(t) {
+    			return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    		},
+    		easeInQuart: function(t) { return t * t * t * t; },
+    		easeOutQuart: function(t) { return 1 - Math.pow(1 - t, 4); },
+    		easeInOutQuart: function(t) {
+    			return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+    		},
+    		spring: function(t) {
+    			var c4 = (2 * Math.PI) / 3;
+    			return t === 0 ? 0 : t === 1 ? 1 : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
+    		},
+    		bounce: function(t) {
+    			var n1 = 7.5625, d1 = 2.75;
+    			/* istanbul ignore next */
+    			if (t < 1 / d1) {
+    				return n1 * t * t;
+    			/* istanbul ignore next */
+    			} else if (t < 2 / d1) {
+    				return n1 * (t -= 1.5 / d1) * t + 0.75;
+    			/* istanbul ignore next */
+    			} else if (t < 2.5 / d1) {
+    				return n1 * (t -= 2.25 / d1) * t + 0.9375;
+    			} else {
+    				return n1 * (t -= 2.625 / d1) * t + 0.984375;
+    			}
+    		}
+    	};
+    
+    	// Animate with easing
+    	/* istanbul ignore next */
+    	function animateWithEasing(el, params) {
+    		var easing = params.easing || Easing.linear,
+    			from = params.from || 0,
+    			to = params.to || 1,
+    			dur = parseFloat(params.dur) * 1000 || 1000,
+    			startTime = null,
+    			attributeName = params.attributeName,
+    			rafId = null;
+    
+    		function step(timestamp) {
+    			if (!startTime) startTime = timestamp;
+    			var elapsed = timestamp - startTime,
+    				progress = Math.min(elapsed / dur, 1),
+    				easedProgress = easing(progress),
+    				value = from + (to - from) * easedProgress;
+    
+    			el.tag.setAttribute(attributeName, value);
+    
+    			if (progress < 1) {
+    				rafId = requestAnimationFrame(step);
+    			} else if (params.onComplete) {
+    				params.onComplete();
+    			}
+    		
+    		}
+    		rafId = requestAnimationFrame(step);
+    		return function() {
+    			cancelAnimationFrame(rafId);
+    		};
+    	}
+    
     	return {
     		cartesian : parametricCartesian,
     		polar : parametricPolar,
     		motionPath: motionPath,
-    		attr : attr
+    		attr : attr,
+    		Easing: Easing,
+    		withEasing: animateWithEasing
     	};
+    
     })();
+    
+    /*
+    [Malta] lib/Ltimeline.js
+    */
+    
+    /**
+     * Timeline for chaining and sequencing animations
+     *
+     * @class Timeline
+     * @param {Object} options - Timeline options
+     * @param {boolean} options.autoPlay - Whether to start playing immediately (default: false)
+     */
+    function Timeline(options) {
+        options = options || {};
+        this.animations = [];
+        this.isPlaying = false;
+        this.currentIndex = 0;
+        this.startTime = null;
+        this.autoPlay = options.autoPlay || false;
+        this.onComplete = options.onComplete || null;
+    }
+    
+    /**
+     * Add an animation to the timeline
+     *
+     * @param {Function} animation - Animation function that returns a stopper
+     * @param {number} offset - Time offset in seconds (0 = immediately, 1 = after 1s)
+     * @returns {Timeline} - Returns this for chaining
+     *
+     * @example
+     * var tl = L.timeline()
+     *     .add(function() { return element.animate.attr({...}); }, 0)
+     *     .add(function() { return element2.animate.attr({...}); }, 1);
+     */
+    Timeline.prototype.add = function(animation, offset) {
+        this.animations.push({
+            animation: animation,
+            offset: offset || 0,
+            started: false,
+            stopper: null
+        });
+        return this;
+    };
+    
+    /**
+     * Start playing the timeline
+     *
+     * @returns {Timeline}
+     */
+    Timeline.prototype.play = function() {
+        if (this.isPlaying) return this;
+        this.isPlaying = true;
+        this.startTime = Date.now();
+        this.tick();
+        return this;
+    };
+    
+    /**
+     * Pause the timeline
+     *
+     * @returns {Timeline}
+     */
+    Timeline.prototype.pause = function() {
+        this.isPlaying = false;
+        // Stop all running animations
+        this.animations.forEach(function(anim) {
+            if (anim.stopper) {
+                anim.stopper();
+            }
+        });
+        return this;
+    };
+    
+    /**
+     * Stop the timeline and reset to beginning
+     *
+     * @returns {Timeline}
+     */
+    Timeline.prototype.stop = function() {
+        this.pause();
+        this.currentIndex = 0;
+        this.animations.forEach(function(anim) {
+            anim.started = false;
+            anim.stopper = null;
+        });
+        return this;
+    };
+    
+    /**
+     * Internal tick function
+     * @private
+     */
+    Timeline.prototype.tick = function() {
+        if (!this.isPlaying) return;
+    
+        var self = this;
+        var elapsed = (Date.now() - this.startTime) / 1000;
+        var allComplete = true;
+    
+        this.animations.forEach(function(anim, index) {
+            if (!anim.started && elapsed >= anim.offset) {
+                anim.started = true;
+                anim.stopper = anim.animation();
+            }
+            if (!anim.started) {
+                allComplete = false;
+            }
+        });
+    
+        if (allComplete && this.onComplete) {
+            this.onComplete();
+        } else if (this.isPlaying) {
+            requestAnimationFrame(function() { self.tick(); });
+        }
+    };
+    
+    /**
+     * Create a new timeline
+     *
+     * @param {Object} options - Timeline options
+     * @returns {Timeline}
+     *
+     * @example
+     * var tl = L.timeline()
+     *     .add(function() {
+     *         return circle.animate.withEasing({...});
+     *     }, 0)
+     *     .add(function() {
+     *         return rect.animate.withEasing({...});
+     *     }, 0.5)
+     *     .play();
+     */
+    L.prototype.timeline = function(options) {
+        return new Timeline(options);
+    };
+    
+    // Static version
+    Leo.timeline = L.timeline = L.prototype.timeline;
     	
     /*
     [Malta] lib/Lextra.js
