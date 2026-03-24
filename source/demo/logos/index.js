@@ -336,7 +336,7 @@ window.onload = function () {
             orangeBox = L.rect(w(600),0,w(400),h(1000)).setAttributes({
                 rx: h(140), 
                 ry: h(140),
-                fill: '#ff7700'
+                fill: '#048001'
             }),
 
             common = {
@@ -355,7 +355,7 @@ window.onload = function () {
                                 dx:0,
                                 dy:0,
                                 stdDeviation:"5",
-                                "flood-color":"#ff7700",
+                                "flood-color":"#048001",
                                 "flood-opacity":"6.5",
                             }
                         },
@@ -404,7 +404,7 @@ window.onload = function () {
         L.append(g).render();
         
         target.appendChild(
-            L.pngDownloadAnchor({txt: 'download as png', name: 'good boy'})
+            L.pngDownloadAnchor({txt: 'download as png', name: 'dooGyoB'})
         );
         // target.appendChild(L.svgDownloadAnchor({name: 'synchazard'}));
     })();
