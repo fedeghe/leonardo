@@ -4,34 +4,59 @@
  * https://www.w3.org/TR/SVG/paths.html
  */
 
+
+// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/a
+
+
 /**
  * { function_description }
+ * 
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/desc
  *
  * @param      {<type>}   txt     The text
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.desc = function (txt) {
+Leo.a = L.a = L.prototype.a = function (attrs) {
+	var a = new Element('a');
+	a.sas(attrs);
+	return a;
+};
+
+
+/**
+ * { function_description }
+ * 
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/desc
+ *
+ * @param      {<type>}   txt     The text
+ * @return     {Element}  { description_of_the_return_value }
+ */
+Leo.desc = L.desc = L.prototype.desc = function (txt) {
 	var desc = new Element('desc');
-	desc.tag.innerHTML = txt;
+	desc.tag.textContent = txt;
 	return desc;
 };
 
 /**
  * { function_description }
+ * 
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/circle
  *
  * @param      {<type>}   cx      { parameter_description }
  * @param      {<type>}   cy      { parameter_description }
  * @param      {<type>}   r       { parameter_description }
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.circle = function (cx, cy, r) {
+Leo.circle = L.circle = L.prototype.circle = function (cx, cy, r) {
 	var circle = new Element('circle');
-	circle.setAttributes({cx : cx, cy : cy, r : r});
+	circle.sas({cx : cx, cy : cy, r : r});
 	return circle;
 };
 
 /**
  * { function_description }
+ * 
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/ellipse
  *
  * @param      {<type>}   cx      { parameter_description }
  * @param      {<type>}   cy      { parameter_description }
@@ -39,18 +64,20 @@ L.prototype.circle = function (cx, cy, r) {
  * @param      {<type>}   ry      { parameter_description }
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.ellipse = function (cx, cy, rx, ry) {
+Leo.ellipse = L.ellipse = L.prototype.ellipse = function (cx, cy, rx, ry) {
 	var ellipse = new Element('ellipse');
-	ellipse.setAttributes({cx : cx, cy : cy, rx : rx, ry : ry});
+	ellipse.sas({cx : cx, cy : cy, rx : rx, ry : ry});
 	return ellipse;
 };
 
 /**
  * { function_description }
  *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/g
+ * 
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.group = function (a) {
+Leo.group = L.group =L.prototype.group = function (a) {
 	var g = new Element('g');
 	if (a) g.append([].slice.call(arguments, 0))
 	return g;
@@ -59,6 +86,8 @@ L.prototype.group = function (a) {
 /**
  * { function_description }
  *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/image
+ * 
  * @param      {<type>}   x       { parameter_description }
  * @param      {<type>}   y       { parameter_description }
  * @param      {<type>}   w       { parameter_description }
@@ -66,40 +95,44 @@ L.prototype.group = function (a) {
  * @param      {<type>}   src     The source
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.image = function (x, y, w, h, src) {
+Leo.image = L.image = L.prototype.image = function (x, y, w, h, src) {
 	var image = new Element('image');
-	image.setAttributes({x : x, y : y, width : w, height : h});
+	image.sas({x : x, y : y, width : w, height : h});
 	image.tag.setAttributeNS(namespaces.xlink, 'xlink:href', src);
+	image.tag.setAttribute('transform-origin', "center");
 	return image;
 };
 
 /**
  * { function_description }
  *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/line
+ * 
  * @param      {<type>}   x1      The x 1
  * @param      {<type>}   y1      The y 1
  * @param      {<type>}   x2      The x 2
  * @param      {<type>}   y2      The y 2
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.line = function (x1, y1, x2, y2) {
+Leo.line = L.line = L.prototype.line = function (x1, y1, x2, y2) {
 	var line = new Element('line');
-	line.setAttributes({x1 : x1, y1 : y1, x2 : x2, y2 : y2});
+	line.sas({x1 : x1, y1 : y1, x2 : x2, y2 : y2});
 	return line;
 };
 
 /**
  * { function_description }
  *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/polygon
  * @param      {<type>}   d       { parameter_description }
  * @param      {<type>}   attrs   { parameter_description }
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.path = function (d, attrs) {
+Leo.path = L.path = L.prototype.path = function (d, attrs) {
 	var path = new Element('path');
     attrs = attrs || {}
     attrs.d = d
-	path.setAttributes(attrs);
+	path.sas(attrs);
 	return path;
 };
 
@@ -108,24 +141,26 @@ L.prototype.path = function (d, attrs) {
  *
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.polygon = function () {
+Leo.polygon = L.polygon = L.prototype.polygon = function () {
 	var polygon = new Element('polygon'),
 		points = [].slice.call(arguments, 0),
 		pp = [],
 		i = 0, l = points.length;
+	validate.evenNumbers(points);
 	for (null; i < l; i+=2) {
 		pp.push(points[i] + ',' + points[i+1])
 	}
-	polygon.setAttributes({points : pp.join(' ')});
+	polygon.tag.setAttribute('points', pp.join(' '));
 	return polygon;
 };
 
 /**
  * { function_description }
  *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/polyline
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.polyline = function () {
+Leo.polyline = L.polyline = L.prototype.polyline = function () {
 	var polyline = new Element('polyline'),
 		points = [].slice.call(arguments, 0),
 		pp = [],
@@ -133,79 +168,113 @@ L.prototype.polyline = function () {
 	for (null; i < l; i+=2) {
 		pp.push(points[i] + ',' + points[i+1])
 	}
-	polyline.setAttributes({points : pp.join(' ')});
+	polyline.tag.setAttribute('points', pp.join(' '));
 	return polyline;
 };
 
 /**
  * { function_description }
  *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/rect
  * @param      {<type>}   x       { parameter_description }
  * @param      {<type>}   y       { parameter_description }
  * @param      {<type>}   w       { parameter_description }
  * @param      {<type>}   h       { parameter_description }
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.rect = function (x, y, w, h) {
+Leo.rect = L.rect = L.prototype.rect = function (x, y, w, h) {
 	h = h || w;
 	var rect = new Element('rect');
-	rect.setAttributes({x : x, y : y, width : w, height : h});
+	rect.sas({x : x, y : y, width : w, height : h});
 	return rect;
 };
 
 /**
  * { function_description }
- *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/text
+ * 
+ * 
  * @param      {<type>}   x       { parameter_description }
  * @param      {<type>}   y       { parameter_description }
  * @param      {<type>}   cnt     The count
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.text = function (x, y, cnt) {
-	var text = new Element('text'),
-		bBox;
-	text.setAttributes({x : x, y : y});
-	text.tag.textContent = cnt;
+Leo.text = L.text = L.prototype.text = function (x, y, cnt) {
+	var text = new Element('text');
+	x = x || 0;
+	y = y || 0;
+	cnt = cnt || '';
+	text.sas({x : x, y : y});
+	cnt && (text.tag.textContent = cnt);
+	//
+	text.updateText = function(t) {
+		text.tag.textContent = t;
+	};
+	//
 	return text;
 };
 
 /**
  * { function_description }
- *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/title
+ * 
  * @param      {<type>}   txt     The text
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.title = function (txt) {
+Leo.title = L.title = L.prototype.title = function (txt) {
 	var text = new Element('title');
-	text.tag.innerHTML = txt;
+	text.tag.textContent = txt;
 	return text;
 };
 
 /**
  * { function_description }
- *
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/script
+ * 
  * @param      {string}   cnt     The count
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.script = function (cnt) {
+Leo.script = L.script = L.prototype.script = function (cnt) {
 	var script = new Element('script');
-	script.setAttributes({type : 'application/ecmascript'});
+	script.tag.setAttribute('type', 'application/ecmascript');
 	if (cnt) {
 		script.tag.innerHTML = "//<![CDATA[\n" + cnt + "\n]]>";
 	}
 	return script;
 };
 
+// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/foreignObject
+Leo.foreignObject = L.foreignObject = L.prototype.foreignObject = function(x,y,w,h) {
+	var fo = new Element('foreignObject');
+	fo.sas({x: x, y: y, width: w, height: h});
+	return fo;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/symbol
+Leo.symbol = L.symbol = L.prototype.symbol = function(attrs) {
+	/* width, height, x, y, preserveAspectRatio, refX, refY,  viewBox*/
+	var s = new Element('symbol');
+	s.sas(Object.assign(attrs, {id: lid()}));
+	return s;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/use
+Leo.use = L.use = L.prototype.use = function(attrs) {
+	/* width, height, x, y, href*/
+	var s = new Element('use');
+	s.sas(attrs);
+	return s;
+}
+
 /**
  * { function_description }
  *
- * @param      {string}   tagNAme     The count
+ * @param      {string}   tagName     The count
  * @return     {Element}  { description_of_the_return_value }
  */
-L.prototype.Element = function (tagName) {
-	return new Element(tagName);
+Leo.Element = L.Element = L.prototype.Element = function (tagName, ns) {
+	return new Element(tagName, ns);
 };
 
 
 
-$$lib/LpathBuild.js$$

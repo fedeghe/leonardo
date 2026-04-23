@@ -282,8 +282,8 @@ window.onload = function () {
         
         
         Leo.render();
-        Leo.positionInspector('[{r%x}, {r%y}],');
-        document.body.appendChild(Leo.downloadAnchor());
+        Leo.positionInspector({tpl: '[{r%x}, {r%y}],'});
+        document.body.appendChild(Leo.svgDownloadAnchor());
     }
     render();
     window.addEventListener('resize', render);

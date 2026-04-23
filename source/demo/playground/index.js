@@ -60,11 +60,14 @@ window.onload = function () {
 		console.log(e.target);
 		console.log(e);
 	});
-    var Arc = L.arcCentered(100, 100, 50, 0, 270).setAttributes({fill:'#ddd', stroke: 'red'});
+    var Arc = L.path(
+		L.arcSectionPath(100, 100, 0, 50, 0, 270),
+		{fill:'#ddd', stroke: 'red'}
+	);
 
 	tria.rotate(20, 300, 50).move(10, 100);
 
-    var centeredText = L.centeredText(502, 100, 'hello', {fill:'#ddd', stroke: 'red' });
+    var centeredText = L.textBox('hello', 502, 100, {fill:'#ddd', stroke: 'red' });
     setInterval(function (){
         var now = new Date(),
             sec = now.getSeconds(),

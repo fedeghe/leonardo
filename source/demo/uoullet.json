@@ -1,9 +1,15 @@
 {
     "EXE": [
         "mkdir -p demo/uoullet/js demo/uoullet/css",
-        "cp source/media/uoullet.jpg demo/uoullet/uoullet.jpg"
+        "cp source/media/uoullet.png demo/uoullet/uoullet.png",
+        "cp source/media/front.png demo/uoullet/front.png",
+        "cp source/media/frontSmall.png demo/uoullet/frontSmall.png",
+        "cp source/media/base.jpg demo/uoullet/base.jpg",
+        "cp source/media/uoullet.svg demo/uoullet/uoullet.svg",
+        "cp source/media/uoulletSph.svg demo/uoullet/uoulletSph.svg"
     ],
     "source/demo/uoullet/index.js": "demo/uoullet/js -vars=source/vars.json",
     "source/demo/uoullet/index.less": "demo/uoullet/css -plugins=malta-less -vars=source/vars.json",
-    "source/demo/uoullet/index.html": "demo/uoullet -plugins=malta-browser-refresh -vars=source/vars.json"
+    "source/demo/uoullet/index.html": "demo/uoullet -plugins=malta-browser-refresh -vars=source/vars.json",
+    "source/demo/uoullet/*.svg": "demo/uoullet -plugins=malta-browser-refresh -vars=source/vars.json"
 }

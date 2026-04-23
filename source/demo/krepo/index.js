@@ -205,7 +205,7 @@ window.onload = function () {
         
         
         Leo.render();
-        Leo.positionInspector('[{r%x}, {r%y}],');
+        Leo.positionInspector({tpl: '[{r%x}, {r%y}],'});
     }
     render();
     window.addEventListener('resize', render);

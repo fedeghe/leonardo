@@ -1,0 +1,8 @@
+{
+    "EXE": [
+        "mkdir -p demo/conway/js demo/conway/css"
+    ],
+    "source/demo/conway/index.js": "demo/conway/js -vars=source/vars.json",
+    "source/demo/conway/index.less": "demo/conway/css -plugins=malta-less -vars=source/vars.json",
+    "source/demo/conway/index.html": "demo/conway -plugins=malta-browser-refresh -vars=source/vars.json"
+}

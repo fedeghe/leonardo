@@ -1,7 +1,9 @@
-![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.svg "... do not dare scum human!")
+![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/source/media/god.svg "... do not dare scum human!")
 leonardo javascript svg library v. $PACKAGE.version$
 
-[![Coverage Status](https://coveralls.io/repos/github/fedeghe/leonardo/badge.svg?branch=master)](https://coveralls.io/github/fedeghe/leonardo?branch=master)
+[![codecov](https://codecov.io/gh/fedeghe/leonardo/graph/badge.svg?token=OGmjNS9psx)](https://codecov.io/gh/fedeghe/leonardo)
+
+[SVG reference](https://www.w3.org/TR/SVG/)
 
 
 $PACKAGE.description$
@@ -38,4 +40,16 @@ $$8_utilities.md$$
 
 ---
 
-$$9_samples.md$$
+$$9_extra.md$$
+
+---
+
+$$10_samples.md$$
+
+---
+
+$$appendixA.md$$
+
+---
+
+$$appendixB.md$$

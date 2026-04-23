@@ -3,7 +3,10 @@ window.onload = function () {
     var target = document.getElementById('trg'),
         speedTuner = document.getElementById('speed'),
         rndTuner = document.getElementById('rnd'),
-        speed = 0.5,
+        speed = 1,
+		minSpeed = 0.1,
+		maxSpeed = 10,
+		speedStep = 0.01,
         rnd = false,
 		width = 500, height = 500,
         hm = 20,
@@ -60,15 +63,19 @@ window.onload = function () {
 	[cg2, cg3, cg4, cg5, cg6, cg7, cg8, cg9].forEach(function (el, i) {
 		var versus = i % 2 ? -1 : 1;
 		L.animate.cartesian(el, function (x, t) {
-			return  w20 * (rnd ? Math.random() : 1) * Math.sin(t * speed * versus);
+			return  w20 * (rnd ? 1+Math.random()/10 : 1) * Math.sin(t * speed * versus);
 		},function (y, t) {
-			return -w20 + w20  * (rnd ? Math.random() : 1) * Math.cos(t * speed); //here versus is not influent since cos is simmetric
+			return -w20 + w20  * (rnd ? 1+Math.random()/10 : 1) * Math.cos(t * speed); //here versus is not influent since cos is simmetric
 		});
     });
 
     L.render({target: target});
     
     speedTuner.value = speed;
+    speedTuner.min = minSpeed;
+    speedTuner.max = maxSpeed;
+	speedTuner.step = speedStep;
+
     speedTuner.addEventListener('change', function() {
         speed = parseFloat(this.value, 10);
     });
@@ -76,5 +83,5 @@ window.onload = function () {
         rnd = !!this.checked;
     });
 
-    document.body.appendChild(L.downloadAnchor());
+    document.body.appendChild(L.svgDownloadAnchor());
 };

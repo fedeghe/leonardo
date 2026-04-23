@@ -26,7 +26,12 @@ window.onload = function () {
             {perc: "80", color: "#13a"},
             {perc: "90", color: "#73a"},
             {perc: "100", color: "#f43"},
-        ], '0%', '0%', '100%', '100%'),
+        ], {
+            x1: '0%',
+            y1: '0%',
+            x2: '100%',
+            y2: '100%'
+        }),
         bg = L.rect(0,0,w(1000),h(1000)).setAttributes({
             fill:grad,
             rx: h(140), 
@@ -101,5 +106,5 @@ window.onload = function () {
         , p1, p2);
 
 	L.render();
-    document.body.appendChild(L.downloadAnchor());
+    document.body.appendChild(L.svgDownloadAnchor());
 };

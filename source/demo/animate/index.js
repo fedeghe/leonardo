@@ -16,10 +16,12 @@ window.onload = function () {
                 func: 'cartesian',
                 target: target1,
                 color: '#f45',
-                initial: [w2,h2],
+                initial: [w2, h2],
                 funcs: [
                     function (x, t){ return w2 * Math.sin(speed * t); },
-                    function (y, t){ return h2 * Math.sin(speed * t / 4); }
+                    function (y, t){ return h2 * Math.sin(speed * t / 8); },
+                    0.05,
+                    {trace: {style:{fill:'#33882266',stroke:'none', r: 0.5}}}
                 ]
             },{
                 func: 'polar',
@@ -27,31 +29,41 @@ window.onload = function () {
                 color: '#45f',
                 initial: [width / 2, height / 2],
                 funcs: [
-                    function (r, t){ return  min/2 * Math.sin(speed * t / 20);},
-                    function (rho, t){ return speed * t % 360; }
-                ]
-            },{
-                func: 'cartesian',
-                target: target3,
-                color: '#f45',
-                initial: [w2,h2],
-                funcs: [
-                    function (x, t){ return w2*.8 * Math.cos(speed * t); },
-                    function (y, t){ return h2*.8 * Math.cos((1.5*t)%(2*Math.PI)+speed); }
+                    function (r, t){ return min/2 *  Math.cos(speed * t / 10);},
+                    function (rho, t){ return speed * t % (2*Math.PI) },
+                    0.05,
+                //    {trace: {style:{fill:'#00ff0055', r: 4, stroke: '#ff000099', 'stroke-width': 1}}} 
                 ]
             }];
         els.forEach(function(o) {
-            var Lx = Leonardo(width, height, { ns: '*', target: o.target }),
+            var Lx = Leonardo(width, height, { ns: '*', target: o.target }).sas({
+                    fill: '#eee'
+                }),
+                bg = Lx.rect(0, 0, 2*w2, 2*h2),
                 circle = Lx.circle.apply(null, o.initial.concat(10)).setAttributes({fill: o.color}),
                 extra = Lx.Element('text').setAttributes({fill: o.color}).move(w(2), h(5));
             extra.tag.innerHTML = o.func;
             Lx.animate[o.func].apply(null, [circle].concat(o.funcs));
-            Lx.append(circle, extra).render();
+            Lx.append(bg, circle, extra).render();
         });
+
+
+        //4 
+        (function (){
+            var Lx = Leonardo(width, height, { ns: '*', target: target3 }),
+                path = Lx.path('M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z').sas({
+                    stroke: "black",
+                    "stroke-linecap": "round",
+                    "stroke-dasharray": "5,10,5",
+                    fill: "none"
+                }).move(w2*5/9,h2*7/9),
+                text = Lx.text(w2*1/6,h2*2/7,'😋').scale(3);
+            
+            Lx.animate.motionPath(text, "M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z",{
+                dur: 2
+            });
+            Lx.append(text, path).render();
+        })();
+
     })();
-
-
-
-
-    // document.body.appendChild(L.downloadAnchor());
 };

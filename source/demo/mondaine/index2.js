@@ -67,7 +67,7 @@
                 cx + width * 0.028, cy + height * 0.09
             ).setAttributes({ id: 'hours' }),
             text = L.text(cx * 0.78, cy * 0.7, "MONDAINE"),
-            textSM = L.textPath("smade",
+            textSM = L.textPath(
                 L.pathBuild
                 .M(cx * 0.925, size * 0.89 * 0.995)
                 .Q(cx, size * 0.89, cx * 1.075, size * 0.89 * 0.995),
@@ -164,7 +164,7 @@
             
             var g = L.group(),
                 tx = o.getText(),
-                textDate = L.centeredText(o.size[0]*2, o.size[1]*1.2, tx),
+                textDate = L.textBox(tx, o.size[0]*2, o.size[1]*1.2),
                 rectDate = L.rect(0,0, o.size[0], o.size[1])
                     .setAttributes({
                         fill: L.radialGradient([ // linear

@@ -9,21 +9,30 @@ var iii = 0;
 function Element(tag, ns) {
 	this.t = tag;
 	this._id = 'i_'+(++iii);
+	this.ns = ns;
 	this.tag = create(tag, ns);
 	this.tag.Element = this;
 	this.parent = null;
 	this.childs = [];
 	this.events = {};
+	this.scaleX = 1;
+	this.scaleXsign = 1;
+	this.scaleY = 1;
+	this.scaleYsign = 1;
 	this.transforms = {
 		rotate : '',
 		move : '',
-		scale : ''
+		scale : '',
+		skewX : '',
+		skewY : ''
 	};
+	this.transformsString = '';
 }
 
 /**
  * { item_description }
  */
+Element.prototype.sas = L.prototype.sas;
 Element.prototype.setAttributes = L.prototype.setAttributes;
 Element.prototype.getAttributes = L.prototype.getAttributes;
 
@@ -99,8 +108,21 @@ Element.prototype.once = function (eventName, cb) {
 Element.prototype.trigger = function (event) { 
 	var self = this.tag;
 	self.dispatchEvent(new Event(event, {target: self}));
-}
+};
 
+Element.prototype.click = function (x,y) { 
+	var self = this.tag;
+	self.dispatchEvent(new MouseEvent('mousemove', {
+		bubbles: true,
+		clientX: x,
+		clientY: y
+	}));
+	self.dispatchEvent(new MouseEvent('click', {
+		bubbles: true,
+		clientX: x,
+		clientY: y
+	}));
+};
 
 /**
  * Creates a new instance of the object with same properties than original.
@@ -117,6 +139,8 @@ Element.prototype.clone = function () {
 	ret.transforms.rotate = this.transforms.rotate;
 	ret.transforms.move = this.transforms.move;
 	ret.transforms.scale = this.transforms.scale;
+	ret.transforms.skewX = this.transforms.skewX;
+	ret.transforms.skewY = this.transforms.skewY;
 
 	for (i = 0, l = attrNames.length; i < l; i++) {
 		ret.tag.setAttribute(attrNames[i].name, attrNames[i].value);
@@ -141,8 +165,20 @@ Element.prototype.use = function () {
     return ret;
 };
 
+Element.prototype.syncTransformString = function () {
+	this.transformsString = [
+		this.transforms.rotate,
+		this.transforms.move,
+		this.transforms.scale,
+		this.transforms.skewX,
+		this.transforms.skewY
+	].filter(function(t) { return t !== ''; }).join(' ');
+	return this.transformsString;
+}
+
 function trans(instance) {
-    instance.setAttributes({transform : instance.transforms.rotate + ' ' + instance.transforms.move + ' ' + instance.transforms.scale});
+	instance.syncTransformString();	
+    instance.tag.setAttribute('transform', instance.transformsString);
 	return instance;
 }
 
@@ -157,8 +193,14 @@ function trans(instance) {
 Element.prototype.rotate = function (r, rx, ry) {
 	rx = rx || 0;
 	ry = ry || 0;
-	this.transforms.rotate = ' rotate(' + r + ' ' + rx + ' ' + ry + ')';
+	this.transforms.rotate = 'rotate(' + r + ' ' + rx + ' ' + ry + ')';
 	return trans(this);
+};
+
+function getScale(i){
+	return 'scale('
+		+(i.scaleX * i.scaleXsign)+', '
+		+(i.scaleY * i.scaleYsign)+')';
 };
 
 /**
@@ -169,9 +211,21 @@ Element.prototype.rotate = function (r, rx, ry) {
  * @return     {<type>}  { description_of_the_return_value }
  */
 Element.prototype.scale = function (sx, sy) {
-	sx = sx || 0;
-	sy = sy || sx || 0;
-	this.transforms.scale = ' scale(' + sx + ', ' + sy + ')';
+	this.scaleX = sx || 0;
+	this.scaleY = sy || sx || 0;
+	this.transforms.scale = getScale(this);
+	return trans(this);
+};
+
+Element.prototype.skewX = function (sx) {
+	this.skewX = sx || 0;
+	this.transforms.skewX = 'skewX(' + this.skewX + ')';
+	return trans(this);
+};
+
+Element.prototype.skewY = function (sy) {
+	this.skewY = sy || 0;
+	this.transforms.skewY = 'skewY(' + this.skewY + ')';
 	return trans(this);
 };
 
@@ -181,7 +235,8 @@ Element.prototype.scale = function (sx, sy) {
  * @return     {<type>}  { description_of_the_return_value }
  */
 Element.prototype.mirrorH = function () {
-	this.transforms.scale = ' scale(1, -1)';
+	this.scaleYsign = -this.scaleYsign;
+	this.transforms.scale = getScale(this);
 	return trans(this);
 };
 
@@ -191,7 +246,8 @@ Element.prototype.mirrorH = function () {
  * @return     {<type>}  { description_of_the_return_value }
  */
 Element.prototype.mirrorV = function () {
-	this.transforms.scale = ' scale(-1, 1)';
+	this.scaleXsign = -this.scaleXsign;
+	this.transforms.scale = getScale(this);
 	return trans(this);
 };
 
@@ -205,7 +261,18 @@ Element.prototype.mirrorV = function () {
 Element.prototype.move = function (rx, ry) {
 	rx = rx || 0;
 	ry = ry || 0;
-	this.transforms.move = ' translate(' + rx + ' ' + ry + ')';
+	this.transforms.move = 'translate(' + rx + ' ' + ry + ')';
+	return trans(this);
+};
+
+Element.prototype.untrans = function (){
+    this.transforms = {
+        rotate : '',
+        move : '',
+        scale : '',
+        skewX : '',
+        skewY : ''
+    };
 	return trans(this);
 };
 
@@ -279,3 +346,10 @@ Element.prototype.replace = function (currentOne, newOne) {
 		return c._id == currentOne._id ? newOne : c;
 	});
 };
+
+Element.prototype.infoUrl = function (open) {
+	var tagName = this.tag.tagName,
+		url = 'https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/' + tagName;
+	if (open) window.open(url, '_blank');
+	return url;
+}

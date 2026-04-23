@@ -23,19 +23,53 @@ window.onload = function () {
             .Z()
         )
     }
-
+    
 
     function getTheme(label) {
         var themes = {
                 black: {
                     // background: '#000000',
-                    stroke: '#ffffff',
-                    fill: '#000000'
+                    stroke: 'white',
+                    fill: 'transparent',
+                    grad: [
+                        [
+                            {color: "#73a", perc: 0},
+                            {color: "#2a3", perc: 100}
+                        ], {
+                            x1: '20%', y1: '20%',
+                            x2: '80%', y2: '80%'
+                        }
+                    ]
                 },
                 white: {
-                    // background: '#ffffff',
                     stroke: '#000000',
-                    fill: '#ffffff'
+                    fill: '#ffffff',
+                    grad : [
+                        [
+                            {color: "#15f", perc: 0},
+                            {color: "#73a", perc: 56},
+                            // {color: "rgb(255, 255, 255)", perc: 79},
+                            {color: "#f43", perc: 80},
+                            {color: "rgb(255, 120, 2)", perc: 90},
+                            {color: "rgb(242, 255, 2)", perc: 100},
+                        ], {
+                            x1: '10%', y1: '10%',
+                            x2: '90%', y2: '90%'
+                        }
+                    ]
+                },
+                blue: {
+                    stroke: '#ffffff',
+                    fill: 'transparent',
+                    grad: [
+                        [
+                            {color: "#73a", perc: 0},
+                            {color: "#2a3", perc: 100}
+                        ], {
+                            x1: '20%', y1: '20%',
+                            x2: '80%', y2: '80%'
+                        }
+                    ]
                 }
             }
         return {
@@ -45,8 +79,10 @@ window.onload = function () {
                 "fill-opacity": 10,
                 "stroke-linejoin": "round",
                 "stroke": themes[label].stroke,
-                fill: themes[label].fill
+                fill: themes[label].fill,
+                // "stroke-linejoin": "miter",
             },
+            grad: themes[label].grad,
             background: 'background' in themes[label] ? themes[label].background : '#ffffff00'
         }
     }
@@ -58,7 +94,6 @@ window.onload = function () {
         bxHeight = 90;
 
     function render(target, themeLabel) {
-        console.log({themeLabel});
         var theme = getTheme(themeLabel),
             
             letters = 7
@@ -74,8 +109,8 @@ window.onload = function () {
             
 
             u1 = GimmeU(Leo, gap, bxWidth, bxHeight, wGapMul, hGapMul),
-            o = Leo.path(
-                Leo.pathBuild
+            o = Leonardo.path(
+                Leonardo.pathBuild
                     .M(gap, gap*hGapMul)
                     .L(gap, bxHeight - gap*hGapMul)
                     .A(gap*wGapMul, gap*hGapMul, 0, 0, 0, gap*wGapMul, bxHeight - gap)
@@ -174,33 +209,89 @@ window.onload = function () {
                 e,t
             ).setAttributes(fillStyle);
 
-        Leo.append(g)
-        .render();
-        target.appendChild(Leo.downloadAnchor('download '+ themeLabel, 'uoullet'+themeLabel));
+        Leo.append(g).render();
+
+        target.appendChild(Leo.svgDownloadAnchor({
+            txt: 'download '+ themeLabel,
+            name: 'uoullet'+themeLabel
+        }));
+        return Leo.tag;
     }
-    render(this.document.getElementById('trg1'  ), 'black');
-    render(this.document.getElementById('trg2'  ), 'white');
+    
+    render(this.document.getElementById('trg1'), 'black');
+
+    render(this.document.getElementById('trg2'), 'white');
 
 
-    function renderU(){
-        var LeoU = Leonardo(900, 500, { ns: '*', target: document.getElementById('trgU') }).setStyles({
+    function renderU(target){
+        var theme = getTheme('white'),
+            LeoU = Leonardo(900, 500, { ns: '*', target }).setStyles({
                 backgroundColor: '#00000055'
             }),
-            theme = getTheme('black'),
             txt = LeoU.text(0, 0, 'uoullet.com').setAttributes({
                     'font-size': 50,
-                    'fill': '#ffffff',
+                    'fill': theme.fillStyle.stroke,
                     'font-family': 'Verdana, sans-serif',
-                    'font-weight': 'bold'
+                    'font-weight': 'bold',
                 })
-                .scale(0.8, 0.6)
-                .rotate(-90,600,-215),
-        U = GimmeU(LeoU , gap, bxWidth, bxHeight, wGapMul, hGapMul).setAttributes(theme.fillStyle);
+                .scale(0.8, 1.6)
+                .rotate(-90,600,-220),
+            grad = LeoU.linearGradient.apply(LeoU, theme.grad),
+            
+            U = GimmeU(LeoU , gap, bxWidth, bxHeight, wGapMul, hGapMul).setAttributes({
+                ...theme.fillStyle,
+                // "stroke-linejoin": "bevel",
+                // "stroke-linejoin": "miter",
+                // "stroke-linejoin": "round",
+                // "stroke-linejoin": "arcs",
+                // "stroke-linejoin": "crop",
+                // "stroke-linejoin": "fallback",
+            }).sas({
+                fill: grad,
+                // stroke: grad2
+                // fill: grad2
+            });
 
-        LeoU.append(U.scale(5).move(25,25),txt).render();
-        // 
+
+        // tp get the b64 encoded qr this is asynch (would be great to find a sync solution)
+        // this makes it downloadable (or must be a url, not visible offline!!!)
+        // Leo.img2base64png('/media/qr.png', function (b64){
+        //     var I =  LeoU.image(300, 70,300, 300, b64);
+        //     LeoU.append(U.scale(5).move(25,25),I, txt).render();
+        //     target.appendChild(LeoU.svgDownloadAnchor({txt:'download print', name: 'uoullet print'}));
+        // })
+
+        LeoU.append(U.scale(5).move(25,25), txt).render();
+        target.appendChild(LeoU.svgDownloadAnchor({txt:'download print', name:'uoullet print'}));
+        
+        
     }
-    renderU();
+    renderU(document.getElementById('trgU'));
+
+    //wallet
+    (function(){
+        var w = 650,
+            h = 650,
+            trg = document.getElementById('trg4'),
+            Leo = Leonardo(w, h, { ns: '*', target: trg }),
+            g = Leo.group(),
+            fac = 1,
+            img = Leo.image(
+                0, 0, w, h,'uoullet.svg'
+            ).scale(fac);
+        g.append(img);
+        
+
+        Leo.append(g);
+        Leo.render();
+        
+    })()
+
+    /*
+    
+    */
+
+
 
     // whould need target and label
     // window.addEventListener('resize', render);

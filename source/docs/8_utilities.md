@@ -1,7 +1,7 @@
 ## utilities  
 
 ``` js 
-instance.positionInspector(config)
+instance.positionInspector(options)
 ```
 
 To me happened many times to draw by hand something or target a specific image and then having the need to move that into an `<svg>` path.  
@@ -9,7 +9,7 @@ If you ever tried you are perfectly aware of how much time this can take (I'm cl
 
 Let's say we target a random image 🥰, and we want a raw silouhette path (`<path/>`) of it : 
 
-![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/god.jpg "... do not dare scum human!")
+![alt text](https://raw.githubusercontent.com/fedeghe/leonardo/master/source/media/god.jpg "... do not dare scum human!")
 
 we can start a simple file: 
 ```js
@@ -43,8 +43,6 @@ window.onload = function () {
 ```
 to get 
 
-![out bro](https://raw.githubusercontent.com/fedeghe/leonardo/master/media/readme1.png "")
+![out bro](https://raw.githubusercontent.com/fedeghe/leonardo/master/source/media/readme1.png "")
 
-now, we would want to have a quick way to get the right `d` attribute content to be used in a `<path/>` tag so to draw what we want, all we need to do is invoke `Leo.positionInspector()`:
-
-<video src="https://raw.githubusercontent.com/fedeghe/leonardo/master/media/readme1.mov"/>
+now, we would want to have a quick way to get the right `d` attribute content to be used in a `<path/>` tag so to draw what we want, all we need to do is invoke `Leo.positionInspector()`.

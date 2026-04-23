@@ -1,10 +1,12 @@
 ## Animate
 
+### an attribute
+
 ``` js 
 instance.animate.attrs(config) // animate tag  
 ```
 
-This method is useful when we need to animate an attribute of a tag. Svg allows to do that creating an `<animate>` tag containing the righ parameters and append it inside the tag that needs to be animated:  
+This method is useful when we need to animate an attribute of a tag. Svg allows to do that creating an `<animate>` tag containing the right parameters and append it inside the tag that needs to be animated, with _Leonardo_ could not be easier:  
 
 ``` js
 var circle = instance.circle(100, 100, 20),
@@ -31,4 +33,21 @@ instance.animate.polar(tag, funcR, funcPHI, t) // returns stopper function
 ...still need to be documented, there's anyway a clear sample
 
 
+### via cartesian function
 
+One might want to animate an object along two cartesian parametric
+
+$$x = f(t) = r * cos(t)$$
+$$y = f(t) = r * sin(t)$$
+
+clearly the case $y = f(x)$ can be achieved just fooling the $x$ to be defined as $x = f(t) = t$ 
+
+In general:
+``` js
+Instance.animate.parametricCartesian(
+    tag,
+    fx,
+    fy,
+    interval
+)
+```

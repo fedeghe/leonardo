@@ -41,6 +41,7 @@ window.onload = function () {
     function createTimingSlice(index, center, r, col, timing) {
         var now = new Date,
             i = timing.fun(now),
+            
             circle = Leo.slice(center.x, center.y, r, 0, 0).setAttributes({ fill: col }),
             grp = Leo.group(),
             innerC = Leo.circle(center.x, center.y, r - 2*step).setAttributes({ fill: color('bg') });
@@ -64,10 +65,11 @@ window.onload = function () {
         }, timing.timestep);
         return grp;
     }
-    setInterval(function () {
-        console.clear();
-        console.log(new Date)
-    }, 1000)
+    
+    // setInterval(function () {
+    //     console.clear();
+    //     console.log(new Date)
+    // }, 1000)
 
     container.append(cir0);
     container.append(circles);

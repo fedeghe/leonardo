@@ -72,7 +72,9 @@ window.onload = function () {
             Leo.append(c1);
         }
         var now = +new Date,
+            // every second add one
             ti = setInterval(addCircle, 1E3);
+        // after 100 seconds stop adding 
         setTimeout(function () {clearInterval(ti)}, 1E5);
         Leo.render();
     }

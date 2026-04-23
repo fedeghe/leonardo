@@ -1,11 +1,62 @@
-var namespaces = {
-    cc: 'http://creativecommons.org/ns#',
-    dc: 'http://purl.org/dc/elements/1.1/',
-    ev: 'http://www.w3.org/2001/xml-events',
-    rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-    svg: 'http://www.w3.org/2000/svg',
-    xlink: 'http://www.w3.org/1999/xlink'
-};
+var ht = 'http://',
+
+	// https://www.w3.org/TR/
+	namespaces = {
+		/**
+		 * Creative Commons (Metadata)
+		 * https://creativecommons.org/ns/
+		 */
+		cc: ht + 'creativecommons.org/ns#',
+
+		/**
+		 * Dublin Core (Metadata - Standard)
+		 * https://purl.org/dc/elements/1.1/
+		 */
+		dc: ht + 'purl.org/dc/elements/1.1/',
+
+		/**
+		 * XML Events
+		 * https://www.w3.org/TR/xml-events/
+		 */
+		ev: ht + 'www.w3.org/2001/xml-events',				// https://www.w3.org/TR/xml-events/
+
+		/**
+		 * RDF (Resource Description Framework - Semantic Web)
+		 * https://www.w3.org/1999/02/22-rdf-syntax-ns/
+		 */
+		rdf: ht + 'www.w3.org/1999/02/22-rdf-syntax-ns#',
+
+		/**
+		 * SVG (Scalable Vector Graphics)
+		 * https://www.w3.org/TR/SVG2/
+		 * https://www.w3.org/TR/SVG/
+		 */
+		svg: ht + 'www.w3.org/2000/svg',
+
+		/**
+		 * XLink (Linking in XML)
+		 * https://www.w3.org/TR/xlink/
+		 */
+		xlink: ht + 'www.w3.org/1999/xlink',
+
+		/**
+		 * MathML
+		 * https://www.w3.org/Math/
+		 */
+		math: ht + 'www.w3.org/1998/Math/MathML',
+
+		/**
+		 * XHTML (HTML in XML)
+		 * https://www.w3.org/TR/xhtml1/
+		 */
+		xhtml: ht + 'www.w3.org/1999/xhtml', //<foreignObject> https://www.w3.org/TR/SVG2/embedded.html#ForeignObjectElement
+
+		/**
+		 * XML Namespace (Standard XML)
+		 * https://www.w3.org/XML/1998/namespace
+		 */
+		xml: ht + 'www.w3.org/XML/1998/namespace' 
+	};
 
 /**
  * { function_description }
@@ -15,8 +66,9 @@ var namespaces = {
  * @param      {string}  height  The height
  * @param      {<type>}  opts    The options
  */
-function L(width , height, opts) {
-	this.namespaces = namespaces;
+function L(width, height, opts) {
+	validate.positiveInt(width);
+	validate.positiveInt(height);
 	var self = this,
 		tmp, l;
 	opts = opts || {};
@@ -24,10 +76,12 @@ function L(width , height, opts) {
 	this.height = height;
 
     this.tag = create('svg');
-    this.tag.setAttribute('width', width);
-    this.tag.setAttribute('height', height);
-    this.tag.setAttribute('xmlns', namespaces.svg);
-    this.tag.setAttribute('viewbox', '0 0 ' + width + ' ' + height);
+    this.sas({
+		width: width,
+		height: height,
+		xmlns: namespaces.svg,
+		viewbox: '0 0 ' + width + ' ' + height
+	});
     this.childs = [];
     
     for (tmp in opts)
@@ -41,20 +95,31 @@ function L(width , height, opts) {
     	l in namespaces 
     	&& self.tag.setAttribute('xmlns:' + l, namespaces[l]);
     }
+	
     if ('ns' in opts){
+		// only ns within namespaces var can be added there
+		// so the only thing to validate is the fact that
+		// opts.ns is actually an array
+		// validate.array(opts.ns);
     	opts.ns === '*' && (opts.ns = Object.keys(namespaces));
     	for (tmp = 0, l = opts.ns.length; tmp < l; tmp++)
     		addNs(opts.ns[tmp]);
 	}
 }
 
+L.prototype.autoScale = function () {
+	this.tag.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+	this.tag.removeAttribute('width');
+	this.tag.removeAttribute('height');
+	return this;
+};
 /**
  * set tag attributes
  *
  * @param      {<type>}  attrs   The attributes
  * @return     {Object}  { description_of_the_return_value }
  */
-L.prototype.setAttributes = function (attrs) {
+L.prototype.setAttributes = L.prototype.sas = function (attrs) {
 	for (var k in attrs) this.tag.setAttribute(k, attrs[k]);
 	return this;
 };
@@ -119,7 +184,8 @@ L.prototype.append = function () {
  */
 L.prototype.render = function (o) {
     var trg = o && 'target' in o  ? o.target : this.target;
-    if (!trg) throw new Error('Target not set');
+    if (!trg) throw ERRORS.no_target;
+	// validate.isNode(trg);
 	trg.innerHTML = '';
     if (o && o.fade) {
         this.tag.style.opacity = 0;
@@ -150,3 +216,11 @@ L.prototype.remove = function () {
 	})
 	return this;
 };
+
+L.prototype.addDefs = function() {
+	var els = [].slice.call(arguments, 0),
+		defs = getDefs(this);
+	defs.append(els);
+	return this;
+}
+

@@ -1,5 +1,11 @@
 
-L.prototype.filter = function(filters) {
+/**
+ * 
+ * @param {*} filters 
+ * @returns 
+ */
+L.prototype.filter = function() {
+    var filters = [].slice.call(arguments, 0);
     getDefs(this)
     var id = lid(),
         filter = new Element('filter'),
@@ -11,7 +17,7 @@ L.prototype.filter = function(filters) {
             'feImage', 'feTile', 'feOffset',
             'feComposite','feMerge'
         ];
-    filter.setAttributes({id: id});
+    filter.tag.setAttribute('id', id);
 
     for(
         var i = 0, l = filters.length, f, inner = false;
@@ -21,7 +27,7 @@ L.prototype.filter = function(filters) {
         f = filters[i];
         if (availables.includes(f.type)){
             inner = new Element(f.type);
-            inner.setAttributes(f.attrs);
+            inner.sas(f.attrs);
         }
 
         inner && filter.append(inner);

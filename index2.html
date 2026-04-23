@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            margin:2em;
+            
+        }
+        svg, div.ex{
+            display: block;
+            margin:1em 0;
+            border:1px dotted black;
+            max-width:100%;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        +function(){
+            // Creare SVG
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '400');
+            svg.setAttribute('height', '300');
+
+            // Creare un elemento foreignObject per contenere HTML
+            const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
+            foreignObject.setAttribute('x', '50');
+            foreignObject.setAttribute('y', '50');
+            foreignObject.setAttribute('width', '300');
+            foreignObject.setAttribute('height', '200');
+
+            // Creare elemento HTML con namespace
+            const div = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
+            div.style.padding = '10px';
+            div.style.backgroundColor = '#f0f0f0';
+
+            // Aggiungere contenuto HTML
+            const title = document.createElementNS('http://www.w3.org/1999/xhtml', 'h2');
+            title.textContent = 'Title HTML within SVG';
+
+            const paragraph = document.createElementNS('http://www.w3.org/1999/xhtml', 'p');
+            paragraph.innerHTML = 'This is a  paragraph with <b>bold</b> and <i>italic</i> text';
+
+            div.appendChild(title);
+            div.appendChild(paragraph);
+            foreignObject.appendChild(div);
+            svg.appendChild(foreignObject);
+            document.body.appendChild(svg);
+        }()
+        +function(){
+            // Creare SVG
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '400');
+            svg.setAttribute('height', '200');
+
+            // Impostare attributi con namespace XML
+            // xml:lang - definisce la lingua
+            svg.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'lang', 'en');
+
+            // xml:space - controlla come gli spazi bianchi vengono preservati
+            svg.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'space', 'preserve');
+
+            // Creare un elemento testo
+            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            text.setAttribute('x', '50');
+            text.setAttribute('y', '50');
+            text.textContent = 'Text in English';
+
+            // Impostare xml:lang per l'elemento specifico
+            text.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'lang', 'en');
+
+            svg.appendChild(text);
+
+            // Creare un gruppo con xml:id
+            const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            group.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'id', 'myGroup');
+            group.setAttribute('fill', 'green');
+
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', '100');
+            circle.setAttribute('cy', '150');
+            circle.setAttribute('r', '30');
+
+            group.appendChild(circle);
+            svg.appendChild(group);
+
+            document.body.appendChild(svg);
+        }()
+        +function (){
+            // Creare SVG
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '460');
+            svg.setAttribute('height', '150');
+            svg.setAttribute('viewbox', '0 0 460 150');
+
+            // Creare foreignObject per contenere MathML
+            const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
+            foreignObject.setAttribute('x', '0');
+            foreignObject.setAttribute('y', '0');
+            foreignObject.setAttribute('width', '100%');
+            foreignObject.setAttribute('height', '150');
+
+            // Creare elemento math con namespace MathML
+            const math = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'math');
+            math.setAttribute('display', 'block');
+
+            // Creare formula: s = v₀t + ½at²
+            const mrow = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mrow');
+
+            // s =
+            const mi1 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mi');
+            mi1.textContent = 's';
+            const mo1 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mo');
+            mo1.textContent = '=';
+
+            // v₀t
+            const msub = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'msub');
+            const mi2 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mi');
+            mi2.textContent = 'v';
+            const mn1 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mn');
+            mn1.textContent = '0';
+            msub.appendChild(mi2);
+            msub.appendChild(mn1);
+
+            const mi3 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mi');
+            mi3.textContent = 't';
+
+            // + ½at²
+            const mo2 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mo');
+            mo2.textContent = '+';
+
+            const mfrac = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mfrac');
+            const mn2 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mn');
+            mn2.textContent = '1';
+            const mn3 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mn');
+            mn3.textContent = '2';
+            mfrac.appendChild(mn2);
+            mfrac.appendChild(mn3);
+
+            const mi4 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mi');
+            mi4.textContent = 'a';
+
+            const msup = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'msup');
+            const mi5 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mi');
+            mi5.textContent = 't';
+            const mn4 = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mn');
+            mn4.textContent = '2';
+            msup.appendChild(mi5);
+            msup.appendChild(mn4);
+
+            // Assemblare la formula
+            mrow.appendChild(mi1);
+            mrow.appendChild(mo1);
+            mrow.appendChild(msub);
+            mrow.appendChild(mi3);
+            mrow.appendChild(mo2);
+            mrow.appendChild(mfrac);
+            mrow.appendChild(mi4);
+            mrow.appendChild(msup);
+
+            math.appendChild(mrow);
+            foreignObject.appendChild(math);
+            svg.appendChild(foreignObject);
+
+            document.body.appendChild(svg);
+        }()
+        +function(){
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '400');
+            svg.setAttribute('height', '300');
+
+            // Dublin Core - Autore
+            const metadata = document.createElementNS('http://www.w3.org/2000/svg', 'metadata');
+            const dcCreator = document.createElement('dc:creator');
+            dcCreator.textContent = 'Federico Ghedina';
+
+            // Creative Commons - Licenza
+            const ccLicense = document.createElement('cc:license');
+            ccLicense.setAttribute('rdf:resource', 'http://creativecommons.org/licenses/by/4.0/');
+
+            metadata.appendChild(dcCreator);
+            metadata.appendChild(ccLicense);
+            svg.appendChild(metadata);
+
+            // Aggiungere un elemento SVG visibile
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', '200');
+            circle.setAttribute('cy', '150');
+            circle.setAttribute('r', '50');
+            circle.setAttribute('fill', 'orange');
+            svg.appendChild(circle);
+
+            // Append al body
+            document.body.appendChild(svg);
+        }()
+        </script>
+        <div class="ex">
+            <!-- MathML direttamente in HTML, senza namespace! -->
+            <math display="block">
+                <mrow>
+                    <mi>s</mi>
+                    <mo>=</mo>
+                    <msub>
+                        <mi>v</mi>
+                        <mn>0</mn>
+                    </msub>
+                    <mi>t</mi>
+                    <mo>+</mo>
+                    <mfrac>
+                        <mn>1</mn>
+                        <mn>2</mn>
+                    </mfrac>
+                    <mi>a</mi>
+                    <msup>
+                        <mi>t</mi>
+                        <mn>2</mn>
+                    </msup>
+                </mrow>
+            </math>
+        </div>
+</body>
+</html>

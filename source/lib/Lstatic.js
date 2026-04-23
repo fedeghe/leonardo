@@ -18,7 +18,10 @@ Leo.import = L.import = L.prototype.import =function (d) {
 /**
  * 
  */
-Leo.getqs = L.getqs= L.prototype.getqs = function () {
+// external use with Leo
+// internal use with L
+// proto
+Leo.getqs = L.getqs = L.prototype.getqs = function () {
 	var q = window.location.search.substring(1),
 		els = q.split('&'),
 		qs = {}, tmp, el;
@@ -30,7 +33,7 @@ Leo.getqs = L.getqs= L.prototype.getqs = function () {
 };
 
 /**
- * 
+ * 	
  */
 Leo.toString = L.toString= L.prototype.toString = function (SVGDocument) {
 	var tmpParent = document.createElement('div');
@@ -80,3 +83,26 @@ Leo.getScaler = L.getScaler = L.prototype.getScaler = function (top, scale, zoom
 		return parseFloat((p * zoom * top / scale).toFixed(precision), 10);
 	}
 };
+/**
+ * 
+ */
+Leo.img2base64png = L.img2base64png = L.prototype.img2base64png = function (src, cb) {
+	var getBase64StringFromDataURL = function(dataURL) {
+		return dataURL.replace('data:', '').replace(/^.+,/, '');
+	}
+	
+	fetch(src)
+        .then(function(res) {return res.blob()})
+        .then(function(blob){
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                var base64 = getBase64StringFromDataURL(reader.result);
+                cb('data:image/png;base64,'+base64)
+            };
+            reader.readAsDataURL(blob);
+        });
+};
+
+Leo.uniqueID = L.uniqueID = L.prototype.uniqueID = lid;
+Leo.deg2rad = L.deg2rad = L.prototype.deg2rad = deg2rad;
+Leo.rad2deg = L.rad2deg = L.prototype.rad2deg = rad2deg;

@@ -4,93 +4,3308 @@
 |  |  |   __|     |   | |  _  | __  |    \|     |
 |  |__|   __|  |  | | | |     |    -|  |  |  |  |
 |_____|_____|_____|_|___|__|__|__|__|____/|_____|
-                                                  V. 1.0.43
+                                                  V. 1.1.0
 
 Federico Ghedina <federico.ghedina@gmail.com> 2026
-~15.32KB
+~92.62KB
 */
-const Leonardo=function(t){function e(t,e,n){this.namespaces=h;var r,o,s=this;n=n||{},this.width=t,this.height=e,this.tag=i("svg"),this.tag.setAttribute("width",t),this.tag.setAttribute("height",e),
-this.tag.setAttribute("xmlns",h.svg),this.tag.setAttribute("viewbox","0 0 "+t+" "+e),this.childs=[];for(r in n)"ns"!==r&&"target"!==r&&this.tag.setAttribute(r,n[r])
-;if(this.target="target"in n?n.target:null,"ns"in n)for("*"===n.ns&&(n.ns=Object.keys(h)),r=0,o=n.ns.length;r<o;r++)!function(t){t in h&&s.tag.setAttribute("xmlns:"+t,h[t])}(n.ns[r])}
-function n(t,e,n){function r(s){i=i||s;var u=parseFloat((s-i)/e,10);t&&(u=1-u);var p=t?u>0:u<1;n.tag.style.opacity=u,p&&!a?o=requestAnimationFrame(r):(n.tag.style.opacity=t?0:1,
-cancelAnimationFrame(o))}var o,i=null,s=this,a=!1;return setTimeout(function(){a=!0},e),n=n||s,n.tag.style.opacity=t?1:0,o=requestAnimationFrame(r),this}function r(t){return function(){
-var e=this.prev===t?" ":t;return this.path+=[e].concat([[].slice.call(arguments,0).join(",")]).join(""),this.prev=t,this}}function o(){this.path="",this.prev=null}function i(t,e){return e=e||h.svg,
-document.createElementNS(e,t)}function s(t){return t*Math.PI/180}function a(t){return t.defs||(t.defs=new l("defs"),t.append(t.defs)),t.defs}function u(t,e,n,r){var o=(r-90)*Math.PI/180;return{
-x:t+n*Math.cos(o),y:e+n*Math.sin(o)}}function p(t,e,n,r,o){var i=u(t,e,n,o),s=u(t,e,n,r),a=o-r<=180?"0":"1";return["M",t,e,"L",i.x,i.y,"A",n,n,0,a,0,s.x,s.y,"Z"].join(" ")}function l(t,e){this.t=t,
-this._id="i_"+ ++y,this.tag=i(t,e),this.tag.Element=this,this.parent=null,this.childs=[],this.events={},this.transforms={rotate:"",move:"",scale:""}}function c(t){return t.setAttributes({
-transform:t.transforms.rotate+" "+t.transforms.move+" "+t.transforms.scale}),t}var h={cc:"http://creativecommons.org/ns#",dc:"http://purl.org/dc/elements/1.1/",ev:"http://www.w3.org/2001/xml-events",
-rdf:"http://www.w3.org/1999/02/22-rdf-syntax-ns#",svg:"http://www.w3.org/2000/svg",xlink:"http://www.w3.org/1999/xlink"};e.prototype.setAttributes=function(t){
-for(var e in t)this.tag.setAttribute(e,t[e]);return this},e.prototype.getAttributes=function(){var t,e,n=[].slice.call(arguments,0),r={};for(t=0,e=n.length;t<e;t++)r[n[t]]=this.tag.getAttribute(n[t])
-;return r},e.prototype.setStyles=function(t){var e;for(e in t)this.tag.style[e]=t[e];return this},e.prototype.getStyles=function(){var t,e,n=[].slice.call(arguments,0),r={};for(t=0,
-e=n.length;t<e;t++)r[n[t]]=this.tag.style[n[t]];return r},e.prototype.append=function(){var t=this;return[].slice.call(arguments,0).forEach(function(e){e instanceof Array?e.forEach(function(e){
-t.append(e)}):(t.childs.push(e),e.parent=t,t.tag.appendChild(e.tag))}),this},e.prototype.render=function(t){var e=t&&"target"in t?t.target:this.target;if(!e)throw new Error("Target not set")
-;return e.innerHTML="",t&&t.fade&&(this.tag.style.opacity=0),e.appendChild(this.tag),t&&t.cb&&t.cb.call(this),t&&t.fade&&this.fadeIn(parseInt(t.fade,10)),this},e.prototype.remove=function(){
-var t=[].slice.call(arguments,0);return 0===t.length&&t.push(this),t.forEach(function(t){t.tag.parentNode.removeChild(t.tag),t.parent&&(t.parent.childs=t.parent.childs.filter(function(e){
-return e._id!==t._id}))}),this};var f=function(t,n,r){if(!t||!n||t<0||n<0)throw new Error("width or height not given!");return new e(t,n,r)};f.import=e.import=e.prototype.import=function(t){
-"string"==typeof t&&(t=e.toDocument(t));var n=new e(1,1);return n.tag=t,n},f.getqs=e.getqs=e.prototype.getqs=function(){var t,e,n=window.location.search.substring(1),r=n.split("&"),o={}
-;for(t in r)e=r[t].split("="),o[e[0]]=e.length>1?decodeURIComponent(e[1]):null;return o},f.toString=e.toString=e.prototype.toString=function(t){var e=document.createElement("div")
-;return e.appendChild(t),e.innerHTML},f.toDocument=e.toDocument=e.prototype.toDocument=function(t){return(new DOMParser).parseFromString(t,"image/svg+xml").children[0]},
-f.randomColor=e.randomColor=e.prototype.randomColor=function(t){for(var e=t?6:3,n=t?16777215:4095,r=(~~(Math.random()*n)).toString(16);r.length<e;)r="0"+r;return r},
-f.getScaler=e.getScaler=e.prototype.getScaler=function(t,e,n,r){return e=void 0!==e?~~e:100,n=void 0!==n?~~n:1,r=void 0!==r?~~r:1,function(o){return parseFloat((o*n*t/e).toFixed(r),10)}},
-e.prototype.fadeIn=function(t,e){return n.apply(this,[!1,t,e]),this},e.prototype.fadeOut=function(t,e){return n.apply(this,[!0,t,e]),this},e.prototype.downloadAnchor=function(t,e){
-var n=document.createElement("a");return n.download=(e||"download")+".svg",n.href=this.dataEncoded(),n.innerHTML=t||"download",n.style.display="block",n},e.prototype.toImageTag=function(t,e){
-var n=document.createElement("img");return t=t||"",e=e||"",n.setAttribute("title",t),n.setAttribute("alt",e),n.src=this.dataEncoded(),n},e.prototype.positionInspector=function(t){
-t=t||"%({%x} {%y})  rel-%({r%x} {r%y})  px({x} {y}) rel-px({rx} {ry})"
-;var e=this,n=this.tag,r=document.createElement("div"),o=document.createElement("ul"),i=n.getBoundingClientRect(),s=i.left,a=i.top,u=this.width,p=this.height,l=function(t,e){
-return parseFloat(t.toFixed(e||2),10)},c=t,h={x:0,y:0},f={left:0,top:0},d={x:0,y:0},g=function(){f.left=document.documentElement.scrollLeft,f.top=document.documentElement.scrollTop}
-;return r.style.fontFamily=o.style.fontFamily="verdana",o.style.listStyleType="decimal",o.style.fontSize="0.8em",window.addEventListener("scroll",g),n.addEventListener("mousemove",function(e){
-var n=e.clientX+f.left,o=e.clientY+f.top;d.x=n-s,d.y=o-a,c=t;var i=100*d.x/u,g=100*d.y/p,y={"%x":l(i),"%y":l(g),"r%x":l(function(t){return 100*t/u}(~~d.x-h.x)),"r%y":l(function(t){return 100*t/p
-}(~~d.y-h.y)),x:~~d.x,y:~~d.y,rx:~~d.x-h.x,ry:~~d.y-h.y};for(var v in y)c=c.replace("{"+v+"}",y[v]);r.innerHTML=c}),n.parentNode.appendChild(r),n.parentNode.appendChild(o),
-n.addEventListener("click",function(){var t=document.createElement("li"),n=e.circle(1+~~d.x,1+~~d.y,2);f.left=document.documentElement.scrollLeft,f.top=document.documentElement.scrollTop,
-n.setAttributes({stroke:"black",fill:"white","stroke-width":1,"stroke-dasharray":"3,1"}),n.on("mouseover",function(){t.style.fontWeight="bold",n.setAttributes({fill:"red",r:4})}),
-n.on("mouseleave",function(){t.style.fontWeight="normal",n.setAttributes({fill:"white",r:2})}),h={x:~~d.x,y:~~d.y},t.innerHTML=c,t.addEventListener("mouseover",function(){t.style.fontWeight="bold",
-n.setAttributes({fill:"red",r:4})}),t.addEventListener("mouseout",function(){t.style.fontWeight="normal",n.setAttributes({fill:"white",r:2})}),o.appendChild(t),e.append(n)}),this},
-e.prototype.positionCruncher=function(t,n,r,o){function i(t,e){return t[a](u(e[0]),p(e[1]))}var s=this,a="l",u=e.getScaler(t),p=e.getScaler(n);return function(t){if(t=t||[],t.length){
-var e=t.slice(1).reduce(i,s.pathBuild.M(u(t[0][0]),p(t[0][1])));return o&&e.Z(),s.path(e).setAttributes(r)}}},e.prototype.dataEncoded=function(){
-var t=new XMLSerializer,e='<?xml version="1.0" standalone="no"?>\r\n'+t.serializeToString(this.tag)
-;return e.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)||(e=e.replace(/^<svg/,'<svg xmlns="'+this.namespaces.svg+'"')),
-e.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)||(e=e.replace(/^<svg/,'<svg xmlns:xlink="'+this.namespaces.xlink+'"')),"data:image/svg+xml;charset=utf-8,"+encodeURIComponent(e)},
-e.prototype.desc=function(t){var e=new l("desc");return e.tag.innerHTML=t,e},e.prototype.circle=function(t,e,n){var r=new l("circle");return r.setAttributes({cx:t,cy:e,r:n}),r},
-e.prototype.ellipse=function(t,e,n,r){var o=new l("ellipse");return o.setAttributes({cx:t,cy:e,rx:n,ry:r}),o},e.prototype.group=function(t){var e=new l("g")
-;return t&&e.append([].slice.call(arguments,0)),e},e.prototype.image=function(t,e,n,r,o){var i=new l("image");return i.setAttributes({x:t,y:e,width:n,height:r}),
-i.tag.setAttributeNS(h.xlink,"xlink:href",o),i},e.prototype.line=function(t,e,n,r){var o=new l("line");return o.setAttributes({x1:t,y1:e,x2:n,y2:r}),o},e.prototype.path=function(t,e){
-var n=new l("path");return e=e||{},e.d=t,n.setAttributes(e),n},e.prototype.polygon=function(){var t=new l("polygon"),e=[].slice.call(arguments,0),n=[],r=0,o=e.length
-;for(null;r<o;r+=2)n.push(e[r]+","+e[r+1]);return t.setAttributes({points:n.join(" ")}),t},e.prototype.polyline=function(){var t=new l("polyline"),e=[].slice.call(arguments,0),n=[],r=0,o=e.length
-;for(null;r<o;r+=2)n.push(e[r]+","+e[r+1]);return t.setAttributes({points:n.join(" ")}),t},e.prototype.rect=function(t,e,n,r){r=r||n;var o=new l("rect");return o.setAttributes({x:t,y:e,width:n,
-height:r}),o},e.prototype.text=function(t,e,n){var r=new l("text");return r.setAttributes({x:t,y:e}),r.tag.textContent=n,r},e.prototype.title=function(t){var e=new l("title");return e.tag.innerHTML=t,
-e},e.prototype.script=function(t){var e=new l("script");return e.setAttributes({type:"application/ecmascript"}),t&&(e.tag.innerHTML="//<![CDATA[\n"+t+"\n]]>"),e},e.prototype.Element=function(t){
-return new l(t)},["M","m","Z","z","L","l","H","h","V","v","C","c","Q","q","S","s","T","t","A","a","R","r"].forEach(function(t){o.prototype[t]=r(t)}),e.prototype.pathBuild=function(){var t=new o
-;return t.toString=function(){var t=this.path+"";return this.path="",t},t}(),e.prototype.slice=function(t,e,n,r,o){var i=this,s=i.slicePath(t,e,n,r,o);return i.path(s)},
-e.prototype.slicePath=function(t,e,n,r,o){var i=0;if(r>o){var a=r;r=o,o=a}return i=o-r<=180?0:1,r=s(r),o=s(o),
-this.pathBuild.M(t,e).L(t+Math.cos(r)*n,e-Math.sin(r)*n).A(n,n,0,i,0,t+Math.cos(o)*n,e-Math.sin(o)*n).L(t,e)};var d=function(t){return function(e){var n=new l("stop"),r={offset:e.perc+"%",
-"stop-color":e.color};"style"in e&&(r.style=e.style),n.setAttributes(r),t.append(n)}};e.prototype.linearGradient=function(t,e,n,r,o){var i=a(this),s=g(),u=new l("linearGradient"),p={id:s,x1:e||"0%",
-y1:n||"0%",x2:r||"100%",y2:o||"0%"},c=d(u);return u.setAttributes(p),t.forEach(c),i.append(u),"url(#"+s+")"},e.prototype.radialGradient=function(t){var e=a(this),n=g(),r=new l("radialGradient"),o=d(r)
-;return r.setAttributes({id:n}),t.forEach(o),e.append(r),"url(#"+n+")"},e.prototype.filter=function(t){a(this)
-;var e=g(),n=new l("filter"),r=["feGaussianBlur","feDropShadow","feMorphology","feDisplacementMap","feBlend","feColorMatrix","feConvolveMatrix","feComponentTransfer","feSpecularLighting","feDiffuseLighting","feFlood","feTurbulence","feImage","feTile","feOffset","feComposite","feMerge"]
-;n.setAttributes({id:e});for(var o,i=0,s=t.length,u=!1;i<s;i++,u=!1)o=t[i],r.includes(o.type)&&(u=new l(o.type),u.setAttributes(o.attrs)),u&&n.append(u);return this.defs.append(n),"url(#"+e+")"},
-e.prototype.animate=function(){function t(t,e,n,r){r=r||20;var o=0,i=0,s=0,a=setInterval(function(){i=e(i,o),s=n(s,o),o+=.1,t.move(i,s)},r);return function(){clearInterval(a)}}function e(t,e,n,r){
-r=r||20;var o=0,i=0,s=0,a=setInterval(function(){i=e(i,o),s=n(s,o),o+=.1,t.move(i*Math.cos(s),i*Math.sin(s))},r);return function(){clearInterval(a)}}function n(t){var e=new l("animate"),n={
-attributeName:t.attributeName,dur:t.dur,begin:t.begin||"0s",repeatCount:t.repeatCount};return"from"in t&&(n.from=t.from),"to"in t&&(n.to=t.to),"values"in t&&(n.values=t.values),
-"type"in t&&(n.type=t.type),e.setAttributes(n),e}return{cartesian:t,polar:e,attr:n}}(),e.prototype.textPath=function(t,e,n){var r=this,o=new l("text"),i=new l("defs"),s=r.path(e),a=new l("textPath")
-;return s.setAttributes({id:t}),a.tag.innerHTML=n,a.tag.setAttributeNS(h.xlink,"xlink:href","#"+t),o.append(i),o.append(a),i.append(s),o},e.prototype.centeredText=function(t,e,n,r){
-var o=this.group(),i=g(),s=new l("path"),a=new l("text"),u=new l("textPath");return s.setAttributes({id:i,pathLength:t,d:"M0 "+e/2+"h"+t,height:0,"stroke-opacity":0}),r=r||{},r.href="#"+i,
-r["text-anchor"]="middle",r["dominant-baseline"]="middle",r.startOffset=t/4,u.setAttributes(r),u.tag.innerHTML=n,a.append(u),o.append(s,a),o.updateText=function(t){u.tag.innerHTML=t},o},
-e.prototype.arcCentered=function(t,e,n,r,o){var i=new l("path");return i.setAttributes({d:p(t,e,n,r,o)}),i},e.prototype.arcSection=function(t,e,n,r,o,i,s,a){s=void 0===s?1:s,a=void 0===a?0:a
-;var p=u(t,e,r,o),l=u(t,e,r,i),c=u(t,e,n,i),h=u(t,e,n,o);return this.path(this.pathBuild.M(h.x,h.y).L(p.x,p.y).A(r,r,0,0,s,l.x,l.y).L(c.x,c.y).A(n,n,0,0,a,h.x,h.y).Z())};var g=function(){var t=0
-;return function(){return"leo_id_"+ ++t}}(),y=0;return l.prototype.setAttributes=e.prototype.setAttributes,l.prototype.getAttributes=e.prototype.getAttributes,
-l.prototype.setStyles=e.prototype.setStyles,l.prototype.getStyles=e.prototype.getStyles,l.prototype.append=e.prototype.append,l.prototype.remove=e.prototype.remove,l.prototype.on=function(t,e){
-return t in this.events?this.events[t].push(e):this.events[t]=[e],this.tag.addEventListener(t,e),this},l.prototype.off=function(t,e){var n=this
-;return t in this.events&&(void 0===e?(this.events[t].forEach(function(e){n.tag.removeEventListener(t,e)}),this.events[t]=null):this.tag.removeEventListener(t,e)),this},l.prototype.once=function(t,e){
-var n=this;return this.on(t,function r(o){n.off(t,r),e(o)}),this},l.prototype.trigger=function(t){var e=this.tag;e.dispatchEvent(new Event(t,{target:e}))},l.prototype.clone=function(){
-var t,e=new l(this.t),n=this.tag.attributes,r=0;for(e.transforms.rotate=this.transforms.rotate,e.transforms.move=this.transforms.move,e.transforms.scale=this.transforms.scale,r=0,
-t=n.length;r<t;r++)e.tag.setAttribute(n[r].name,n[r].value);for(r=0,t=this.childs.length;r<t;r++)e.append(this.childs[r].clone());return 0==t&&(e.tag.innerHTML=this.tag.innerHTML),e},
-l.prototype.use=function(){var t=this.tag.attributes.id,e=new l("use");if(!t)throw new Error("You can use use only on tags having an id attribute");return e.tag.setAttribute("href","#"+t.value),e},
-l.prototype.rotate=function(t,e,n){return e=e||0,n=n||0,this.transforms.rotate=" rotate("+t+" "+e+" "+n+")",c(this)},l.prototype.scale=function(t,e){return t=t||0,e=e||t||0,
-this.transforms.scale=" scale("+t+", "+e+")",c(this)},l.prototype.mirrorH=function(){return this.transforms.scale=" scale(1, -1)",c(this)},l.prototype.mirrorV=function(){
-return this.transforms.scale=" scale(-1, 1)",c(this)},l.prototype.move=function(t,e){return t=t||0,e=e||0,this.transforms.move=" translate("+t+" "+e+")",c(this)},l.prototype.bringToTop=function(){
-this.bringTo(1/0)},l.prototype.bringToBottom=function(){this.bringTo(-1/0)},l.prototype.timeout=function(t,e){var n=t.bind(this);return setTimeout(n,e),this},l.prototype.bringTo=function(t){
-var e=this.tag.ownerSVGElement;switch(t){case 1/0:e.removeChild(this.tag),e.appendChild(this.tag);break;case-1/0:e.removeChild(this.tag),e.insertBefore(this.tag,e.firstChild);break;default:
-var n=this.tag;if(t>=0){for(;t++>0&&n.nextSibling;)n=n.nextSibling;e.removeChild(this.tag),e.insertBefore(this.tag,n.nextSibling)}else{for(;t--<0&&n.previousSibling;)n=n.previousSibling
-;e.removeChild(this.tag),e.insertBefore(this.tag,n)}}},l.prototype.clear=function(){this.tag.innerHTML="",this.childs=[],this.transforms={rotate:"",move:"",scale:""}},
-l.prototype.replace=function(t,e){t.tag.parentNode.replaceChild(e.tag,t.tag),t.parent.childs=t.parent.childs.map(function(n){return n._id==t._id?e:n})},f.import=e.import,f.getqs=e.getqs,
-f.toString=e.toString,f.toDocument=e.toDocument,f.randomColor=e.randomColor,f}();"object"==typeof exports&&(module.exports=Leonardo);
+const Leonardo = (function(w) {
+	/*
+	[Malta] lib/functions.js
+	*/
+	
+	
+	function create(tag, ns){
+		ns = ns || namespaces.svg;
+		return document.createElementNS(ns, tag);
+	}
+	
+	/* istanbul ignore next */
+	function obj2attr(o) {
+		var res = [], j;
+		for (j in o) res.push(j + '(' + o[j] + ')');
+		return res.join(' ');
+	}
+	
+	/* istanbul ignore next */
+	function bind(f, obj) {
+		return function () {
+			var args = [].slice.call(arguments, 0);
+			return f.apply(obj, args);
+		}
+	}
+	
+	function deg2rad(deg) {
+		return deg * Math.PI / 180;
+	}
+	
+	function rad2deg(rad) {
+		return rad * 180 / Math.PI;
+	}
+	
+	var lid = (function () {
+	    var leo_id = 0;
+	    return function() {
+	        leo_id++;
+	        return 'leo_id_' + leo_id;
+	    }
+	})();
+	/* istanbul ignore next */
+	function getDefs(instance) {
+	    if (!instance.defs) {
+	        instance.defs = new Element('defs');
+	        instance.append(instance.defs);
+	    }
+	    return instance.defs;
+	}
+	
+	function polarToCartesian(cx, cy, r, deg) {
+	  var rad = (deg-90) * Math.PI / 180.0;
+	  return {
+	    x: (cx + (r * Math.cos(rad))).toFixed(2),
+	    y: (cy + (r * Math.sin(rad))).toFixed(2)
+	  };
+	}
+	
+	/**
+	 * no more used,
+	 * it was before the implementation of arcSection
+	 */
+	// function describeArc(x, y, radius, startAngle, endAngle){
+	//     var start = polarToCartesian(x, y, radius, endAngle),
+	//         end = polarToCartesian(x, y, radius, startAngle),
+	//         /* istanbul ignore next */
+	//         largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+	//     return [
+	//         "M", x, y,
+	//         "L", start.x, start.y, 
+	//         "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y,
+	//         "Z" 
+	//     ].join(" ");     
+	// }
+	/*
+	[Malta] lib/L.js
+	*/
+	var ht = 'http://',
+	
+		// https://www.w3.org/TR/
+		namespaces = {
+			/**
+			 * Creative Commons (Metadata)
+			 * https://creativecommons.org/ns/
+			 */
+			cc: ht + 'creativecommons.org/ns#',
+	
+			/**
+			 * Dublin Core (Metadata - Standard)
+			 * https://purl.org/dc/elements/1.1/
+			 */
+			dc: ht + 'purl.org/dc/elements/1.1/',
+	
+			/**
+			 * XML Events
+			 * https://www.w3.org/TR/xml-events/
+			 */
+			ev: ht + 'www.w3.org/2001/xml-events',				// https://www.w3.org/TR/xml-events/
+	
+			/**
+			 * RDF (Resource Description Framework - Semantic Web)
+			 * https://www.w3.org/1999/02/22-rdf-syntax-ns/
+			 */
+			rdf: ht + 'www.w3.org/1999/02/22-rdf-syntax-ns#',
+	
+			/**
+			 * SVG (Scalable Vector Graphics)
+			 * https://www.w3.org/TR/SVG2/
+			 * https://www.w3.org/TR/SVG/
+			 */
+			svg: ht + 'www.w3.org/2000/svg',
+	
+			/**
+			 * XLink (Linking in XML)
+			 * https://www.w3.org/TR/xlink/
+			 */
+			xlink: ht + 'www.w3.org/1999/xlink',
+	
+			/**
+			 * MathML
+			 * https://www.w3.org/Math/
+			 */
+			math: ht + 'www.w3.org/1998/Math/MathML',
+	
+			/**
+			 * XHTML (HTML in XML)
+			 * https://www.w3.org/TR/xhtml1/
+			 */
+			xhtml: ht + 'www.w3.org/1999/xhtml', //<foreignObject> https://www.w3.org/TR/SVG2/embedded.html#ForeignObjectElement
+	
+			/**
+			 * XML Namespace (Standard XML)
+			 * https://www.w3.org/XML/1998/namespace
+			 */
+			xml: ht + 'www.w3.org/XML/1998/namespace' 
+		};
+	
+	/**
+	 * { function_description }
+	 *
+	 * @class      L (name)
+	 * @param      {string}  width   The width
+	 * @param      {string}  height  The height
+	 * @param      {<type>}  opts    The options
+	 */
+	function L(width, height, opts) {
+		validate.positiveInt(width);
+		validate.positiveInt(height);
+		var self = this,
+			tmp, l;
+		opts = opts || {};
+		this.width = width;
+		this.height = height;
+	
+	    this.tag = create('svg');
+	    this.sas({
+			width: width,
+			height: height,
+			xmlns: namespaces.svg,
+			viewbox: '0 0 ' + width + ' ' + height
+		});
+	    this.childs = [];
+	    
+	    for (tmp in opts)
+			tmp !== 'ns'
+			&& tmp !== 'target'
+	    	&& this.tag.setAttribute(tmp, opts[tmp]);
+	
+	    this.target = 'target' in opts ? opts.target : null;
+	
+	    function addNs(l){
+	    	l in namespaces 
+	    	&& self.tag.setAttribute('xmlns:' + l, namespaces[l]);
+	    }
+		
+	    if ('ns' in opts){
+			// only ns within namespaces var can be added there
+			// so the only thing to validate is the fact that
+			// opts.ns is actually an array
+			// validate.array(opts.ns);
+	    	opts.ns === '*' && (opts.ns = Object.keys(namespaces));
+	    	for (tmp = 0, l = opts.ns.length; tmp < l; tmp++)
+	    		addNs(opts.ns[tmp]);
+		}
+	}
+	
+	L.prototype.autoScale = function () {
+		this.tag.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+		this.tag.removeAttribute('width');
+		this.tag.removeAttribute('height');
+		return this;
+	};
+	/**
+	 * set tag attributes
+	 *
+	 * @param      {<type>}  attrs   The attributes
+	 * @return     {Object}  { description_of_the_return_value }
+	 */
+	L.prototype.setAttributes = L.prototype.sas = function (attrs) {
+		for (var k in attrs) this.tag.setAttribute(k, attrs[k]);
+		return this;
+	};
+	
+	L.prototype.getAttributes = function () {	
+		var attrs = [].slice.call(arguments, 0),
+			r = {}, k, l;
+		for (k = 0, l = attrs.length; k < l; k++) {
+			r[attrs[k]] = this.tag.getAttribute(attrs[k]);
+		}
+		return r;
+	};
+	
+	/**
+	 * { function_description }
+	 *	`
+	 * @param      {<type>}  styles  The styles
+	 * @return     {Object}  { description_of_the_return_value }
+	 */
+	L.prototype.setStyles = function (styles) {	
+		var k;
+		for (k in styles) this.tag.style[k] = styles[k];
+		return this;
+	};
+	
+	L.prototype.getStyles = function () {	
+		var styles = [].slice.call(arguments, 0),
+			r = {}, k, l;
+		for (k = 0, l = styles.length; k < l; k++) {
+			r[styles[k]] = this.tag.style[styles[k]];
+		}
+		return r;
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * @return     {Object}  { description_of_the_return_value }
+	 */
+	L.prototype.append = function () {
+		var self = this,
+			els = [].slice.call(arguments, 0);
+		els.forEach(function (el) {
+			if( el instanceof Array){
+				el.forEach(function (k) {
+					self.append(k);
+				});
+			} else {
+				self.childs.push(el);
+				el.parent = self;
+				self.tag.appendChild(el.tag);
+			}
+		});
+		return this;
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * @param      {Function}  cb      { parameter_description }
+	 * @return     {Object}    { description_of_the_return_value }
+	 */
+	L.prototype.render = function (o) {
+	    var trg = o && 'target' in o  ? o.target : this.target;
+	    if (!trg) throw ERRORS.no_target;
+		// validate.isNode(trg);
+		trg.innerHTML = '';
+	    if (o && o.fade) {
+	        this.tag.style.opacity = 0;
+	    }
+		trg.appendChild(this.tag);
+	    o && o.cb && o.cb.call(this);
+	    o && o.fade && this.fadeIn(parseInt(o.fade, 10))
+		return this;
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * @param      {Function}  cb      { parameter_description }
+	 * @return     {Object}    { description_of_the_return_value }
+	 */
+	L.prototype.remove = function () {
+	    var els = [].slice.call(arguments, 0);
+		if (els.length === 0) els.push(this);
+		els.forEach(function (el) {
+			el.tag.parentNode.removeChild(el.tag);
+			/* istanbul ignore else */
+			if (el.parent) {
+				el.parent.childs = el.parent.childs.filter(function (c) {
+					return c._id !== el._id
+				})
+			}
+		})
+		return this;
+	};
+	
+	L.prototype.addDefs = function() {
+		var els = [].slice.call(arguments, 0),
+			defs = getDefs(this);
+		defs.append(els);
+		return this;
+	}
+	
+	
+	/*
+	[Malta] lib/Element.js
+	*/
+	var iii = 0;
+	/**
+	 * { function_description }
+	 *
+	 * @class      Element (name)
+	 * @param      {Function}  tag     The tag
+	 * @param      {<type>}    ns      { parameter_description }
+	 */
+	function Element(tag, ns) {
+		this.t = tag;
+		this._id = 'i_'+(++iii);
+		this.ns = ns;
+		this.tag = create(tag, ns);
+		this.tag.Element = this;
+		this.parent = null;
+		this.childs = [];
+		this.events = {};
+		this.scaleX = 1;
+		this.scaleXsign = 1;
+		this.scaleY = 1;
+		this.scaleYsign = 1;
+		this.transforms = {
+			rotate : '',
+			move : '',
+			scale : '',
+			skewX : '',
+			skewY : ''
+		};
+		this.transformsString = '';
+	}
+	
+	/**
+	 * { item_description }
+	 */
+	Element.prototype.sas = L.prototype.sas;
+	Element.prototype.setAttributes = L.prototype.setAttributes;
+	Element.prototype.getAttributes = L.prototype.getAttributes;
+	
+	/**
+	 * { item_description }
+	 */
+	Element.prototype.setStyles = L.prototype.setStyles;
+	Element.prototype.getStyles = L.prototype.getStyles;
+	
+	
+	/**
+	 * { item_description }
+	 */
+	Element.prototype.append = L.prototype.append;
+	
+	Element.prototype.remove = L.prototype.remove;
+	
+	/**
+	 * { function_description }
+	 *
+	 * @param      {<type>}    eventName  The event name
+	 * @param      {Function}  cb         { parameter_description }
+	 * @return     {Object}    { description_of_the_return_value }
+	 */
+	Element.prototype.on = function (eventName, cb) {
+		if (eventName in this.events) {
+			this.events[eventName].push(cb);
+		} else {
+			this.events[eventName] = [cb];
+		}
+		this.tag.addEventListener(eventName, cb);
+		return this;
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * @param      {<type>}    eventName  The event name
+	 * @param      {Function}  cb         { parameter_description }
+	 * @return     {Object}    { description_of_the_return_value }
+	 */
+	Element.prototype.off = function (eventName, cb) {	
+	    var self = this;
+		/* istanbul ignore else */
+		if (eventName in this.events) {
+			if (typeof cb === 'undefined') {
+				this.events[eventName].forEach(function (fn) {
+					self.tag.removeEventListener(eventName, fn);
+				});
+				this.events[eventName] = null;
+			} else {
+				this.tag.removeEventListener(eventName, cb);
+			}
+		}
+		return this;
+	};
+	
+	/**
+	 * 
+	 * @param {*} eventName 
+	 * @param {*} cb 
+	 * @returns 
+	 */
+	Element.prototype.once = function (eventName, cb) {
+	    var self = this;
+		this.on(eventName, function _(e){
+			self.off(eventName, _);
+			cb(e);
+		});
+		return this;
+	};
+	
+	Element.prototype.trigger = function (event) { 
+		var self = this.tag;
+		self.dispatchEvent(new Event(event, {target: self}));
+	};
+	
+	Element.prototype.click = function (x,y) { 
+		var self = this.tag;
+		self.dispatchEvent(new MouseEvent('mousemove', {
+			bubbles: true,
+			clientX: x,
+			clientY: y
+		}));
+		self.dispatchEvent(new MouseEvent('click', {
+			bubbles: true,
+			clientX: x,
+			clientY: y
+		}));
+	};
+	
+	/**
+	 * Creates a new instance of the object with same properties than original.
+	 *
+	 * @return     {Element}  Copy of this object.
+	 */
+	// consider a way to use use.... but remember it need the original tag to have a id attribute
+	// https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use
+	Element.prototype.clone = function () {
+		var ret = new Element(this.t),
+			attrNames = this.tag.attributes,
+			i = 0, l;
+	
+		ret.transforms.rotate = this.transforms.rotate;
+		ret.transforms.move = this.transforms.move;
+		ret.transforms.scale = this.transforms.scale;
+		ret.transforms.skewX = this.transforms.skewX;
+		ret.transforms.skewY = this.transforms.skewY;
+	
+		for (i = 0, l = attrNames.length; i < l; i++) {
+			ret.tag.setAttribute(attrNames[i].name, attrNames[i].value);
+		}
+		// recur in childs
+		for (i = 0, l = this.childs.length; i < l; i++) {
+			ret.append(this.childs[i].clone());
+	    }
+	    if (l == 0) {
+	        ret.tag.innerHTML  = this.tag.innerHTML 
+	    }
+		return ret;
+	};
+	
+	Element.prototype.use = function () {
+	    var id = this.tag.attributes.id,
+	        ret = new Element('use');
+	    if (!id) {
+	        throw new Error('You can use use only on tags having an id attribute');
+	    }
+	    ret.tag.setAttribute('href', '#' + id.value);
+	    return ret;
+	};
+	
+	Element.prototype.syncTransformString = function () {
+		this.transformsString = [
+			this.transforms.rotate,
+			this.transforms.move,
+			this.transforms.scale,
+			this.transforms.skewX,
+			this.transforms.skewY
+		].filter(function(t) { return t !== ''; }).join(' ');
+		return this.transformsString;
+	}
+	
+	function trans(instance) {
+		instance.syncTransformString();	
+	    instance.tag.setAttribute('transform', instance.transformsString);
+		return instance;
+	}
+	
+	/**
+	 * { function_description }
+	 *
+	 * @param      {string}  r       { parameter_description }
+	 * @param      {string}  rx      The receive
+	 * @param      {string}  ry      { parameter_description }
+	 * @return     {<type>}  { description_of_the_return_value }
+	 */
+	Element.prototype.rotate = function (r, rx, ry) {
+		rx = rx || 0;
+		ry = ry || 0;
+		this.transforms.rotate = 'rotate(' + r + ' ' + rx + ' ' + ry + ')';
+		return trans(this);
+	};
+	
+	function getScale(i){
+		return 'scale('
+			+(i.scaleX * i.scaleXsign)+', '
+			+(i.scaleY * i.scaleYsign)+')';
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * @param      {string}  sx      { parameter_description }
+	 * @param      {string}  sy      { parameter_description }
+	 * @return     {<type>}  { description_of_the_return_value }
+	 */
+	Element.prototype.scale = function (sx, sy) {
+		this.scaleX = sx || 0;
+		this.scaleY = sy || sx || 0;
+		this.transforms.scale = getScale(this);
+		return trans(this);
+	};
+	
+	Element.prototype.skewX = function (sx) {
+		this.skewX = sx || 0;
+		this.transforms.skewX = 'skewX(' + this.skewX + ')';
+		return trans(this);
+	};
+	
+	Element.prototype.skewY = function (sy) {
+		this.skewY = sy || 0;
+		this.transforms.skewY = 'skewY(' + this.skewY + ')';
+		return trans(this);
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * @return     {<type>}  { description_of_the_return_value }
+	 */
+	Element.prototype.mirrorH = function () {
+		this.scaleYsign = -this.scaleYsign;
+		this.transforms.scale = getScale(this);
+		return trans(this);
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * @return     {<type>}  { description_of_the_return_value }
+	 */
+	Element.prototype.mirrorV = function () {
+		this.scaleXsign = -this.scaleXsign;
+		this.transforms.scale = getScale(this);
+		return trans(this);
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * @param      {string}  rx      The receive
+	 * @param      {string}  ry      { parameter_description }
+	 * @return     {<type>}  { description_of_the_return_value }
+	 */
+	Element.prototype.move = function (rx, ry) {
+		rx = rx || 0;
+		ry = ry || 0;
+		this.transforms.move = 'translate(' + rx + ' ' + ry + ')';
+		return trans(this);
+	};
+	
+	Element.prototype.untrans = function (){
+	    this.transforms = {
+	        rotate : '',
+	        move : '',
+	        scale : '',
+	        skewX : '',
+	        skewY : ''
+	    };
+		return trans(this);
+	};
+	
+	Element.prototype.bringToTop = function (){
+	    this.bringTo(Infinity);
+	};
+	
+	Element.prototype.bringToBottom = function (){
+	    this.bringTo(-Infinity);
+	};
+	
+	Element.prototype.timeout = function (fn, ms) {
+	    var fnto = fn.bind(this)
+		setTimeout(fnto, ms)
+		return this;
+	};
+	
+	/**
+	 * 
+	 * @param {*} where 
+	 */
+	Element.prototype.bringTo = function (where){
+	    var parent = this.tag.ownerSVGElement;
+	    switch (where) {
+	        case Infinity: 
+	            parent.removeChild(this.tag);
+	            parent.appendChild(this.tag);
+	            break;
+	        case -Infinity:
+	            parent.removeChild(this.tag);
+	            parent.insertBefore(this.tag, parent.firstChild);
+	            break;
+	        default:
+	            var n = this.tag
+	            if (where >= 0) {
+	                while (where++ > 0 && n.nextSibling) {
+	                    n = n.nextSibling
+	                }
+	                parent.removeChild(this.tag);
+	                parent.insertBefore(this.tag, n.nextSibling);
+	            } else {
+	                while (where-- < 0 && n.previousSibling) {
+	                    n = n.previousSibling
+	                }
+	                parent.removeChild(this.tag);
+	                parent.insertBefore(this.tag, n);
+	            }
+	            break;
+	    }
+	}
+	
+	
+	Element.prototype.clear = function () {
+		this.tag.innerHTML = '';
+		this.childs = [];
+		this.transforms = {
+			rotate : '',
+			move : '',
+			scale : ''
+		};
+	};
+	
+	/**
+	 * 
+	 * @param {*} currentOne 
+	 * @param {*} newOne 
+	 */
+	Element.prototype.replace = function (currentOne, newOne) {
+		currentOne.tag.parentNode.replaceChild(newOne.tag, currentOne.tag);
+		currentOne.parent.childs = currentOne.parent.childs.map(function (c) {
+			return c._id == currentOne._id ? newOne : c;
+		});
+	};
+	
+	Element.prototype.infoUrl = function (open) {
+		var tagName = this.tag.tagName,
+			url = 'https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/' + tagName;
+		if (open) window.open(url, '_blank');
+		return url;
+	}
+	
+	/*
+	[Malta] lib/errs.js
+	*/
+	var ERRORS = {
+	    no_target: new Error('Target not set'),
+	    validation_failed : function(type) {
+	        return new Error('Validation failed for ' + type);
+	    },
+	    factory_invalid_params : new Error('Invalid parameters for factory function'),
+	    dom_node_expected: new Error('Dom node expected'),
+	    undefined : new Error('undefined not expected'),
+	    'null' : new Error('null not expected'),
+	    array_expected: new Error('array expected'),
+	    even_numbers_expected: new Error('even number of integers expected')
+	};
+	/*
+	[Malta] lib/validators.js
+	*/
+	L.validators = {
+	    int : function (v) {
+	        if(isNaN(v)) return false;
+	        var n = parseFloat(v);
+	        return !isNaN(parseFloat(v)) && isFinite(v) && n === v;
+	    },
+	
+	    // v can contain something that is not in the shape
+	    // anyway all the fields in shape must be present in v
+	    // and the types must match
+	    objShape: function (v, shape) {
+	        if (typeof v !== 'object' || typeof shape !== 'object') return false;
+	        for (var key in shape) {
+	            // if key ends with ? then it is optional to have that on v
+	            var isOptional = false,
+	                k = key;
+	            if (key.slice(-1) === '?') {
+	                isOptional = true;
+	                k = k.slice(0, -1);
+	            }
+	            if (!isOptional || (isOptional && v.hasOwnProperty(k))) {
+	                if (typeof v[k] !== shape[k]) return false;
+	            }
+	        }
+	        return true;        
+	    },
+	    array: function (v){ return Array.isArray(v); }
+	};
+	var validate = {
+	    // defined : function (e) {
+	    //     if(typeof e === 'undefined') throw ERRORS.undefined;
+	    //     return true;
+	    // },
+	    // notNull : function (e) {
+	    //     if(e === null) throw ERRORS.null;
+	    //     return true;
+	    // },
+	    // isNode : function (node) {
+	    //     if (!(node instanceof Element)) throw ERRORS.dom_node_expected;
+	    //     return true;
+	    // },
+	    int : function (n) {
+	        var isValid = L.validators.int(n);
+	        if (!isValid) throw ERRORS.validation_failed('int');
+	        return true;
+	    },
+	    intp : function (n) {
+	        var np = parseInt(n.replace(/(\%)$/, ''), 10),
+	            isValid = L.validators.int(np);
+	        if (!isValid) throw ERRORS.validation_failed('intp');
+	        return true;
+	    },
+	    positive : function (n) {
+	        if (n <= 0) throw ERRORS.validation_failed('pos');
+	        return true;
+	    },
+	    positiveInt: function (n){
+	        var isInt = L.validators.int(n),
+	            isPositive = n > 0;
+	        if(!isInt || !isPositive) throw ERRORS.validation_failed('posInt')
+	        return true;
+	    },
+	    objShape : function (v, shape) {
+	        var isValid = L.validators.objShape(v, shape);
+	        if (!isValid) throw ERRORS.validation_failed('objShape');
+	        return true;
+	    },
+	    array: function(v) {
+	        if(!L.validators.array(v)) throw ERRORS.array_expected
+	        return true;
+	    },
+	    evenNumbers: function (a){
+	        var l = a.length,
+	            lengthOk = l % 2 === 0,
+	            allNumbers = a.every(function (n){return validate.int(n)})
+	        if(!lengthOk || !allNumbers) throw ERRORS.even_numbers_expected;
+	        return true;
+	    }
+	}
+	
+	function isString(s) {
+	    return typeof s === 'string' || s instanceof String;
+	}
+	
+	/*
+	[Malta] lib/factory.js
+	*/
+	var Leo = function (w, h, attrs) {
+	    // if (!w || !h || w < 0 || h < 0) 
+	    //     throw ERRORS.factory_invalid_params;
+	    validate.positiveInt(w);
+	    validate.positiveInt(h);
+	    return new L(w, h, attrs);
+	};
+	// Leo is defined
+	/*
+	[Malta] lib/Lstatic.js
+	*/
+	/**
+	 * static function to import a documentor a string
+	 * @param {*} d 
+	 */
+	// external use with Leo
+	// internal use with L
+	// proto
+	Leo.import = L.import = L.prototype.import =function (d) {
+		// document of string ?
+		if (typeof d === 'string') {
+			d = L.toDocument(d);
+		}
+		var newL = new L(1, 1);
+		newL.tag = d;
+		return newL;
+	};
+	
+	/**
+	 * 
+	 */
+	// external use with Leo
+	// internal use with L
+	// proto
+	Leo.getqs = L.getqs = L.prototype.getqs = function () {
+		var q = window.location.search.substring(1),
+			els = q.split('&'),
+			qs = {}, tmp, el;
+		for (tmp in els) {
+			el = els[tmp].split('=');
+			qs[el[0]] = el.length > 1 ? decodeURIComponent(el[1]) : null;
+		}
+		return qs;
+	};
+	
+	/**
+	 * 	
+	 */
+	Leo.toString = L.toString= L.prototype.toString = function (SVGDocument) {
+		var tmpParent = document.createElement('div');
+		tmpParent.appendChild(SVGDocument);
+		return tmpParent.innerHTML;
+	};
+	
+	/**
+	 * 
+	 * @param {*} SVGString 
+	 * @returns 
+	 */
+	Leo.toDocument = L.toDocument = L.prototype.toDocument = function (SVGString) {
+		const parser = new DOMParser();
+		return parser.parseFromString(SVGString, 'image/svg+xml').children[0];
+	};
+	
+	/**
+	 * 
+	 * @param {\} full 
+	 * @returns 
+	 */
+	Leo.randomColor = L.randomColor = L.prototype.randomColor = function (full) {
+		var len = full ? 6 : 3,
+			base = full ? 16777215 : 4095,
+			r = (~~(Math.random() * base)).toString(16);
+		while (r.length < len) r = '0' + r;
+		return r;
+	};
+	
+	/**
+	 * @param top input top range value needed
+	 * @param scale defaulted to 100
+	 * @param zoom
+	 * @param precision
+	 * 
+	 * @returns function
+	 * scaler function accepting a number in [0,scale] and
+	 * returning the mapped value in [0, top]
+	 * 
+	 */
+	Leo.getScaler = L.getScaler = L.prototype.getScaler = function (top, scale, zoom, precision) {
+		scale = 'undefined' !== typeof scale ? ~~scale : 100;
+		zoom = 'undefined' !== typeof zoom ? ~~zoom : 1;
+		precision = 'undefined' !== typeof precision ? ~~precision : 1;
+		return function (p) {
+			return parseFloat((p * zoom * top / scale).toFixed(precision), 10);
+		}
+	};
+	/**
+	 * 
+	 */
+	Leo.img2base64png = L.img2base64png = L.prototype.img2base64png = function (src, cb) {
+		var getBase64StringFromDataURL = function(dataURL) {
+			return dataURL.replace('data:', '').replace(/^.+,/, '');
+		}
+		
+		fetch(src)
+	        .then(function(res) {return res.blob()})
+	        .then(function(blob){
+	            var reader = new FileReader();
+	            reader.onloadend = function() {
+	                var base64 = getBase64StringFromDataURL(reader.result);
+	                cb('data:image/png;base64,'+base64)
+	            };
+	            reader.readAsDataURL(blob);
+	        });
+	};
+	
+	Leo.uniqueID = L.uniqueID = L.prototype.uniqueID = lid;
+	Leo.deg2rad = L.deg2rad = L.prototype.deg2rad = deg2rad;
+	Leo.rad2deg = L.rad2deg = L.prototype.rad2deg = rad2deg;
+	
+	/*
+	[Malta] lib/Lutilities.js
+	*/
+	/* istanbul ignore next */
+	function fade (out, t, target) {
+		/* istanbul ignore next */
+		var start = null,
+	        /* istanbul ignore next */
+	        self = this,
+	        /* istanbul ignore next */
+	        r,
+			/* istanbul ignore next */
+			done = false;
+		/* istanbul ignore next */
+		setTimeout(function () { done = true; }, t);
+		/* istanbul ignore next */
+		target = target ||  self;
+		/* istanbul ignore next */
+		target.tag.style.opacity = out ? 1 : 0;
+	
+		/* istanbul ignore next */
+		function fade(now) {
+	        /* istanbul ignore next */
+	        start = start || now;
+	        /* istanbul ignore next */
+	        var p = parseFloat((now - start) / t, 10);
+			/* istanbul ignore next */
+			if (out) p = 1 - p;
+			/* istanbul ignore next */
+			var cnd = out ? p > 0 : p < 1;
+	        /* istanbul ignore next */
+	        target.tag.style.opacity = p;
+	        /* istanbul ignore next */
+	        if (cnd && !done) {
+	            /* istanbul ignore next */
+	            r = requestAnimationFrame(fade);
+	        } else {
+	            /* istanbul ignore next */
+	            target.tag.style.opacity = out ? 0 : 1;
+	            /* istanbul ignore next */
+	            cancelAnimationFrame(r);
+	        }
+	    }
+	    /* istanbul ignore next */
+	    r = requestAnimationFrame(fade);
+		/* istanbul ignore next */
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @param {*} t 
+	 * @param {*} target 
+	 * @returns 
+	 */
+	L.prototype.fadeIn = function (t, target) {
+	    fade.apply(this, [false, t, target])
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @param {*} t 
+	 * @param {*} target 
+	 * @returns 
+	 */
+	L.prototype.fadeOut = function (t, target) {
+	    fade.apply(this, [true, t, target])
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @param {*} txt 
+	 * @param {*} name 
+	 * @returns 
+	 */
+	L.prototype.svgDownloadAnchor = function (opts) {
+		opts = opts || {};
+		var str = 'download',
+			txt = opts.txt || str,
+			name = opts.name || str,
+			a = document.createElement('a');
+		a.download = name + '\.svg';
+		a.href = this.dataEncoded();
+		a.innerHTML = txt;
+		a.style.display = 'block';
+		return a;
+	};
+	
+	/**
+	 * 
+	 * @param {*} opts 
+	 * @returns 
+	 */
+	L.prototype.pngDownloadAnchor = function(opts) {
+		opts = opts || {};
+		var str = 'download',
+			name = opts.name || str,
+			txt = opts.txt || str,
+			image = new Image(),
+			a = document.createElement('a'),
+			canvas = document.createElement('canvas'),
+			context = canvas.getContext('2d');
+		a.href = 'javascript:;';
+		a.innerHTML = txt;
+		image.src = this.dataEncoded();
+		a.download = name+'.png';
+		a.style.display = 'block';
+		/* istanbul ignore next */
+		image.onload = function() {
+			canvas.width = image.width;
+			canvas.height = image.height;
+			context.drawImage(image, 0, 0);
+			a.href = canvas.toDataURL('image/png');
+		};
+		return a;
+	};
+	
+	/**
+	 * 
+	 * @param {*} title 
+	 * @param {*} alt 
+	 * @returns 
+	 */
+	L.prototype.toImageTag = function (opts) {
+		opts = opts || {};
+		var i = document.createElement('img'),
+			title = opts.title || '',
+			alt = opts.alt || '';
+		i.setAttribute('title', title);
+		i.setAttribute('alt', alt);
+		i.src = this.dataEncoded();
+		return i;
+	};
+	
+	/**
+	 * tpl
+	 * cb
+	 * tracerGroup
+	 * sgvCb
+	 * overrideStylePath
+	 * @returns 
+	 */
+	/* istanbul ignore next */
+	L.prototype.positionInspector = function (opts) {
+		opts = opts || {};
+		if (!this.tag.parentNode) {
+			throw new Error('"positionInspector" is meant to be invoked ONLY after render')
+		}
+		var self = this,
+			tag = this.tag,
+			svgCb = opts.svgCb || function() {},
+			tpl = opts.tpl || '%({%x} {%y}) '+
+				' rel-%({r%x} {r%y}) ' +
+				' px({x} {y})' +
+				' rel-px({rx} {ry})',
+			cb = opts.cb || function() {},
+			trace = opts.trace || false,
+			tracerGroup = self.group(),
+			overrideStylePath = opts.overrideStylePath || {},
+			infoTag = document.createElement('div'),
+			infoList = document.createElement('ul'),
+			copy = document.createElement('span'),
+			hiddenList = [],
+			hiddenListIndex = 0,
+			boundingBox = tag.getBoundingClientRect(),
+			left = boundingBox.left,
+			top = boundingBox.top,
+			w = this.width,
+			h = this.height,
+			p = function(n, prec){ return parseFloat(n.toFixed(prec || 2), 10)},
+			currentInfo = tpl,
+			prev = { x: 0, y: 0 },
+			scroll = { left: 0, top: 0 },
+			init = { x: document.documentElement.scrollLeft, y: document.documentElement.scrollTop },
+			curr = { x: 0, y: 0 },
+			currTplized = {},
+			curves = [[]],
+			curveEnds = [false],
+			currentCurveIndex = 0,
+			dots = [],
+			dotsIndex = 0,
+			onScroll = function () {
+				scroll.left = document.documentElement.scrollLeft;
+				scroll.top = document.documentElement.scrollTop;
+			},
+			dotsGroup = self.group(),
+			innerCb = function() {
+				cb(curves);
+				if(trace) {
+					if (tracerGroup.tag.tagName !== 'g' || !('_id' in tracerGroup)) {
+						throw new Error('positionInspector requires a Leo group as third parameter when passed');
+					}
+					tracerGroup.clear();
+					curves.forEach(function(points, i) {
+						tracerGroup.append(
+							self.bezierThroughPoints(
+								points.map(
+									function(point){
+										return [point['x'], point['y']]
+									}
+								), 
+								Object.assign(
+									{
+										stroke: 'black',
+										'stroke-width': 5,
+										fill: 'none'
+									},
+									overrideStylePath
+								),
+								svgCb,
+								curveEnds[i]
+							)
+						);
+					});
+				}
+			};
+		if (trace) self.append(tracerGroup);
+		copy.innerText = '📑';
+		copy.style.cursor = 'pointer';
+		copy.addEventListener('click', function(e){
+			if(navigator.clipboard.writeText(hiddenList.join(' '))){
+				alert('copied to the clipboard');
+			}
+		});
+		this.append(dotsGroup);
+		infoTag.style.fontFamily = infoList.style.fontFamily = 'verdana';
+		infoList.style.listStyleType = 'decimal';
+		infoList.style.fontSize = '0.8em';
+		infoList.style.height = '80px';
+		infoList.style.maxWidth = '400px';
+		infoList.style.border = '1px solid black';
+		infoList.style.overflow = 'scroll';
+	
+		function doDots() {
+			dotsGroup.clear();
+			dotsGroup.append(dots);
+		}
+	
+		tag.parentNode.appendChild(infoTag);
+		tag.parentNode.appendChild(infoList);
+		tag.parentNode.appendChild(copy);
+		
+		tag.addEventListener('mousemove', function (e) {
+			var x = e.clientX + scroll.left - init.x,
+				y = e.clientY + scroll.top - init.y,
+				toPercX = function (n) { return 100 * n / w; },
+				toPercY = function (n) { return 100 * n / h; };
+			curr.x = x - left;
+			curr.y = y - top;
+			currentInfo = tpl;
+			var px = 100 * curr.x / w,
+				py = 100 * curr.y / h,
+				tplValues = {
+					'%x': p(px), '%y': p(py),
+					'r%x': p(toPercX(~~curr.x - prev.x)), 'r%y': p(toPercY(~~curr.y - prev.y)),
+					x: ~~curr.x, y: ~~curr.y,
+					rx: ~~curr.x - prev.x, ry: ~~curr.y - prev.y
+				};
+			for (var k in tplValues) 
+				currentInfo = currentInfo.replace('{' + k + '}', tplValues[k]);
+			currTplized = Object.assign({}, tplValues);
+			infoTag.innerHTML = currentInfo;
+		});
+	
+		tag.addEventListener('click', function () {
+			var item = document.createElement('li'),
+				r = 2,
+				r2 = r / 2,
+				rdub = r * 2,
+				dot = self.circle(~~curr.x + r2 , ~~curr.y + r2, r),
+				rp = r + 1;
+			scroll.left = document.documentElement.scrollLeft;
+			scroll.top = document.documentElement.scrollTop;
+	
+			dot.sas({
+				stroke: 'black',
+				fill: 'white',
+				'stroke-width': 1,
+				'stroke-dasharray': rp + ',1'
+			});
+			dot.on('mouseover', function () {
+				item.style.fontWeight = 'bold';
+				dot.sas({fill: 'red', r : rdub});
+			});
+			dot.on('mouseleave', function () {
+				item.style.fontWeight = 'normal';
+				dot.sas({fill: 'white', r : r});
+			});
+			prev = {x: ~~curr.x, y: ~~curr.y};
+	
+			item.innerHTML = currentInfo;
+			hiddenList[hiddenListIndex++] = currentInfo;
+			item.addEventListener('mouseover', function () {
+				item.style.fontWeight = 'bold';
+				dot.sas({fill: 'red', r : rdub});
+			});
+			item.addEventListener('mouseout', function () {
+				item.style.fontWeight = 'normal';
+				dot.sas({fill: 'white', r : r});
+			});
+	
+			infoList.appendChild(item);
+			curves[currentCurveIndex].push(currTplized);
+			innerCb();
+			dots[dotsIndex++] = dot;
+	
+			doDots();
+			infoList.scrollTop = Number.MAX_SAFE_INTEGER;
+		});
+		window.addEventListener('keydown', function (e) {
+			if (e.key.match(/N|E/) && e.shiftKey) {
+				var endIt = e.key === "E"
+				if(endIt) {
+					curveEnds[currentCurveIndex] = true;
+				}
+				currentCurveIndex++;
+				curveEnds[currentCurveIndex] = false;
+				curves.push([]);
+	
+				hiddenList[hiddenListIndex++] = 'null /* === curve separator == */'
+				if(endIt) {
+					innerCb();
+					// doDots();
+				}
+			}
+			if (e.key === "Z" && e.shiftKey) {
+				curves[currentCurveIndex] = curves[currentCurveIndex].slice(0, -1);
+				
+				hiddenList = hiddenList.slice(0, -1);
+				hiddenListIndex--;
+	
+				dots = dots.slice(0, -1);
+				dotsIndex--;
+				innerCb();
+				doDots();
+			}
+		});
+		window.addEventListener('scroll', onScroll);
+		return this;
+	};
+	
+	/**
+	 * 
+	 * @returns 
+	 */
+	L.prototype.dataEncoded = function () {
+		var serializer = new XMLSerializer(),
+			source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(this.tag);
+		/* istanbul ignore else */
+		if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+			source = source.replace(/^<svg/, '<svg xmlns="' + namespaces.svg + '"');
+		}
+		/* istanbul ignore else */
+		if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+			source = source.replace(/^<svg/, '<svg xmlns:xlink="' + namespaces.xlink + '"');
+		}
+		return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
+	};
+	
+	/**
+	 * 
+	 * @param {*} width 
+	 * @param {*} height 
+	 * @param {*} styles 
+	 * @param {*} ends 
+	 * @returns 
+	 * 
+	 * note it could be static
+	 */
+	L.prototype.positionCruncher = function (width, height, styles, ends) {
+		var self = this,
+			startFn = 'M',
+			midFn = 'l',
+			w = L.getScaler(width),
+			h = L.getScaler(height);
+	
+		function builder(acc, e) {
+			return acc[midFn](w(e[0]), h(e[1]));
+		}
+		return function (dots) {
+			dots = dots || [];
+			if (!dots.length) return;
+			var build = dots.slice(1).reduce(	
+				builder,
+				self.pathBuild[startFn](w(dots[0][0]), h(dots[0][1]))
+			);
+			if (ends) build.Z();
+			return self.path(build).sas(styles);
+		};
+	}
+	 
+	/**
+	 * 
+	 * @param {*} points 
+	 * @param {*} styles 
+	 * @returns 
+	 * 
+	 * note it could be static
+	 */
+	L.prototype.bezierThroughPoints = function(points, styles, cb, ends) {
+	
+		cb = cb || function(){}
+	    if (!points || points.length < 2) return [];
+		var self = this, i,
+			// Helper to compute control points for smooth cubic Bézier through points
+			getControlPoints = function (pts) {
+				var n = pts.length - 1,
+					cps = [];
+				// Special case for 2 points: straight line
+				if (n === 1) {
+					cps.push([
+						pts[0],
+						[ (2*pts[0][0] + pts[1][0])/3, (2*pts[0][1] + pts[1][1])/3 ],
+						[ (pts[0][0] + 2*pts[1][0])/3, (pts[0][1] + 2*pts[1][1])/3 ],
+						pts[1]
+					]);
+					return cps;
+				}
+				// Calculate control points for each segment
+				for (i = 0; i < n; i++) {
+					var p0 = pts[i === 0 ? i : i-1],
+						p1 = pts[i],
+						p2 = pts[i+1],
+						p3 = pts[i+2 < pts.length ? i+2 : i+1],
+	
+					// Catmull-Rom to Bezier conversion
+						c1 = [
+							p1[0] + (p2[0] - p0[0]) / 6,
+							p1[1] + (p2[1] - p0[1]) / 6
+						],
+						c2 = [
+							p2[0] - (p3[0] - p1[0]) / 6,
+							p2[1] - (p3[1] - p1[1]) / 6
+						];
+					cps.push([p1, c1, c2, p2]);
+				}
+				return cps;
+			},
+			prec = 2,
+			rou = function(v){return parseFloat(v.toFixed(prec), 10);},
+			controlPoints =  getControlPoints(points),
+			d = 'M' + rou(controlPoints[0][0][0]) + ',' + rou(controlPoints[0][0][1]);
+	
+	    controlPoints.forEach(function(seg){
+	        d += ' C'+rou(seg[1][0])+','+rou(seg[1][1])+' '+rou(seg[2][0])+','+rou(seg[2][1])+' '+rou(seg[3][0])+','+rou(seg[3][1]);
+	    });
+		if (ends) d += ' Z';
+		cb(self.path(d).tag)
+		return self.path(d).sas(styles);
+	};
+	
+	
+	
+	
+	
+	/*
+	[Malta] lib/Ltags.js
+	*/
+	/*
+	 * SVG REFERENCE 
+	 *
+	 * https://www.w3.org/TR/SVG/paths.html
+	 */
+	
+	
+	// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/a
+	
+	
+	/**
+	 * { function_description }
+	 * 
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/desc
+	 *
+	 * @param      {<type>}   txt     The text
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.a = L.a = L.prototype.a = function (attrs) {
+		var a = new Element('a');
+		a.sas(attrs);
+		return a;
+	};
+	
+	
+	/**
+	 * { function_description }
+	 * 
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/desc
+	 *
+	 * @param      {<type>}   txt     The text
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.desc = L.desc = L.prototype.desc = function (txt) {
+		var desc = new Element('desc');
+		desc.tag.textContent = txt;
+		return desc;
+	};
+	
+	/**
+	 * { function_description }
+	 * 
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/circle
+	 *
+	 * @param      {<type>}   cx      { parameter_description }
+	 * @param      {<type>}   cy      { parameter_description }
+	 * @param      {<type>}   r       { parameter_description }
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.circle = L.circle = L.prototype.circle = function (cx, cy, r) {
+		var circle = new Element('circle');
+		circle.sas({cx : cx, cy : cy, r : r});
+		return circle;
+	};
+	
+	/**
+	 * { function_description }
+	 * 
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/ellipse
+	 *
+	 * @param      {<type>}   cx      { parameter_description }
+	 * @param      {<type>}   cy      { parameter_description }
+	 * @param      {<type>}   rx      The receive
+	 * @param      {<type>}   ry      { parameter_description }
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.ellipse = L.ellipse = L.prototype.ellipse = function (cx, cy, rx, ry) {
+		var ellipse = new Element('ellipse');
+		ellipse.sas({cx : cx, cy : cy, rx : rx, ry : ry});
+		return ellipse;
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/g
+	 * 
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.group = L.group =L.prototype.group = function (a) {
+		var g = new Element('g');
+		if (a) g.append([].slice.call(arguments, 0))
+		return g;
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/image
+	 * 
+	 * @param      {<type>}   x       { parameter_description }
+	 * @param      {<type>}   y       { parameter_description }
+	 * @param      {<type>}   w       { parameter_description }
+	 * @param      {<type>}   h       { parameter_description }
+	 * @param      {<type>}   src     The source
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.image = L.image = L.prototype.image = function (x, y, w, h, src) {
+		var image = new Element('image');
+		image.sas({x : x, y : y, width : w, height : h});
+		image.tag.setAttributeNS(namespaces.xlink, 'xlink:href', src);
+		image.tag.setAttribute('transform-origin', "center");
+		return image;
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/line
+	 * 
+	 * @param      {<type>}   x1      The x 1
+	 * @param      {<type>}   y1      The y 1
+	 * @param      {<type>}   x2      The x 2
+	 * @param      {<type>}   y2      The y 2
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.line = L.line = L.prototype.line = function (x1, y1, x2, y2) {
+		var line = new Element('line');
+		line.sas({x1 : x1, y1 : y1, x2 : x2, y2 : y2});
+		return line;
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/polygon
+	 * @param      {<type>}   d       { parameter_description }
+	 * @param      {<type>}   attrs   { parameter_description }
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.path = L.path = L.prototype.path = function (d, attrs) {
+		var path = new Element('path');
+	    attrs = attrs || {}
+	    attrs.d = d
+		path.sas(attrs);
+		return path;
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.polygon = L.polygon = L.prototype.polygon = function () {
+		var polygon = new Element('polygon'),
+			points = [].slice.call(arguments, 0),
+			pp = [],
+			i = 0, l = points.length;
+		validate.evenNumbers(points);
+		for (null; i < l; i+=2) {
+			pp.push(points[i] + ',' + points[i+1])
+		}
+		polygon.tag.setAttribute('points', pp.join(' '));
+		return polygon;
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/polyline
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.polyline = L.polyline = L.prototype.polyline = function () {
+		var polyline = new Element('polyline'),
+			points = [].slice.call(arguments, 0),
+			pp = [],
+			i = 0, l = points.length;
+		for (null; i < l; i+=2) {
+			pp.push(points[i] + ',' + points[i+1])
+		}
+		polyline.tag.setAttribute('points', pp.join(' '));
+		return polyline;
+	};
+	
+	/**
+	 * { function_description }
+	 *
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/rect
+	 * @param      {<type>}   x       { parameter_description }
+	 * @param      {<type>}   y       { parameter_description }
+	 * @param      {<type>}   w       { parameter_description }
+	 * @param      {<type>}   h       { parameter_description }
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.rect = L.rect = L.prototype.rect = function (x, y, w, h) {
+		h = h || w;
+		var rect = new Element('rect');
+		rect.sas({x : x, y : y, width : w, height : h});
+		return rect;
+	};
+	
+	/**
+	 * { function_description }
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/text
+	 * 
+	 * 
+	 * @param      {<type>}   x       { parameter_description }
+	 * @param      {<type>}   y       { parameter_description }
+	 * @param      {<type>}   cnt     The count
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.text = L.text = L.prototype.text = function (x, y, cnt) {
+		var text = new Element('text');
+		x = x || 0;
+		y = y || 0;
+		cnt = cnt || '';
+		text.sas({x : x, y : y});
+		cnt && (text.tag.textContent = cnt);
+		//
+		text.updateText = function(t) {
+			text.tag.textContent = t;
+		};
+		//
+		return text;
+	};
+	
+	/**
+	 * { function_description }
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/title
+	 * 
+	 * @param      {<type>}   txt     The text
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.title = L.title = L.prototype.title = function (txt) {
+		var text = new Element('title');
+		text.tag.textContent = txt;
+		return text;
+	};
+	
+	/**
+	 * { function_description }
+	 * https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/script
+	 * 
+	 * @param      {string}   cnt     The count
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.script = L.script = L.prototype.script = function (cnt) {
+		var script = new Element('script');
+		script.tag.setAttribute('type', 'application/ecmascript');
+		if (cnt) {
+			script.tag.innerHTML = "//<![CDATA[\n" + cnt + "\n]]>";
+		}
+		return script;
+	};
+	
+	// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/foreignObject
+	Leo.foreignObject = L.foreignObject = L.prototype.foreignObject = function(x,y,w,h) {
+		var fo = new Element('foreignObject');
+		fo.sas({x: x, y: y, width: w, height: h});
+		return fo;
+	}
+	
+	// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/symbol
+	Leo.symbol = L.symbol = L.prototype.symbol = function(attrs) {
+		/* width, height, x, y, preserveAspectRatio, refX, refY,  viewBox*/
+		var s = new Element('symbol');
+		s.sas(Object.assign(attrs, {id: lid()}));
+		return s;
+	}
+	
+	// https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/use
+	Leo.use = L.use = L.prototype.use = function(attrs) {
+		/* width, height, x, y, href*/
+		var s = new Element('use');
+		s.sas(attrs);
+		return s;
+	}
+	
+	/**
+	 * { function_description }
+	 *
+	 * @param      {string}   tagName     The count
+	 * @return     {Element}  { description_of_the_return_value }
+	 */
+	Leo.Element = L.Element = L.prototype.Element = function (tagName, ns) {
+		return new Element(tagName, ns);
+	};
+	
+	
+	
+	
+	/*
+	[Malta] lib/Ldelegate.js
+	*/
+	
+	/**
+	 * Event delegation - attach a single listener to the root that handles events for all matching selectors
+	 *
+	 * @param {string} eventName - Event name (e.g., 'click', 'mouseover')
+	 * @param {string} selector - CSS-style selector to match target elements (e.g., 'circle', '.my-class', '#id')
+	 * @param {Function} handler - Event handler function
+	 * @returns {L} - Returns the instance for chaining
+	 *
+	 * @example
+	 * L.delegate('click', 'circle', function(e, target) {
+	 *     console.log('Circle clicked:', target);
+	 * });
+	 */
+	L.prototype.delegate = function(eventName, selector, handler) {
+	    var self = this;
+	
+	    this.tag.addEventListener(eventName, function(e) {
+	        var target = e.target;
+	
+	        // Check if target matches selector
+	        /* istanbul ignore else */
+	        if (matchesSelector(target, selector)) {
+	            handler.call(target, e, target);
+	        }
+	    });
+	
+	    return this;
+	};
+	
+	/**
+	 * Element-level event delegation
+	 *
+	 * @param {string} eventName - Event name
+	 * @param {string} selector - CSS-style selector to match child elements
+	 * @param {Function} handler - Event handler function
+	 * @returns {Element} - Returns the element for chaining
+	 *
+	 * @example
+	 * group.delegate('click', 'circle', function(e, target) {
+	 *     console.log('Circle in group clicked:', target);
+	 * });
+	 */
+	Element.prototype.delegate = function(eventName, selector, handler) {
+	    var self = this;
+	
+	    this.tag.addEventListener(eventName, function(e) {
+	        var target = e.target;
+	
+	        // Traverse up to find if target or its ancestors match selector within this element
+	        while (target && target !== self.tag) {
+	            /* istanbul ignore else */
+	            if (matchesSelector(target, selector)) {
+	                handler.call(target, e, target);
+	                break;
+	            }
+	            /* istanbul ignore next */
+	            target = target.parentNode;
+	        }
+	    });
+	
+	    return this;
+	};
+	
+	/**
+	 * Helper function to check if an element matches a selector
+	 * @private
+	 */
+	function matchesSelector(element, selector) {
+	    /* istanbul ignore next */
+	    if (!element || !element.tagName) return false;
+	
+	    // Handle tag name selectors (e.g., 'circle', 'rect')
+	    /* istanbul ignore else */
+	    if (/^[a-zA-Z]+$/.test(selector)) {
+	        return element.tagName.toLowerCase() === selector.toLowerCase();
+	    }
+	
+	    // Handle class selectors (e.g., '.my-class')
+	    /* istanbul ignore else */
+	    if (selector.startsWith('.')) {
+	        var className = selector.slice(1);
+	        var classes = element.getAttribute('class');
+	        return classes && classes.split(' ').indexOf(className) !== -1;
+	    }
+	
+	    // Handle id selectors (e.g., '#myId')
+	    /* istanbul ignore else */
+	    if (selector.startsWith('#')) {
+	        var id = selector.slice(1);
+	        return element.getAttribute('id') === id;
+	    }
+	
+	    // Fallback: try using browser's matches if available
+	    /* istanbul ignore next */
+	    if (element.matches) {
+	        /* istanbul ignore next */
+	        return element.matches(selector);
+	    }
+	    /* istanbul ignore next */
+	    return false;
+	}
+	
+	// Static version
+	Leo.delegate = L.delegate = L.prototype.delegate;
+	
+	/*
+	[Malta] lib/LpathBuild.js
+	*/
+	
+	function createFun(l /*letter*/) {
+		return function () {
+			var lp = this.prev === l ? ' ' : l;
+			this.path += [lp].concat([[].slice.call(arguments, 0).join(',')]).join('');
+			this.prev = l;
+			return this;
+		};
+	}
+	
+	/*
+	 * 	M	moveto (x y)+
+	 *	Z	closepath (none)
+	 *	L	lineto (x y)+
+	 *	H	horizontal lineto x+
+	 *	V	vertical lineto	y+
+	 *	C	curveto	(x1 y1 x2 y2 x y)+
+	 *	Q	quadratic Bézier curveto (x1 y1 x y)+
+	 *	S	smooth curveto	(x2 y2 x y)+
+	 *	T	smooth quadratic Bézier curveto	(x y)+
+	 *	A	elliptical arc (rx ry x-axis-rotation large-arc-flag sweep-flag x y)+
+	 *	R	Catmull-Rom curveto	x1 y1 (x y)+
+	 */
+	function Pathbuild() {
+		this.path = '';
+		this.prev = null;
+	}
+	
+	['m', 'z', 'l', 'h', 'v', 'c', 'q', 's', 't', 'a', 'r'].forEach(function (f, up) {
+		up = f.toUpperCase();
+		Pathbuild.prototype[f]= createFun(f);
+		Pathbuild.prototype[up]= createFun(up);
+	});
+	Pathbuild.prototype.reset = function() {
+		this.path = '';
+		this.prev = null;
+	};
+	Pathbuild.prototype.maybe = function(condition, f, params) {
+		/* istanbul ignore else */
+		if(condition) {
+			var lp = this.prev === f ? ' ' : f;
+			this.path += [lp].concat([params.join(',')]).join('');
+			this.prev = f;
+		}
+		return this;
+	}
+	
+	/**
+	 * { function_description }
+	 *
+	 * @return     {(Object|pathbuild|string)}  { description_of_the_return_value }
+	 */
+	Leo.pathBuild = L.pathBuild = L.prototype.pathBuild = (function () {
+		var pb = new Pathbuild();
+		pb.toString = function (){
+			var p = this.path + '';
+			this.reset();
+			return p;
+		};
+		return pb;
+	})();
+	
+	
+	
+	
+	
+	
+	
+	
+	 /**
+	  * VERY LIKELY THOSE TWO CAN BE REMOVED
+	  */
+	/**
+	 * 
+	 * @param {*} cx 
+	 * @param {*} cy 
+	 * @param {*} r 
+	 * @param {*} sa 
+	 * @param {*} ea 
+	 * @returns 
+	 */
+	L.prototype.slice = function (cx, cy, r /* radius */, sa /* startAngle */, ea /* endAngle */) {
+		var self = this,
+			p = self.slicePath(cx, cy, r, sa, ea);
+		return self.path(p);
+	};
+	
+	/**
+	 * 
+	 * @param {*} cx 
+	 * @param {*} cy 
+	 * @param {*} r 
+	 * @param {*} sa 
+	 * @param {*} ea 
+	 * @returns 
+	 */
+	L.prototype.slicePath = function (cx, cy, r /* radius */, sa /* startAngle */, ea /* endAngle */) {
+		var la /*largeArc*/ = 0;
+	
+		if (sa > ea) {
+			var s = sa;
+			sa = ea;
+			ea = s;
+		}
+		/*if (Math.abs(ea - sa) > 360) {
+			ea = 359.999;
+		}*/
+		la = ea - sa <= 180 ? 0 : 1;
+		sa = deg2rad(sa);
+		ea = deg2rad(ea);
+		return this.pathBuild
+			.M(cx, cy)
+			.L(
+				cx + Math.cos(sa) * r,
+				cy - Math.sin(sa) * r
+			)
+			.A(
+				r,
+				r,
+				0,
+				la,
+				0,
+				cx + Math.cos(ea) * r,
+				cy - Math.sin(ea) * r
+			)
+			.L(cx, cy);
+	};
+	
+	/*
+	[Malta] lib/LpathUtils.js
+	*/
+	
+	/**
+	 * Creates an arc path data string for a circular arc between two points
+	 *
+	 * @param {number} x1 - Starting x coordinate
+	 * @param {number} y1 - Starting y coordinate
+	 * @param {number} x2 - Ending x coordinate
+	 * @param {number} y2 - Ending y coordinate
+	 * @param {number} radius - Radius of the arc
+	 * @param {number} largeArc - 0 for small arc, 1 for large arc (default: 0)
+	 * @param {number} sweep - 0 for clockwise, 1 for counter-clockwise (default: 1)
+	 * @returns {string} - Path data string
+	 *
+	 * @example
+	 * var arc = L.arc(0, 50, 100, 50, 50); // Half-circle arc
+	 * element.setAttributes({ d: arc });
+	 */
+	L.prototype.arc = function(x1, y1, x2, y2, radius, largeArc, sweep) {
+	    largeArc = typeof largeArc === 'undefined' ? 0 : largeArc;
+	    sweep = typeof sweep === 'undefined' ? 1 : sweep;
+	    return 'M ' + x1 + ',' + y1 + ' A ' + radius + ',' + radius + ' 0 ' + largeArc + ',' + sweep + ' ' + x2 + ',' + y2;
+	};
+	
+	/**
+	 * Creates a smooth curve path through a series of points using spline interpolation
+	 *
+	 * @param {Array} points - Array of [x, y] coordinates
+	 * @param {boolean} closed - Whether to close the path (default: false)
+	 * @returns {string} - Path data string
+	 *
+	 * @example
+	 * var path = L.smoothCurveThroughPoints([[0,0], [50,100], [100,0], [150,50]]);
+	 * element.setAttributes({ d: path });
+	 */
+	L.prototype.smoothCurveThroughPoints = function(points, closed) {
+	    if (!points || points.length < 2) return '';
+	    if (points.length === 2) {
+	        return 'M ' + points[0][0] + ',' + points[0][1] + ' L ' + points[1][0] + ',' + points[1][1];
+	    }
+	
+	    var d = 'M ' + points[0][0] + ',' + points[0][1];
+	
+	    // Calculate control points for smooth curves
+	    for (var i = 0; i < points.length - 1; i++) {
+	        var p0 = points[i === 0 ? 0 : i - 1];
+	        var p1 = points[i];
+	        var p2 = points[i + 1];
+	        var p3 = points[i + 2] || p2;
+	
+	        var cp1x = p1[0] + (p2[0] - p0[0]) / 6;
+	        var cp1y = p1[1] + (p2[1] - p0[1]) / 6;
+	        var cp2x = p2[0] - (p3[0] - p1[0]) / 6;
+	        var cp2y = p2[1] - (p3[1] - p1[1]) / 6;
+	
+	        d += ' C ' + cp1x + ',' + cp1y + ' ' + cp2x + ',' + cp2y + ' ' + p2[0] + ',' + p2[1];
+	    }
+	
+	    if (closed) {
+	        d += ' Z';
+	    }
+	
+	    return d;
+	};
+	
+	/**
+	 * Get the total length of a path element
+	 *
+	 * @param {Element} pathElement - A path element
+	 * @returns {number} - Total length of the path
+	 *
+	 * @example
+	 * var path = L.path('M0,0 L100,100');
+	 * var len = L.getTotalLength(path);
+	*/
+	/* istanbul ignore next */
+	L.prototype.getTotalLength = function(pathElement) {
+	    if (!pathElement || !pathElement.tag) return 0;
+	    return pathElement.tag.getTotalLength ? pathElement.tag.getTotalLength() : 0;
+	};
+	
+	/**
+	 * Get a point at a specific distance along a path
+	 *
+	 * @param {Element} pathElement - A path element
+	 * @param {number} distance - Distance along the path
+	 * @returns {Object} - { x, y } coordinates or null
+	 *
+	 * @example
+	 * var path = L.path('M0,0 L100,100');
+	 * var point = L.getPointAtLength(path, 50);
+	 */
+	/* istanbul ignore next */
+	L.prototype.getPointAtLength = function(pathElement, distance) {
+	    if (!pathElement || !pathElement.tag || !pathElement.tag.getPointAtLength)  return null;
+	    var pt = pathElement.tag.getPointAtLength(distance);
+	    return { x: pt.x, y: pt.y };
+	};
+	
+	// Static versions
+	Leo.arc = L.arc = L.prototype.arc;
+	Leo.smoothCurveThroughPoints = L.smoothCurveThroughPoints = L.prototype.smoothCurveThroughPoints;
+	Leo.getTotalLength = L.getTotalLength = L.prototype.getTotalLength;
+	Leo.getPointAtLength = L.getPointAtLength = L.prototype.getPointAtLength;
+	
+	/*
+	[Malta] lib/Lgradients.js
+	*/
+	
+	var getGradStepper = function (g) {
+	        return function(st) {
+	            var tmp = new Element('stop'),
+	                att = {
+	                    offset: st.perc + '%',
+	                    'stop-color': st.color
+	                };
+	            if ('style' in st) att.style = st.style;
+	            tmp.sas(att);
+	            g.append(tmp)
+	        }
+	    },
+	    distributeColors = function(colors) {
+	        var step = 100 / (colors.length-1);
+	        return colors.map(function (c, i) {
+	            return { perc: i * step, color: c };
+	        });
+	    };
+	
+	/**
+	 * 
+	 * Appends to defs a linear gradient with the given steps and coordinates, and return the url to use as fill or stroke.
+	 * 
+	 * @param {*} sts 
+	 * @param {*} x1 
+	 * @param {*} y1 
+	 * @param {*} x2 
+	 * @param {*} y2 
+	 * @returns 
+	 */
+	L.prototype.linearGradient = function(sts, opts) {
+	    opts = opts || {};
+	    var steps = isString(sts[0]) ? distributeColors(sts) : sts,
+	        defs = getDefs(this),
+	        id = lid(),
+	        linearGrad = new Element('linearGradient'),
+	        attrs = {
+	            id: id,
+	            x1: opts.x1 || '0%',
+	            y1: opts.y1 || '0%',
+	            x2: opts.x2 || '100%',
+	            y2: opts.y2 || '0%',
+	            spreadMethod: opts.spreadMethod || 'pad' // pad | reflect | repeat
+	        },
+	        stepper = getGradStepper(linearGrad);
+	
+	    linearGrad.sas(attrs);
+	    steps.forEach(stepper);
+	    defs.append(linearGrad);
+	    return 'url(#' + id + ')';
+	}
+	
+	/**
+	 * Appends to defs a radial gradient with the given steps and coordinates, and return the url to use as fill or stroke.
+	 * 
+	 * @param {*} sts 
+	 * @returns 
+	 * cx cy end point
+	 * fr radius of start circle
+	 * fx fy start point
+	 * r radius of end circle
+	 * spreadMethod: pad | reflect | repeat
+	 */
+	L.prototype.radialGradient = function radial(sts, opts) {
+	    opts = opts || {};
+	    var steps = isString(sts[0]) ? distributeColors(sts) : sts,
+	        defs = getDefs(this),
+	        id = lid(),
+	        radialGrad = new Element('radialGradient'),
+	        stepper = getGradStepper(radialGrad);
+	    radialGrad.sas({
+	        'id': id,
+	        'fx': opts.fx || '50%',
+	        'fy': opts.fy || '50%',
+	        'fr': opts.fr || '0%',
+	        'cx': opts.cx || '50%',
+	        'cy': opts.cy || '50%',
+	        'r': opts.r || '50%',
+	        spreadMethod: opts.spreadMethod || 'pad' // pad | reflect | repeat
+	    });
+	
+	    steps.forEach(stepper);
+	    defs.append(radialGrad);
+	    return 'url(#' + id + ')';
+	}
+	
+		
+	/*
+	[Malta] lib/Lfilters.js
+	*/
+	
+	/**
+	 * 
+	 * @param {*} filters 
+	 * @returns 
+	 */
+	L.prototype.filter = function() {
+	    var filters = [].slice.call(arguments, 0);
+	    getDefs(this)
+	    var id = lid(),
+	        filter = new Element('filter'),
+	        availables = [
+	            'feGaussianBlur', 'feDropShadow', 'feMorphology',
+	            'feDisplacementMap', 'feBlend', 'feColorMatrix',
+	            'feConvolveMatrix', 'feComponentTransfer', 'feSpecularLighting',
+	            'feDiffuseLighting', 'feFlood', 'feTurbulence',
+	            'feImage', 'feTile', 'feOffset',
+	            'feComposite','feMerge'
+	        ];
+	    filter.tag.setAttribute('id', id);
+	
+	    for(
+	        var i = 0, l = filters.length, f, inner = false;
+	        i < l;
+	        i++, inner = false
+	    ) {
+	        f = filters[i];
+	        if (availables.includes(f.type)){
+	            inner = new Element(f.type);
+	            inner.sas(f.attrs);
+	        }
+	
+	        inner && filter.append(inner);
+	    }
+	    
+	    this.defs.append(filter);
+	    return 'url(#' + id + ')';
+	}
+	
+    /*
+    [Malta] lib/Lmasks.js
+    */
+    
+    /**
+     * Creates a mask definition that can be applied to elements
+     *
+     * @param {string|Element} id - Optional id for the mask, or first element
+     * @param {...Element} elements - Elements to include in the mask
+     * @returns {string} - URL reference to use in setAttributes({ mask: ... })
+     *
+     * @example
+     * var mask = L.mask(
+     *     L.rect(0, 0, 100, 100).setAttributes({ fill: 'white' }),
+     *     L.circle(50, 50, 30).setAttributes({ fill: 'black' })
+     * );
+     * element.setAttributes({ mask: mask });
+     */
+    L.prototype.mask = function(id) {
+        var args = [].slice.call(arguments, 0),
+            defs = getDefs(this),
+            mask = new Element('mask'),
+            maskId,
+            elements;
+    
+        // Check if first argument is an element (has _id property) or a string ID
+        if (id && typeof id === 'string' && !id._id) {
+            maskId = id;
+            elements = args.slice(1);
+        } else {
+            maskId = lid();
+            elements = args;
+        }
+    
+        mask.sas({ id: maskId });
+        elements.forEach(function(el) {
+            if (el && el._id) {
+                mask.append(el);
+            }
+        });
+        defs.append(mask);
+        return 'url(#' + maskId + ')';
+    };
+    
+    /**
+     * Creates a clipPath definition that can be applied to elements
+     *
+     * @param {string|Element} id - Optional id for the clipPath, or first element
+     * @param {...Element} elements - Elements defining the clip path
+     * @returns {string} - URL reference to use in setAttributes({ 'clip-path': ... })
+     *
+     * @example
+     * var clip = L.clipPath(
+     *     L.circle(50, 50, 40)
+     * );
+     * element.setAttributes({ 'clip-path': clip });
+     */
+    L.prototype.clipPath = function(id) {
+        var args = [].slice.call(arguments, 0),
+            defs = getDefs(this),
+            clipPath = new Element('clipPath'),
+            clipId,
+            elements;
+    
+        // Check if first argument is an element (has _id property) or a string ID
+        if (id && typeof id === 'string' && !id._id) {
+            clipId = id;
+            elements = args.slice(1);
+        } else {
+            clipId = lid();
+            elements = args;
+        }
+    
+        clipPath.sas({ id: clipId });
+        elements.forEach(function(el) {
+            if (el && el._id) {
+                clipPath.append(el);
+            }
+        });
+        defs.append(clipPath);
+        return 'url(#' + clipId + ')';
+    };
+    
+    // Static versions
+    Leo.mask = L.mask = L.prototype.mask;
+    Leo.clipPath = L.clipPath = L.prototype.clipPath;
+    
+    /*
+    [Malta] lib/Lpatterns.js
+    */
+    
+    /**
+     * Creates a pattern definition that can be used as fill or stroke
+     *
+     * @param {number} width - Pattern width
+     * @param {number} height - Pattern height
+     * @param {Element|Array} content - Element(s) to use as pattern content
+     * @param {Object} options - Optional configuration
+     * @param {string} options.id - Custom id for the pattern
+     * @param {string} options.patternUnits - 'userSpaceOnUse' or 'objectBoundingBox' (default: 'userSpaceOnUse')
+     * @param {string} options.patternTransform - Transform to apply to the pattern
+     * @param {number} options.x - Pattern x offset
+     * @param {number} options.y - Pattern y offset
+     * @returns {string} - URL reference to use as fill or stroke
+     *
+     * @example
+     * var pattern = L.pattern(20, 20,
+     *     L.circle(10, 10, 5).setAttributes({ fill: 'red' }),
+     *     { patternUnits: 'userSpaceOnUse' }
+     * );
+     * element.setAttributes({ fill: pattern });
+     */
+    L.prototype.pattern = function(width, height, content, options) {
+        options = options || {};
+        var defs = getDefs(this),
+            pattern = new Element('pattern'),
+            patternId = options.id || lid();
+    
+        pattern.sas({
+            id: patternId,
+            width: width,
+            height: height,
+            x: options.x || 0,
+            y: options.y || 0,
+            patternUnits: options.patternUnits || 'userSpaceOnUse'
+        });
+    
+        if (options.patternTransform) {
+            pattern.sas({ patternTransform: options.patternTransform });
+        }
+    
+        // Handle single element or array of elements
+        /* istanbul ignore else */
+        if (content instanceof Array) {
+            content.forEach(function(el) {
+                pattern.append(el);
+            });
+        } else if (content) {
+            pattern.append(content);
+        }
+    
+        defs.append(pattern);
+        return 'url(#' + patternId + ')';
+    };
+    
+    // Static version
+    Leo.pattern = L.pattern = L.prototype.pattern;
+    
+    /*
+    [Malta] lib/Ldraggable.js
+    */
+    
+    /**
+     * Makes an element draggable
+     *
+     * @param {Object} options - Drag options
+     * @param {Function} options.onDrag - Called during drag with (dx, dy, x, y)
+     * @param {Function} options.onStart - Called when drag starts with (x, y)
+     * @param {Function} options.onEnd - Called when drag ends with (x, y)
+     * @param {string|Array} options.constrainTo - 'parent' or [x, y, width, height] bounds
+     * @returns {Element} - Returns the element for chaining
+     *
+     * @example
+     * circle.draggable({
+     *     onDrag: function(dx, dy, x, y) {
+     *         console.log('Dragging to:', x, y);
+     *     },
+     *     onStart: function(x, y) {
+     *         console.log('Started dragging at:', x, y);
+     *     },
+     *     onEnd: function(x, y) {
+     *         console.log('Ended dragging at:', x, y);
+     *     },
+     *     constrainTo: 'parent'
+     * });
+     */
+    Element.prototype.draggable = function(options) {
+        options = options || {};
+        var self = this,
+            isDragging = false,
+            startX = 0,
+            startY = 0,
+            initialX = 0,
+            initialY = 0,
+            currentX = 0,
+            currentY = 0,
+            onDrag = options.onDrag || function() {},
+            onStart = options.onStart || function() {},
+            onEnd = options.onEnd || function() {},
+            constrainTo = options.constrainTo,
+            svg = this.tag.ownerSVGElement;
+    
+        // Get initial position from transform or attributes
+        function getPosition() {
+            var transform = self.tag.getAttribute('transform');
+            if (transform) {
+                var match = transform.match(/translate\(([^,]+),\s*([^)]+)\)/);
+                if (match) {
+                    return {
+                        x: parseFloat(match[1]) || 0,
+                        y: parseFloat(match[2]) || 0
+                    };
+                }
+            }
+            // Try cx/cy for circles/ellipses
+            var cx = self.tag.getAttribute('cx'),
+                cy = self.tag.getAttribute('cy'),
+                x = self.tag.getAttribute('x'),
+                y = self.tag.getAttribute('y');
+            return {
+                x: parseFloat(cx || x || 0),
+                y: parseFloat(cy || y || 0)
+            };
+        }
+    
+        // Convert screen coordinates to SVG coordinates
+        /* istanbul ignore next */
+        function getSVGPoint(clientX, clientY) {
+            if (!svg) return { x: clientX, y: clientY };
+            /* istanbul ignore next */
+            var pt = svg.createSVGPoint();
+            /* istanbul ignore next */
+            pt.x = clientX;
+            /* istanbul ignore next */
+            pt.y = clientY;
+            /* istanbul ignore next */
+            var ctm = svg.getScreenCTM();
+            /* istanbul ignore next */
+            if (ctm) {
+                /* istanbul ignore next */
+                return pt.matrixTransform(ctm.inverse());
+            }
+            /* istanbul ignore next */
+            return { x: clientX, y: clientY };
+        }
+    
+        // Apply constraints
+        function constrain(x, y) {
+            if (!constrainTo) return { x: x, y: y };
+    
+            var bounds;
+            if (constrainTo === 'parent') {
+                var parent = self.tag.parentNode;
+                if (parent && parent.getBBox) {
+                    var bbox = parent.getBBox();
+                    bounds = [bbox.x, bbox.y, bbox.width, bbox.height];
+                }
+            } else if (constrainTo instanceof Array && constrainTo.length === 4) {
+                bounds = constrainTo;
+            }
+    
+            if (bounds) {
+                var elBBox = self.tag.getBBox ? self.tag.getBBox() : { width: 0, height: 0 };
+                x = Math.max(bounds[0], Math.min(x, bounds[0] + bounds[2] - elBBox.width));
+                y = Math.max(bounds[1], Math.min(y, bounds[1] + bounds[3] - elBBox.height));
+            }
+    
+            return { x: x, y: y };
+        }
+    
+        function startDrag(e) {
+            if (e.button !== 0) return; // Only left mouse button
+            isDragging = true;
+    
+            var pos = getPosition();
+            var svgPoint = getSVGPoint(e.clientX, e.clientY);
+            initialX = pos.x;
+            initialY = pos.y;
+            startX = svgPoint.x;
+            startY = svgPoint.y;
+            currentX = initialX;
+            currentY = initialY;
+    
+            onStart.call(self, initialX, initialY);
+            e.preventDefault();
+        }
+    
+        function doDrag(e) {
+            if (!isDragging) return;
+    
+            var svgPoint = getSVGPoint(e.clientX, e.clientY);
+            var dx = svgPoint.x - startX;
+            var dy = svgPoint.y - startY;
+    
+            currentX = initialX + dx;
+            currentY = initialY + dy;
+    
+            var constrained = constrain(currentX, currentY);
+            currentX = constrained.x;
+            currentY = constrained.y;
+    
+            self.move(currentX, currentY);
+            onDrag.call(self, dx, dy, currentX, currentY);
+        }
+    
+        function endDrag(e) {
+            if (!isDragging) return;
+            isDragging = false;
+            onEnd.call(self, currentX, currentY);
+        }
+    
+        // Mouse events
+        this.tag.addEventListener('mousedown', startDrag);
+        document.addEventListener('mousemove', doDrag);
+        document.addEventListener('mouseup', endDrag);
+    
+        // Touch events for mobile
+        /* istanbul ignore next */
+        this.tag.addEventListener('touchstart', function(e) {
+            /* istanbul ignore next */
+            if (e.touches.length === 1) {
+                /* istanbul ignore next */
+                startDrag(e.touches[0]);
+            }
+        });
+        /* istanbul ignore next */
+        document.addEventListener('touchmove', function(e) {
+            /* istanbul ignore next */
+            if (e.touches.length === 1) {
+                /* istanbul ignore next */
+                doDrag(e.touches[0]);
+            }
+        });
+        /* istanbul ignore next */
+        document.addEventListener('touchend', endDrag);
+    
+        return this;
+    };
+    
+    /*
+    [Malta] lib/Lbatch.js
+    */
+    
+    /**
+     * Batch multiple DOM operations to improve performance
+     * Defers actual DOM updates until the end of the batch
+     *
+     * @param {Function} fn - Function containing operations to batch
+     * @returns {L} - Returns the instance for chaining
+     *
+     * @example
+     * L.batch(function() {
+     *     circle.setAttributes({ cx: 100 });
+     *     rect.setAttributes({ x: 50 });
+     *     group.append(circle, rect);
+     * });
+     */
+    L.prototype.batch = function(fn) {
+        // Store original append method
+        var originalAppend = this.append;
+        var self = this;
+        var pendingAppends = [];
+    
+        // Override append to collect operations
+        this.append = function() {
+            var args = [].slice.call(arguments, 0);
+            pendingAppends.push(args);
+            return self;
+        };
+    
+        // Execute the batch function
+        try {
+            fn.call(this);
+        } finally {
+            // Restore original append
+            this.append = originalAppend;
+    
+            // Apply all pending appends in a document fragment
+            if (pendingAppends.length > 0) {
+                var fragment = document.createDocumentFragment();
+    
+                pendingAppends.forEach(function(args) {
+                    args.forEach(function(el) {
+                        if (el instanceof Element) {
+                            self.childs.push(el);
+                            el.parent = self;
+                            fragment.appendChild(el.tag);
+                        }
+                    });
+                });
+    
+                this.tag.appendChild(fragment);
+            }
+        }
+    
+        return this;
+    };
+    
+    /**
+     * Element-level batch for appending multiple children efficiently
+     *
+     * @param {Array} elements - Array of elements to append
+     * @returns {Element} - Returns the element for chaining
+     *
+     * @example
+     * group.batchAppend([circle1, circle2, rect1, rect2]);
+     */
+    Element.prototype.batchAppend = function(elements) {
+        var self = this;
+        var fragment = document.createDocumentFragment();
+    
+        elements.forEach(function(el) {
+            if (el instanceof Element) {
+                self.childs.push(el);
+                el.parent = self;
+                fragment.appendChild(el.tag);
+            }
+        });
+    
+        this.tag.appendChild(fragment);
+        return this;
+    };
+    
+    // Static version
+    Leo.batch = L.batch = L.prototype.batch;
+    
+    /*
+    [Malta] lib/Lviewbox.js
+    */
+    
+    /**
+     * Sets the viewBox attribute for the SVG
+     *
+     * @param {number} x - X coordinate of viewBox
+     * @param {number} y - Y coordinate of viewBox
+     * @param {number} width - Width of viewBox
+     * @param {number} height - Height of viewBox
+     * @returns {L} - Returns the instance for chaining
+     *
+     * @example
+     * L.setViewBox(0, 0, 500, 500);
+     */
+    L.prototype.setViewBox = function(x, y, width, height) {
+        this.tag.setAttribute('viewBox', [x, y, width, height].join(' '));
+        return this;
+    };
+    
+    /**
+     * Sets the preserveAspectRatio attribute
+     *
+     * @param {string} mode - Aspect ratio mode
+     *   Alignment: 'xMinYMin', 'xMidYMin', 'xMaxYMin',
+     *             'xMinYMid', 'xMidYMid', 'xMaxYMid',
+     *             'xMinYMax', 'xMidYMax', 'xMaxYMax'
+     *   Meet/Slice: 'meet' or 'slice'
+     *   Or combine: 'xMidYMid meet' (default)
+     * @returns {L} - Returns the instance for chaining
+     *
+     * @example
+     * L.preserveAspectRatio('xMidYMid meet');
+     * L.preserveAspectRatio('xMinYMin slice');
+     */
+    L.prototype.preserveAspectRatio = function(mode) {
+        this.tag.setAttribute('preserveAspectRatio', mode);
+        return this;
+    };
+    
+    /**
+     * Converts screen coordinates to SVG coordinates
+     *
+     * @param {number} screenX - X coordinate in screen space
+     * @param {number} screenY - Y coordinate in screen space
+     * @returns {Object} - { x, y } in SVG coordinates
+     *
+     * @example
+     * var svgPoint = L.screenToSVG(100, 200);
+     */
+    /* istanbul ignore next */
+    L.prototype.screenToSVG = function(screenX, screenY) {
+        /* istanbul ignore next */
+        if (!this.tag.createSVGPoint) return { x: screenX, y: screenY };
+        /* istanbul ignore next */
+        var pt = this.tag.createSVGPoint();
+        /* istanbul ignore next */
+        pt.x = screenX;
+        /* istanbul ignore next */
+        pt.y = screenY;
+        /* istanbul ignore next */
+        var ctm = this.tag.getScreenCTM();
+        /* istanbul ignore next */
+        if (!ctm) return { x: screenX, y: screenY };
+        /* istanbul ignore next */
+        var svgP = pt.matrixTransform(ctm.inverse());
+        /* istanbul ignore next */
+        return { x: svgP.x, y: svgP.y };
+    };
+    
+    /**
+     * Converts SVG coordinates to screen coordinates
+     *
+     * @param {number} svgX - X coordinate in SVG space
+     * @param {number} svgY - Y coordinate in SVG space
+     * @returns {Object} - { x, y } in screen coordinates
+     *
+     * @example
+     * var screenPoint = L.svgToScreen(50, 50);
+     */
+    /* istanbul ignore next */
+    L.prototype.svgToScreen = function(svgX, svgY) {
+        /* istanbul ignore next */
+        var pt = this.tag.createSVGPoint();
+        /* istanbul ignore next */
+        pt.x = svgX;
+        /* istanbul ignore next */
+        pt.y = svgY;
+        /* istanbul ignore next */
+        var screenP = pt.matrixTransform(this.tag.getScreenCTM());
+        /* istanbul ignore next */
+        return { x: screenP.x, y: screenP.y };
+    };
+    
+    /**
+     * Gets the current viewBox values
+     *
+     * @returns {Object} - { x, y, width, height } or null if no viewBox
+     */
+    L.prototype.getViewBox = function() {
+        var viewBox = this.tag.getAttribute('viewBox');
+        if (!viewBox) return null;
+        var parts = viewBox.split(/\s+/).map(parseFloat);
+        return {
+            x: parts[0],
+            y: parts[1],
+            width: parts[2],
+            height: parts[3]
+        };
+    };
+    
+    // Static versions
+    Leo.setViewBox = L.setViewBox = L.prototype.setViewBox;
+    Leo.preserveAspectRatio = L.preserveAspectRatio = L.prototype.preserveAspectRatio;
+    Leo.screenToSVG = L.screenToSVG = L.prototype.screenToSVG;
+    Leo.svgToScreen = L.svgToScreen = L.prototype.svgToScreen;
+    Leo.getViewBox = L.getViewBox = L.prototype.getViewBox;
+    
+    /*
+    [Malta] lib/Ldebug.js
+    */
+    
+    /**
+     * Debug mode - adds visual guides and information to help with development
+     *
+     * @param {Object} options - Debug options
+     * @param {boolean} options.showBoundingBoxes - Show bounding boxes around elements (default: true)
+     * @param {boolean} options.showCenterPoints - Show center points for elements (default: true)
+     * @param {boolean} options.showGrid - Show coordinate grid (default: false)
+     * @param {number} options.gridSize - Grid size in pixels (default: 50)
+     * @param {boolean} options.showCoordinates - Show coordinates on hover (default: true)
+     * @returns {L} - Returns the instance for chaining
+     *
+     * @example
+     * L.debug({ showGrid: true, gridSize: 25 });
+     */
+    L.prototype.debug = function(options) {
+        options = options || {};
+        var self = this,
+            showBoundingBoxes = options.showBoundingBoxes !== false,
+            showCenterPoints = options.showCenterPoints !== false,
+            showGrid = options.showGrid || false,
+            gridSize = options.gridSize || 50,
+            showCoordinates = options.showCoordinates !== false;
+    
+        // Create debug group
+        var debugGroup = this.group();
+        debugGroup.sas({ class: 'leo-debug-layer' });
+    
+        // Add grid if requested
+        if (showGrid) {
+            var gridGroup = this.group();
+            var w = this.width,
+                h = this.height;
+    
+            // Vertical lines
+            for (var x = 0; x <= w; x += gridSize) {
+                var line = this.line(x, 0, x, h).setAttributes({
+                    stroke: '#ddd',
+                    'stroke-width': 0.5
+                });
+                gridGroup.append(line);
+            }
+    
+            // Horizontal lines
+            for (var y = 0; y <= h; y += gridSize) {
+                var line = this.line(0, y, w, y).setAttributes({
+                    stroke: '#ddd',
+                    'stroke-width': 0.5
+                });
+                gridGroup.append(line);
+            }
+    
+            debugGroup.append(gridGroup);
+        }
+    
+        // Add coordinate display
+        if (showCoordinates) {
+            var coordText = this.text(10, 20, 'x: 0, y: 0').setAttributes({
+                fill: '#666',
+                'font-family': 'monospace',
+                'font-size': '12px',
+                class: 'leo-debug-coords'
+            });
+            debugGroup.append(coordText);
+    
+            /* istanbul ignore next */
+            this.tag.addEventListener('mousemove', function(e) {
+                /* istanbul ignore next */
+                var pt = self.tag.createSVGPoint();
+                /* istanbul ignore next */
+                pt.x = e.clientX;
+                /* istanbul ignore next */
+                pt.y = e.clientY;
+                /* istanbul ignore next */
+                var svgP = pt.matrixTransform(self.tag.getScreenCTM().inverse());
+                /* istanbul ignore next */
+                coordText.updateText('x: ' + Math.round(svgP.x) + ', y: ' + Math.round(svgP.y));
+            });
+        }
+    
+        // Store reference to debug group
+        this._debugGroup = debugGroup;
+        this.append(debugGroup);
+    
+        // Add debug info to all elements
+        if (showBoundingBoxes || showCenterPoints) {
+            this._debugElements = [];
+            this._enableElementDebug(showBoundingBoxes, showCenterPoints);
+        }
+    
+        return this;
+    };
+    
+    /**
+     * Enable debug visualization for individual elements
+     * @private
+     */
+    L.prototype._enableElementDebug = function(showBoundingBoxes, showCenterPoints) {
+        var self = this;
+    
+        // Override append to add debug info to new elements
+        var originalAppend = this.append;
+        /* istanbul ignore next */
+        this.append = function() {
+            /* istanbul ignore next */
+            var result = originalAppend.apply(this, arguments);
+    
+            // Add debug visualization for new elements
+            /* istanbul ignore next */
+            for (var i = 0; i < arguments.length; i++) {
+                /* istanbul ignore next */
+                var el = arguments[i];
+                /* istanbul ignore next */
+                if (el instanceof Element && el.tag.getBBox) {
+                    /* istanbul ignore next */
+                    el._addDebugInfo(self, showBoundingBoxes, showCenterPoints);
+                }
+            }
+    
+            /* istanbul ignore next */
+            return result;
+        };
+    };
+    
+    /**
+     * Add debug visualization to an element
+     * @private
+     */
+    /* istanbul ignore next */
+    Element.prototype._addDebugInfo = function(leoInstance, showBoundingBoxes, showCenterPoints) {
+        /* istanbul ignore if */
+        if (!this.tag.getBBox) return;
+    
+        /* istanbul ignore next */
+        var bbox = this.tag.getBBox();
+        var debugElements = [];
+    
+        /* istanbul ignore next */
+        if (showBoundingBoxes) {
+            /* istanbul ignore next */
+            var box = leoInstance.rect(bbox.x, bbox.y, bbox.width, bbox.height).setAttributes({
+                fill: 'none',
+                stroke: 'rgba(255, 0, 0, 0.5)',
+                'stroke-width': 1,
+                'stroke-dasharray': '4,2',
+                class: 'leo-debug-bbox'
+            });
+            /* istanbul ignore next */
+            debugElements.push(box);
+        }
+    
+        /* istanbul ignore next */
+        if (showCenterPoints) {
+            /* istanbul ignore next */
+            var cx = bbox.x + bbox.width / 2;
+            /* istanbul ignore next */
+            var cy = bbox.y + bbox.height / 2;
+            /* istanbul ignore next */
+            var center = leoInstance.circle(cx, cy, 3).setAttributes({
+                fill: 'rgba(0, 255, 0, 0.5)',
+                stroke: 'none',
+                class: 'leo-debug-center'
+            });
+            /* istanbul ignore next */
+            debugElements.push(center);
+        }
+    
+        // Add to debug group
+        /* istanbul ignore next */
+        if (leoInstance._debugGroup && debugElements.length > 0) {
+            /* istanbul ignore next */
+            debugElements.forEach(function(el) {
+                /* istanbul ignore next */
+                leoInstance._debugGroup.append(el);
+            });
+        }
+    
+        /* istanbul ignore next */
+        this._debugElements = debugElements;
+    };
+    
+    /**
+     * Remove debug mode
+     *
+     * @returns {L} - Returns the instance for chaining
+     */
+    L.prototype.undebug = function() {
+        if (this._debugGroup) {
+            this._debugGroup.remove();
+            this._debugGroup = null;
+        }
+        return this;
+    };
+    
+    // Static versions
+    Leo.debug = L.debug = L.prototype.debug;
+    Leo.undebug = L.undebug = L.prototype.undebug;
+    
+    /*
+    [Malta] lib/Lanimate.js
+    */
+    /**
+     * { function_description }
+     *
+     * @return     {Object}  { description_of_the_return_value }
+     */
+    L.prototype.animate = (function () {
+    	// seconds per frame = 1/(frame per seconds)
+    	var spf60 = (1E3/60)/1000;
+    	function parametricCartesian(el, fx, fy, interval, opts) {
+    		opts = opts || {};	
+            interval = interval || spf60;
+    		var trace = opts.trace || false,
+    			t = 0,
+    			x = 0,
+    			y = 0,
+    			lastTime = 0,
+    			rafId = null,
+    			step = function (time) {
+    				t += interval;
+    				if (!lastTime || time - lastTime >= interval) {
+    					x = fx(x, t);
+    					y = fy(y, t);
+    					el.move(x, y);
+    					lastTime = time;
+    					if(trace) {
+    						var c = new Element('circle'),
+    							attrs = el.getAttributes('cx', 'cy');
+    						c.sas(Object.assign({
+    							cx: ~~attrs.cx + x,
+    							cy: ~~attrs.cy + y,
+    							r :5,
+    							stroke:'gray',
+    							fill: 'transparent'
+    						}, trace.style || {}));
+    						el.parent.append(c);
+    					}
+    				}
+    				rafId = requestAnimationFrame(step);
+    			};
+    		rafId = requestAnimationFrame(step);
+            return function () {
+                cancelAnimationFrame(rafId);
+            }
+    	}
+    	
+    	function parametricPolar(el, fr, fO, interval, opts) {
+    		opts = opts || {};
+            interval = interval || spf60;
+    		var trace = opts.trace || false,
+    			t = 0,
+    			r = 0,
+    			O = 0,
+    			lastTime = 0,
+    			rafId = null,
+    			step = function (time) {
+    				t += interval;
+    				if (!lastTime || time - lastTime >= interval) {
+    					r = fr(r, t);
+    					O = fO(O, t);
+    					el.move(
+    						r * Math.cos(O),
+    						r * Math.sin(O)
+    					);
+    					lastTime = time;
+    					if(trace) {
+    						var c = new Element('circle'),
+    							attrs = el.getAttributes('cx', 'cy');
+    						c.sas(Object.assign({
+    							cx: ~~attrs.cx + r * Math.cos(O),
+    							cy: ~~attrs.cy + r * Math.sin(O),
+    							r :5,
+    							stroke:'gray',
+    							fill: 'transparent'
+    						}, trace.style || {}));
+    						el.parent.append(c);
+    					}
+    				}
+    				rafId = requestAnimationFrame(step);
+    			};
+    		rafId = requestAnimationFrame(step);
+            return function () {
+                cancelAnimationFrame(rafId);
+            }
+    	}
+    
+    	function attr(params /* {attributeName, from, to, dur, repeatCount} */) {
+    		var animate = new Element('animate'),
+    			attrs = {
+    				attributeName: params.attributeName,
+    				dur: params.dur,
+    				begin: params.begin || '0s',
+    				repeatCount: params.repeatCount
+    			};
+    		'from' in params && (attrs.from = params.from);
+    		'to' in params && (attrs.to = params.to);
+    		'values' in params && (attrs.values = params.values);
+    		'type' in params && (attrs.type = params.type);
+    		animate.sas(attrs);
+    		return animate;
+    	};
+    
+    	/* istanbul ignore next */
+    	function motionPath(el, pathStr, ats) {
+    		ats = ats || {};
+    		var animateMotion = new Element('animateMotion'),
+    			attrs = {
+    				begin: ats.begin || '0s',
+    				dur: ats.dur || '1s',
+    				end: ats.end || null,
+    				min: ats.min || 0,
+    				max: ats.max || null,
+    				restart: ats.restart || 'always',
+    				repeatCount: ats.repeatCount || 'indefinite',
+    
+    				repeatDur: ats.repeatDur || null,
+    				// fill
+    				path: pathStr
+    			}
+    		animateMotion.sas(attrs);
+    		el.append(animateMotion);
+    		return el;
+    	}
+    
+    	// Easing functions
+    	/* istanbul ignore next */
+    	var Easing = {
+    		linear: function(t) { return t; },
+    		easeInQuad: function(t) { return t * t; },
+    		easeOutQuad: function(t) { return 1 - (1 - t) * (1 - t); },
+    		easeInOutQuad: function(t) {
+    			return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    		},
+    		easeInCubic: function(t) { return t * t * t; },
+    		easeOutCubic: function(t) { return 1 - Math.pow(1 - t, 3); },
+    		easeInOutCubic: function(t) {
+    			return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    		},
+    		easeInQuart: function(t) { return t * t * t * t; },
+    		easeOutQuart: function(t) { return 1 - Math.pow(1 - t, 4); },
+    		easeInOutQuart: function(t) {
+    			return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+    		},
+    		spring: function(t) {
+    			var c4 = (2 * Math.PI) / 3;
+    			return t === 0 ? 0 : t === 1 ? 1 : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
+    		},
+    		bounce: function(t) {
+    			var n1 = 7.5625, d1 = 2.75;
+    			/* istanbul ignore next */
+    			if (t < 1 / d1) {
+    				return n1 * t * t;
+    			/* istanbul ignore next */
+    			} else if (t < 2 / d1) {
+    				return n1 * (t -= 1.5 / d1) * t + 0.75;
+    			/* istanbul ignore next */
+    			} else if (t < 2.5 / d1) {
+    				return n1 * (t -= 2.25 / d1) * t + 0.9375;
+    			} else {
+    				return n1 * (t -= 2.625 / d1) * t + 0.984375;
+    			}
+    		}
+    	};
+    
+    	// Animate with easing
+    	/* istanbul ignore next */
+    	function animateWithEasing(el, params) {
+    		var easing = params.easing || Easing.linear,
+    			from = params.from || 0,
+    			to = params.to || 1,
+    			dur = parseFloat(params.dur) * 1000 || 1000,
+    			startTime = null,
+    			attributeName = params.attributeName,
+    			rafId = null;
+    
+    		function step(timestamp) {
+    			if (!startTime) startTime = timestamp;
+    			var elapsed = timestamp - startTime,
+    				progress = Math.min(elapsed / dur, 1),
+    				easedProgress = easing(progress),
+    				value = from + (to - from) * easedProgress;
+    
+    			el.tag.setAttribute(attributeName, value);
+    
+    			if (progress < 1) {
+    				rafId = requestAnimationFrame(step);
+    			} else if (params.onComplete) {
+    				params.onComplete();
+    			}
+    		
+    		}
+    		rafId = requestAnimationFrame(step);
+    		return function() {
+    			cancelAnimationFrame(rafId);
+    		};
+    	}
+    
+    	return {
+    		cartesian : parametricCartesian,
+    		polar : parametricPolar,
+    		motionPath: motionPath,
+    		attr : attr,
+    		Easing: Easing,
+    		withEasing: animateWithEasing
+    	};
+    
+    })();
+    
+    /*
+    [Malta] lib/Ltimeline.js
+    */
+    
+    /**
+     * Timeline for chaining and sequencing animations
+     *
+     * @class Timeline
+     * @param {Object} options - Timeline options
+     * @param {boolean} options.autoPlay - Whether to start playing immediately (default: false)
+     */
+    function Timeline(options) {
+        options = options || {};
+        this.animations = [];
+        this.isPlaying = false;
+        this.currentIndex = 0;
+        this.startTime = null;
+        this.autoPlay = options.autoPlay || false;
+        this.onComplete = options.onComplete || null;
+    }
+    
+    /**
+     * Add an animation to the timeline
+     *
+     * @param {Function} animation - Animation function that returns a stopper
+     * @param {number} offset - Time offset in seconds (0 = immediately, 1 = after 1s)
+     * @returns {Timeline} - Returns this for chaining
+     *
+     * @example
+     * var tl = L.timeline()
+     *     .add(function() { return element.animate.attr({...}); }, 0)
+     *     .add(function() { return element2.animate.attr({...}); }, 1);
+     */
+    Timeline.prototype.add = function(animation, offset) {
+        this.animations.push({
+            animation: animation,
+            offset: offset || 0,
+            started: false,
+            stopper: null
+        });
+        return this;
+    };
+    
+    /**
+     * Start playing the timeline
+     *
+     * @returns {Timeline}
+     */
+    Timeline.prototype.play = function() {
+        if (this.isPlaying) return this;
+        this.isPlaying = true;
+        this.startTime = Date.now();
+        this.tick();
+        return this;
+    };
+    
+    /**
+     * Pause the timeline
+     *
+     * @returns {Timeline}
+     */
+    Timeline.prototype.pause = function() {
+        this.isPlaying = false;
+        // Stop all running animations
+        this.animations.forEach(function(anim) {
+            if (anim.stopper) {
+                anim.stopper();
+            }
+        });
+        return this;
+    };
+    
+    /**
+     * Stop the timeline and reset to beginning
+     *
+     * @returns {Timeline}
+     */
+    Timeline.prototype.stop = function() {
+        this.pause();
+        this.currentIndex = 0;
+        this.animations.forEach(function(anim) {
+            anim.started = false;
+            anim.stopper = null;
+        });
+        return this;
+    };
+    
+    /**
+     * Internal tick function
+     * @private
+     */
+    Timeline.prototype.tick = function() {
+        if (!this.isPlaying) return;
+    
+        var self = this;
+        var elapsed = (Date.now() - this.startTime) / 1000;
+        var allComplete = true;
+    
+        this.animations.forEach(function(anim, index) {
+            if (!anim.started && elapsed >= anim.offset) {
+                anim.started = true;
+                anim.stopper = anim.animation();
+            }
+            if (!anim.started) {
+                allComplete = false;
+            }
+        });
+    
+        if (allComplete && this.onComplete) {
+            this.onComplete();
+        } else if (this.isPlaying) {
+            requestAnimationFrame(function() { self.tick(); });
+        }
+    };
+    
+    /**
+     * Create a new timeline
+     *
+     * @param {Object} options - Timeline options
+     * @returns {Timeline}
+     *
+     * @example
+     * var tl = L.timeline()
+     *     .add(function() {
+     *         return circle.animate.withEasing({...});
+     *     }, 0)
+     *     .add(function() {
+     *         return rect.animate.withEasing({...});
+     *     }, 0.5)
+     *     .play();
+     */
+    L.prototype.timeline = function(options) {
+        return new Timeline(options);
+    };
+    
+    // Static version
+    Leo.timeline = L.timeline = L.prototype.timeline;
+    	
+    /*
+    [Malta] lib/Lextra.js
+    */
+    /**
+     * 
+     * @param {*} txt 
+     * @param {*} w 
+     * @param {*} h 
+     * @param {*} textAttrs 
+     * @param {*} boxFill 
+     * @returns 
+     */
+    Leo.textBox = L.prototype.textBox = function (txt, w, h, textAttrs, boxAttrs, rot) {
+        var cnt = new Element('svg'),
+            rect = new Element('rect'),
+            text = new Element('text'),
+            boxA = {
+                x : 0, y : 0,
+                width: w, height: h,
+                "stroke-width" : 0,
+                stroke : 'transparent',
+                fill:'transparent'
+            };
+        rect.sas(Object.assign({}, boxA, boxAttrs));
+        cnt.sas({width : w, height : h, viewBox: [0, 0, w, h].join(' ')});
+        text.sas({
+            x: '50%',
+            y: '50%',
+            'dominant-baseline': 'middle',
+            'text-anchor': 'middle'
+        });
+        if(rot) text.rotate(rot, w/2, h/2);
+        textAttrs && text.sas(textAttrs);
+        text.tag.innerHTML = txt;
+        cnt.append(rect, text);
+        cnt.updateText = function (t) {
+            text.tag.innerHTML = t;
+        };
+        return cnt;
+    }
+    
+    /**
+     * { function_description }
+     *
+     * @param      {<type>}   d       { parameter_description }
+     * @param      {<type>}   cnt     The content
+     * @return     {Element}  { description_of_the_return_value }
+     */
+    Leo.textPath = L.prototype.textPath = function (d, cnt) {
+        var text = new Element('text'),
+            defs = new Element('defs'),
+            path = L.path(d),
+            textpath = new Element('textPath'),
+            id = lid();
+        path.tag.setAttribute('id', id );
+        textpath.tag.textContent = cnt;
+        textpath.tag.setAttributeNS(namespaces.xlink, 'xlink:href', '#' + id);
+        defs.append(path);
+        text.append(defs, textpath);
+        text.updateText = function(t) {
+    		textpath.tag.textContent = t;
+    	};
+        return text;
+    };
+    
+    /**
+     * @param {*} cx 
+     * @param {*} cy 
+     * @param {*} r1 
+     * @param {*} r2 
+     * @param {*} from 
+     * @param {*} to 
+     * @param {*} vrs1 
+     * @param {*} vrs2 
+     * @returns 
+     */
+    Leo.arcSectionPath = L.prototype.arcSectionPath = function (cx, cy, r1, r2, from, to, vrs1, vrs2) {
+        vrs1 = typeof vrs1 === 'undefined' ? 1 : vrs1;
+        vrs2 = typeof vrs2 === 'undefined' ? 0 : vrs2;
+        var startOut = polarToCartesian(cx, cy, r2, from),
+            endOut = polarToCartesian(cx, cy, r2, to),
+            startIn = polarToCartesian(cx, cy, r1, to),
+            endIn = polarToCartesian(cx, cy, r1, from),
+            ref = Math.abs(to-from) > 180 ? 1: 0;
+        return L.pathBuild
+            .M(endIn.x, endIn.y)
+            .L(startOut.x, startOut.y)
+            .A(
+                r2, r2,
+                0, ref, vrs1,
+                endOut.x, endOut.y
+            )
+            .L(startIn.x, startIn.y)
+            .maybe(r1>0 , 'A', [
+                r1, r1,
+                0, ref, vrs2,
+                endIn.x, endIn.y
+            ])
+            .Z().toString();
+    };
+    	
+    // ---
+	Leo.validate = validate;
+	Leo.ERRORS = ERRORS;
+    return Leo;
+})();
+(typeof exports === 'object') && (module.exports = Leonardo);

@@ -3,4 +3,4 @@
 /coverage/
 .printVersion
 .buildNum.json
-.coveralls.yml
+ENHANCEMENTS.md
